@@ -21,25 +21,20 @@
 &lt;h1 id=&#34;ssti的形成原因&#34;&gt;SSTI的形成原因
 &lt;/h1&gt;&lt;p&gt;​    其实成因很简单，就是写后端代码的程序员偷懒，用render_template_string解析字符串代替了render_template的渲染。&lt;/p&gt;
 &lt;p&gt;​    做题的时候可以通过wapplayzer插件，查看框架和语言，一般是Flask和Python的话就是ssti没跑了&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://i-blog.csdnimg.cn/direct/f70d1d69e8ca4335bce85a386ae8f806.png&#34;
-	
-	
-	
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ssti/f70d1d69e8ca4335bce85a386ae8f806.png&#34;
+	width=&#34;1924&#34;
+	height=&#34;927&#34;
+	srcset=&#34;http://localhost:1313/p/ssti/f70d1d69e8ca4335bce85a386ae8f806_hu1862177443226529625.png 480w, http://localhost:1313/p/ssti/f70d1d69e8ca4335bce85a386ae8f806_hu17469258236751975995.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;img&#34;
+		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
 	
 	
-&gt;&lt;img src=&#34;data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==&#34;
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;207&#34;
+		data-flex-basis=&#34;498px&#34;
 	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;点击并拖拽以移动&#34;
-	
-	
-&gt;编辑&lt;/p&gt;
+&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1 id=&#34;ssti的具体实现方法&#34;&gt;SSTI的具体实现方法
 &lt;/h1&gt;&lt;p&gt;​    这里以python的模板为例&lt;/p&gt;
@@ -135,16 +130,20 @@
 		alt=&#34;点击并拖拽以移动&#34;
 	
 	
-&gt;编辑&lt;/p&gt;
+&gt;&lt;/p&gt;
 &lt;p&gt;​    所以我们可以构造{{&amp;rsquo;&amp;rsquo;.&lt;strong&gt;class&lt;/strong&gt;.&lt;strong&gt;base&lt;/strong&gt;.&lt;strong&gt;subclasses&lt;/strong&gt;}}查看所有类&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://i-blog.csdnimg.cn/direct/fac25d59d26942b193bf62d6ba2941bd.png&#34;
-	
-	
-	
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ssti/fac25d59d26942b193bf62d6ba2941bd.png&#34;
+	width=&#34;2522&#34;
+	height=&#34;1154&#34;
+	srcset=&#34;http://localhost:1313/p/ssti/fac25d59d26942b193bf62d6ba2941bd_hu2650696921246714651.png 480w, http://localhost:1313/p/ssti/fac25d59d26942b193bf62d6ba2941bd_hu10231543443246268853.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;img&#34;
+		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
 	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;218&#34;
+		data-flex-basis=&#34;524px&#34;
 	
 &gt;&lt;img src=&#34;data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==&#34;
 	
@@ -155,7 +154,7 @@
 		alt=&#34;点击并拖拽以移动&#34;
 	
 	
-&gt;编辑&lt;/p&gt;
+&gt;&lt;/p&gt;
 &lt;p&gt;​    可以进行rce的类是——&amp;ldquo;os._wrap_close&amp;rdquo;，所以我们需要找到这个类的序号&lt;/p&gt;
 &lt;p&gt;​    可以复制粘贴去记事本，搜索os._wrap_close一下具体的位置（一般在130多）我这里是132&lt;/p&gt;
 &lt;p&gt;​    也可以用这个脚本，记得改一下pyload和url&lt;/p&gt;
@@ -203,7 +202,7 @@
 	
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;img&#34;
+		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
 	
 	
 &gt;&lt;img src=&#34;data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==&#34;
@@ -215,7 +214,7 @@
 		alt=&#34;点击并拖拽以移动&#34;
 	
 	
-&gt;编辑&lt;/p&gt;
+&gt;&lt;/p&gt;
 &lt;p&gt;​     之后用__init__初始化这个类，用__globals__寻找popen函数后可以直接命令执行，记得最后要加一个read()&lt;/p&gt;
 &lt;p&gt;​    构造&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -228,14 +227,18 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;​    这个格式稍微要记一下，目前只知道可以用os._wrap_close的popen&lt;/p&gt;
 &lt;p&gt;​    popen后的括号里直接写命令，不需要system&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://i-blog.csdnimg.cn/direct/1eed318f56bb4fbfbf049113ce10a571.png&#34;
-	
-	
-	
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ssti/1eed318f56bb4fbfbf049113ce10a571.png&#34;
+	width=&#34;2013&#34;
+	height=&#34;271&#34;
+	srcset=&#34;http://localhost:1313/p/ssti/1eed318f56bb4fbfbf049113ce10a571_hu10903223804741316291.png 480w, http://localhost:1313/p/ssti/1eed318f56bb4fbfbf049113ce10a571_hu6110996320063266968.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;img&#34;
+		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
 	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;742&#34;
+		data-flex-basis=&#34;1782px&#34;
 	
 &gt;&lt;img src=&#34;data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==&#34;
 	
@@ -246,7 +249,7 @@
 		alt=&#34;点击并拖拽以移动&#34;
 	
 	
-&gt;编辑&lt;/p&gt;
+&gt;&lt;/p&gt;
 &lt;p&gt;​    这样我们就成功通过SSTI漏洞进行RCE了&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1 id=&#34;ssti的绕过姿势&#34;&gt;SSTI的绕过姿势
@@ -276,14 +279,18 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://i-blog.csdnimg.cn/direct/56e2b6a350474e8ca6abcc9836f96b38.png&#34;
-	
-	
-	
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ssti/56e2b6a350474e8ca6abcc9836f96b38.png&#34;
+	width=&#34;1132&#34;
+	height=&#34;789&#34;
+	srcset=&#34;http://localhost:1313/p/ssti/56e2b6a350474e8ca6abcc9836f96b38_hu3629170371288296921.png 480w, http://localhost:1313/p/ssti/56e2b6a350474e8ca6abcc9836f96b38_hu6667812828626273574.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;img&#34;
+		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
 	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;143&#34;
+		data-flex-basis=&#34;344px&#34;
 	
 &gt;&lt;img src=&#34;data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==&#34;
 	
@@ -294,7 +301,7 @@
 		alt=&#34;点击并拖拽以移动&#34;
 	
 	
-&gt;编辑&lt;/p&gt;
+&gt;&lt;/p&gt;
 &lt;p&gt;​        2.采用全角数字&lt;/p&gt;
 &lt;p&gt;​            ０１２３４５６７８９（不知道原理）&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -315,14 +322,18 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://i-blog.csdnimg.cn/direct/938c6dd34658456cb25df306df51ab56.png&#34;
-	
-	
-	
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ssti/938c6dd34658456cb25df306df51ab56.png&#34;
+	width=&#34;1317&#34;
+	height=&#34;797&#34;
+	srcset=&#34;http://localhost:1313/p/ssti/938c6dd34658456cb25df306df51ab56_hu3682708679796771376.png 480w, http://localhost:1313/p/ssti/938c6dd34658456cb25df306df51ab56_hu10051552052891877203.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;img&#34;
+		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
 	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;165&#34;
+		data-flex-basis=&#34;396px&#34;
 	
 &gt;&lt;img src=&#34;data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==&#34;
 	
@@ -333,7 +344,7 @@
 		alt=&#34;点击并拖拽以移动&#34;
 	
 	
-&gt;编辑&lt;/p&gt;
+&gt;&lt;/p&gt;
 &lt;h2 id=&#34;heading&#34;&gt;
 &lt;/h2&gt;&lt;hr&gt;
 &lt;h2 id=&#34;用request绕过&#34;&gt;用request绕过
@@ -402,14 +413,18 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;​        &lt;img src=&#34;https://i-blog.csdnimg.cn/direct/f1d7e8137c604ab9a6a755b85f84d34e.png&#34;
-	
-	
-	
+&lt;p&gt;​        &lt;img src=&#34;http://localhost:1313/p/ssti/f1d7e8137c604ab9a6a755b85f84d34e.png&#34;
+	width=&#34;1519&#34;
+	height=&#34;547&#34;
+	srcset=&#34;http://localhost:1313/p/ssti/f1d7e8137c604ab9a6a755b85f84d34e_hu12772217341711194154.png 480w, http://localhost:1313/p/ssti/f1d7e8137c604ab9a6a755b85f84d34e_hu6277016757180734109.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;img&#34;
+		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
 	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;277&#34;
+		data-flex-basis=&#34;666px&#34;
 	
 &gt;&lt;img src=&#34;data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==&#34;
 	
@@ -420,16 +435,20 @@
 		alt=&#34;点击并拖拽以移动&#34;
 	
 	
-&gt;编辑&lt;/p&gt;
+&gt;&lt;/p&gt;
 &lt;p&gt;​    同理，也可以用于绕过其他字符&lt;/p&gt;
-&lt;p&gt;​    值得一提的是，如果args被ban了，request.args.x可以替换成request[&amp;lsquo;values&amp;rsquo;][&amp;lsquo;x&amp;rsquo;]的形式&lt;img src=&#34;https://i-blog.csdnimg.cn/direct/d8b72e81031b4d93b277d45a7eb3d05a.png&#34;
-	
-	
-	
+&lt;p&gt;​    值得一提的是，如果args被ban了，request.args.x可以替换成request[&amp;lsquo;values&amp;rsquo;][&amp;lsquo;x&amp;rsquo;]的形式&lt;img src=&#34;http://localhost:1313/p/ssti/d8b72e81031b4d93b277d45a7eb3d05a.png&#34;
+	width=&#34;1461&#34;
+	height=&#34;443&#34;
+	srcset=&#34;http://localhost:1313/p/ssti/d8b72e81031b4d93b277d45a7eb3d05a_hu16472210842129520603.png 480w, http://localhost:1313/p/ssti/d8b72e81031b4d93b277d45a7eb3d05a_hu8308833693846290143.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;img&#34;
+		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
 	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;329&#34;
+		data-flex-basis=&#34;791px&#34;
 	
 &gt;&lt;img src=&#34;data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==&#34;
 	
@@ -440,17 +459,21 @@
 		alt=&#34;点击并拖拽以移动&#34;
 	
 	
-&gt;编辑&lt;/p&gt;
+&gt;&lt;/p&gt;
 &lt;p&gt;​    如果这时 &lt;strong&gt;&amp;rsquo; &amp;lsquo;&lt;/strong&gt; 也被ban了，可以用request.cookies.x代替，不过上传参数要传在cookie中
 ​     （注意cookies这里需要加 ; ）&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://i-blog.csdnimg.cn/direct/21c687797459408ba0c3a37ca28a53f1.png&#34;
-	
-	
-	
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ssti/21c687797459408ba0c3a37ca28a53f1.png&#34;
+	width=&#34;1463&#34;
+	height=&#34;540&#34;
+	srcset=&#34;http://localhost:1313/p/ssti/21c687797459408ba0c3a37ca28a53f1_hu11188391976090626461.png 480w, http://localhost:1313/p/ssti/21c687797459408ba0c3a37ca28a53f1_hu10537701569406182141.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;img&#34;
+		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
 	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;270&#34;
+		data-flex-basis=&#34;650px&#34;
 	
 &gt;&lt;img src=&#34;data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==&#34;
 	
@@ -461,7 +484,7 @@
 		alt=&#34;点击并拖拽以移动&#34;
 	
 	
-&gt;编辑&lt;/p&gt;
+&gt;&lt;/p&gt;
 &lt;h3 id=&#34;chr拼接解决request被ban&#34;&gt;chr()拼接解决request被ban
 &lt;/h3&gt;&lt;p&gt;​    可以用chr()拼接，可是我们不能直接使用chr()，要用之前的方法通过继承链走到chr()&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -551,14 +574,18 @@
 &lt;p&gt;但是，
 {{lipsum|attr(&amp;quot;&lt;strong&gt;globals&lt;/strong&gt;&amp;quot;)|attr**(&amp;ldquo;get&amp;rdquo;)(&amp;ldquo;os&amp;rdquo;)**|attr(&amp;ldquo;popen&amp;rdquo;)(&amp;ldquo;whoami&amp;rdquo;)|attr(&amp;ldquo;read&amp;rdquo;)()}}
 如果不加get，就会失败&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://i-blog.csdnimg.cn/direct/d78c7887fbca45dc840237c715336356.png&#34;
-	
-	
-	
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ssti/d78c7887fbca45dc840237c715336356.png&#34;
+	width=&#34;1469&#34;
+	height=&#34;463&#34;
+	srcset=&#34;http://localhost:1313/p/ssti/d78c7887fbca45dc840237c715336356_hu17800168690291735914.png 480w, http://localhost:1313/p/ssti/d78c7887fbca45dc840237c715336356_hu10923554992749588075.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;img&#34;
+		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
 	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;317&#34;
+		data-flex-basis=&#34;761px&#34;
 	
 &gt;&lt;img src=&#34;data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==&#34;
 	
@@ -569,18 +596,22 @@
 		alt=&#34;点击并拖拽以移动&#34;
 	
 	
-&gt;编辑&lt;/p&gt;
+&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;绕过&#34;&gt;{{绕过
 &lt;/h2&gt;&lt;p&gt;​        不能用{{}}，可以用{%%}代替，不过{%%}没有显示，要加一个print
-&lt;img src=&#34;https://i-blog.csdnimg.cn/direct/ea9d3bdcc2254f439dff78e41ade374c.png&#34;
-	
-	
-	
+&lt;img src=&#34;http://localhost:1313/p/ssti/ea9d3bdcc2254f439dff78e41ade374c.png&#34;
+	width=&#34;1467&#34;
+	height=&#34;449&#34;
+	srcset=&#34;http://localhost:1313/p/ssti/ea9d3bdcc2254f439dff78e41ade374c_hu6279749888131123102.png 480w, http://localhost:1313/p/ssti/ea9d3bdcc2254f439dff78e41ade374c_hu11167280424515613627.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;img&#34;
+		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
 	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;326&#34;
+		data-flex-basis=&#34;784px&#34;
 	
 &gt;&lt;img src=&#34;data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==&#34;
 	
@@ -591,19 +622,23 @@
 		alt=&#34;点击并拖拽以移动&#34;
 	
 	
-&gt;​编辑&lt;/p&gt;
+&gt;&lt;/p&gt;
 &lt;p&gt;​&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1 id=&#34;ssti终极工具fenjing&#34;&gt;SSTI终极工具——fenjing
 &lt;/h1&gt;&lt;p&gt;​    全自动化绕过，只需要直接执行命令即可（仅支持http）&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://i-blog.csdnimg.cn/direct/27ecd0692fb24fdcabafb8317a92d02f.png&#34;
-	
-	
-	
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ssti/27ecd0692fb24fdcabafb8317a92d02f.png&#34;
+	width=&#34;1052&#34;
+	height=&#34;584&#34;
+	srcset=&#34;http://localhost:1313/p/ssti/27ecd0692fb24fdcabafb8317a92d02f_hu16366747395911202664.png 480w, http://localhost:1313/p/ssti/27ecd0692fb24fdcabafb8317a92d02f_hu12811531515910410430.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;img&#34;
+		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
 	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;180&#34;
+		data-flex-basis=&#34;432px&#34;
 	
 &gt;&lt;img src=&#34;data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==&#34;
 	
@@ -614,7 +649,7 @@
 		alt=&#34;点击并拖拽以移动&#34;
 	
 	
-&gt;编辑&lt;/p&gt;
+&gt;&lt;/p&gt;
 &lt;p&gt;​    kali中安装&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1314,168 +1349,6 @@
 &lt;h1 id=&#34;四小结&#34;&gt;四、小结
 &lt;/h1&gt;&lt;p&gt;​    命令执行到这就差不多了，特殊手法虽然没有完全归纳，不过大致的解题思路和绕过手法都有提到，希望大家能从中学到东西。&lt;/p&gt;
 </description>
-        </item>
-        <item>
-        <title>Chinese Test</title>
-        <link>http://localhost:1313/p/test-chinese/</link>
-        <pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate>
-        
-        <guid>http://localhost:1313/p/test-chinese/</guid>
-        <description>&lt;img src="http://localhost:1313/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash.jpg" alt="Featured image of post Chinese Test" /&gt;&lt;h2 id=&#34;正文测试&#34;&gt;正文测试
-&lt;/h2&gt;&lt;p&gt;而这些并不是完全重要，更加重要的问题是， 带着这些问题，我们来审视一下学生会退会。 既然如何， 对我个人而言，学生会退会不仅仅是一个重大的事件，还可能会改变我的人生。 我们不得不面对一个非常尴尬的事实，那就是， 可是，即使是这样，学生会退会的出现仍然代表了一定的意义。 学生会退会，发生了会如何，不发生又会如何。 经过上述讨论， 生活中，若学生会退会出现了，我们就不得不考虑它出现了的事实。 学生会退会，到底应该如何实现。 这样看来， 在这种困难的抉择下，本人思来想去，寝食难安。 对我个人而言，学生会退会不仅仅是一个重大的事件，还可能会改变我的人生。 就我个人来说，学生会退会对我的意义，不能不说非常重大。 莎士比亚曾经提到过，人的一生是短的，但如果卑劣地过这一生，就太长了。这似乎解答了我的疑惑。 莫扎特说过一句富有哲理的话，谁和我一样用功，谁就会和我一样成功。这启发了我， 对我个人而言，学生会退会不仅仅是一个重大的事件，还可能会改变我的人生。 学生会退会，到底应该如何实现。 一般来说， 从这个角度来看， 这种事实对本人来说意义重大，相信对这个世界也是有一定意义的。 在这种困难的抉择下，本人思来想去，寝食难安。 了解清楚学生会退会到底是一种怎么样的存在，是解决一切问题的关键。 一般来说， 生活中，若学生会退会出现了，我们就不得不考虑它出现了的事实。 问题的关键究竟为何？ 而这些并不是完全重要，更加重要的问题是。&lt;/p&gt;
-&lt;p&gt;奥斯特洛夫斯基曾经说过，共同的事业，共同的斗争，可以使人们产生忍受一切的力量。　带着这句话，我们还要更加慎重的审视这个问题： 一般来讲，我们都必须务必慎重的考虑考虑。 既然如此， 这种事实对本人来说意义重大，相信对这个世界也是有一定意义的。 带着这些问题，我们来审视一下学生会退会。 我认为， 我认为， 在这种困难的抉择下，本人思来想去，寝食难安。 问题的关键究竟为何？ 每个人都不得不面对这些问题。 在面对这种问题时， 要想清楚，学生会退会，到底是一种怎么样的存在。 我认为， 既然如此， 每个人都不得不面对这些问题。 在面对这种问题时， 那么， 我认为， 学生会退会因何而发生。&lt;/p&gt;
-&lt;h2 id=&#34;引用&#34;&gt;引用
-&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;思念是最暖的忧伤像一双翅膀&lt;br&gt;
-让我停不了飞不远在过往游荡&lt;br&gt;
-不告而别的你 就算为了我着想&lt;br&gt;
-这么沉痛的呵护 我怎么能翱翔&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=3aypp_YlBzI&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;最暖的憂傷 - 田馥甄&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;图片&#34;&gt;图片
-&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/test-chinese/florian-klauer-nptLmg6jqDo-unsplash.jpg&#34;
-	width=&#34;667&#34;
-	height=&#34;1000&#34;
-	srcset=&#34;http://localhost:1313/p/test-chinese/florian-klauer-nptLmg6jqDo-unsplash_hu13768363498926278726.jpg 480w, http://localhost:1313/p/test-chinese/florian-klauer-nptLmg6jqDo-unsplash_hu13380208884366868750.jpg 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;66&#34;
-		data-flex-basis=&#34;160px&#34;
-	
-&gt;  &lt;img src=&#34;http://localhost:1313/p/test-chinese/luca-bravo-alS7ewQ41M8-unsplash.jpg&#34;
-	width=&#34;1000&#34;
-	height=&#34;667&#34;
-	srcset=&#34;http://localhost:1313/p/test-chinese/luca-bravo-alS7ewQ41M8-unsplash_hu1712544344331247820.jpg 480w, http://localhost:1313/p/test-chinese/luca-bravo-alS7ewQ41M8-unsplash_hu12475395149584884402.jpg 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;Photo by Luca Bravo on Unsplash&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;149&#34;
-		data-flex-basis=&#34;359px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash.jpg&#34;
-	width=&#34;1000&#34;
-	height=&#34;750&#34;
-	srcset=&#34;http://localhost:1313/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash_hu8363585391189779282.jpg 480w, http://localhost:1313/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash_hu15102473124145023839.jpg 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;Photo by Helena Hertz on Unsplash&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;133&#34;
-		data-flex-basis=&#34;320px&#34;
-	
-&gt;  &lt;img src=&#34;http://localhost:1313/p/test-chinese/hudai-gayiran-3Od_VKcDEAA-unsplash.jpg&#34;
-	width=&#34;667&#34;
-	height=&#34;1000&#34;
-	srcset=&#34;http://localhost:1313/p/test-chinese/hudai-gayiran-3Od_VKcDEAA-unsplash_hu15886963791847885497.jpg 480w, http://localhost:1313/p/test-chinese/hudai-gayiran-3Od_VKcDEAA-unsplash_hu11726476772237334826.jpg 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;Photo by Hudai Gayiran on Unsplash&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;66&#34;
-		data-flex-basis=&#34;160px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;![&lt;span class=&#34;nt&#34;&gt;Photo by Florian Klauer on Unsplash&lt;/span&gt;](&lt;span class=&#34;na&#34;&gt;florian-klauer-nptLmg6jqDo-unsplash.jpg&lt;/span&gt;)  ![&lt;span class=&#34;nt&#34;&gt;Photo by Luca Bravo on Unsplash&lt;/span&gt;](&lt;span class=&#34;na&#34;&gt;luca-bravo-alS7ewQ41M8-unsplash.jpg&lt;/span&gt;) 
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;![&lt;span class=&#34;nt&#34;&gt;Photo by Helena Hertz on Unsplash&lt;/span&gt;](&lt;span class=&#34;na&#34;&gt;helena-hertz-wWZzXlDpMog-unsplash.jpg&lt;/span&gt;)  ![&lt;span class=&#34;nt&#34;&gt;Photo by Hudai Gayiran on Unsplash&lt;/span&gt;](&lt;span class=&#34;na&#34;&gt;hudai-gayiran-3Od_VKcDEAA-unsplash.jpg&lt;/span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;相册语法来自 &lt;a class=&#34;link&#34; href=&#34;https://typlog.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Typlog&lt;/a&gt;&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>Math Typesetting</title>
-        <link>http://localhost:1313/p/math-typesetting/</link>
-        <pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate>
-        
-        <guid>http://localhost:1313/p/math-typesetting/</guid>
-        <description>&lt;p&gt;Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p&gt;
-&lt;p&gt;In this example we will be using &lt;a class=&#34;link&#34; href=&#34;https://katex.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;KaTeX&lt;/a&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Create a partial under &lt;code&gt;/layouts/partials/math.html&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Within this partial reference the &lt;a class=&#34;link&#34; href=&#34;https://katex.org/docs/autorender.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Auto-render Extension&lt;/a&gt; or host these scripts locally.&lt;/li&gt;
-&lt;li&gt;Include the partial in your templates like so:&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;{{&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; or .Params.math .Site.Params.math &lt;span class=&#34;o&#34;&gt;}}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;{{&lt;/span&gt; partial &lt;span class=&#34;s2&#34;&gt;&amp;#34;math.html&amp;#34;&lt;/span&gt; . &lt;span class=&#34;o&#34;&gt;}}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;{{&lt;/span&gt; end &lt;span class=&#34;o&#34;&gt;}}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;ul&gt;
-&lt;li&gt;To enable KaTeX globally set the parameter &lt;code&gt;math&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt; in a project&amp;rsquo;s configuration&lt;/li&gt;
-&lt;li&gt;To enable KaTeX on a per page basis include the parameter &lt;code&gt;math: true&lt;/code&gt; in content files&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Use the online reference of &lt;a class=&#34;link&#34; href=&#34;https://katex.org/docs/supported.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Supported TeX Functions&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;examples&#34;&gt;Examples
-&lt;/h3&gt;&lt;p&gt;Inline math: $\varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887…$&lt;/p&gt;
-&lt;p&gt;Block math:
-&lt;/p&gt;
-$$
- \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } 
-$$</description>
-        </item>
-        <item>
-        <title>Emoji Support</title>
-        <link>http://localhost:1313/p/emoji-support/</link>
-        <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
-        
-        <guid>http://localhost:1313/p/emoji-support/</guid>
-        <description>&lt;img src="http://localhost:1313/p/emoji-support/the-creative-exchange-d2zvqp3fpro-unsplash.jpg" alt="Featured image of post Emoji Support" /&gt;&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;
-&lt;p&gt;The &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/functions/emojify/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;&lt;code&gt;emojify&lt;/code&gt;&lt;/a&gt; function can be called directly in templates or &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/templates/shortcode-templates/#inline-shortcodes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Inline Shortcodes&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;To enable emoji globally, set &lt;code&gt;enableEmoji&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt; in your site&amp;rsquo;s &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/getting-started/configuration/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;configuration&lt;/a&gt; and then you can type emoji shorthand codes directly in content files; e.g.&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;nowrap&#34;&gt;&lt;span class=&#34;emojify&#34;&gt;🙈&lt;/span&gt; &lt;code&gt;:see_no_evil:&lt;/code&gt;&lt;/span&gt;  &lt;span class=&#34;nowrap&#34;&gt;&lt;span class=&#34;emojify&#34;&gt;🙉&lt;/span&gt; &lt;code&gt;:hear_no_evil:&lt;/code&gt;&lt;/span&gt;  &lt;span class=&#34;nowrap&#34;&gt;&lt;span class=&#34;emojify&#34;&gt;🙊&lt;/span&gt; &lt;code&gt;:speak_no_evil:&lt;/code&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;br&gt;
-&lt;p&gt;The &lt;a class=&#34;link&#34; href=&#34;http://www.emoji-cheat-sheet.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Emoji cheat sheet&lt;/a&gt; is a useful reference for emoji shorthand codes.&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;N.B.&lt;/strong&gt; The above steps enable Unicode Standard emoji characters and sequences in Hugo, however the rendering of these glyphs depends on the browser and the platform. To style the emoji you can either use a third party emoji font or a font stack; e.g.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;.emoji {
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  font-family: Apple Color Emoji, Segoe UI Emoji, NotoColorEmoji, Segoe UI Symbol, Android Emoji, EmojiSymbols;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;</description>
         </item>
         
     </channel>
