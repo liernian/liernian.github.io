@@ -7,7 +7,186 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>liernian</copyright>
-        <lastBuildDate>Thu, 27 Feb 2025 22:16:38 +0800</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 09 Mar 2025 23:11:58 +0800</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>ICLESCTF复现</title>
+        <link>http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/</link>
+        <pubDate>Sun, 09 Mar 2025 23:11:58 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/</guid>
+        <description>&lt;h1 id=&#34;前言&#34;&gt;前言
+&lt;/h1&gt;&lt;p&gt;​	akmisc，一道图寻，一道web中有个图片，图片010中有flag，还有一道gif，用stegsolve翻一下就行，misc还是比较简单的。&lt;/p&gt;
+&lt;p&gt;​	主要是web爆零了，就来复现一下。&lt;/p&gt;
+&lt;h1 id=&#34;iclesctf&#34;&gt;ICLESCTF
+&lt;/h1&gt;&lt;h2 id=&#34;ping_server&#34;&gt;ping_server
+&lt;/h2&gt;&lt;p&gt;​	题目是这样的&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250309232234626.png&#34;
+	width=&#34;531&#34;
+	height=&#34;156&#34;
+	srcset=&#34;http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250309232234626_hu5515084218247382107.png 480w, http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250309232234626_hu7567565598276926466.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;340&#34;
+		data-flex-basis=&#34;816px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;​	试了一下，真的可以ping到自己。&lt;/p&gt;
+&lt;p&gt;​	那么肯定是拼接命令注入了，试过|| &amp;amp;&amp;amp;  ; 都无法绕过，但是%0a可以&lt;/p&gt;
+&lt;p&gt;​	这里一定要抓包，否则如图&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250309231953157.png&#34;
+	width=&#34;1305&#34;
+	height=&#34;575&#34;
+	srcset=&#34;http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250309231953157_hu6155802305431463596.png 480w, http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250309231953157_hu3382456163483070953.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;226&#34;
+		data-flex-basis=&#34;544px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;​&lt;/p&gt;
+&lt;p&gt;​	&lt;code&gt;env、printenv、echo $FLAG、{{lipsum.__ globals __.os.environ}}都可&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250310104520259.png&#34;
+	width=&#34;1464&#34;
+	height=&#34;346&#34;
+	srcset=&#34;http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250310104520259_hu15646786512532958309.png 480w, http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250310104520259_hu9946097415205617457.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;423&#34;
+		data-flex-basis=&#34;1015px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;template_injection&#34;&gt;template_injection
+&lt;/h2&gt;&lt;p&gt;​	&lt;img src=&#34;http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250310130928898.png&#34;
+	width=&#34;465&#34;
+	height=&#34;181&#34;
+	srcset=&#34;http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250310130928898_hu12894969495519705854.png 480w, http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250310130928898_hu5184072027777607593.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;256&#34;
+		data-flex-basis=&#34;616px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;​	题目提示是ssti，fenjing没跑出来，fuzz的时候发现  ()  和  [] 都被ban了？？？&lt;/p&gt;
+&lt;p&gt;​	很离谱，但出题人说有解，看完发现天塌了&lt;/p&gt;
+&lt;p&gt;​	居然又是在环境变量里。。。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250310133554108.png&#34;
+	width=&#34;2117&#34;
+	height=&#34;483&#34;
+	srcset=&#34;http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250310133554108_hu5890941280849732553.png 480w, http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250310133554108_hu2275129027754288883.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;438&#34;
+		data-flex-basis=&#34;1051px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;​	pyload就是上文提到的&lt;/p&gt;
+&lt;p&gt;​	&lt;code&gt;{{lipsum.__ globals __.os.environ}}&lt;/code&gt;&lt;/p&gt;
+&lt;h1 id=&#34;ezsql&#34;&gt;ezsql
+&lt;/h1&gt;&lt;p&gt;​	提示说是sql&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250310163833039.png&#34;
+	width=&#34;673&#34;
+	height=&#34;133&#34;
+	srcset=&#34;http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250310163833039_hu15563534363620261046.png 480w, http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250310163833039_hu6397024261892706740.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;506&#34;
+		data-flex-basis=&#34;1214px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;​	我sql注入的知识点不是很熟，这里写的详细一点&lt;/p&gt;
+&lt;p&gt;​	&lt;img src=&#34;http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250310190505163.png&#34;
+	width=&#34;1317&#34;
+	height=&#34;350&#34;
+	srcset=&#34;http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250310190505163_hu1234777786963926780.png 480w, http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250310190505163_hu17826104148334802405.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;376&#34;
+		data-flex-basis=&#34;903px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;​	这里可以看到username是注入点，但是应该有waf&lt;/p&gt;
+&lt;p&gt;​	试试爆错&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250310193922196.png&#34;
+	width=&#34;1456&#34;
+	height=&#34;433&#34;
+	srcset=&#34;http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250310193922196_hu14166561676037889079.png 480w, http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250310193922196_hu17842630776743299165.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;336&#34;
+		data-flex-basis=&#34;807px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;​	说明有回显，试试&lt;/p&gt;
+&lt;p&gt;​	再fuzz一下，大致ban了  &lt;strong&gt;小写select/union/空格/or/and&lt;/strong&gt;，可以用大小写绕过字符，/**/绕过空格&lt;/p&gt;
+&lt;p&gt;​	那么开始吧&lt;/p&gt;
+&lt;p&gt;​	首先是查字段&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;username=1&amp;#39;/**/OrdEr/**/by/**/3/**/;--&amp;amp;password=1
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250311003817378.png&#34;
+	width=&#34;1288&#34;
+	height=&#34;499&#34;
+	srcset=&#34;http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250311003817378_hu3751784681871380999.png 480w, http://localhost:1313/p/iclesctf%E5%A4%8D%E7%8E%B0/image-20250311003817378_hu1846090521737909412.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;258&#34;
+		data-flex-basis=&#34;619px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;​	查出是三段，然后查回显点&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/Dimage-20250311004425596.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>SSTI</title>
         <link>http://localhost:1313/p/ssti/</link>
         <pubDate>Thu, 27 Feb 2025 22:16:38 +0800</pubDate>
@@ -623,6 +802,9 @@
 	
 	
 &gt;&lt;/p&gt;
+&lt;h1 id=&#34;好用的pyload&#34;&gt;好用的pyload！！
+&lt;/h1&gt;&lt;p&gt;{{lipsum|attr(&amp;quot;\u005f\u005f\u0067\u006c\u006f\u0062\u0061\u006c\u0073\u005f\u005f&amp;quot;)|attr(&amp;quot;\u0067\u0065\u0074&amp;quot;)(&amp;quot;\u006f\u0073&amp;quot;)|attr(&amp;quot;\u0070\u006f\u0070\u0065\u006e&amp;quot;)(&amp;ldquo;ls /&amp;rdquo;)|attr(&amp;quot;\u0072\u0065\u0061\u0064&amp;quot;)()}}&lt;/p&gt;
+&lt;p&gt;（遇到可以直接试试unicode编码绕过，成功率不低）&lt;/p&gt;
 &lt;p&gt;​&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1 id=&#34;ssti终极工具fenjing&#34;&gt;SSTI终极工具——fenjing
