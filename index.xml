@@ -3169,10 +3169,10 @@
         <pubDate>Tue, 11 Mar 2025 20:58:20 +0800</pubDate>
         
         <guid>http://localhost:1313/p/ssrf/</guid>
-        <description>&lt;h1 id=&#34;前言&#34;&gt;前言
-&lt;/h1&gt;&lt;p&gt;​	ghctf2025遇到了第一次ssrf的题目，这里开始系统的学一下ssrf，例题从ctfshow找。&lt;/p&gt;
-&lt;h1 id=&#34;一什么是ssrf&#34;&gt;一、什么是SSRF
-&lt;/h1&gt;&lt;p&gt;​	SSRF（Server-Side Request Forgery，服务端请求伪造），是攻击者让服务端发起构造的指定请求链接造成的漏洞。&lt;/p&gt;
+        <description>&lt;h2 id=&#34;前言&#34;&gt;前言
+&lt;/h2&gt;&lt;p&gt;​	ghctf2025遇到了第一次ssrf的题目，这里开始系统的学一下ssrf，例题从ctfshow找。&lt;/p&gt;
+&lt;h2 id=&#34;一什么是ssrf&#34;&gt;一、什么是SSRF
+&lt;/h2&gt;&lt;p&gt;​	SSRF（Server-Side Request Forgery，服务端请求伪造），是攻击者让服务端发起构造的指定请求链接造成的漏洞。&lt;/p&gt;
 &lt;p&gt;​	&lt;img src=&#34;http://localhost:1313/p/ssrf/image-20250329180935488.png&#34;
 	width=&#34;916&#34;
 	height=&#34;547&#34;
@@ -3190,14 +3190,16 @@
 &lt;p&gt;​	由于防火墙的保护，我们无法直接访问内网，但是服务器可以，我们可以通过服务器来访问内网，这就是SSRF。
 ​	给个简单的例子，攻击者传入一个未经验证的URL，后端代码直接请求这个URL，就会造成SSRF漏洞。&lt;/p&gt;
 &lt;p&gt;​	具体到代码中则为：&lt;/p&gt;
-&lt;h4 id=&#34;1-curl_exec&#34;&gt;1. &lt;strong&gt;&lt;code&gt;curl_exec()&lt;/code&gt;&lt;/strong&gt;
-&lt;/h4&gt;&lt;p&gt;​		通过cURL库发起HTTP请求时，若URL由用户输入控制且未验证协议（如&lt;code&gt;file://&lt;/code&gt;, &lt;code&gt;dict://&lt;/code&gt;, &lt;code&gt;gopher://&lt;/code&gt;等），可导致任意文件读取或内网访问。&lt;/p&gt;
-&lt;h4 id=&#34;2-file_get_contents&#34;&gt;2. &lt;strong&gt;&lt;code&gt;file_get_contents()&lt;/code&gt;&lt;/strong&gt;
-&lt;/h4&gt;&lt;p&gt;​		支持多种协议（如&lt;code&gt;http://&lt;/code&gt;, &lt;code&gt;https://&lt;/code&gt;, &lt;code&gt;file://&lt;/code&gt;），若直接拼接用户输入，可读取本地文件或访问内网资源。&lt;/p&gt;
-&lt;h4 id=&#34;3-fopen--fread&#34;&gt;3. &lt;strong&gt;&lt;code&gt;fopen()&lt;/code&gt; + &lt;code&gt;fread()&lt;/code&gt;&lt;/strong&gt;
-&lt;/h4&gt;&lt;p&gt;​		与&lt;code&gt;file_get_contents()&lt;/code&gt;类似，支持协议包装器（&lt;code&gt;file://&lt;/code&gt;, &lt;code&gt;http://&lt;/code&gt;等）&lt;/p&gt;
-&lt;h1 id=&#34;二ssrf的利用方式&#34;&gt;二、SSRF的利用方式
-&lt;/h1&gt;&lt;p&gt;​	主要是一些伪协议的运用。&lt;/p&gt;
+&lt;p&gt;curl_exec()&lt;/p&gt;
+&lt;p&gt;​		通过cURL库发起HTTP请求时，若URL由用户输入控制且未验证协议（如&lt;code&gt;file://&lt;/code&gt;, &lt;code&gt;dict://&lt;/code&gt;, &lt;code&gt;gopher://&lt;/code&gt;等），可导致任意文件读取或内网访问。&lt;/p&gt;
+&lt;p&gt;file_get_contents()&lt;/p&gt;
+&lt;p&gt;​		支持多种协议（如http://, &lt;code&gt;https://&lt;/code&gt;, &lt;code&gt;file://&lt;/code&gt;），若直接拼接用户输入，可读取本地文件或访问内网资源。&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;fopen()+ fread()&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;​		与&lt;code&gt;file_get_contents()&lt;/code&gt;类似，支持协议包装器（&lt;code&gt;file://&lt;/code&gt;, &lt;code&gt;http://&lt;/code&gt;等）&lt;/p&gt;
+&lt;h2 id=&#34;二ssrf的利用方式&#34;&gt;二、SSRF的利用方式
+&lt;/h2&gt;&lt;p&gt;​	主要是一些伪协议的运用。&lt;/p&gt;
 &lt;p&gt;​	file伪协议：从文件系统中获取文件内容,格式为file://[文件路径]&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -3233,8 +3235,8 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;https&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;user&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;password&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;example&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;com&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;例题一ctfshowweb351&#34;&gt;例题一：ctfshowweb351
-&lt;/h2&gt;&lt;p&gt;​			&lt;img src=&#34;http://localhost:1313/p/ssrf/image-20250330112041857.png&#34;
+&lt;/div&gt;&lt;h3 id=&#34;例题一ctfshowweb351&#34;&gt;例题一：ctfshowweb351
+&lt;/h3&gt;&lt;p&gt;​			&lt;img src=&#34;http://localhost:1313/p/ssrf/image-20250330112041857.png&#34;
 	width=&#34;784&#34;
 	height=&#34;471&#34;
 	srcset=&#34;http://localhost:1313/p/ssrf/image-20250330112041857_hu16625410681241850352.png 480w, http://localhost:1313/p/ssrf/image-20250330112041857_hu3381956066808889969.png 1024w&#34;

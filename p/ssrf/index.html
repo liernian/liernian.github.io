@@ -295,21 +295,13 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#一什么是ssrf">一、什么是SSRF</a></li>
+    <li><a href="#二ssrf的利用方式">二、SSRF的利用方式</a>
       <ol>
-        <li>
-          <ol>
-            <li><a href="#1-curl_exec">1. <strong><code>curl_exec()</code></strong></a></li>
-            <li><a href="#2-file_get_contents">2. <strong><code>file_get_contents()</code></strong></a></li>
-            <li><a href="#3-fopen--fread">3. <strong><code>fopen()</code> + <code>fread()</code></strong></a></li>
-          </ol>
-        </li>
+        <li><a href="#例题一ctfshowweb351">例题一：ctfshowweb351</a></li>
       </ol>
     </li>
-  </ol>
-
-  <ol>
-    <li><a href="#例题一ctfshowweb351">例题一：ctfshowweb351</a></li>
   </ol>
 </nav>
         </div>
@@ -381,10 +373,10 @@
     <section class="article-content">
     
     
-    <h1 id="前言">前言
-</h1><p>​	ghctf2025遇到了第一次ssrf的题目，这里开始系统的学一下ssrf，例题从ctfshow找。</p>
-<h1 id="一什么是ssrf">一、什么是SSRF
-</h1><p>​	SSRF（Server-Side Request Forgery，服务端请求伪造），是攻击者让服务端发起构造的指定请求链接造成的漏洞。</p>
+    <h2 id="前言">前言
+</h2><p>​	ghctf2025遇到了第一次ssrf的题目，这里开始系统的学一下ssrf，例题从ctfshow找。</p>
+<h2 id="一什么是ssrf">一、什么是SSRF
+</h2><p>​	SSRF（Server-Side Request Forgery，服务端请求伪造），是攻击者让服务端发起构造的指定请求链接造成的漏洞。</p>
 <p>​	<img src="/p/ssrf/image-20250329180935488.png"
 	width="916"
 	height="547"
@@ -402,14 +394,16 @@
 <p>​	由于防火墙的保护，我们无法直接访问内网，但是服务器可以，我们可以通过服务器来访问内网，这就是SSRF。
 ​	给个简单的例子，攻击者传入一个未经验证的URL，后端代码直接请求这个URL，就会造成SSRF漏洞。</p>
 <p>​	具体到代码中则为：</p>
-<h4 id="1-curl_exec">1. <strong><code>curl_exec()</code></strong>
-</h4><p>​		通过cURL库发起HTTP请求时，若URL由用户输入控制且未验证协议（如<code>file://</code>, <code>dict://</code>, <code>gopher://</code>等），可导致任意文件读取或内网访问。</p>
-<h4 id="2-file_get_contents">2. <strong><code>file_get_contents()</code></strong>
-</h4><p>​		支持多种协议（如<code>http://</code>, <code>https://</code>, <code>file://</code>），若直接拼接用户输入，可读取本地文件或访问内网资源。</p>
-<h4 id="3-fopen--fread">3. <strong><code>fopen()</code> + <code>fread()</code></strong>
-</h4><p>​		与<code>file_get_contents()</code>类似，支持协议包装器（<code>file://</code>, <code>http://</code>等）</p>
-<h1 id="二ssrf的利用方式">二、SSRF的利用方式
-</h1><p>​	主要是一些伪协议的运用。</p>
+<p>curl_exec()</p>
+<p>​		通过cURL库发起HTTP请求时，若URL由用户输入控制且未验证协议（如<code>file://</code>, <code>dict://</code>, <code>gopher://</code>等），可导致任意文件读取或内网访问。</p>
+<p>file_get_contents()</p>
+<p>​		支持多种协议（如http://, <code>https://</code>, <code>file://</code>），若直接拼接用户输入，可读取本地文件或访问内网资源。</p>
+<ol start="3">
+<li>fopen()+ fread()</li>
+</ol>
+<p>​		与<code>file_get_contents()</code>类似，支持协议包装器（<code>file://</code>, <code>http://</code>等）</p>
+<h2 id="二ssrf的利用方式">二、SSRF的利用方式
+</h2><p>​	主要是一些伪协议的运用。</p>
 <p>​	file伪协议：从文件系统中获取文件内容,格式为file://[文件路径]</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -445,8 +439,8 @@
 </span></span><span class="line"><span class="cl"><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">user</span><span class="p">:</span><span class="n">password</span><span class="err">@</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="例题一ctfshowweb351">例题一：ctfshowweb351
-</h2><p>​			<img src="/p/ssrf/image-20250330112041857.png"
+</div><h3 id="例题一ctfshowweb351">例题一：ctfshowweb351
+</h3><p>​			<img src="/p/ssrf/image-20250330112041857.png"
 	width="784"
 	height="471"
 	srcset="/p/ssrf/image-20250330112041857_hu16625410681241850352.png 480w, /p/ssrf/image-20250330112041857_hu3381956066808889969.png 1024w"
