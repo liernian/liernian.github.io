@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=50155&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="一、什么是命令执行？ \u200b 命令执行漏洞指的是网站的应用程序有些需要调用执行系统命令，当用户能控制这些函数中的参数时，就可以将恶意系统命令拼接到正">
 <title>命令执行</title>
 
-<link rel='canonical' href='http://localhost:1313/p/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/'>
+<link rel='canonical' href='http://localhost:50155/p/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/'>
 
 <link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="命令执行">
 <meta property='og:description' content="一、什么是命令执行？ \u200b 命令执行漏洞指的是网站的应用程序有些需要调用执行系统命令，当用户能控制这些函数中的参数时，就可以将恶意系统命令拼接到正">
-<meta property='og:url' content='http://localhost:1313/p/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/'>
+<meta property='og:url' content='http://localhost:50155/p/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/'>
 <meta property='og:site_name' content='liernian'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-02-26T14:31:23&#43;08:00'/><meta property='article:modified_time' content='2025-02-26T14:31:23&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-02-26T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-02-26T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="命令执行">
 <meta name="twitter:description" content="一、什么是命令执行？ \u200b 命令执行漏洞指的是网站的应用程序有些需要调用执行系统命令，当用户能控制这些函数中的参数时，就可以将恶意系统命令拼接到正">
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -236,11 +236,11 @@
 
                             <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
                                 
-                                    <option value="http://localhost:1313/en/" >English</option>
+                                    <option value="http://localhost:50155/en/" >English</option>
                                 
-                                    <option value="http://localhost:1313/" selected>简体中文</option>
+                                    <option value="http://localhost:50155/" selected>简体中文</option>
                                 
-                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                    <option value="http://localhost:50155/ar/" >عربي</option>
                                 
                             </select>
                         </li>
@@ -295,10 +295,6 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#heading"></a></li>
-  </ol>
-
-  <ol>
     <li><a href="#可读取目录的命令函数">可读取目录的命令/函数</a></li>
     <li><a href="#可读取文件的命令函数">可读取文件的命令/函数</a></li>
     <li><a href="#绕过手法">绕过手法</a>
@@ -338,6 +334,18 @@
     <header class="article-header">
 
     <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" >
+                知识点总结
+            </a>
+        
+            <a href="/categories/web/" >
+                Web
+            </a>
+        
+    </header>
     
 
     <div class="article-title-wrapper">
@@ -394,11 +402,8 @@
     <section class="article-content">
     
     
-    <h2 id="heading">
-</h2><blockquote>
-<h1 id="一什么是命令执行">一、什么是命令执行？
-</h1></blockquote>
-<p>​    命令执行漏洞指的是网站的应用程序有些需要<strong>调用执行系统命令</strong>，当用户能控制这些函数中的参数时，就可以将恶意系统命令拼接到正常命令中，从而造成命令执行攻击。</p>
+    <h1 id="一什么是命令执行">一、什么是命令执行？
+</h1><p>​    命令执行漏洞指的是网站的应用程序有些需要<strong>调用执行系统命令</strong>，当用户能控制这些函数中的参数时，就可以将恶意系统命令拼接到正常命令中，从而造成命令执行攻击。</p>
 <p>​    命令执行，执行的有两种命令，一种是搭建网站的Linux系统命令，一个是php自身的函数</p>
 <p>​    对于一道与命令执行相关的题目，重要的是找到什么<strong>函数/命令</strong>可以用，怎么用，用来干什么。</p>
 <p>​    接下来会详细归纳一下怎么做命令执行的题目</p>
@@ -1050,6 +1055,80 @@
 
     
 
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E5%86%85%E5%AD%98%E9%A9%AC/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">内存马</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/ssti/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SSTI</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/jwt/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">JWT</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/ssrf/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SSRF</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/xss/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">XSS</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
      
     
         
@@ -1195,7 +1274,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.a8a6a9bd7411f21e250a1b8e9266c2f71588e0431c070ef69a01c38182dc8052.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.59729e8016d63fb571847b33800c7f0e48c9acdb8eaed3eec3e94d3bcad55aca.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
