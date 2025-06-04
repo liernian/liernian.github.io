@@ -1,0 +1,1736 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 \u200b 写了三道misc，一道web，可惜离获奖还有点距离。这里复现几题。 Misc 消失的文字 知识点：pcap2track流量鼠标小工具、hidden">
+<title>Litctf复现</title>
+
+<link rel='canonical' href='http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Litctf复现">
+<meta property='og:description' content="前言 \u200b 写了三道misc，一道web，可惜离获奖还有点距离。这里复现几题。 Misc 消失的文字 知识点：pcap2track流量鼠标小工具、hidden">
+<meta property='og:url' content='http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/'>
+<meta property='og:site_name' content='liernian'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-05-29T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-05-29T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Litctf复现">
+<meta name="twitter:description" content="前言 \u200b 写了三道misc，一道web，可惜离获奖还有点距离。这里复现几题。 Misc 消失的文字 知识点：pcap2track流量鼠标小工具、hidden">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu11319725144555339807.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">💯</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">liernian</a></h1>
+            <h2 class="site-description">理想主义的中二少年</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>简体中文</option>
+                                
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#misc">Misc</a>
+      <ol>
+        <li><a href="#消失的文字">消失的文字</a>
+          <ol>
+            <li><a href="#知识点pcap2track流量鼠标小工具hidden-world">知识点：pcap2track流量鼠标小工具、hidden-world</a></li>
+          </ol>
+        </li>
+        <li><a href="#洞妖洞妖">洞妖洞妖</a>
+          <ol>
+            <li><a href="#知识点ppt宏提取时间间隔隐写换表base64">知识点：ppt宏提取、时间间隔隐写、换表base64、</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#web">Web</a>
+      <ol>
+        <li><a href="#星愿信箱">星愿信箱</a></li>
+        <li><a href="#nest_js">nest_js</a>
+          <ol>
+            <li><a href="#知识点cve-2025-29927绕过中间件权限">知识点：cve-2025-29927绕过中间件权限</a></li>
+          </ol>
+        </li>
+        <li><a href="#多重宇宙日记">多重宇宙日记</a>
+          <ol>
+            <li><a href="#知识点简单原型链污染">知识点：简单原型链污染</a></li>
+          </ol>
+        </li>
+        <li><a href="#easy_file">easy_file</a>
+          <ol>
+            <li><a href="#知识点弱密码爆破简单文件上传文件读取">知识点：弱密码爆破、简单文件上传+文件读取</a></li>
+          </ol>
+        </li>
+        <li><a href="#easy_signin">easy_signin</a>
+          <ol>
+            <li><a href="#知识点时间戳md5爆破easy_ssrf">知识点：（时间戳+md5）爆破、easy_ssrf</a></li>
+          </ol>
+        </li>
+        <li><a href="#君の名は">君の名は</a>
+          <ol>
+            <li><a href="#知识点反序列化原生类调用匿名函数">知识点：反序列化原生类调用匿名函数</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/misc/" >
+                Misc
+            </a>
+        
+            <a href="/categories/web/" >
+                Web
+            </a>
+        
+            <a href="/categories/wp/" >
+                Wp
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/litctf%E5%A4%8D%E7%8E%B0/">Litctf复现</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-05-29</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 7 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="前言">前言
+</h2><p>​	写了三道misc，一道web，可惜离获奖还有点距离。这里复现几题。</p>
+<hr>
+<h2 id="misc">Misc
+</h2><h3 id="消失的文字">消失的文字
+</h3><h4 id="知识点pcap2track流量鼠标小工具hidden-world">知识点：pcap2track流量鼠标小工具、hidden-world
+</h4><p>​	附件一个压缩包和一个usb.pcappng</p>
+<p>​	usb流量包可以用小工具嗦，也是第一次知道pcap2track</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530101807942.png"
+	width="1616"
+	height="387"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530101807942_hu6620228822294377343.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250530101807942_hu7618604167597578769.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250530101807942"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="417"
+		data-flex-basis="1002px"
+	
+></p>
+<p>​	得到压缩包密码868F-83BD-FF</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530194028323.png"
+	width="1134"
+	height="589"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530194028323_hu9095426753811532507.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250530194028323_hu8355319752263077544.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250530194028323"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="192"
+		data-flex-basis="462px"
+	
+></p>
+<p>​	在hidden-world网站上直接解即可</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530194649650.png"
+	width="1933"
+	height="975"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530194649650_hu11177338552888698403.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250530194649650_hu15174208899610849577.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250530194649650"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="198"
+		data-flex-basis="475px"
+	
+></p>
+<p>​	这里因为不知道这是个什么隐写，简单了解以下原理和特征</p>
+<p>​	<strong>Hidden Word 是一个隐形文本水印<a class="link" href="https://hidden-word.top/"  target="_blank" rel="noopener"
+    >工具</a>)。它通过 Unicode 特性，把版权信息和元数据嵌入到文本里，但不会改变文字的外观</strong></p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530195253356.png"
+	width="1628"
+	height="556"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530195253356_hu3312238484938312886.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250530195253356_hu2968761561012726501.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250530195253356"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="292"
+		data-flex-basis="702px"
+	
+></p>
+<p>​	特征也很明显。</p>
+<h3 id="洞妖洞妖">洞妖洞妖
+</h3><h4 id="知识点ppt宏提取时间间隔隐写换表base64">知识点：ppt宏提取、时间间隔隐写、换表base64、
+</h4><p>​	附件ppt，第一次做这个类型的题目，先改后缀为zip，然后用oletools查看.bin文件的宏代码。</p>
+<p>​	用法比较多，这里用olevba</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604101601066.png"
+	width="1001"
+	height="790"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604101601066_hu1474047234820670657.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250604101601066_hu9250937629007276445.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250604101601066"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="126"
+		data-flex-basis="304px"
+	
+></p>
+<p>​	<img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604224739082.png"
+	width="1678"
+	height="924"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604224739082_hu7181406284639026553.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250604224739082_hu7436127890005250632.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250604224739082"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="181"
+		data-flex-basis="435px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Sub hgf()
+</span></span><span class="line"><span class="cl">Sub CustomEncode()
+</span></span><span class="line"><span class="cl">    Dim inputString As String
+</span></span><span class="line"><span class="cl">    inputString = &#34;*******&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    Dim encodedString As String
+</span></span><span class="line"><span class="cl">    encodedString = CustomEncode(inputString)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    MsgBox &#34;自定义编码结果为: &#34; &amp; vbCrLf &amp; encodedString
+</span></span><span class="line"><span class="cl">End Sub
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Function CustomEncode(inputString As String) As String
+</span></span><span class="line"><span class="cl">    Dim charSet As String
+</span></span><span class="line"><span class="cl">    charSet = &#34;*******************&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    Dim byteArray() As Byte
+</span></span><span class="line"><span class="cl">    byteArray = StrConv(inputString, vbFromUnicode)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    Dim encodedString As String
+</span></span><span class="line"><span class="cl">    encodedString = &#34;&#34;
+</span></span><span class="line"><span class="cl">    Dim i As Integer
+</span></span><span class="line"><span class="cl">    Dim n As Long
+</span></span><span class="line"><span class="cl">    For i = 1 To LenB(byteArray) Step 3
+</span></span><span class="line"><span class="cl">        n = 0
+</span></span><span class="line"><span class="cl">        n = (n Or (ByteToInt(MidB(byteArray, i, 1)) &lt;&lt; 16))
+</span></span><span class="line"><span class="cl">        If i + 1 &lt;= LenB(byteArray) Then
+</span></span><span class="line"><span class="cl">            n = (n Or (ByteToInt(MidB(byteArray, i + 1, 1)) &lt;&lt; 8))
+</span></span><span class="line"><span class="cl">        End If
+</span></span><span class="line"><span class="cl">        If i + 2 &lt;= LenB(byteArray) Then
+</span></span><span class="line"><span class="cl">            n = (n Or ByteToInt(MidB(byteArray, i + 2, 1)))
+</span></span><span class="line"><span class="cl">        End If
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        encodedString = encodedString &amp; Mid(charSet, (n &gt;&gt; 18) + 1, 1)
+</span></span><span class="line"><span class="cl">        encodedString = encodedString &amp; Mid(charSet, ((n &gt;&gt; 12) And &amp;H3F) + 1, 1)
+</span></span><span class="line"><span class="cl">        If (i + 1) &lt;= LenB(byteArray) Then
+</span></span><span class="line"><span class="cl">            encodedString = encodedString &amp; Mid(charSet, ((n &gt;&gt; 6) And &amp;H3F) + 1, 1)
+</span></span><span class="line"><span class="cl">        Else
+</span></span><span class="line"><span class="cl">            encodedString = encodedString &amp; &#34;=&#34;
+</span></span><span class="line"><span class="cl">        End If
+</span></span><span class="line"><span class="cl">        If (i + 2) &lt;= LenB(byteArray) Then
+</span></span><span class="line"><span class="cl">            encodedString = encodedString &amp; Mid(charSet, (n And &amp;H3F) + 1, 1)
+</span></span><span class="line"><span class="cl">        Else
+</span></span><span class="line"><span class="cl">            encodedString = encodedString &amp; &#34;=&#34;
+</span></span><span class="line"><span class="cl">        End If
+</span></span><span class="line"><span class="cl">    Next i
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    CustomEncode = encodedString
+</span></span><span class="line"><span class="cl">End Function
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Function ByteToInt(byteVal As Byte) As Long
+</span></span><span class="line"><span class="cl">    ByteToInt = CLng(byteVal)
+</span></span><span class="line"><span class="cl">End Function
+</span></span><span class="line"><span class="cl">End Function
+</span></span><span class="line"><span class="cl">&#34;5uESz7on4R8eyC//&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​	是个换表base，给了密文，只要找到映射表就行。</p>
+<p>​	然后，ppt的自动换片间隔里有0和1隐写，在/ppt/slides/slide?.xml的advTm字段里，可以写脚本提出来</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604225833933.png"
+	width="927"
+	height="719"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604225833933_hu7331516348781313488.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250604225833933_hu6748897577927905879.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250604225833933"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="128"
+		data-flex-basis="309px"
+	
+></p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230217256.png"
+	width="1016"
+	height="438"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230217256_hu8017721276434597953.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230217256_hu9047117013299241112.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250604230217256"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="231"
+		data-flex-basis="556px"
+	
+></p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230301145.png"
+	width="1104"
+	height="540"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230301145_hu11759403959032265584.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230301145_hu12334725268161310786.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250604230301145"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="204"
+		data-flex-basis="490px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">import os
+</span></span><span class="line"><span class="cl">import re
+</span></span><span class="line"><span class="cl">import xml.etree.ElementTree as ET
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">def extract_advTm_binary_string(folder=&#39;.&#39;):
+</span></span><span class="line"><span class="cl">    slides = []
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    # 筛选并排序 slide*.xml 文件（按数字顺序）
+</span></span><span class="line"><span class="cl">    for filename in os.listdir(folder):
+</span></span><span class="line"><span class="cl">        match = re.match(r&#39;slide(\d+)\.xml$&#39;, filename)
+</span></span><span class="line"><span class="cl">        if match:
+</span></span><span class="line"><span class="cl">            slide_num = int(match.group(1))
+</span></span><span class="line"><span class="cl">            slides.append((slide_num, filename))
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    slides.sort()  # 按 slide 编号排序
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    binary_str = &#39;&#39;
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    for slide_num, filename in slides:
+</span></span><span class="line"><span class="cl">        filepath = os.path.join(folder, filename)
+</span></span><span class="line"><span class="cl">        try:
+</span></span><span class="line"><span class="cl">            tree = ET.parse(filepath)
+</span></span><span class="line"><span class="cl">            root = tree.getroot()
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            # 使用命名空间查找 advTm
+</span></span><span class="line"><span class="cl">            ns = {
+</span></span><span class="line"><span class="cl">                &#39;p&#39;: &#39;http://schemas.openxmlformats.org/presentationml/2006/main&#39;,
+</span></span><span class="line"><span class="cl">                &#39;mc&#39;: &#39;http://schemas.openxmlformats.org/markup-compatibility/2006&#39;
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            advTm = None
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            # 遍历所有 &lt;p:transition&gt; 标签
+</span></span><span class="line"><span class="cl">            for transition in root.findall(&#39;.//p:transition&#39;, ns):
+</span></span><span class="line"><span class="cl">                advTm_str = transition.attrib.get(&#39;advTm&#39;)
+</span></span><span class="line"><span class="cl">                if advTm_str is not None:
+</span></span><span class="line"><span class="cl">                    advTm = int(advTm_str)
+</span></span><span class="line"><span class="cl">                    break  # 找到就可以停止了
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            binary_str += &#39;1&#39; if advTm and advTm &gt; 0 else &#39;0&#39;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        except Exception as e:
+</span></span><span class="line"><span class="cl">            print(f&#34;处理文件 {filename} 时出错: {e}&#34;)
+</span></span><span class="line"><span class="cl">            binary_str += &#39;0&#39;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    return binary_str
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">if __name__ == &#39;__main__&#39;:
+</span></span><span class="line"><span class="cl">    binary_result = extract_advTm_binary_string(&#39;.&#39;)
+</span></span><span class="line"><span class="cl">    print(f&#34;结果二进制字符串: {binary_result}&#34;)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​	1000换成1，0不变，得到</p>
+<p><code>10000111000101110010011000111110111111011010110101110101100111011011011101100110101110010101110100111001111100101110001110000110101100111001011001101111010110111100001011110101111001111100001101100110101011010010110011011000101011110001101110000011000011011100101011100110110011001001011110101011010011001000110011111001101000100100000111000101010101110010110101001010011100111110100101010001101000011011111001001110100010001110111000011001001100010101111</code></p>
+<p>​	然后解码一下</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230437408.png"
+	width="1446"
+	height="883"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230437408_hu12764590207468614478.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230437408_hu11685058643713858368.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250604230437408"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="163"
+		data-flex-basis="393px"
+	
+></p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230540228.png"
+	width="1546"
+	height="839"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230540228_hu7024391608230374941.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230540228_hu6702847860089247465.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250604230540228"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="184"
+		data-flex-basis="442px"
+	
+></p>
+<p>​	居然不是flag，看来还有别的东西</p>
+<p>​	找到ppt中的图片image2，发现藏了zip，密码应该就是base解出来的东西</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230752626.png"
+	width="962"
+	height="447"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230752626_hu12265832805013363489.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230752626_hu222465338581892957.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250604230752626"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="215"
+		data-flex-basis="516px"
+	
+></p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230742523.png"
+	width="1187"
+	height="679"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230742523_hu11774049218213574117.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230742523_hu1379037388419713197.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250604230742523"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="174"
+		data-flex-basis="419px"
+	
+></p>
+<p>​	打开后战斗还未结束</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604231137013.png"
+	width="1404"
+	height="1020"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604231137013_hu11558717314955634769.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250604231137013_hu11152929944353603528.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250604231137013"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="137"
+		data-flex-basis="330px"
+	
+></p>
+<p>​	不过也很简单了</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604231256730.png"
+	width="955"
+	height="719"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604231256730_hu15654931632569705618.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250604231256730_hu6935906350455467838.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250604231256730"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="132"
+		data-flex-basis="318px"
+	
+></p>
+<hr>
+<h2 id="web">Web
+</h2><h3 id="星愿信箱">星愿信箱
+</h3><p>​	已解决的题目，过滤了{{}}的ssti，不多说</p>
+<h3 id="nest_js">nest_js
+</h3><h4 id="知识点cve-2025-29927绕过中间件权限">知识点：cve-2025-29927绕过中间件权限
+</h4><p>​	弱口令，admin/password。好像是非预期。预期是cve-2025-29927绕过中间件权限</p>
+<p>​	这个漏洞允许攻击者通过操作 <code>x-middleware-subrequest</code> 请求头来<strong>绕过</strong>基于中间件的安全控制，从而可能获得对受保护资源和敏感数据的未授权访问。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">x-middleware-subrequest: middleware:middleware:middleware:middleware:middleware
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​	复现很简单，直接打进去就行（多试几次，可能会比较卡），可以发现新的ETag</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529114800851.png"
+	width="2033"
+	height="746"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529114800851_hu647204298096413205.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250529114800851_hu11357895802560630394.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250529114800851"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="272"
+		data-flex-basis="654px"
+	
+></p>
+<p>​	将etag替换，访问/dashboard</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529115218345.png"
+	width="2027"
+	height="573"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529115218345_hu8394508170358901425.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250529115218345_hu11514085543176395339.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250529115218345"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="353"
+		data-flex-basis="849px"
+	
+></p>
+<p>​	但是etag是个什么玩意？</p>
+<p>​	ETag（Entity Tag）是万维网协议 HTTP 的一部分。它是 HTTP 协议提供的若干机制中的一种 Web 缓存验证机制，并且允许客户端进行缓存协商。</p>
+<p>​	所以这其实就是和cookie，Jwt差不多的东西</p>
+<h3 id="多重宇宙日记">多重宇宙日记
+</h3><h4 id="知识点简单原型链污染">知识点：简单原型链污染
+</h4><p>​	注册后在个人资料可以看到源码，是原型链污染</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529130428337.png"
+	width="1271"
+	height="1131"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529130428337_hu12408673942951725020.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250529130428337_hu8266924394013672415.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250529130428337"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="112"
+		data-flex-basis="269px"
+	
+></p>
+<p>​	分析后发现有settings，然后如果isadmin发生改变就更新导航栏，我们就可以污染settings的原型，把它的原型的isadmin值改为true，就可以完成污染</p>
+<p>​	然后可以直接传Json（这格式还得是这样的），打入</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    &#34;settings&#34;: {
+</span></span><span class="line"><span class="cl">        &#34;__proto__&#34;: {
+</span></span><span class="line"><span class="cl">            &#34;isAdmin&#34;: true
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​	然后点击导航栏上的管理员链接即可</p>
+<h3 id="easy_file">easy_file
+</h3><h4 id="知识点弱密码爆破简单文件上传文件读取">知识点：弱密码爆破、简单文件上传+文件读取
+</h4><p>​	又是一个登陆界面，查看源码后发现有个file查看头像，先不管我们上传内容抓包</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529145355997.png"
+	width="1668"
+	height="1177"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529145355997_hu10096683893570451983.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250529145355997_hu18282952777577415457.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250529145355997"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="141"
+		data-flex-basis="340px"
+	
+></p>
+<p>​	发现被编码了，我们尝试爆破</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529145921860.png"
+	width="1156"
+	height="816"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529145921860_hu3749569241214344280.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250529145921860_hu9157370595786901811.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250529145921860"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="141"
+		data-flex-basis="340px"
+	
+></p>
+<p>​	得到admin/password</p>
+<p>​	然后是文件上传，直接上传（有个短标签绕过）&lt;?php  换成&lt;?就行</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529151407355.png"
+	width="866"
+	height="295"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529151407355_hu17893801821856189382.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250529151407355_hu2169757224615239162.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250529151407355"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="293"
+		data-flex-basis="704px"
+	
+></p>
+<p>​	还记得那个file查看头像吗，用flie查看头像，并传入命令即可</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529152328076.png"
+	width="1338"
+	height="1076"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529152328076_hu9981028470653430758.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250529152328076_hu7140207603976548696.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250529152328076"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="124"
+		data-flex-basis="298px"
+	
+></p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529152454281.png"
+	width="1083"
+	height="1117"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529152454281_hu16458274085341684678.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250529152454281_hu16807887743705465930.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250529152454281"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="96"
+		data-flex-basis="232px"
+	
+></p>
+<h3 id="easy_signin">easy_signin
+</h3><h4 id="知识点时间戳md5爆破easy_ssrf">知识点：（时间戳+md5）爆破、easy_ssrf
+</h4><p>​	<img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601201145781.png"
+	width="1532"
+	height="376"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601201145781_hu2303110995835842834.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250601201145781_hu9712675561476606197.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250601201145781"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="407"
+		data-flex-basis="977px"
+	
+></p>
+<p>​	登进来就这样，先dirsearch一下</p>
+<p><img src="D:%5cblog%5chugo_extended_0.133.1_windows-amd64%5cdev%5ccontent%5cpost%5cLitCTF2025%e5%a4%8d%e7%8e%b0%5cimage-20250601201332490.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20250601201332490"
+	
+	
+></p>
+<p>​	发现login.html，查看其源代码，有两点，第一点是发现用户名和密码被md5加密了</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601201727317.png"
+	width="1762"
+	height="1107"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601201727317_hu13349309243743164426.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250601201727317_hu10060251910585144350.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250601201727317"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="159"
+		data-flex-basis="382px"
+	
+></p>
+<p>​	第二点是在api.js可以发现**<code>/api/sys/urlcode.php?url=</code>**这里明显是ssrf</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601204125258.png"
+	width="1115"
+	height="338"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601204125258_hu18047807472374733091.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250601204125258_hu18417924039611551643.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250601204125258"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="329"
+		data-flex-basis="791px"
+	
+></p>
+<p>​	我们先对用户名和密码进行爆破，这里有时间戳限制，只能写代码爆破</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">import requests
+</span></span><span class="line"><span class="cl">import hashlib
+</span></span><span class="line"><span class="cl">import time
+</span></span><span class="line"><span class="cl">import json
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">def md5(text):
+</span></span><span class="line"><span class="cl">    &#34;&#34;&#34;计算MD5值&#34;&#34;&#34;
+</span></span><span class="line"><span class="cl">    return hashlib.md5(text.encode()).hexdigest()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">def generate_sign(username, password, timestamp, secret_key=&#39;easy_signin&#39;):
+</span></span><span class="line"><span class="cl">    &#34;&#34;&#34;生成签名&#34;&#34;&#34;
+</span></span><span class="line"><span class="cl">    # 计算用户名和密码的MD5
+</span></span><span class="line"><span class="cl">    md5_username = md5(username)
+</span></span><span class="line"><span class="cl">    md5_password = md5(password)
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    # 取前6位
+</span></span><span class="line"><span class="cl">    short_md5_user = md5_username[:6]
+</span></span><span class="line"><span class="cl">    short_md5_pass = md5_password[:6]
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    # 生成签名
+</span></span><span class="line"><span class="cl">    sign_str = short_md5_user + short_md5_pass + timestamp + secret_key
+</span></span><span class="line"><span class="cl">    return md5(sign_str)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">def try_login(username, password):
+</span></span><span class="line"><span class="cl">    &#34;&#34;&#34;尝试登录&#34;&#34;&#34;
+</span></span><span class="line"><span class="cl">    # 获取时间戳
+</span></span><span class="line"><span class="cl">    timestamp = str(int(time.time() * 1000))
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    # 计算MD5
+</span></span><span class="line"><span class="cl">    md5_username = md5(username)
+</span></span><span class="line"><span class="cl">    md5_password = md5(password)
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    # 生成签名
+</span></span><span class="line"><span class="cl">    sign = generate_sign(username, password, timestamp)
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    # 构造请求头
+</span></span><span class="line"><span class="cl">    headers = {
+</span></span><span class="line"><span class="cl">        &#39;Content-Type&#39;: &#39;application/x-www-form-urlencoded&#39;,
+</span></span><span class="line"><span class="cl">        &#39;X-Sign&#39;: sign
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    # 构造请求数据
+</span></span><span class="line"><span class="cl">    data = {
+</span></span><span class="line"><span class="cl">        &#39;username&#39;: md5_username,
+</span></span><span class="line"><span class="cl">        &#39;password&#39;: md5_password,
+</span></span><span class="line"><span class="cl">        &#39;timestamp&#39;: timestamp
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    try:
+</span></span><span class="line"><span class="cl">        # 创建会话对象
+</span></span><span class="line"><span class="cl">        session = requests.Session()
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        # 发送请求
+</span></span><span class="line"><span class="cl">        response = session.post(&#39;http://node6.anna.nssctf.cn:26591/login.php&#39;, 
+</span></span><span class="line"><span class="cl">                              headers=headers, 
+</span></span><span class="line"><span class="cl">                              data=data)
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        # 打印请求信息
+</span></span><span class="line"><span class="cl">        print(&#34;\n=== 请求信息 ===&#34;)
+</span></span><span class="line"><span class="cl">        print(f&#34;URL: {response.request.url}&#34;)
+</span></span><span class="line"><span class="cl">        print(&#34;\n请求头:&#34;)
+</span></span><span class="line"><span class="cl">        for key, value in response.request.headers.items():
+</span></span><span class="line"><span class="cl">            print(f&#34;{key}: {value}&#34;)
+</span></span><span class="line"><span class="cl">        print(&#34;\n请求体:&#34;)
+</span></span><span class="line"><span class="cl">        print(response.request.body)
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        # 打印响应信息
+</span></span><span class="line"><span class="cl">        print(&#34;\n=== 响应信息 ===&#34;)
+</span></span><span class="line"><span class="cl">        print(f&#34;状态码: {response.status_code}&#34;)
+</span></span><span class="line"><span class="cl">        print(&#34;\n响应头:&#34;)
+</span></span><span class="line"><span class="cl">        for key, value in response.headers.items():
+</span></span><span class="line"><span class="cl">            print(f&#34;{key}: {value}&#34;)
+</span></span><span class="line"><span class="cl">        print(&#34;\n响应体:&#34;)
+</span></span><span class="line"><span class="cl">        print(response.text)
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        return response
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    except Exception as e:
+</span></span><span class="line"><span class="cl">        print(f&#34;[-] 请求失败: {str(e)}&#34;)
+</span></span><span class="line"><span class="cl">        return None
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">if __name__ == &#34;__main__&#34;:
+</span></span><span class="line"><span class="cl">    # 已知的用户名和密码
+</span></span><span class="line"><span class="cl">    username = &#34;admin&#34;
+</span></span><span class="line"><span class="cl">    password = &#34;admin123&#34;
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    # 尝试登录
+</span></span><span class="line"><span class="cl">    response = try_login(username, password)
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    if response:
+</span></span><span class="line"><span class="cl">        print(&#34;\n[+] 登录请求已发送&#34;)
+</span></span><span class="line"><span class="cl">        print(f&#34;[+] 用户名: {username}&#34;)
+</span></span><span class="line"><span class="cl">        print(f&#34;[+] 密码: {password}&#34;)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​	记得让ai搞出请求头消息</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213021008.png"
+	width="1255"
+	height="725"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213021008_hu9014730421801064593.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213021008_hu15611656983765862320.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250601213021008"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="173"
+		data-flex-basis="415px"
+	
+></p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213544788.png"
+	width="2089"
+	height="762"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213544788_hu5355431507727735427.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213544788_hu13964454491024416669.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250601213544788"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="274"
+		data-flex-basis="657px"
+	
+></p>
+<p>​	然后就可以进入dashboard.php了</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213751983.png"
+	width="1512"
+	height="561"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213751983_hu9627265476079327342.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213751983_hu10197696988042547581.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250601213751983"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="269"
+		data-flex-basis="646px"
+	
+></p>
+<p>​	显然是之前ssrf，有个本地绕过</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/api/sys/urlcode.php?url=127.0.0.1/backup/8e0132966053d4bf8b2dbe4ede25502b.php
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214010050.png"
+	width="1493"
+	height="995"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214010050_hu8156073740008764606.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214010050_hu12618339617286386491.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250601214010050"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="150"
+		data-flex-basis="360px"
+	
+></p>
+<p>空格被过滤了，用${IFS}绕。</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214638378.png"
+	width="1573"
+	height="1000"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214638378_hu7993321471651173480.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214638378_hu17770688708744733081.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250601214638378"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="157"
+		data-flex-basis="377px"
+	
+></p>
+<p>然后直接访问就行，读不到。</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214801826.png"
+	width="997"
+	height="178"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214801826_hu11326285917372669088.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214801826_hu17062266406878678882.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250601214801826"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="560"
+		data-flex-basis="1344px"
+	
+></p>
+<h3 id="君の名は">君の名は
+</h3><h4 id="知识点反序列化原生类调用匿名函数">知识点：反序列化原生类调用匿名函数
+</h4><p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601215414775.png"
+	width="812"
+	height="1194"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601215414775_hu3125771016891505675.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250601215414775_hu1162333949366209950.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250601215414775"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="68"
+		data-flex-basis="163px"
+	
+></p>
+<p>​	链子很简单，难的是怎么获取flag</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(new $args[0]($args[1]))-&gt;{$this-&gt;magic}();
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​	我们看到这段代码，实例化了一个类，然后调用了这个类的一个方法，然后这个方法的函数名可控，但是没有参数正好调用匿名函数，也就是下面的create_function。</p>
+<p>​	解释一下<code>create_function(&quot;&quot;, 'die(/readflag);');</code>	**创造匿名函数/000ambda_1(可能不是1)，执行/readflag然后终止脚本。**所以我们只需要能运行这个函数，就可以获取flag了</p>
+<p>​	所以思路就是：</p>
+<ul>
+<li>找到一个可以调用匿名函数的原生类</li>
+<li>找到匿名函数的名字</li>
+</ul>
+<p>​	搜索发现ReflectionFunction的invoke方法可以调用函数，正好invoke也不用多传参数，正好符合思路。</p>
+<p>​	那么赋值Taki类的<code>magic=invoke</code>，<code>ReflectionFunction</code>和<code>匿名函数名/000ambda_1</code>赋值到哪呢？</p>
+<p>​	这里涉及到__call($func,$args)的传参问题</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">假如我们触发__call($func,$args)所调用的函数是
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">flag($arg1,$arg2)
+</span></span><span class="line"><span class="cl">那么触发__call($func,$args)时，$func就会被赋值为&#34;flag&#34;;$args就会被赋值为flag()的参数构成的数组。所以要给$args赋值需要在flag()的参数里赋值。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​	所以KatawareDoki类的</p>
+<p><code>kuchikamizake = &quot;ReflectionFunction&quot;;</code></p>
+<p><code>name = &quot;\000lambda_1&quot;</code></p>
+<p>​	最后是绕过，因为过滤了O，所以需要用一个类来对链子进行包装，然后开头的O就会被自动转换为C</p>
+<ul>
+<li>ArrayObject::unserialize</li>
+</ul>
+<p>​	获得exp</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601224941200.png"
+	width="1405"
+	height="1106"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601224941200_hu3377935223855933870.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250601224941200_hu15577306685897720584.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250601224941200"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="127"
+		data-flex-basis="304px"
+	
+></p>
+<p>​	这里是lambda_10，因为不知道这个匿名函数到底是几，我们爆破一下</p>
+<p><img src="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601230352626.png"
+	width="1981"
+	height="965"
+	srcset="/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601230352626_hu2655305326544633150.png 480w, /p/litctf%E5%A4%8D%E7%8E%B0/image-20250601230352626_hu13966704549057617813.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250601230352626"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="205"
+		data-flex-basis="492px"
+	
+></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">轩辕杯wp复盘</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/tgctf2025/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TGCTF2025</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/ghctf2025/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">GHCTF2025</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/iclesctf/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ICLESCTF</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E5%86%85%E5%AD%98%E9%A9%AC/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">内存马</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 liernian
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.59729e8016d63fb571847b33800c7f0e48c9acdb8eaed3eec3e94d3bcad55aca.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

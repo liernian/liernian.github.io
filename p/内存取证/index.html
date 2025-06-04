@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="NSSCTF28—Basic 大画家 \u200b 第一道内存取证题，拿到.mem文件后用拖进R-STUDIO找找文件 发现了flag.txt，但是没有fla">
+<title>内存取证</title>
+
+<link rel='canonical' href='http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="内存取证">
+<meta property='og:description' content="NSSCTF28—Basic 大画家 \u200b 第一道内存取证题，拿到.mem文件后用拖进R-STUDIO找找文件 发现了flag.txt，但是没有fla">
+<meta property='og:url' content='http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/'>
+<meta property='og:site_name' content='liernian'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-05-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-05-02T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="内存取证">
+<meta name="twitter:description" content="NSSCTF28—Basic 大画家 \u200b 第一道内存取证题，拿到.mem文件后用拖进R-STUDIO找找文件 发现了flag.txt，但是没有fla">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu11319725144555339807.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">💯</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">liernian</a></h1>
+            <h2 class="site-description">理想主义的中二少年</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>简体中文</option>
+                                
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#nssctf28basic-大画家">NSSCTF28—Basic 大画家</a></li>
+    <li><a href="#轩辕杯一大碗冰粉">轩辕杯—一大碗冰粉</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/wp/" >
+                Wp
+            </a>
+        
+            <a href="/categories/misc/" >
+                Misc
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/">内存取证</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-05-02</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 2 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="nssctf28basic-大画家">NSSCTF28—Basic 大画家
+</h2><p>​	第一道内存取证题，拿到.mem文件后用拖进R-STUDIO找找文件</p>
+<p><img src="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504141604457.png"
+	width="1190"
+	height="780"
+	srcset="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504141604457_hu4433089440203410594.png 480w, /p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504141604457_hu1907882087197004958.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="152"
+		data-flex-basis="366px"
+	
+></p>
+<p>发现了flag.txt，但是没有flag，有提示信息，然后我们用LoveMem打开，根据画家的提示，在进程中找到了有关绘画的进程</p>
+<p><img src="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504141855632.png"
+	width="1108"
+	height="1027"
+	srcset="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504141855632_hu2467886989755229994.png 480w, /p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504141855632_hu17160849021322366118.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250504141855632"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="107"
+		data-flex-basis="258px"
+	
+></p>
+<p><img src="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504142047468.png"
+	width="1039"
+	height="1196"
+	srcset="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504142047468_hu17622801321760914902.png 480w, /p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504142047468_hu15790599706509034979.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250504142047468"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="86"
+		data-flex-basis="208px"
+	
+></p>
+<h2 id="轩辕杯一大碗冰粉">轩辕杯—一大碗冰粉
+</h2><p>​	题目描述：你是大黑客，这次你入侵了icej3lly的个人电脑，准备跟踪他的行踪，但是icej3lly好像并不害怕⌓‿⌓，还跟你玩起了加密游戏，甚至把提示都给你了ƪ(˘⌣˘)ʃ。但当你正在查看桌面上的秘密文件和提示时突然断电了，只留下了这个内存镜像，多疑的你一定会有所发现吧˃ʍ˂</p>
+<p>​	先用rstuio看看，可以发现压缩包</p>
+<p><img src="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164108348.png"
+	width="1377"
+	height="718"
+	srcset="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164108348_hu17665150084436053729.png 480w, /p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164108348_hu55366163940390408.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250526164108348"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="191"
+		data-flex-basis="460px"
+	
+></p>
+<p>​	但是用这个工具恢复后的压缩包有错误，用bandizip打开修复一下，发现里面有mimi.zip与hint.txt，需要密码</p>
+<p><img src="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164538818.png"
+	width="1693"
+	height="735"
+	srcset="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164538818_hu5777437573026796806.png 480w, /p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164538818_hu9546433406366895364.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250526164538818"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="230"
+		data-flex-basis="552px"
+	
+></p>
+<p>​	同理，也可以用lovelymem导出zip，从这点看来，lovelymem是更胜一筹的</p>
+<p><img src="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164842623.png"
+	width="1142"
+	height="1019"
+	srcset="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164842623_hu13691496084323155314.png 480w, /p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164842623_hu8769795517015045033.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250526164842623"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="112"
+		data-flex-basis="268px"
+	
+></p>
+<p>​	注意这里有两个secret.zip，都导一下（导出来是.dat文件，改一下就行），第二个是正确的，且文件没有损坏，可以不用bandizip修复。</p>
+<p>​	然后我们需要找压缩包密码，同理，我们能找到hint文件，把他导出后发现明文攻击的提示</p>
+<p>​	<img src="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526165755124.png"
+	width="1702"
+	height="985"
+	srcset="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526165755124_hu8847985728582059579.png 480w, /p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526165755124_hu11106538409163550936.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250526165755124"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="172"
+		data-flex-basis="414px"
+	
+></p>
+<p>​	这里需要注意的是，hint.txt提取出来是4kb的，我们只需要有文字的那一段就行，就是24个字节，所以要自己新建一个txt，不能直接用导出来的</p>
+<p><img src="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526172117402.png"
+	width="567"
+	height="78"
+	srcset="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526172117402_hu7804027211350027569.png 480w, /p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526172117402_hu14876608668050143035.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250526172117402"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="726"
+		data-flex-basis="1744px"
+	
+></p>
+<p>​	bkcrack跑一下</p>
+<p><img src="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526175750882.png"
+	width="662"
+	height="316"
+	srcset="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526175750882_hu3668234044534767834.png 480w, /p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526175750882_hu11141124641647794094.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250526175750882"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="209"
+		data-flex-basis="502px"
+	
+></p>
+<p>​	得到</p>
+<p><img src="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526175928559.png"
+	width="844"
+	height="313"
+	srcset="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526175928559_hu10302593716520292753.png 480w, /p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526175928559_hu14450607956917283219.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250526175928559"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="269"
+		data-flex-basis="647px"
+	
+></p>
+<p>​	疑惑谐音异或，将文件与search进行异或，得到压缩包</p>
+<p><img src="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180437241.png"
+	width="2013"
+	height="886"
+	srcset="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180437241_hu11109211470061598610.png 480w, /p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180437241_hu2637980568320960182.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250526180437241"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="227"
+		data-flex-basis="545px"
+	
+></p>
+<p>​	压缩包是伪加密，工具嗦一下</p>
+<p><img src="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180701992.png"
+	width="1180"
+	height="684"
+	srcset="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180701992_hu16748987084653110767.png 480w, /p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180701992_hu13901095844958818547.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250526180701992"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="172"
+		data-flex-basis="414px"
+	
+></p>
+<p>​	得到图片，先随波逐流一下，发现最后是图寻</p>
+<p><img src="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180942514.png"
+	width="809"
+	height="1024"
+	srcset="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180942514_hu11188544285212896922.png 480w, /p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180942514_hu17040882843098075921.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250526180942514"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="79"
+		data-flex-basis="189px"
+	
+></p>
+<p>​	exif可以看到GPS定位，然后图片中有商家，搜馋思渝回转小火锅也可以搜到</p>
+<p><img src="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526181149652.png"
+	width="620"
+	height="624"
+	srcset="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526181149652_hu3291841997130213921.png 480w, /p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526181149652_hu5612300862311494658.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250526181149652"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="99"
+		data-flex-basis="238px"
+	
+></p>
+<p><img src="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526182004570.png"
+	width="1305"
+	height="683"
+	srcset="/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526182004570_hu15782906521194881553.png 480w, /p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526182004570_hu8350853895020385185.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250526182004570"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="191"
+		data-flex-basis="458px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">flag{江苏省连云港市海州区陇海步行街}
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/ghctf2025/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">GHCTF2025</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/ssrf/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SSRF</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">轩辕杯wp复盘</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/tgctf2025/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TGCTF2025</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/iclesctf/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ICLESCTF</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 liernian
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.59729e8016d63fb571847b33800c7f0e48c9acdb8eaed3eec3e94d3bcad55aca.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
