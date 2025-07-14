@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=50309&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 \u200b 很久之前的新生赛比赛，用于巩固基础，取证和流量分析会写一下，这里只写web Week1 PangBai 过家家（1） 知识点：http基础、PATCH发包、JWT">
 <title>NewStarCTF2024</title>
 
-<link rel='canonical' href='http://localhost:1313/p/newstarctf2024/'>
+<link rel='canonical' href='http://localhost:50309/p/newstarctf2024/'>
 
 <link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="NewStarCTF2024">
 <meta property='og:description' content="前言 \u200b 很久之前的新生赛比赛，用于巩固基础，取证和流量分析会写一下，这里只写web Week1 PangBai 过家家（1） 知识点：http基础、PATCH发包、JWT">
-<meta property='og:url' content='http://localhost:1313/p/newstarctf2024/'>
+<meta property='og:url' content='http://localhost:50309/p/newstarctf2024/'>
 <meta property='og:site_name' content='liernian'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-07-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-07-03T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="NewStarCTF2024">
@@ -236,11 +236,11 @@
 
                             <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
                                 
-                                    <option value="http://localhost:1313/en/" >English</option>
+                                    <option value="http://localhost:50309/en/" >English</option>
                                 
-                                    <option value="http://localhost:1313/" selected>简体中文</option>
+                                    <option value="http://localhost:50309/" selected>简体中文</option>
                                 
-                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                    <option value="http://localhost:50309/ar/" >عربي</option>
                                 
                             </select>
                         </li>
@@ -410,6 +410,10 @@
             <li><a href="#知识点看不懂">知识点：看不懂</a></li>
           </ol>
         </li>
+      </ol>
+    </li>
+    <li><a href="#week5">Week5</a>
+      <ol>
         <li><a href="#pangbai-过家家5">PangBai 过家家（5）</a>
           <ol>
             <li><a href="#知识点不出网xss">知识点：不出网xss</a></li>
@@ -427,11 +431,17 @@
         </li>
         <li><a href="#臭皮的网站">臭皮的网站</a>
           <ol>
-            <li><a href="#知识点">知识点：</a></li>
+            <li><a href="#知识点cve-2024-23334代码审计">知识点：CVE-2024-23334、代码审计</a></li>
+          </ol>
+        </li>
+        <li><a href="#sqlshell">sqlshell</a>
+          <ol>
+            <li><a href="#知识点sql写马">知识点：sql写马</a></li>
           </ol>
         </li>
       </ol>
     </li>
+    <li><a href="#小结">小结</a></li>
   </ol>
 </nav>
         </div>
@@ -500,7 +510,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 22 分钟
+                    阅读时长: 23 分钟
                 </time>
             </div>
         
@@ -3535,7 +3545,8 @@
 		data-flex-basis="575px"
 	
 ></p>
-<h3 id="pangbai-过家家5">PangBai 过家家（5）
+<h2 id="week5">Week5
+</h2><h3 id="pangbai-过家家5">PangBai 过家家（5）
 </h3><h4 id="知识点不出网xss">知识点：不出网xss
 </h4><p>给了源码的xss，flag在cookie中，但是有waf在</p>
 <div class="highlight"><div class="chroma">
@@ -3872,6 +3883,7 @@
 		data-flex-basis="717px"
 	
 ></p>
+<p>打完访问code.php</p>
 <p><img src="/p/newstarctf2024/image-20250708161902880.png"
 	width="653"
 	height="175"
@@ -3887,8 +3899,132 @@
 	
 ></p>
 <h3 id="臭皮的网站">臭皮的网站
-</h3><h4 id="知识点">知识点：
-</h4><p>注释里有提示<code>aiohttp</code>，查询后发现是</p>
+</h3><h4 id="知识点cve-2024-23334代码审计">知识点：CVE-2024-23334、代码审计
+</h4><p>之前写的的没保存，只剩图片了，讲究讲一下</p>
+<p>CVE-2024-23334，直接读取源码</p>
+<p><img src="/p/newstarctf2024/image-20250709155006477.png"
+	width="1925"
+	height="633"
+	srcset="/p/newstarctf2024/image-20250709155006477_hu14430564974677198795.png 480w, /p/newstarctf2024/image-20250709155006477_hu11655778754281747288.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250709155006477"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="304"
+		data-flex-basis="729px"
+	
+></p>
+<p><img src="/p/newstarctf2024/image-20250709155051199.png"
+	width="1898"
+	height="678"
+	srcset="/p/newstarctf2024/image-20250709155051199_hu4856475107322073361.png 480w, /p/newstarctf2024/image-20250709155051199_hu4963730718257453259.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250709155051199"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="279"
+		data-flex-basis="671px"
+	
+></p>
+<p>审计一下发现admin的账号密码是通过随机数生成的，但是随机种子是固定的，是mac地址，我们读一下mac地址</p>
+<p><img src="/p/newstarctf2024/image-20250709161446499.png"
+	width="1631"
+	height="411"
+	srcset="/p/newstarctf2024/image-20250709161446499_hu16505977455385261240.png 480w, /p/newstarctf2024/image-20250709161446499_hu7395537271670417666.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250709161446499"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="396"
+		data-flex-basis="952px"
+	
+></p>
+<p>然后写代码把密码跑出来</p>
+<p><img src="/p/newstarctf2024/image-20250709162618911.png"
+	width="1535"
+	height="894"
+	srcset="/p/newstarctf2024/image-20250709162618911_hu2061494321948493581.png 480w, /p/newstarctf2024/image-20250709162618911_hu14815742543154925252.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250709162618911"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="171"
+		data-flex-basis="412px"
+	
+></p>
+<p>登录成功</p>
+<p><img src="/p/newstarctf2024/image-20250709162711258.png"
+	width="838"
+	height="557"
+	srcset="/p/newstarctf2024/image-20250709162711258_hu11820155577958461829.png 480w, /p/newstarctf2024/image-20250709162711258_hu13636897233400814113.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250709162711258"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="150"
+		data-flex-basis="361px"
+	
+></p>
+<p>文件上传传一个ls文件，注意文件名和内容</p>
+<p><img src="/p/newstarctf2024/image-20250709163102547.png"
+	width="1021"
+	height="679"
+	srcset="/p/newstarctf2024/image-20250709163102547_hu9663171408448960224.png 480w, /p/newstarctf2024/image-20250709163102547_hu12406327076270389562.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250709163102547"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="150"
+		data-flex-basis="360px"
+	
+></p>
+<p>访问，获取flag文件名</p>
+<p><img src="/p/newstarctf2024/image-20250709163116984.png"
+	width="913"
+	height="193"
+	srcset="/p/newstarctf2024/image-20250709163116984_hu7537999415132232141.png 480w, /p/newstarctf2024/image-20250709163116984_hu10543109966375521264.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250709163116984"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="473"
+		data-flex-basis="1135px"
+	
+></p>
+<p>然后可以直接再读取了</p>
+<p><img src="/p/newstarctf2024/image-20250709163234307.png"
+	width="1833"
+	height="519"
+	srcset="/p/newstarctf2024/image-20250709163234307_hu4835101552188794663.png 480w, /p/newstarctf2024/image-20250709163234307_hu15391972988879425945.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250709163234307"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="353"
+		data-flex-basis="847px"
+	
+></p>
+<h3 id="sqlshell">sqlshell
+</h3><h4 id="知识点sql写马">知识点：sql写马
+</h4><p>最讨厌sql，官方exp跑不出，这里放一放</p>
+<h2 id="小结">小结
+</h2><p>newstar总体来说质量还是很高的，但是很多题目都是自己直接看wp复现的，所以成就感不高，不过也颇有收获。</p>
 
 </section>
 
@@ -3910,19 +4046,6 @@
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
-            
-                
-<article class="">
-    <a href="/p/hnctf2025/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">H&amp;NCTF2025</h2>
-        </div>
-    </a>
-</article>
-
             
                 
 <article class="">
@@ -3971,6 +4094,19 @@
 
         <div class="article-details">
             <h2 class="article-title">ICLESCTF</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/tgctf2025/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TGCTF2025</h2>
         </div>
     </a>
 </article>
