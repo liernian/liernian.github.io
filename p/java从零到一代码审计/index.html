@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=50309&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 大二暑假开始系统学习java，并记录自己的学习过程和知识点总结。虽然专业课已经学过java了，有一些基础，但是代码审计还是需要知道详细的">
 <title>Java从零到一代码审计</title>
 
-<link rel='canonical' href='http://localhost:50309/p/java%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/'>
+<link rel='canonical' href='http://localhost:1313/p/java%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/'>
 
 <link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Java从零到一代码审计">
 <meta property='og:description' content="前言 大二暑假开始系统学习java，并记录自己的学习过程和知识点总结。虽然专业课已经学过java了，有一些基础，但是代码审计还是需要知道详细的">
-<meta property='og:url' content='http://localhost:50309/p/java%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/'>
+<meta property='og:url' content='http://localhost:1313/p/java%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/'>
 <meta property='og:site_name' content='liernian'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-07-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-07-11T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="Java从零到一代码审计">
@@ -236,11 +236,11 @@
 
                             <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
                                 
-                                    <option value="http://localhost:50309/en/" >English</option>
+                                    <option value="http://localhost:1313/en/" >English</option>
                                 
-                                    <option value="http://localhost:50309/" selected>简体中文</option>
+                                    <option value="http://localhost:1313/" selected>简体中文</option>
                                 
-                                    <option value="http://localhost:50309/ar/" >عربي</option>
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
                                 
                             </select>
                         </li>
@@ -325,7 +325,7 @@
             <li><a href="#创建对象">创建对象</a></li>
             <li><a href="#匿名对象">匿名对象</a></li>
             <li><a href="#访问对象的成员和方法">访问对象的成员和方法</a></li>
-            <li><a href="#修饰符详解">修饰符详解</a></li>
+            <li><a href="#修饰符">修饰符</a></li>
             <li><a href="#mian方法">mian方法</a></li>
             <li><a href="#构造方法">构造方法</a></li>
             <li><a href="#包">包</a></li>
@@ -338,8 +338,25 @@
             <li><a href="#对象类型转型">对象类型转型</a></li>
             <li><a href="#重载与重写">重载与重写</a></li>
             <li><a href="#interface">interface</a></li>
+            <li><a href="#实现接口">实现接口</a></li>
           </ol>
         </li>
+        <li><a href="#javase小结">JavaSE小结</a></li>
+      </ol>
+    </li>
+    <li><a href="#javaee">JavaEE</a>
+      <ol>
+        <li><a href="#mvc架构简介">MVC架构简介</a></li>
+        <li><a href="#jdbc">JDBC</a>
+          <ol>
+            <li><a href="#jdbc驱动程序">JDBC驱动程序</a></li>
+            <li><a href="#jdbc架构">JDBC架构</a></li>
+            <li><a href="#api">API</a></li>
+            <li><a href="#jdbc代码实现">JDBC代码实现</a></li>
+            <li><a href="#jdbc小结">JDBC小结</a></li>
+          </ol>
+        </li>
+        <li><a href="#servlet">Servlet</a></li>
       </ol>
     </li>
   </ol>
@@ -406,7 +423,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 15 分钟
+                    阅读时长: 19 分钟
                 </time>
             </div>
         
@@ -435,8 +452,8 @@
 <div class="table-wrapper"><table>
 <thead>
 <tr>
-<th></th>
-<th></th>
+<th>类别</th>
+<th>内容</th>
 </tr>
 </thead>
 <tbody>
@@ -489,10 +506,11 @@
 <p><code>final int a=10</code>不可修改</p>
 <p><code>public static final double PI = 3.14</code>静态常量，不可修改，不用实例化对象就可以引用</p>
 <p>static final</p>
+<p>整数常量值</p>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
-<th></th>
+<th>进制</th>
 <th></th>
 </tr>
 </thead>
@@ -523,8 +541,8 @@
 <div class="table-wrapper"><table>
 <thead>
 <tr>
-<th></th>
-<th></th>
+<th>类别</th>
+<th>特点</th>
 </tr>
 </thead>
 <tbody>
@@ -539,10 +557,6 @@
 <tr>
 <td>代码块局部变量（代码块内定义）：</td>
 <td>从定义这个变量开始到代码块结束这一段时间内有效。（异常处理语句）</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
 </tr>
 </tbody>
 </table></div>
@@ -1516,7 +1530,7 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>静态方法、变量可以不需要实例化对象就可以调用</p>
-<h4 id="修饰符详解">修饰符详解
+<h4 id="修饰符">修饰符
 </h4><div class="table-wrapper"><table>
 <thead>
 <tr>
@@ -1562,8 +1576,8 @@
 <div class="table-wrapper"><table>
 <thead>
 <tr>
-<th></th>
-<th></th>
+<th>类别</th>
+<th>作用</th>
 </tr>
 </thead>
 <tbody>
@@ -1575,10 +1589,6 @@
 <td>静态方法</td>
 <td>静态方法不需要通过它所属的类的任何实例就可以被调用</td>
 </tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table></div>
 <p><strong>final</strong></p>
@@ -1586,8 +1596,8 @@
 <div class="table-wrapper"><table>
 <thead>
 <tr>
-<th></th>
-<th></th>
+<th>final修饰</th>
+<th>特点</th>
 </tr>
 </thead>
 <tbody>
@@ -1607,18 +1617,14 @@
 <td>类</td>
 <td>无法被继承</td>
 </tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table></div>
 <p><strong>abstract</strong></p>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
-<th></th>
-<th></th>
+<th>类别</th>
+<th>特点</th>
 </tr>
 </thead>
 <tbody>
@@ -1629,10 +1635,6 @@
 <tr>
 <td>抽象方法</td>
 <td>没有方法体、必须存在于抽象类中、子类重写父类时，必须重写父类所有的抽象方法</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
 </tr>
 </tbody>
 </table></div>
@@ -1906,7 +1908,346 @@
 </span></span></span><span class="line"><span class="cl"><span class="cm">*/</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
+</div><h4 id="实现接口">实现接口
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="kd">public</span><span class="o">&gt;</span><span class="w"> </span><span class="kd">class</span> <span class="err">&lt;</span><span class="nc">class_name</span><span class="o">&gt;</span><span class="w"> </span><span class="o">[</span><span class="kd">extends</span><span class="w"> </span><span class="n">superclass_name</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="kd">implements</span><span class="w"> </span><span class="n">interface1_name</span><span class="o">[</span><span class="p">,</span><span class="w"> </span><span class="n">interface2_name</span><span class="err">…</span><span class="o">]]</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 主体</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">public：类的修饰符；
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">superclass_name：需要继承的父类名称；
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">interface1_name：要实现的接口名称。可以实现多个接口
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
+</div><h3 id="javase小结">JavaSE小结
+</h3><p>java的基础知识还是需要一些时间啃下来的。不过因为专业课学过，有些基础，这里就很简单的过一遍了，接下来学习JavaEE！</p>
+<h2 id="javaee">JavaEE
+</h2><p>JavaEE拥有十三种核心技术，重点关注以下技术</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>技术</th>
+<th>简介</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JDBC</td>
+<td>（Java DataBase Connectivity）Java数据库链接</td>
+</tr>
+<tr>
+<td>Servlet</td>
+<td>用 Java 编写的服务器端程序，用于互式地浏览和修改数据，生成动态 Web 内容。</td>
+</tr>
+<tr>
+<td>JSP</td>
+<td>（Java ServerPages）一种动态网页技术标准JSP 部署于网络服务器上，可以响应客户端发送的请求，并根据请求内容动态地生成 HTML、XML 或其他格式文档的 Web 网页，然后返回给请求者。</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="mvc架构简介">MVC架构简介
+</h3><p>是一种架构模式，强制性的使应用程序的<strong>输入、处理和输出</strong>分开。使用MVC应用程序被分为三个核心部件：<strong>模型、视图、控制器</strong>。他们各自处理自己的任务</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>部件</th>
+<th>简介</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>视图</td>
+<td>用户看到并与之交互的界面JSP</td>
+</tr>
+<tr>
+<td>模型</td>
+<td>表示企业数据（数据模型：dao）和业务规划以及操作（service）</td>
+</tr>
+<tr>
+<td>控制器</td>
+<td>表示用户的输入并调用模型和视图去完成用户的需求</td>
+</tr>
+</tbody>
+</table></div>
+<p>通常Java Web应用可以分为：视图层、控制层、业务逻辑层、数据库访问层，关系如图：</p>
+<p><img src="/p/java%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250715180524273.png"
+	width="310"
+	height="463"
+	srcset="/p/java%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250715180524273_hu8818009594156395274.png 480w, /p/java%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250715180524273_hu6891209008711707692.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="66"
+		data-flex-basis="160px"
+	
+></p>
+<p>这里简单带过。</p>
+<h3 id="jdbc">JDBC
+</h3><p>参考链接：<a class="link" href="https://blog.csdn.net/m0_37761437/article/details/110468944"  target="_blank" rel="noopener"
+    >Java中JDBC的超详细总结</a></p>
+<p>*Java数据库链接（Java DataBase Connectivity，JDBC）*是java语言中用于规范客户端程序如何访问数据库的应用程序接口的一个规范。提供了很多方法用于查询、更新数据库等等</p>
+<p>JDBC是由一组用Java语言编写的类和接口组成的。提供了一整套接口，允许以一种可移植的访问底层数据库API。*<em>在java.sql.<em>包下</em></em>。</p>
+<p>大致作用如下</p>
+<p><img src="/p/java%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/b144becbe08c2f166d894299522ecb59.png"
+	width="1456"
+	height="592"
+	srcset="/p/java%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/b144becbe08c2f166d894299522ecb59_hu10127710731627766437.png 480w, /p/java%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/b144becbe08c2f166d894299522ecb59_hu16035663901405414650.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="245"
+		data-flex-basis="590px"
+	
+></p>
+<h4 id="jdbc驱动程序">JDBC驱动程序
+</h4><p>JDBC驱动程序在JDBC API中实现定义的接口，用于数据库服务器执行交互</p>
+<p><em>例：可以用</em>JDBC驱动程序发送sql或数据库命令，使Java接受结果来打开数据库链接并交互</p>
+<p>分为四种类型：</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>简介</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JDBC-ODBC桥</td>
+<td>把JDBC的调用传递给ODBC，然后后者调用数据库本地驱动代码</td>
+</tr>
+<tr>
+<td>本地API驱动</td>
+<td>本地加载数据库厂商提供的本地代码库访问数据库</td>
+</tr>
+<tr>
+<td>网络协议驱动</td>
+<td>提供一个网络API，使用Socket调用服务器上的中间件程序，将请求转化为所需的具体API调用</td>
+</tr>
+<tr>
+<td><strong>本地协议驱动</strong> （常用）</td>
+<td>使用Socket直接在客户端和数据库间通信</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="jdbc架构">JDBC架构
+</h4><p>两层架构，了解即可，应用 &ndash;&gt; API &ndash;&gt; JDBC驱动程序。这个被包含在数据库访问层</p>
+<p><img src="/p/java%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250715103535986.png"
+	width="730"
+	height="566"
+	srcset="/p/java%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250715103535986_hu12640837911627168754.png 480w, /p/java%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250715103535986_hu1763007463731873804.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="128"
+		data-flex-basis="309px"
+	
+></p>
+<h4 id="api">API
+</h4><p>位于java.sql包与javax.sql包中，主要包括以下接口和类</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>接口/类</th>
+<th>简介</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DriverManager类</td>
+<td>负责管理数据库驱动程序</td>
+</tr>
+<tr>
+<td>Driver接口</td>
+<td>处理与数据库服务器之间的通信</td>
+</tr>
+<tr>
+<td>Connection接口</td>
+<td>负责数据库链接，并与数据库通讯</td>
+</tr>
+<tr>
+<td>Statement接口</td>
+<td>创捷的对象用于执行SQL语句（<strong>过滤不当可能会有Sql注入</strong>）</td>
+</tr>
+<tr>
+<td>PreparedStatement</td>
+<td>执行包含动态参数的SQL语句（在服务器端编译）比较安全的的接</td>
+</tr>
+<tr>
+<td>ResultSet</td>
+<td>保存检索数据的对象</td>
+</tr>
+<tr>
+<td>CallableStatement</td>
+<td>用于数据库中的存储过程</td>
+</tr>
+<tr>
+<td>SQLException</td>
+<td>错误</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="jdbc代码实现">JDBC代码实现
+</h4><h5 id="前置条件">前置条件
+</h5><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>所需环境</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Java环境</td>
+<td>我这里用的是<em>burpsuite</em>自带的<code>JDK11.0.11</code></td>
+</tr>
+<tr>
+<td>mysql</td>
+<td>我这里用的是<em>phpstudy</em>自带的<code>MYSQL5.7.26</code></td>
+</tr>
+<tr>
+<td>mysql驱动</td>
+<td><a class="link" href="https://downloads.mysql.com/archives/c-j/"  target="_blank" rel="noopener"
+    >MYSQL Connector/J</a> 下载5.1.49版本，符合我的mysql版本</td>
+</tr>
+</tbody>
+</table></div>
+<h5 id="具体代码">具体代码
+</h5><p>该代码实现了JDBC链接数据库，执行<code>select * from users</code>语句并返回</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.sql.Connection</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.sql.DriverManager</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.sql.ResultSet</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.sql.SQLException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.sql.Statement</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">class</span> <span class="nc">jdbcTest1</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//注册驱动</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Class</span><span class="p">.</span><span class="na">forName</span><span class="p">(</span><span class="s">&#34;com.mysql.jdbc.Driver&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//获取数据库链接</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Connection</span><span class="w"> </span><span class="n">con</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DriverManager</span><span class="p">.</span><span class="na">getConnection</span><span class="p">(</span><span class="s">&#34;jdbc:mysql://localhost:3306/test?useSSL=false&#34;</span><span class="p">,</span><span class="s">&#34;liernian&#34;</span><span class="p">,</span><span class="s">&#34;123456&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//获取执行者对象</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Statement</span><span class="w"> </span><span class="n">stat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">con</span><span class="p">.</span><span class="na">createStatement</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//执行sql语句并返回结果</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">sql</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;select * from users&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ResultSet</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stat</span><span class="p">.</span><span class="na">executeQuery</span><span class="p">(</span><span class="n">sql</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//处理结果</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">while</span><span class="p">(</span><span class="n">res</span><span class="p">.</span><span class="na">next</span><span class="p">()){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">res</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">&#34;username&#34;</span><span class="p">)</span><span class="o">+</span><span class="s">&#34;\t&#34;</span><span class="o">+</span><span class="n">res</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">&#34;email&#34;</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//释放资源</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">con</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">/*输出如下
+</span></span></span><span class="line"><span class="cl"><span class="cm">*test1   test1@runoob.com
+</span></span></span><span class="line"><span class="cl"><span class="cm">*test2   test2@runoob.com
+</span></span></span><span class="line"><span class="cl"><span class="cm">*test3   test3@runoob.com
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/java%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250715130352069.png"
+	width="1017"
+	height="934"
+	srcset="/p/java%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250715130352069_hu6077013077427376220.png 480w, /p/java%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250715130352069_hu7084202082492531585.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250715130352069"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="108"
+		data-flex-basis="261px"
+	
+></p>
+<h5 id="产生的问题与问题解决">产生的问题与问题解决
+</h5><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>出现的问题</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无数据库无表无数据</td>
+<td>用phpstudy便捷创建名为test的数据库<br />在菜鸟教程中搜到现有的创建数据表和插入数据的语句并使用</td>
+</tr>
+<tr>
+<td>未找到驱动产生的报错</td>
+<td>在目录下创建lib文件夹，并把驱动的jar文件放入，用IDEA的话需要配置moudle添加ja文件</td>
+</tr>
+<tr>
+<td>链接数据库失败</td>
+<td>包证mysql的运行，检查数据库名是否正确、数据库用户名与密码是否正确，</td>
+</tr>
+<tr>
+<td>查询语句错误</td>
+<td>确保test库下的users表中列名存在username与emaii</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="jdbc小结">JDBC小结
+</h4><p>JDBC告一段落，最后以实现连接数据库连接作为结尾。本来还有JDBC封装工具类的代码，和JDBC代码使用解析的，不过那些内容有点偏向开发了，权衡再三决定先放下JDBC投入Servlet的学习</p>
+<h3 id="servlet">Servlet
+</h3><p>Servlet对于java代码审计十分重要，这里会详细的记录</p>
+<p>Servlet是基于Java的动态网站开发技术，有java环境后，再安装一个Web容器就可以运行Servlet代码，这里选用Tomcat</p>
+<p>我用的是bp自带的JDK11.0.11，根据Tomcat自带的版本对应，我选择了10.1.43版本</p>
+
 </section>
 
 
@@ -1927,6 +2268,19 @@
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982024%E5%A4%8D%E7%8E%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">极客大挑战2024复现</h2>
+        </div>
+    </a>
+</article>
+
             
                 
 <article class="">
@@ -1975,19 +2329,6 @@
 
         <div class="article-details">
             <h2 class="article-title">FCTF2025</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/litctf%E5%A4%8D%E7%8E%B0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Litctf复现</h2>
         </div>
     </a>
 </article>
