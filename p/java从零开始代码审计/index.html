@@ -346,7 +346,7 @@
     </li>
     <li><a href="#javaee">JavaEE</a>
       <ol>
-        <li><a href="#mvc架构简介">MVC架构简介</a></li>
+        <li><a href="#mvc架构">MVC架构</a></li>
         <li><a href="#jdbc">JDBC</a>
           <ol>
             <li><a href="#jdbc驱动程序">JDBC驱动程序</a></li>
@@ -359,10 +359,22 @@
         <li><a href="#servlet">Servlet</a>
           <ol>
             <li><a href="#配置">配置</a></li>
+            <li><a href="#servlet简单代码实现">Servlet简单代码实现</a></li>
+          </ol>
+        </li>
+        <li><a href="#filter过滤器">Filter过滤器</a>
+          <ol>
+            <li><a href="#filter简单代码实现">Filter简单代码实现</a></li>
+          </ol>
+        </li>
+        <li><a href="#jsp">JSP</a>
+          <ol>
+            <li><a href="#jsp简单代码实现">JSP简单代码实现</a></li>
           </ol>
         </li>
       </ol>
     </li>
+    <li><a href="#总结">总结</a></li>
   </ol>
 </nav>
         </div>
@@ -427,7 +439,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 20 分钟
+                    阅读时长: 28 分钟
                 </time>
             </div>
         
@@ -444,6 +456,12 @@
     
     <h2 id="前言">前言
 </h2><p>大二暑假开始系统学习java，并记录自己的学习过程和知识点总结。虽然专业课已经学过java了，有一些基础，但是代码审计还是需要知道详细的语法知识，这里还是重新学一遍，不然也不算是从零到一。</p>
+<p>另外这篇笔记仅仅记录到javaweb的基础实现。</p>
+<p>主要参考视频</p>
+<p><a class="link" href="https://www.bilibili.com/video/BV1yP411S7EH?spm_id_from=333.788.videopod.sections&amp;vd_source=efe0f8b3536039028029a17a2ed95a3f"  target="_blank" rel="noopener"
+    >问道安全工防实验室</a></p>
+<p><a class="link" href="https://www.bilibili.com/video/BV1mprpYDE8B?spm_id_from=333.788.videopod.sections&amp;vd_source=efe0f8b3536039028029a17a2ed95a3f"  target="_blank" rel="noopener"
+    >MS08067安全实验室</a></p>
 <h2 id="javase">JavaSE
 </h2><p>JavaSE就是java编程的一些基础，后续的JavaEE就是Java Web了。</p>
 <p>参考文章：https://c.biancheng.net/java/20/</p>
@@ -1965,7 +1983,7 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="mvc架构简介">MVC架构简介
+<h3 id="mvc架构">MVC架构
 </h3><p>是一种架构模式，强制性的使应用程序的<strong>输入、处理和输出</strong>分开。使用MVC应用程序被分为三个核心部件：<strong>模型、视图、控制器</strong>。他们各自处理自己的任务</p>
 <div class="table-wrapper"><table>
 <thead>
@@ -1989,7 +2007,55 @@
 </tr>
 </tbody>
 </table></div>
-<p>通常Java Web应用可以分为：视图层、控制层、业务逻辑层、数据库访问层，关系如图：</p>
+<p>在java架构模式中，MVC可以抽象为如下结构</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>层次</th>
+<th>解释/可采用技术</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>View层</td>
+<td>UI层，可采用JSP、Structs、SpringMVC等技术</td>
+</tr>
+<tr>
+<td>Controller层</td>
+<td>控制层，可采用Servlet/Filter、Spring等技术</td>
+</tr>
+<tr>
+<td>Service层</td>
+<td>核心服务层，向架构上层提供服务</td>
+</tr>
+<tr>
+<td>DAO层</td>
+<td>数据访问层，可采用JDBC和ORM框架（如Spring JDBC，Hibernate，Mybaits）技术</td>
+</tr>
+<tr>
+<td>Moudel层</td>
+<td>java底层的一些对象</td>
+</tr>
+<tr>
+<td>Utilities层</td>
+<td>用JDBC封装的工具类</td>
+</tr>
+</tbody>
+</table></div>
+<p>框架如下</p>
+<p><img src="/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716160008314.png"
+	width="1921"
+	height="915"
+	srcset="/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716160008314_hu2145258651858064658.png 480w, /p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716160008314_hu7051915259046636780.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="209"
+		data-flex-basis="503px"
+	
+></p>
+<p><em>通常Java Web应用可以分为：视图层、控制层、业务逻辑层、数据库访问层，关系如图：</em></p>
 <p><img src="/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250715180524273.png"
 	width="310"
 	height="463"
@@ -2248,10 +2314,22 @@
 <h4 id="jdbc小结">JDBC小结
 </h4><p>JDBC告一段落，最后以实现连接数据库连接作为结尾。本来还有JDBC封装工具类的代码，和JDBC代码使用解析的，不过那些内容有点偏向开发了，权衡再三决定先放下JDBC投入Servlet的学习</p>
 <h3 id="servlet">Servlet
-</h3><p>Servlet对于java代码审计十分重要，这里会详细的记录</p>
-<p>Servlet是基于Java的动态网站开发技术，有java环境后，再安装一个Web容器就可以运行Servlet代码，这里选用Tomcat</p>
+</h3><p>Servlet是基于Java的动态网站开发技术，主要用于处理用户的请求，执行流程如下</p>
+<p><img src="/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716161704982.png"
+	width="1305"
+	height="585"
+	srcset="/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716161704982_hu15147980213143228915.png 480w, /p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716161704982_hu12116629568871362775.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="223"
+		data-flex-basis="535px"
+	
+></p>
 <h4 id="配置">配置
-</h4><p>我用的是bp自带的JDK11.0.11，根据Tomcat官方的版本对应，我选择了10.1.43版本</p>
+</h4><p>有java环境后，再安装一个Web容器就可以运行Servlet代码，这里选用Tomcat</p>
+<p>我用的是bp自带的JDK11.0.11，根据Tomcat官方的版本对应，我选择了10.1.43版本</p>
 <p>然后在IDEA新建项目配置Tomcat</p>
 <p><em>新建项目（填好名称选好保存位置和JDK） &ndash;&gt; 右键根目录选择添加框架支持 &ndash;&gt;  选择Web应用程序（勾选创建web.xml） &ndash;&gt;  确定后点击右上角添加配置，再点加号，选择本地的Tomcat  &ndash;&gt;  配置tomcat的绝对路径，url，端口等  &ndash;&gt;  确定后即创建好了容器</em></p>
 <p>大致如下</p>
@@ -2269,6 +2347,665 @@
 ></p>
 <p>然后是Servlet环境部署</p>
 <p><em>项目中创建libs目录存放servlet-api.jar（Tomcat的lib目录里有）  &ndash;&gt;  创建servlet包，存放servlet代码  &ndash;&gt;  在包内创建IndexServlet实现Servlet重写方法  &ndash;&gt;  IndexServlet类中加上@WebServlet(&quot;/miracle&quot;)注解定义URL访问的路径  &ndash;&gt;  重写Servlet类中service，在service中编写动态资源</em></p>
+<h4 id="servlet简单代码实现">Servlet简单代码实现
+</h4><p>这段代码直接接入了Servlet接口，这样的化Servlet的所有方法就都需要重写一遍（注释中也有提及），一般开发的时候会继承HttpServlet，这样就只需关心doGet或者doPost了。（后续Filter过滤器的实现会采用继承HttpServlet）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.web.servlet</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.servlet.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.servlet.annotation.WebServlet</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.IOException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.PrintWriter</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@WebServlet</span><span class="p">(</span><span class="s">&#34;/miracle&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">IndexServlet</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Servlet</span><span class="w"> </span><span class="p">{</span><span class="w">    </span><span class="c1">//接入Servlet接口</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">  </span><span class="c1">//重写Servlet的init()，该方法在启动容器的时候自动调用，方法体为空，并抛出异常至ServletException</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">init</span><span class="p">(</span><span class="n">ServletConfig</span><span class="w"> </span><span class="n">servletConfig</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w"> </span><span class="c1">//重写Servlet的getServletConfig()，方法体为返回空</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">ServletConfig</span><span class="w"> </span><span class="nf">getServletConfig</span><span class="p">(){</span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w"> </span><span class="c1">//重写Servlet的 service()，该方法用于处理用户请求，参数为servlet的请求和返回，方法体逻辑为获取get请求的username参数，若参数值为liuhuaqing，返回可以访问，反之，则返回无法访问。并抛出异常至ServletException()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">service</span><span class="p">(</span><span class="n">ServletRequest</span><span class="w"> </span><span class="n">servletRequest</span><span class="p">,</span><span class="w"> </span><span class="n">ServletResponse</span><span class="w"> </span><span class="n">servletResponse</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="p">,</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">userName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">servletRequest</span><span class="p">.</span><span class="na">getParameter</span><span class="p">(</span><span class="s">&#34;userName&#34;</span><span class="p">);</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">servletResponse</span><span class="p">.</span><span class="na">setContentType</span><span class="p">(</span><span class="s">&#34;text/html;charset=utf-8&#34;</span><span class="p">);</span><span class="w"> </span><span class="c1">//避免返回时出现乱码</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">PrintWriter</span><span class="w"> </span><span class="n">writer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">servletResponse</span><span class="p">.</span><span class="na">getWriter</span><span class="p">();</span><span class="c1">//导入write对象，用于调用PrintWriter的println方法。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="s">&#34;liuhuaqing&#34;</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">userName</span><span class="p">)){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">writer</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;可以访问&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">writer</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;无法访问&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="n">writer</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w"> </span><span class="c1">//重写getServletInfo()，方法体返回空</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getServletInfo</span><span class="p">(){</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w"> </span><span class="c1">//重写destroy()，无方法体</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">destroy</span><span class="p">(){</span><span class="w">   </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><em>注：鼠标点击并停在那里可以通过ALT+SHIFT+ENTER快捷键快速导入类</em></p>
+<p><img src="/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/2efe60bd-8c09-4d1a-ab49-d7b9dc203ac7.png"
+	width="1011"
+	height="694"
+	srcset="/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/2efe60bd-8c09-4d1a-ab49-d7b9dc203ac7_hu1088461389626588644.png 480w, /p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/2efe60bd-8c09-4d1a-ab49-d7b9dc203ac7_hu17215615494787118348.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="145"
+		data-flex-basis="349px"
+	
+></p>
+<p>运行服务器</p>
+<p><img src="/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716152606989.png"
+	width="1055"
+	height="562"
+	srcset="/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716152606989_hu5335345896838994664.png 480w, /p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716152606989_hu16068899862589135051.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="187"
+		data-flex-basis="450px"
+	
+></p>
+<h3 id="filter过滤器">Filter过滤器
+</h3><p>用于对Servlet容器传给Web资源的request对象和response对象执行检查和修改。</p>
+<p>无法被直接访问，也不能生成request对象和response对象，执行提供一些过滤功能</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1.在Web资源被访问前，检查request对象，修改请求头和请求正文，或对请求执行预处理操作。
+</span></span><span class="line"><span class="cl">2.将请求传递到下一个过滤器或目标资源。
+</span></span><span class="line"><span class="cl">3.在Web资源被访问后，检查response对象，修改响应头和响应正文。
+</span></span><span class="line"><span class="cl">（并不是必须将请求传递到下一个过滤器或目标资源，也可也自行处理，并发送响应给客户端，也可以请求转发或重定向到其他Web资源）
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>工作流程如下</p>
+<p><img src="/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716162727969.png"
+	width="738"
+	height="297"
+	srcset="/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716162727969_hu13838092961093451301.png 480w, /p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716162727969_hu10487524583222438702.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250716162727969"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="248"
+		data-flex-basis="596px"
+	
+></p>
+<h4 id="filter简单代码实现">Filter简单代码实现
+</h4><p>因为Filter在Servlet容器内，所以写Filter时也要更改一下Servlet代码，这里我们继承HttpServlet比直接接入Servlet接口更加方便</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.web.servlet</span><span class="p">;</span><span class="w"> </span><span class="c1">// 替换成你自己的包名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.servlet.ServletException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.servlet.annotation.WebServlet</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.servlet.http.HttpServlet</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.servlet.http.HttpServletRequest</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.servlet.http.HttpServletResponse</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.IOException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.PrintWriter</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 注意：我们现在继承HttpServlet，这是一个更方便的抽象类。
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@WebServlet</span><span class="p">(</span><span class="s">&#34;/miracle&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">IndexServlet</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">HttpServlet</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 处理GET和POST请求的通用方法。
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 因为Filter已经完成了权限检查，所以这里的代码可以假设用户是合法的。
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Servlet的职责变得更加单一：只为合法用户提供服务。
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">service</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">response</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="p">,</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 注意：这里的response编码已经在Filter中设置过了，但为了代码健壮性，再设置一次也无妨。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// response.setContentType(&#34;text/html;charset=UTF-8&#34;);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">PrintWriter</span><span class="w"> </span><span class="n">writer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">response</span><span class="p">.</span><span class="na">getWriter</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">writer</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;&lt;h1&gt;欢迎, &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">request</span><span class="p">.</span><span class="na">getParameter</span><span class="p">(</span><span class="s">&#34;userName&#34;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;!&lt;/h1&gt;&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">writer</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;&lt;p&gt;你已成功通过Filter的验证，可以访问此核心资源。&lt;/p&gt;&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">writer</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Filter代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.web.servlet</span><span class="p">;</span><span class="w"> </span><span class="c1">// 替换成你自己的包名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.servlet.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.servlet.annotation.WebFilter</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.IOException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.PrintWriter</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 一个用于身份验证的过滤器
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @WebFilter注解用于声明这是一个Filter。
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * &#34;urlPatterns&#34;属性指定了这个过滤器要拦截的URL模式。
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * &#34;/miracle&#34;意味着任何访问&#34;/miracle&#34;这个路径的请求都会先被这个Filter拦截。
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@WebFilter</span><span class="p">(</span><span class="n">urlPatterns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;/miracle&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">AuthFilter</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">//接入Filter接口</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">  </span><span class="c1">//重写init</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">init</span><span class="p">(</span><span class="n">FilterConfig</span><span class="w"> </span><span class="n">filterConfig</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// Filter初始化时调用，通常用于加载一些资源。这里我们暂时不需要。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;AuthFilter 初始化...&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 核心方法：每次请求匹配的URL时，都会执行此方法。
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param request  请求对象
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param response 响应对象
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param chain    过滤器链，这是最重要的部分！
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w"> </span><span class="c1">//重写doFilter</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doFilter</span><span class="p">(</span><span class="n">ServletRequest</span><span class="w"> </span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">ServletResponse</span><span class="w"> </span><span class="n">response</span><span class="p">,</span><span class="w"> </span><span class="n">FilterChain</span><span class="w"> </span><span class="n">chain</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="p">,</span><span class="w"> </span><span class="n">ServletException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;AuthFilter 开始工作...&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 1. 在请求到达Servlet前进行处理</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 统一设置编码 (这是一个非常好的实践)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">request</span><span class="p">.</span><span class="na">setCharacterEncoding</span><span class="p">(</span><span class="s">&#34;UTF-8&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">response</span><span class="p">.</span><span class="na">setContentType</span><span class="p">(</span><span class="s">&#34;text/html;charset=UTF-8&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 2. 执行安全检查</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">userName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">request</span><span class="p">.</span><span class="na">getParameter</span><span class="p">(</span><span class="s">&#34;userName&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="s">&#34;liuhuaqing&#34;</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">userName</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// 用户名正确，放行！</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// 调用chain.doFilter()将请求传递给下一个过滤器或目标Servlet，Filter链可在web.xml中配置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;用户名正确，放行！&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">chain</span><span class="p">.</span><span class="na">doFilter</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">response</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// 用户名错误，拦截！</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// 直接向客户端返回错误信息，不调用chain.doFilter()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;用户名错误，拦截！&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">PrintWriter</span><span class="w"> </span><span class="n">writer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">response</span><span class="p">.</span><span class="na">getWriter</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">writer</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;&lt;h1&gt;非法访问，禁止入内！&lt;/h1&gt;&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">writer</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;&lt;p&gt;你的用户名不正确，无法访问受保护的资源。&lt;/p&gt;&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">writer</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 3. 在Servlet处理完请求，响应返回客户端前，也可以进行处理（这里我们没做）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;AuthFilter 工作结束。&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">destroy</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// Filter销毁时调用。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;AuthFilter 销毁...&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>服务器运行如下</p>
+<p><img src="/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716165405228.png"
+	width="1236"
+	height="497"
+	srcset="/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716165405228_hu13484751917095311878.png 480w, /p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716165405228_hu12975335050790695889.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250716165405228"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="248"
+		data-flex-basis="596px"
+	
+></p>
+<p><img src="/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716165340330.png"
+	width="1127"
+	height="508"
+	srcset="/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716165340330_hu8207402403095179941.png 480w, /p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716165340330_hu3761203153559612394.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250716165340330"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="221"
+		data-flex-basis="532px"
+	
+></p>
+<p>控制台输出如下</p>
+<p><img src="/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716165726824.png"
+	width="1227"
+	height="313"
+	srcset="/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716165726824_hu15072901925488074072.png 480w, /p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716165726824_hu4237889373391366155.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250716165726824"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="392"
+		data-flex-basis="940px"
+	
+></p>
+<h3 id="jsp">JSP
+</h3><p>封装了Servlet（本质就是一个Servlet），作用于网页前端（类似于PHP），可以在html文件里插入java代码</p>
+<h4 id="jsp简单代码实现">JSP简单代码实现
+</h4><p>还是不多花时间在JSP的语法上了，这里找ai写了个语法大全实例。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;%--
+</span></span><span class="line"><span class="cl">  Created by IntelliJ IDEA.
+</span></span><span class="line"><span class="cl">  User: 28105
+</span></span><span class="line"><span class="cl">  Date: 2025/7/16
+</span></span><span class="line"><span class="cl">  Time: 14:44
+</span></span><span class="line"><span class="cl">  To change this template use File | Settings | File Templates.
+</span></span><span class="line"><span class="cl">--%&gt;
+</span></span><span class="line"><span class="cl">&lt;%@ page language=&#34;java&#34; contentType=&#34;text/html; charset=UTF-8&#34; pageEncoding=&#34;UTF-8&#34;%&gt;
+</span></span><span class="line"><span class="cl">&lt;%@ page import=&#34;java.util.*,java.text.SimpleDateFormat&#34; %&gt;
+</span></span><span class="line"><span class="cl">&lt;!DOCTYPE html&gt;
+</span></span><span class="line"><span class="cl">&lt;html&gt;
+</span></span><span class="line"><span class="cl">&lt;head&gt;
+</span></span><span class="line"><span class="cl">  &lt;title&gt;JSP语法大全示例&lt;/title&gt;
+</span></span><span class="line"><span class="cl">&lt;/head&gt;
+</span></span><span class="line"><span class="cl">&lt;body&gt;
+</span></span><span class="line"><span class="cl">&lt;!-- 1. JSP注释（不会输出到页面） --&gt;
+</span></span><span class="line"><span class="cl">&lt;%-- 这是JSP注释，不会被浏览器看到 --%&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;!-- 2. HTML注释（会输出到页面源码） --&gt;
+</span></span><span class="line"><span class="cl">&lt;!-- 这是HTML注释，浏览器可以看到 --&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;!-- 3. JSP脚本元素 --&gt;
+</span></span><span class="line"><span class="cl">&lt;%-- 声明变量 --%&gt;
+</span></span><span class="line"><span class="cl">&lt;%
+</span></span><span class="line"><span class="cl">  String name = &#34;JSP学习者&#34;;
+</span></span><span class="line"><span class="cl">  int age = 20;
+</span></span><span class="line"><span class="cl">  List&lt;String&gt; fruits = Arrays.asList(&#34;苹果&#34;, &#34;香蕉&#34;, &#34;橙子&#34;);
+</span></span><span class="line"><span class="cl">  request.setAttribute(&#34;city&#34;, &#34;北京&#34;);
+</span></span><span class="line"><span class="cl">  session.setAttribute(&#34;user&#34;, &#34;Tom&#34;);
+</span></span><span class="line"><span class="cl">  application.setAttribute(&#34;appName&#34;, &#34;JSP示例应用&#34;);
+</span></span><span class="line"><span class="cl">%&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;%-- 4. JSP表达式（输出内容到页面） --%&gt;
+</span></span><span class="line"><span class="cl">&lt;h2&gt;欢迎，&lt;%= name %&gt;！&lt;/h2&gt;
+</span></span><span class="line"><span class="cl">&lt;p&gt;你的年龄是：&lt;%= age %&gt;&lt;/p&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;%-- 5. JSP声明（定义方法或变量） --%&gt;
+</span></span><span class="line"><span class="cl">&lt;%!
+</span></span><span class="line"><span class="cl">  public String getCurrentTime() {
+</span></span><span class="line"><span class="cl">    return new SimpleDateFormat(&#34;yyyy-MM-dd HH:mm:ss&#34;).format(new Date());
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">%&gt;
+</span></span><span class="line"><span class="cl">&lt;p&gt;当前时间：&lt;%= getCurrentTime() %&gt;&lt;/p&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;%-- 6. JSP指令（已在顶部使用） --%&gt;
+</span></span><span class="line"><span class="cl">&lt;%-- page、include、taglib --%&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;%-- 7. JSP动作元素 --%&gt;
+</span></span><span class="line"><span class="cl">&lt;jsp:useBean id=&#34;person&#34; class=&#34;java.util.HashMap&#34; scope=&#34;page&#34; /&gt;
+</span></span><span class="line"><span class="cl">&lt;%
+</span></span><span class="line"><span class="cl">  ((Map)pageContext.getAttribute(&#34;person&#34;)).put(&#34;gender&#34;, &#34;男&#34;);
+</span></span><span class="line"><span class="cl">%&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;%-- 8. include指令和动作 --%&gt;
+</span></span><span class="line"><span class="cl">&lt;%-- 静态包含 --%&gt;
+</span></span><span class="line"><span class="cl">&lt;%-- &lt;%@ include file=&#34;header.jsp&#34; %&gt; --%&gt;
+</span></span><span class="line"><span class="cl">&lt;%-- 动态包含 --%&gt;
+</span></span><span class="line"><span class="cl">&lt;%-- &lt;jsp:include page=&#34;footer.jsp&#34; /&gt; --%&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;%-- 9. JSP内置对象 --%&gt;
+</span></span><span class="line"><span class="cl">&lt;p&gt;request city: &lt;%= request.getAttribute(&#34;city&#34;) %&gt;&lt;/p&gt;
+</span></span><span class="line"><span class="cl">&lt;p&gt;session user: &lt;%= session.getAttribute(&#34;user&#34;) %&gt;&lt;/p&gt;
+</span></span><span class="line"><span class="cl">&lt;p&gt;application appName: &lt;%= application.getAttribute(&#34;appName&#34;) %&gt;&lt;/p&gt;
+</span></span><span class="line"><span class="cl">&lt;p&gt;contextPath: &lt;%= request.getContextPath() %&gt;&lt;/p&gt;
+</span></span><span class="line"><span class="cl">&lt;p&gt;服务器IP: &lt;%= request.getLocalAddr() %&gt;&lt;/p&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;%-- 10. JSP条件语句和循环 --%&gt;
+</span></span><span class="line"><span class="cl">&lt;h3&gt;喜欢的水果：&lt;/h3&gt;
+</span></span><span class="line"><span class="cl">&lt;ul&gt;
+</span></span><span class="line"><span class="cl">  &lt;% for(String fruit : fruits) { %&gt;
+</span></span><span class="line"><span class="cl">  &lt;li&gt;&lt;%= fruit %&gt;&lt;/li&gt;
+</span></span><span class="line"><span class="cl">  &lt;% } %&gt;
+</span></span><span class="line"><span class="cl">&lt;/ul&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;%-- 11. JSP异常处理 --%&gt;
+</span></span><span class="line"><span class="cl">&lt;%
+</span></span><span class="line"><span class="cl">  try {
+</span></span><span class="line"><span class="cl">    int result = 10 / 2;
+</span></span><span class="line"><span class="cl">    out.println(&#34;10 / 2 = &#34; + result);
+</span></span><span class="line"><span class="cl">  } catch(Exception e) {
+</span></span><span class="line"><span class="cl">    out.println(&#34;发生异常：&#34; + e.getMessage());
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">%&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;%-- 13. EL表达式 --%&gt;
+</span></span><span class="line"><span class="cl">&lt;h3&gt;EL表达式演示：&lt;/h3&gt;
+</span></span><span class="line"><span class="cl">&lt;p&gt;城市：${city}&lt;/p&gt;
+</span></span><span class="line"><span class="cl">&lt;p&gt;用户：${sessionScope.user}&lt;/p&gt;
+</span></span><span class="line"><span class="cl">&lt;p&gt;应用名：${applicationScope.appName}&lt;/p&gt;
+</span></span><span class="line"><span class="cl">&lt;p&gt;年龄：${age}&lt;/p&gt;
+</span></span><span class="line"><span class="cl">&lt;p&gt;喜欢的水果第一个：${fruits[0]}&lt;/p&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;%-- 14. 表单与请求参数 --%&gt;
+</span></span><span class="line"><span class="cl">&lt;form method=&#34;post&#34;&gt;
+</span></span><span class="line"><span class="cl">  请输入你的爱好：&lt;input type=&#34;text&#34; name=&#34;hobby&#34; /&gt;
+</span></span><span class="line"><span class="cl">  &lt;input type=&#34;submit&#34; value=&#34;提交&#34; /&gt;
+</span></span><span class="line"><span class="cl">&lt;/form&gt;
+</span></span><span class="line"><span class="cl">&lt;%
+</span></span><span class="line"><span class="cl">  String hobby = request.getParameter(&#34;hobby&#34;);
+</span></span><span class="line"><span class="cl">  if(hobby != null &amp;&amp; !hobby.isEmpty()) {
+</span></span><span class="line"><span class="cl">%&gt;
+</span></span><span class="line"><span class="cl">&lt;p&gt;你的爱好是：&lt;%= hobby %&gt;&lt;/p&gt;
+</span></span><span class="line"><span class="cl">&lt;% } %&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;%-- 15. 跳转与重定向 --%&gt;
+</span></span><span class="line"><span class="cl">&lt;%--
+</span></span><span class="line"><span class="cl">&lt;%
+</span></span><span class="line"><span class="cl">    // response.sendRedirect(&#34;https://www.baidu.com&#34;);
+</span></span><span class="line"><span class="cl">    // pageContext.forward(&#34;other.jsp&#34;);
+</span></span><span class="line"><span class="cl">%&gt;
+</span></span><span class="line"><span class="cl">--%&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;%-- 16. JSP页面指令 errorPage 和 isErrorPage --%&gt;
+</span></span><span class="line"><span class="cl">&lt;%--
+</span></span><span class="line"><span class="cl">&lt;%@ page errorPage=&#34;error.jsp&#34; %&gt;
+</span></span><span class="line"><span class="cl">--%&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;hr&gt;
+</span></span><span class="line"><span class="cl">&lt;p style=&#34;color:gray;&#34;&gt;本页面演示了JSP的常用语法，建议结合源码和运行结果一起学习。&lt;/p&gt;
+</span></span><span class="line"><span class="cl">&lt;/body&gt;
+</span></span><span class="line"><span class="cl">&lt;/html&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>运行结果</p>
+<p><img src="/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716175001006.png"
+	width="724"
+	height="1226"
+	srcset="/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716175001006_hu15586079206207091663.png 480w, /p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20250716175001006_hu9258348119109705883.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250716175001006"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="59"
+		data-flex-basis="141px"
+	
+></p>
+<h2 id="总结">总结
+</h2><p>现在是7.16，用了五天时间简单快速过了一遍基础，具体还有很多细节是不清楚得，不过那些东西都可以在后续的学习中补上。之后会按照《<a class="link" href="https://www.bilibili.com/video/BV1Sv4y1i7jf/?spm_id_from=333.337.search-card.all.click&amp;vd_source=efe0f8b3536039028029a17a2ed95a3f"  target="_blank" rel="noopener"
+    >B站最全的Java安全学习路线</a>》这个视频中讲的路线和Hello java Sec中关于具体的漏洞代码去学习java。</p>
 
 </section>
 
