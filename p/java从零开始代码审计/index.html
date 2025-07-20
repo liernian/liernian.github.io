@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=58266&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 大二暑假开始系统学习java，并记录自己的学习过程和知识点总结。虽然专业课已经学过java了，有一些基础，但是代码审计还是需要知道详细的">
 <title>Java从零开始代码审计</title>
 
-<link rel='canonical' href='http://localhost:58266/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/'>
+<link rel='canonical' href='http://localhost:1313/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/'>
 
 <link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Java从零开始代码审计">
 <meta property='og:description' content="前言 大二暑假开始系统学习java，并记录自己的学习过程和知识点总结。虽然专业课已经学过java了，有一些基础，但是代码审计还是需要知道详细的">
-<meta property='og:url' content='http://localhost:58266/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/'>
+<meta property='og:url' content='http://localhost:1313/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/'>
 <meta property='og:site_name' content='liernian'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-07-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-07-11T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="Java从零开始代码审计">
@@ -236,11 +236,11 @@
 
                             <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
                                 
-                                    <option value="http://localhost:58266/en/" >English</option>
+                                    <option value="http://localhost:1313/en/" >English</option>
                                 
-                                    <option value="http://localhost:58266/" selected>简体中文</option>
+                                    <option value="http://localhost:1313/" selected>简体中文</option>
                                 
-                                    <option value="http://localhost:58266/ar/" >عربي</option>
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
                                 
                             </select>
                         </li>
@@ -395,6 +395,10 @@
         
             <a href="/categories/web/" >
                 Web
+            </a>
+        
+            <a href="/categories/java/" >
+                Java
             </a>
         
     </header>
@@ -3005,7 +3009,21 @@
 ></p>
 <h2 id="总结">总结
 </h2><p>现在是7.16，用了五天时间简单快速过了一遍基础，具体还有很多细节是不清楚得，不过那些东西都可以在后续的学习中补上。之后会按照《<a class="link" href="https://www.bilibili.com/video/BV1Sv4y1i7jf/?spm_id_from=333.337.search-card.all.click&amp;vd_source=efe0f8b3536039028029a17a2ed95a3f"  target="_blank" rel="noopener"
-    >B站最全的Java安全学习路线</a>》这个视频中讲的路线和Hello java Sec中关于具体的漏洞代码去学习java。</p>
+    >B站最全的Java安全学习路线</a>》这个视频中讲的路线或者零溢出师傅的教学路线（如下图）和Hello java Sec和关于具体的漏洞代码去学习java。</p>
+<p><img src="/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/3e2982559f738ad158783e7197f3154b.png"
+	width="964"
+	height="670"
+	srcset="/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/3e2982559f738ad158783e7197f3154b_hu14456865860752682289.png 480w, /p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/3e2982559f738ad158783e7197f3154b_hu17538161132288614783.png 1024w"
+	loading="lazy"
+	
+		alt="3e2982559f738ad158783e7197f3154b"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="143"
+		data-flex-basis="345px"
+	
+></p>
 
 </section>
 
@@ -3027,6 +3045,32 @@
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java安全基础</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/sql%E6%B3%A8%E5%85%A5/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SQL注入</h2>
+        </div>
+    </a>
+</article>
+
             
                 
 <article class="">
@@ -3056,38 +3100,12 @@
             
                 
 <article class="">
-    <a href="/p/ssti/">
+    <a href="/p/tgctf2025/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">SSTI</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">反序列化</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/fctf2025/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">FCTF2025</h2>
+            <h2 class="article-title">TGCTF2025</h2>
         </div>
     </a>
 </article>
