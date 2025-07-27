@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2025-07-20T00:00:00+00:00</lastmod>
+    <lastmod>2025-07-22T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -21,7 +21,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2025-07-20T00:00:00+00:00</lastmod>
+    <lastmod>2025-07-22T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -39,15 +39,18 @@
                 />
   </url><url>
     <loc>http://localhost:1313/categories/java/</loc>
-    <lastmod>2025-07-20T00:00:00+00:00</lastmod>
+    <lastmod>2025-07-22T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2025-07-20T00:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</loc>
+    <lastmod>2025-07-22T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/post/</loc>
-    <lastmod>2025-07-20T00:00:00+00:00</lastmod>
+    <lastmod>2025-07-22T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/web/</loc>
+    <lastmod>2025-07-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2025-07-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/p/sql%E6%B3%A8%E5%85%A5/</loc>

