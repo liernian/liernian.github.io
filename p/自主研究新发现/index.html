@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 这里记录一些在做题过程中自己的思考和研究出来的新发现。希望能一直有下去 无参数rce新姿势 在xyctf2024的pharme中，有一个在类">
+<title>自主研究新发现</title>
+
+<link rel='canonical' href='http://localhost:1313/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="自主研究新发现">
+<meta property='og:description' content="前言 这里记录一些在做题过程中自己的思考和研究出来的新发现。希望能一直有下去 无参数rce新姿势 在xyctf2024的pharme中，有一个在类">
+<meta property='og:url' content='http://localhost:1313/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/'>
+<meta property='og:site_name' content='liernian'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-09-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-09-07T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="自主研究新发现">
+<meta name="twitter:description" content="前言 这里记录一些在做题过程中自己的思考和研究出来的新发现。希望能一直有下去 无参数rce新姿势 在xyctf2024的pharme中，有一个在类">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu11319725144555339807.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">💯</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">liernian</a></h1>
+            <h2 class="site-description">理想主义的中二少年</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>简体中文</option>
+                                
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#无参数rce新姿势">无参数rce新姿势</a></li>
+    <li><a href="#内网穿透反弹shell">内网穿透反弹shell</a></li>
+    <li><a href="#解决连接openvpn之后不好与kali交互导致cs无法上线的问题">解决连接openvpn之后不好与kali交互导致CS无法上线的问题</a>
+      <ol>
+        <li><a href="#问题">问题</a></li>
+        <li><a href="#解决">解决</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" >
+                知识点总结
+            </a>
+        
+            <a href="/categories/web/" >
+                Web
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/">自主研究新发现</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-09-07</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 4 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="前言">前言
+</h2><p>这里记录一些在做题过程中自己的思考和研究出来的新发现。希望能一直有下去</p>
+<h2 id="无参数rce新姿势">无参数rce新姿势
+</h2><p>在<code>xyctf2024</code>的pharme中，有一个在类中的rce</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">evil</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$cmd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__destruct</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="s1">&#39;ch3nx1&#39;</span> <span class="o">===</span> <span class="nx">preg_replace</span><span class="p">(</span><span class="s1">&#39;/;+/&#39;</span><span class="p">,</span><span class="s1">&#39;ch3nx1&#39;</span><span class="p">,</span><span class="nx">preg_replace</span><span class="p">(</span><span class="s1">&#39;/[A-Za-z_\(\)]+/&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cmd</span><span class="p">))){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">eval</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cmd</span><span class="o">.</span><span class="s1">&#39;isbigvegetablechicken!&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">echo</span> <span class="s1">&#39;nonono&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里绕过其实就是判断你的cmd中是否只有字母、下划线和括号</p>
+<p>也就是无参数rce。</p>
+<p>这里在看wp的时候发现有师傅用<code>eval(end(getallheaders()));</code>的写法进行写shell，之后只要在http头里的最后一个位置写一个<code>cmd: phpinfo();</code>就行</p>
+<p>（大致意思为获取所有http头，然后返回最后一个http头给eval函数，妙啊。）</p>
+<p>然后我马不停蹄的去ctfshow中做实验，但是结果却透心凉</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">])){</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$c</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">preg_match</span><span class="p">(</span><span class="s2">&#34;/[0-9]|\~|\`|\@|\#|</span><span class="se">\\</span><span class="s2">$|\%|\^|\&amp;|\*|\（|\）|\-|\=|\+|\{|\[|\]|\}|\:|\&#39;|</span><span class="se">\&#34;</span><span class="s2">|\,|\&lt;|\.|\&gt;|\/|\?|</span><span class="se">\\\\</span><span class="s2">/i&#34;</span><span class="p">,</span> <span class="nv">$c</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">eval</span><span class="p">(</span><span class="nv">$c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">highlight_file</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>因为end() 的参数是按引用传参，只能接收“变量”。把函数返回值直接丢给 end()（比如 end(getallheaders())）会报 “Only variables should be passed by reference”，从而拿不到值；而你又被正则拦了 $，没法先赋给变量。</p>
+<p>也就是说，不能用end()</p>
+<p>但是我们可以利用不按引用取值的聚合函数，Max()等，从http头里选一个出来</p>
+<p>用<code>c=eval(max(getallheaders()));</code>再在http头里添加<code>X-CMD: ~0;phpinfo();</code></p>
+<p><del>0在php中是合法的表达式，而且</del>的ascii码值大于z，基本上一定会被Max()选中</p>
+<p>结果如下</p>
+<p><img src="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/75a8bf06-92cf-4a9a-802e-5de80fbba4c4.png"
+	width="1529"
+	height="613"
+	srcset="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/75a8bf06-92cf-4a9a-802e-5de80fbba4c4_hu4189036944774347671.png 480w, /p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/75a8bf06-92cf-4a9a-802e-5de80fbba4c4_hu10836562801611413985.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250907225428027"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="249"
+		data-flex-basis="598px"
+	
+></p>
+<p>也不是什么很nb的东西，而且也不是靠自己发现的，几乎都是ai说的，但是也很有成就感。</p>
+<h2 id="内网穿透反弹shell">内网穿透反弹shell
+</h2><p>这是在无参数rce之前研究的东西，不过那时候不太完善。</p>
+<p>在xyctf2024的ez?Make题目中，用的是反弹shell的方法绕过。本来想用自己研究出来的内网穿透反弹shell来解决，但是我的内网穿透软件cpolar穿透后的公网ip是带<code>cpolar</code>这个字符的，然后a又是被ban的字母。。。。</p>
+<p>然后这也不是第一次遇到这种问题，很多题目都有一些绕过，反弹shell不是纯数字都很有可能被ban。</p>
+<p>一度觉得研究出来的这东西没啥作用。。</p>
+<p>但是转折点就在写这道题<code>ez?Make</code>的过程中，我突发奇想，有域名应该就有ip地址啊，有ip不就可以弹shell了？！</p>
+<p>然后就抓紧去找了一个域名查ip的网址</p>
+<p><a class="link" href="https://zhanchacha.cn/host-ip/"  target="_blank" rel="noopener"
+    >域名反查IP工具 - 域名IP查询 - 站查查</a></p>
+<p><img src="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/image-20250908161202541.png"
+	width="1117"
+	height="920"
+	srcset="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/image-20250908161202541_hu4513990064987755862.png 480w, /p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/image-20250908161202541_hu2207688278269427923.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250908161202541"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="121"
+		data-flex-basis="291px"
+	
+></p>
+<p>然后抓紧去试了一下</p>
+<p><img src="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/image-20250908161241872.png"
+	width="1463"
+	height="805"
+	srcset="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/image-20250908161241872_hu4495900303433623950.png 480w, /p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/image-20250908161241872_hu14955597645050656047.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250908161241872"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="181"
+		data-flex-basis="436px"
+	
+></p>
+<p>真的成功了！</p>
+<p>所以之后反弹shell再也不需要vps，不知道无回显xxe或者wget那种涉及到vps上的文件的这种反弹shell能不能成功，这里还需要再多做尝试。不过也算是一个重大突破（实际上就是吧域名换成ip了。。。。。）</p>
+<p>总结一下，内网穿透反弹shell，首先需要你有一个Linux虚拟机，然后有一个可以进行内网穿透软件（cpolar、花生壳等等）</p>
+<p>在linux命令行开一个ifconfig，看一下虚拟机的ip，然后在内网穿透软件中选用tcp，调好端口</p>
+<p><img src="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/image-20250908162152594.png"
+	width="1083"
+	height="708"
+	srcset="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/image-20250908162152594_hu15289597782112519615.png 480w, /p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/image-20250908162152594_hu7727491607045273277.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250908162152594"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="152"
+		data-flex-basis="367px"
+	
+></p>
+<p>然后用公网域名在域名解析网站换成ip地址，</p>
+<p>这样就可以进行反弹shell了</p>
+<h2 id="解决连接openvpn之后不好与kali交互导致cs无法上线的问题">解决连接openvpn之后不好与kali交互导致CS无法上线的问题
+</h2><h3 id="问题">问题
+</h3><p>在打<code>cyberstrikelab</code>的靶场的时候，需要连接<code>openvpn</code></p>
+<p><code>openvpn</code>只能连接一个机子（连了主机就无法连虚拟机）</p>
+<p>但是可以通过虚拟机的<code>net</code>模式使虚拟机通过主机访问到<code>openvpn</code>的靶机</p>
+<p>但是问题就在于，主机连了<code>openvpn</code>之后，网络结构发生变化，导致无法与虚拟机通讯。</p>
+<p>然后<code>CS</code>的服务端需要<code>linux</code>系统，也就是说，我需要靶场能够访问到我的<code>kali</code>虚拟机。但是<code>openvpn</code>是连接在主机上的，靶场只能连接到我的主机，我的主机还连接不到虚拟机</p>
+<h3 id="解决">解决
+</h3><p>首先虚拟机可以开一个新的网卡（仅主机模式）</p>
+<p><img src="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/image-20260121000704292.png"
+	width="415"
+	height="353"
+	srcset="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/image-20260121000704292_hu4689534162900089240.png 480w, /p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/image-20260121000704292_hu17044647182362028626.png 1024w"
+	loading="lazy"
+	
+		alt="image-20260121000704292"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="117"
+		data-flex-basis="282px"
+	
+></p>
+<p>这样在主机连接<code>openvpn</code>的情况下也能与虚拟机通信</p>
+<p>然后进行端口转发（记得查看kali仅主机模式网卡的ip）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=50050 connectaddress=192.168.111.129 connectport=50050
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=50051 connectaddress=192.168.111.129 connectport=50051
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">多开几个ip当监听器
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">netsh interface portproxy show all  
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/image-20260121000834816.png"
+	width="880"
+	height="518"
+	srcset="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/image-20260121000834816_hu385895849399365800.png 480w, /p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/image-20260121000834816_hu15563369205453073231.png 1024w"
+	loading="lazy"
+	
+		alt="image-20260121000834816"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="169"
+		data-flex-basis="407px"
+	
+></p>
+<p>然后在kali中运行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">./teamserver 172.16.233.2 <span class="m">123456</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#这一步的ip是openvpn连接后给的ip，因为最后是需要靶机访问这个ip的</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>主机启动<code>CS</code>，这里启动CS就是开在自己主机的，也可以连接虚拟机ip</p>
+<p><img src="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/image-20260121001149700.png"
+	width="647"
+	height="482"
+	srcset="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/image-20260121001149700_hu17668750431170035120.png 480w, /p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/image-20260121001149700_hu11080906115127219733.png 1024w"
+	loading="lazy"
+	
+		alt="image-20260121001149700"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="134"
+		data-flex-basis="322px"
+	
+></p>
+<p>然后就可以在有<code>openvpn</code>靶场中上线<code>CS</code>了</p>
+<p><img src="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/image-20260121001831263.png"
+	width="2087"
+	height="938"
+	srcset="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/image-20260121001831263_hu17072799132977493652.png 480w, /p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/image-20260121001831263_hu3736181435418117565.png 1024w"
+	loading="lazy"
+	
+		alt="image-20260121001831263"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="222"
+		data-flex-basis="533px"
+	
+></p>
+<p>也可以使用工具转发端口</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E6%B8%97%E9%80%8F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">渗透知识点汇总</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/awdawdp%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">AWD|AWDP从零到一</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/nodejs/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">NodeJS</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/sql%E6%B3%A8%E5%85%A5/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SQL注入</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">反序列化</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 liernian
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.59729e8016d63fb571847b33800c7f0e48c9acdb8eaed3eec3e94d3bcad55aca.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

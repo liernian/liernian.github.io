@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 最后决定按照零溢出师傅的教学路线为主要的学习路线，以n1ar4师傅的路线作为补充。这篇是java安全基础，会学习反射、序列化和反序列化、">
+<title>Java安全基础</title>
+
+<link rel='canonical' href='http://localhost:1313/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Java安全基础">
+<meta property='og:description' content="前言 最后决定按照零溢出师傅的教学路线为主要的学习路线，以n1ar4师傅的路线作为补充。这篇是java安全基础，会学习反射、序列化和反序列化、">
+<meta property='og:url' content='http://localhost:1313/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/'>
+<meta property='og:site_name' content='liernian'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-07-20T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-07-20T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Java安全基础">
+<meta name="twitter:description" content="前言 最后决定按照零溢出师傅的教学路线为主要的学习路线，以n1ar4师傅的路线作为补充。这篇是java安全基础，会学习反射、序列化和反序列化、">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu11319725144555339807.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">💯</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">liernian</a></h1>
+            <h2 class="site-description">理想主义的中二少年</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>简体中文</option>
+                                
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#反射">反射</a>
+      <ol>
+        <li><a href="#什么是反射">什么是反射</a></li>
+        <li><a href="#反射机制">反射机制</a></li>
+        <li><a href="#代码实例">代码实例</a></li>
+        <li><a href="#反射相关漏洞">反射相关漏洞</a></li>
+      </ol>
+    </li>
+    <li><a href="#反序列化">反序列化</a>
+      <ol>
+        <li><a href="#序列化与反序列化">序列化与反序列化</a></li>
+        <li><a href="#代码实现">代码实现</a></li>
+        <li><a href="#漏洞点">漏洞点</a></li>
+      </ol>
+    </li>
+    <li><a href="#jvm类加载器">JVM类加载器</a>
+      <ol>
+        <li><a href="#类的加载">类的加载</a></li>
+        <li><a href="#类加载器">类加载器</a></li>
+        <li><a href="#双亲委派模型">双亲委派模型</a></li>
+        <li><a href="#自定义classloader实现">自定义ClassLoader实现</a></li>
+      </ol>
+    </li>
+    <li><a href="#jdk动态代理">JDK动态代理</a>
+      <ol>
+        <li><a href="#静态代理">静态代理</a></li>
+        <li><a href="#动态代理">动态代理</a></li>
+        <li><a href="#原理">原理</a></li>
+      </ol>
+    </li>
+    <li><a href="#小结">小结</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/web/" >
+                Web
+            </a>
+        
+            <a href="/categories/java/" >
+                Java
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/">Java安全基础</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-07-20</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 13 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="前言">前言
+</h2><p>最后决定按照<a class="link" href="https://space.bilibili.com/1668580212/?spm_id_from=333.788.upinfo.detail.click"  target="_blank" rel="noopener"
+    >零溢出</a>师傅的教学路线为主要的学习路线，以<a class="link" href="https://space.bilibili.com/1106751850/?spm_id_from=333.788.upinfo.detail.click"  target="_blank" rel="noopener"
+    >n1ar4</a>师傅的路线作为补充。这篇是java安全基础，会学习反射、序列化和反序列化、JVM加载器的知识。</p>
+<h2 id="反射">反射
+</h2><h3 id="什么是反射">什么是反射
+</h3><p>java反射是一种<strong>间接操作目标对象</strong>的机制，核心是在运行状态时动态加载类并获取类的详细信息，它对于任意一个类都能够知道这个类所有的属性和方法，并且对于任意一个对象，都能够调用它的方法/访问属性。</p>
+<p>在java中，我们通常使用new来实例化一个类，从而获取其成员属性和方法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">A</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">a</span><span class="p">.</span><span class="na">method</span><span class="p">(</span><span class="n">1</span><span class="p">);</span><span class="w">  </span><span class="c1">//调用A的method方法</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>而反射是使用JDK提供的反射API进行调用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Class</span><span class="p">.</span><span class="na">forName</span><span class="p">(</span><span class="s">&#34;A&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Method</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="na">getMethod</span><span class="p">(</span><span class="s">&#34;method&#34;</span><span class="p">,</span><span class="kt">int</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Constructor</span><span class="w"> </span><span class="n">constructor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="na">getConstructor</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Object</span><span class="w"> </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">constructor</span><span class="p">.</span><span class="na">newInstance</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">method</span><span class="p">.</span><span class="na">invoke</span><span class="p">(</span><span class="n">object</span><span class="p">,</span><span class="n">1</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="反射机制">反射机制
+</h3><p>参考文章：<a class="link" href="https://www.freebuf.com/articles/web/325541.html"  target="_blank" rel="noopener"
+    >Java安全｜反射看这一篇就够了</a></p>
+<p>了解了反射，再来了解一下反射的原理。</p>
+<p>java程序在计算机有三个阶段：编译阶段、加载阶段、运行阶段。</p>
+<p>我们将java代码编译成class字节码文件后会通过类加载器创建Class类对象（不是实例化的对象，用于表示当前字节码文件的结构信息，用数组存贮），然后在运行阶段，反射就是通过Class类对象来创建对象。这也很好的体现了反射是在运行时进行的。</p>
+<p><img src="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250720184155107.png"
+	width="1716"
+	height="815"
+	srcset="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250720184155107_hu16477256599558444595.png 480w, /p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250720184155107_hu12435050891389782113.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250720184155107"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="210"
+		data-flex-basis="505px"
+	
+></p>
+<h3 id="代码实例">代码实例
+</h3><p>A类的定义</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">A</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">A</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;A&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="c1">//无参构造方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">A</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="c1">//有参构造方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">method</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">name</span><span class="o">+</span><span class="s">&#34;:no digit&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="c1">//无参方法method</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">method</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">name</span><span class="o">+</span><span class="s">&#34;:&#34;</span><span class="o">+</span><span class="n">i</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="c1">//重载method</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">toString</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;A{&#34;</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="s">&#34;name=&#39;&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="sc">&#39;\&#39;&#39;</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="sc">&#39;}&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="c1">//tostring</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>用new调用时，结果如下</p>
+<p><img src="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250720130607491.png"
+	width="1317"
+	height="617"
+	srcset="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250720130607491_hu7171615756330644884.png 480w, /p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250720130607491_hu16136182953523806443.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250720130607491"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="213"
+		data-flex-basis="512px"
+	
+></p>
+<p>用反射时，结果如下</p>
+<p><img src="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250720140013366.png"
+	width="1955"
+	height="1088"
+	srcset="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250720140013366_hu10771203185381047074.png 480w, /p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250720140013366_hu2851829119576737607.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250720140013366"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="179"
+		data-flex-basis="431px"
+	
+></p>
+<p>测试代码以及解析</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.File</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.lang.reflect.Constructor</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.lang.reflect.Field</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.lang.reflect.Method</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Main</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">        通过new实例化对象
+</span></span></span><span class="line"><span class="cl"><span class="cm">        A a = new A();
+</span></span></span><span class="line"><span class="cl"><span class="cm">        System.out.println(a);
+</span></span></span><span class="line"><span class="cl"><span class="cm">        a.method();
+</span></span></span><span class="line"><span class="cl"><span class="cm">        System.out.print(&#34;\n&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="cm">        a.method(1);
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//通过反射</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//获取类，并实例化对象</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Class</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Class</span><span class="p">.</span><span class="na">forName</span><span class="p">(</span><span class="s">&#34;A&#34;</span><span class="p">);</span><span class="w">   </span><span class="c1">//获取类</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Object</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="na">newInstance</span><span class="p">();</span><span class="w">   </span><span class="c1">//a是获取的类，o是a的实例化对象</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">o</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//通过构造方法实例化对象</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Constructor</span><span class="w"> </span><span class="n">ad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="na">getDeclaredConstructor</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">   </span><span class="c1">//通过构造方法实例化对象 a.getConstructor(String.class)获取public的构造方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Object</span><span class="w"> </span><span class="n">o2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ad</span><span class="p">.</span><span class="na">newInstance</span><span class="p">(</span><span class="s">&#34;a&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">o2</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//获取类的属性</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">Field</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="na">getDeclaredFields</span><span class="p">()){</span><span class="w">   </span><span class="c1">// 获取所有属性   a.getFields() 获取所有public属性</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">f</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Field</span><span class="w"> </span><span class="n">f1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="na">getDeclaredField</span><span class="p">(</span><span class="s">&#34;name&#34;</span><span class="p">);</span><span class="w">  </span><span class="c1">//获取单个属性，并进行修改(修改通过构造方法实例化的对象的属性)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">f1</span><span class="p">.</span><span class="na">setAccessible</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span><span class="w">   </span><span class="c1">//强制解除访问限制，不写这个就只能修改public的属性</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">f1</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">o2</span><span class="p">,</span><span class="s">&#34;b&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">o2</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//调用类的方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">Method</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="na">getDeclaredMethods</span><span class="p">()){</span><span class="w">  </span><span class="c1">//  获取所有方法   a.getMethods() 获取所有public方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">m</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Method</span><span class="w"> </span><span class="n">m1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="na">getDeclaredMethod</span><span class="p">(</span><span class="s">&#34;method&#34;</span><span class="p">);</span><span class="w">   </span><span class="c1">//获取单个方法，可以用invoke()函数调用该方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">m1</span><span class="p">.</span><span class="na">invoke</span><span class="p">(</span><span class="n">o</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Method</span><span class="w"> </span><span class="n">m2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="na">getDeclaredMethod</span><span class="p">(</span><span class="s">&#34;method&#34;</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">   </span><span class="c1">//这里是有参的重载后的方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">m2</span><span class="p">.</span><span class="na">invoke</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="n">1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>手搓一遍之后就可以很清楚了解到一些重要的类</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Java.long.Class:代表一个类，Class对象表示某个类加载后在堆中的对象
+</span></span><span class="line"><span class="cl">Java.lang.reflect.Method:代表类的方法
+</span></span><span class="line"><span class="cl">Java.lang.reflect.Field:代表类的成员变量
+</span></span><span class="line"><span class="cl">Java.lang.reflect.Constructor:代表类的构造方法
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>以及重要的方法方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Class.获取类的方法：forname(className类名)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Class.实例化类对象的方法：newInstance()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Class.获取函数的方法：getDeclaredMethod(methodname方法名)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Class.获取变量的方法getDeclaredField(fieldname属性名)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Field.更改变量值的方法setAccessible(bool布尔值);set(calss类,fieldname变量名);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Method.执行函数的方法：invoke(class类,args方法参数)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>以上是反射基础实现，可以参考<a class="link" href="https://www.bilibili.com/video/BV1k1421U7pG?spm_id_from=333.788.videopod.sections&amp;vd_source=efe0f8b3536039028029a17a2ed95a3f"  target="_blank" rel="noopener"
+    >【Java安全-基础】反射（代码审计）</a></p>
+<h3 id="反射相关漏洞">反射相关漏洞
+</h3><p>通过反射构造Runtime类执行，达到命令执行</p>
+<p>这里值得注意的是，这里只调用了Runtime的方法，并没有生成实例。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.lang.reflect.Method</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Main</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Class</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Class</span><span class="p">.</span><span class="na">forName</span><span class="p">(</span><span class="s">&#34;java.lang.Runtime&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Method</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="na">getMethod</span><span class="p">(</span><span class="s">&#34;exec&#34;</span><span class="p">,</span><span class="n">String</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Method</span><span class="w"> </span><span class="n">rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="na">getMethod</span><span class="p">(</span><span class="s">&#34;getRuntime&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Object</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rm</span><span class="p">.</span><span class="na">invoke</span><span class="p">(</span><span class="n">c</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">m</span><span class="p">.</span><span class="na">invoke</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="s">&#34;calc.exe&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250720181243206.png"
+	width="1208"
+	height="784"
+	srcset="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250720181243206_hu14600361719918750428.png 480w, /p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250720181243206_hu8890488642890775489.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250720181243206"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="154"
+		data-flex-basis="369px"
+	
+></p>
+<p>为什么不能生成实例呢？因为Runtime是单例类，他的构造方法是私有的，无法通过<code>newInstance()</code>来生成实例，只能调用他的方法。但是我之前有提到过</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Field.更改变量值的方法setAccessible(bool布尔值);set(calss类,fieldname变量名);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>setAccessible()</code>可以强制解除访问限制，就可以做到实例化，</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.lang.reflect.Constructor</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.lang.reflect.Method</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Main</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">        Class c = Class.forName(&#34;java.lang.Runtime&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="cm">        Method m = c.getMethod(&#34;exec&#34;,String.class);
+</span></span></span><span class="line"><span class="cl"><span class="cm">        Method rm = c.getMethod(&#34;getRuntime&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="cm">        Object o = rm.invoke(c);
+</span></span></span><span class="line"><span class="cl"><span class="cm">        m.invoke(o,&#34;calc.exe&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Class</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Class</span><span class="p">.</span><span class="na">forName</span><span class="p">(</span><span class="s">&#34;java.lang.Runtime&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Constructor</span><span class="w"> </span><span class="n">constructor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="na">getDeclaredConstructor</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">constructor</span><span class="p">.</span><span class="na">setAccessible</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Object</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">constructor</span><span class="p">.</span><span class="na">newInstance</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Method</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="na">getMethod</span><span class="p">(</span><span class="s">&#34;exec&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">m</span><span class="p">.</span><span class="na">invoke</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="s">&#34;calc.exe&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250720183310218.png"
+	width="1616"
+	height="779"
+	srcset="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250720183310218_hu7588407910891862146.png 480w, /p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250720183310218_hu18336770152755192613.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250720183310218"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="207"
+		data-flex-basis="497px"
+	
+></p>
+<p>另外，<code>setAccessible()</code>也可以做到修改final字段</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 反射获取Field类的modifiers</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Field</span><span class="w"> </span><span class="n">modifiers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">field</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getDeclaredField</span><span class="p">(</span><span class="s">&#34;modifiers&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 设置modifiers修改权限</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">modifiers</span><span class="p">.</span><span class="na">setAccessible</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 修改成员变量的Field对象的modifiers值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">modifiers</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="n">field</span><span class="p">,</span><span class="w"> </span><span class="n">field</span><span class="p">.</span><span class="na">getModifiers</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="n">Modifier</span><span class="p">.</span><span class="na">FINAL</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 修改成员变量值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">field</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">类实例对象</span><span class="p">,</span><span class="w"> </span><span class="n">修改后的值</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>另外反射也与反序列化有关，这个我们以后再探讨</p>
+<h2 id="反序列化">反序列化
+</h2><p>参考：</p>
+<p><a class="link" href="https://www.bilibili.com/video/BV1f1421U767?spm_id_from=333.788.videopod.sections&amp;vd_source=efe0f8b3536039028029a17a2ed95a3f"  target="_blank" rel="noopener"
+    >序列化和反序列化</a></p>
+<h3 id="序列化与反序列化">序列化与反序列化
+</h3><p>概念和php的反序列化差不多，都是一种对象持久化的技术。序列化将java对象转化为字节序列的过程，反序列化就是把字节序列恢复为java对象的过程</p>
+<p>实现序列化的技术不唯一，常见有</p>
+<p>XML&amp;SOAP、JSON、Protobuf、Java Serializable接口</p>
+<h3 id="代码实现">代码实现
+</h3><p>以Java Serializable接口为主，代码实现如下</p>
+<p>还是以上文的A类为主**（A类需要接入Serializable接口）**</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Main</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">serializable</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">path</span><span class="p">,</span><span class="n">Object</span><span class="w"> </span><span class="n">obj</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ObjectOutputStream</span><span class="w"> </span><span class="n">oos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w">  </span><span class="n">ObjectOutputStream</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">FileOutputStream</span><span class="p">(</span><span class="n">path</span><span class="p">));</span><span class="w">  </span><span class="c1">//创建了一个ObjectOutputStream对象，它包装了一个用于写入文件的FileOutputStream。文件路径由参数path指定。ObjectOutputStream可以将对象序列化后写入文件。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">oos</span><span class="p">.</span><span class="na">writeObject</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w">  </span><span class="c1">//将传入的对象obj写入到ObjectOutputStream中，即序列化该对象并写入文件。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="nf">unserializable</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">path</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="p">,</span><span class="w"> </span><span class="n">ClassNotFoundException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ObjectInputStream</span><span class="w"> </span><span class="n">ois</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObjectInputStream</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">FileInputStream</span><span class="p">(</span><span class="n">path</span><span class="p">));</span><span class="w">  </span><span class="c1">//创建了一个ObjectInputStream对象，它包装了一个用于读取文件的FileInputStream。文件路径由参数path指定。ObjectInputStream可以从文件中读取序列化的数据并反序列化为对象。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ois</span><span class="p">.</span><span class="na">readObject</span><span class="p">();</span><span class="w">  </span><span class="c1">//从ObjectInputStream中读取一个对象并返回。readObject方法会从流中反序列化对象。（注意，记住这里，后面要考）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">A</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="s">&#34;a&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">serializable</span><span class="p">(</span><span class="s">&#34;ser.bin&#34;</span><span class="p">,</span><span class="n">a</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Object</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">unserializable</span><span class="p">(</span><span class="s">&#34;ser.bin&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">o</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250722100607421.png"
+	width="1744"
+	height="813"
+	srcset="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250722100607421_hu13116053649371929440.png 480w, /p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250722100607421_hu8456358947501956964.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250722100607421"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="214"
+		data-flex-basis="514px"
+	
+></p>
+<h3 id="漏洞点">漏洞点
+</h3><p>在unserializable方法中有<code>return ois.readObject();</code>如果要被反序列化的的那个对象实现了readObject方法，那么就会自动执行，有点像__destruct()。如果在readObject方法中写入了恶意代码，那么就会产生漏洞</p>
+<p>A类定义如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.IOException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.ObjectInputStream</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.Serializable</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">A</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Serializable</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">A</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;A&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">A</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">method</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">name</span><span class="o">+</span><span class="s">&#34;:no digit&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">method</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">name</span><span class="o">+</span><span class="s">&#34;:&#34;</span><span class="o">+</span><span class="n">i</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">readObject</span><span class="p">(</span><span class="n">ObjectInputStream</span><span class="w"> </span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="p">,</span><span class="w"> </span><span class="n">ClassNotFoundException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">in</span><span class="p">.</span><span class="na">defaultReadObject</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Runtime</span><span class="p">.</span><span class="na">getRuntime</span><span class="p">().</span><span class="na">exec</span><span class="p">(</span><span class="s">&#34;calc&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="cm">/* 
+</span></span></span><span class="line"><span class="cl"><span class="cm">  重写了 `readObject` 方法。在反序列化过程中，当从输入流中读取对象时，会自动调用此方法。
+</span></span></span><span class="line"><span class="cl"><span class="cm">  - `in.defaultReadObject()`: 调用默认的反序列化方法，恢复对象的非静态和非瞬态字段（即正常反序列化过程）。
+</span></span></span><span class="line"><span class="cl"><span class="cm">  - `Runtime.getRuntime().exec(&#34;calc&#34;)`: 执行系统命令，在Windows系统中，`calc`会启动计算器。这是一个恶意代码，用于演示反序列化漏洞。
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">toString</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;A{&#34;</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="s">&#34;name=&#39;&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="sc">&#39;\&#39;&#39;</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="sc">&#39;}&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250722105851691.png"
+	width="1791"
+	height="946"
+	srcset="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250722105851691_hu13196285126150211141.png 480w, /p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250722105851691_hu1798127974223266909.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250722105851691"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="189"
+		data-flex-basis="454px"
+	
+></p>
+<h2 id="jvm类加载器">JVM类加载器
+</h2><p>参考链接：</p>
+<p><a class="link" href="https://javaguide.cn/java/jvm/classloader.html#%E5%9B%9E%E9%A1%BE%E4%B8%80%E4%B8%8B%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B"  target="_blank" rel="noopener"
+    >类加载器详解</a></p>
+<p><a class="link" href="https://www.bilibili.com/video/BV1Sq421w7y5?spm_id_from=333.788.player.switch&amp;vd_source=efe0f8b3536039028029a17a2ed95a3f"  target="_blank" rel="noopener"
+    >JVM类加载器</a></p>
+<p>上文在反射时提到过类加载器，那时是说“我们将java代码编译成class字节码文件后会通过类加载器创建Class类对象”，现在我们详细说说类加载器是个啥，将之前先了解以下类的加载过程</p>
+<h3 id="类的加载">类的加载
+</h3><p>类加载分为三个主要阶段：加载、链接和初始化。</p>
+<p><img src="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250722192009432.png"
+	width="800"
+	height="538"
+	srcset="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250722192009432_hu8759108867069269523.png 480w, /p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250722192009432_hu6339679685946407894.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250722192009432"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="148"
+		data-flex-basis="356px"
+	
+></p>
+<p>加载阶段主要由类加载器完成以下任务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">通过全类名获取定义此类的二进制字节流
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">将字节流所代表的静态存储结构转换为方法区的运行时数据结构
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">在内存中生成一个该类的Class对象
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>链接阶段：验证&mdash;&gt;准备&mdash;&gt;解析</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>验证</td>
+<td>确保Class文件中的字节流中包含的信息符合规范约束要去</td>
+</tr>
+<tr>
+<td>准备</td>
+<td>为类变量分配内存并设置类变量初始值</td>
+</tr>
+<tr>
+<td>解析</td>
+<td>虚拟机将常量池内的符号引用替换为直接引用的过程</td>
+</tr>
+</tbody>
+</table></div>
+<p>初始化阶段：执行初始化方法<code>&lt;clinit&gt; ()</code>方法的过程，在这一步中JVM才开始真正执行类中定义的Java程序代码。</p>
+<h3 id="类加载器">类加载器
+</h3><p>JVM类加载器是Java虚拟机中负责加载类文件的核心组件。它将类的字节码加载到内存中，并将其转换为JVM能够识别的运行时数据结构。</p>
+<p>分为启动类加载器、扩展类加载器、应用程序类加载器、自定义加载器</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>加载器</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>启动类加载器</td>
+<td>由c++实现的最顶层的加载类，通常表示为null，主要用于加载/lib目录下的JDK内部核心类库</td>
+</tr>
+<tr>
+<td>扩展类加载器</td>
+<td>主要负责加载/lib/ext目录下的jar包</td>
+</tr>
+<tr>
+<td>应用程序类加载器</td>
+<td>面向用户的加载器，负责当前应用classpath包下的所有jar包和类</td>
+</tr>
+<tr>
+<td>自定义加载器</td>
+<td>用户加入自定义的加载器进行拓展，可以实现对class文件加解密的功能</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="双亲委派模型">双亲委派模型
+</h3><p>ClassLoader类使用委托模型搜索类和资源，每个ClassLoader实例都有一个相关的父类加载器（除了启动类加载器），当一个加载器识图亲自查到类或资源前，会先委托给父类加载器判断是否被加载。到最顶层后尝试再向下加载类</p>
+<p><img src="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250722200923400.png"
+	width="1153"
+	height="1076"
+	srcset="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250722200923400_hu493218926666305404.png 480w, /p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250722200923400_hu2748190659160342610.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250722200923400"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="107"
+		data-flex-basis="257px"
+	
+></p>
+<h3 id="自定义classloader实现">自定义ClassLoader实现
+</h3><p>首先事MyClassLoader类实现</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.IOException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.nio.file.Files</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.nio.file.Paths</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import static</span><span class="w"> </span><span class="nn">java.nio.file.Files.readAllBytes</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MyClassLoader</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">ClassLoader</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">path</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 构造方法，传入一个路径字符串</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">MyClassLoader</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">path</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">path</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 重写findClass方法，这是自定义类加载器的核心</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="n">Class</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">findClass</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ClassNotFoundException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">         </span><span class="c1">// 将类的全限定名转换为文件路径：将包名中的点替换为文件分隔符（这里用&#39;/&#39;），并加上.class后缀</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">fullpath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">path</span><span class="o">+</span><span class="n">name</span><span class="p">.</span><span class="na">replace</span><span class="p">(</span><span class="sc">&#39;.&#39;</span><span class="p">,</span><span class="sc">&#39;/&#39;</span><span class="p">).</span><span class="na">concat</span><span class="p">(</span><span class="s">&#34;.class&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">bytes</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// 读取类文件的字节码</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">             </span><span class="n">bytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readAllBytes</span><span class="p">(</span><span class="n">Paths</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">fullpath</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">IOException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RuntimeException</span><span class="p">(</span><span class="n">e</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 调用defineClass方法将字节数组转换为Class对象</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">defineClass</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">bytes</span><span class="p">,</span><span class="n">0</span><span class="p">,</span><span class="n">bytes</span><span class="p">.</span><span class="na">length</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>详细解释</p>
+<p><strong>继承 <code>ClassLoader</code></strong>：</p>
+<p>- 自定义类加载器需要继承 <code>ClassLoader</code> 类，并重写 <code>findClass</code> 方法（而不是 <code>loadClass</code> 方法，因为 <code>loadClass</code> 方法实现了双亲委派机制，而 <code>findClass</code> 是留给子类实现的模板方法）。</p>
+<p><strong>路径处理</strong>：</p>
+<p>- <code>path</code> 成员变量：存储类文件所在的根目录（例如：<code>&quot;D:/classes/&quot;</code>）。</p>
+<p>- 在 <code>findClass</code> 方法中，将类名（如 <code>com.example.MyClass</code>）转换为文件路径（如 <code>D:/classes/com/example/MyClass.class</code>）。</p>
+<p><strong>读取字节码</strong>：</p>
+<p>- 使用 <code>Files.readAllBytes</code> 方法读取类文件的字节码。这是一个阻塞操作，会一次性将整个文件读入内存。</p>
+<p><strong>定义类</strong>：</p>
+<p>- <code>defineClass</code> 方法（继承自 <code>ClassLoader</code>）将字节数组转换为 <code>Class</code> 对象。这是类加载的核心步骤，JVM 会在内部进行类的验证、准备、解析等阶段。</p>
+<p>然后是A.class（要被加载的class文件）</p>
+<p>注意这里构造函数最好是public的，不然newInstance()的时候会报错，原因上文也提到过。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">A</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">A</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;A&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">A</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">method</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">name</span><span class="o">+</span><span class="s">&#34;:no digit&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">method</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">name</span><span class="o">+</span><span class="s">&#34;:&#34;</span><span class="o">+</span><span class="n">i</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">toString</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;A{&#34;</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="s">&#34;name=&#39;&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="sc">&#39;\&#39;&#39;</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="sc">&#39;}&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后是测试函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Main</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">InstantiationException</span><span class="p">,</span><span class="w"> </span><span class="n">IllegalAccessException</span><span class="p">,</span><span class="w"> </span><span class="n">ClassNotFoundException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//  打印类A的类加载器 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">A</span><span class="p">.</span><span class="na">class</span><span class="p">.</span><span class="na">getClassLoader</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="c1">//  打印String类的类加载器（核心类） 返回null </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">class</span><span class="p">.</span><span class="na">getClassLoader</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//  创建自定义类加载器实例，指定类路径</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">MyClassLoader</span><span class="w"> </span><span class="n">cl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MyClassLoader</span><span class="p">(</span><span class="s">&#34;D:\\网安\\acm\\javaweb\\&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//  使用自定义类加载器加载类A</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Class</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cl</span><span class="p">.</span><span class="na">findClass</span><span class="p">(</span><span class="s">&#34;A&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//  通过反射创建类A的实例</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Object</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="na">newInstance</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">o</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250722204408700.png"
+	width="1876"
+	height="830"
+	srcset="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250722204408700_hu11815944346666193836.png 480w, /p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250722204408700_hu1291418710541405575.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250722204408700"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="226"
+		data-flex-basis="542px"
+	
+></p>
+<p>还有一种URLClassLoader，是可以从网络中获取class文件，这里就不写了。</p>
+<h2 id="jdk动态代理">JDK动态代理
+</h2><p>参考文章：</p>
+<p><a class="link" href="https://www.cnblogs.com/whirly/p/10154887.html"  target="_blank" rel="noopener"
+    >Java 动态代理详解</a></p>
+<p><a class="link" href="https://liaoxuefeng.com/books/java/reflection/proxy/index.html"  target="_blank" rel="noopener"
+    >动态代理</a></p>
+<h3 id="静态代理">静态代理
+</h3><p>先了解一下什么是静态代理，静态代理就是编写一个interface，然后用一个类去实现这个接口。</p>
+<p>静态代理代码如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w"> </span><span class="kd">interface</span> <span class="nc">A</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">class</span> <span class="nc">comeA</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">A</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;I am &#34;</span><span class="o">+</span><span class="n">name</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Main</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">A</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">comeA</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">a</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="s">&#34;aaa&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250722163313755.png"
+	width="1135"
+	height="878"
+	srcset="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250722163313755_hu11577123026468934202.png 480w, /p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250722163313755_hu4880468142767739431.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250722163313755"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="129"
+		data-flex-basis="310px"
+	
+></p>
+<p>这种代理模式有什么缺点呢？</p>
+<p>1.代理多个类时会导致代理类过于庞大或者产生过多的代理类</p>
+<p>2.接口需要修改方法时，目标对象和代理类都要修改，不易维护</p>
+<p>可以用动态代理直接在运行期创建某个<code>interface</code>的实例，这样就避免了上述的问题</p>
+<h3 id="动态代理">动态代理
+</h3><p>我们同样先定义一个interface，但是不去编写实现类，而是通过JDK提供的<code>Proxy.newProxyInstance()</code>创建一个接口对象。这就是动态代理</p>
+<p>具体实现如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.lang.reflect.InvocationHandler</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.lang.reflect.Method</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.lang.reflect.Proxy</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">interface</span> <span class="nc">A</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">class</span> <span class="nc">Main</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 创建InvocationHandler实例</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">InvocationHandler</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">InvocationHandler</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// 实现invoke方法，该方法会在代理实例的方法被调用时执行</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="kd">public</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="nf">invoke</span><span class="p">(</span><span class="n">Object</span><span class="w"> </span><span class="n">proxy</span><span class="p">,</span><span class="n">Method</span><span class="w"> </span><span class="n">method</span><span class="p">,</span><span class="n">Object</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="c1">// 打印被调用的方法信息</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">method</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="c1">// 判断方法名是否为&#34;print&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">if</span><span class="p">(</span><span class="n">method</span><span class="p">.</span><span class="na">getName</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="s">&#34;print&#34;</span><span class="p">)){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="c1">// 如果是，则打印参数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;I am &#34;</span><span class="o">+</span><span class="n">args</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="c1">// 因为原方法返回void，所以返回null</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 使用Proxy.newProxyInstance创建代理实例</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//  Main.class.getClassLoader(), 使用当前类的类加载器</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// new Class[]{A.class}, 代理类实现的接口列表</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// in, InvocationHandler实例</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">A</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="n">Proxy</span><span class="p">.</span><span class="na">newProxyInstance</span><span class="p">(</span><span class="n">Main</span><span class="p">.</span><span class="na">class</span><span class="p">.</span><span class="na">getClassLoader</span><span class="p">(),</span><span class="k">new</span><span class="w"> </span><span class="n">Class</span><span class="o">[]</span><span class="p">{</span><span class="n">A</span><span class="p">.</span><span class="na">class</span><span class="p">},</span><span class="n">in</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">a</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="s">&#34;aaaa&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250722164549086.png"
+	width="1385"
+	height="947"
+	srcset="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250722164549086_hu851129593416316664.png 480w, /p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/image-20250722164549086_hu13232803586173924527.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250722164549086"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="146"
+		data-flex-basis="351px"
+	
+></p>
+<p>详细解释（ai生成）</p>
+<p><strong>创建InvocationHandler</strong>：</p>
+<p>- 使用匿名内部类实现<code>InvocationHandler</code>接口，并重写<code>invoke</code>方法。</p>
+<p>- <code>invoke</code>方法有三个参数：</p>
+<p>​        - <code>Object proxy</code>: 代理对象本身</p>
+<p>​        - <code>Method method</code>: 被调用的方法</p>
+<p>​        - <code>Object[] args</code>: 方法调用时传递的参数数组。</p>
+<p>在重写的<code>invoke</code>方法中：</p>
+<p>- 首先打印了被调用的方法（<code>System.out.println(method)</code>会输出方法的详细信息，包括方法名和参数类型）。</p>
+<p>- 然后判断方法名是否为&quot;print&quot;，如果是，则使用第一个参数（<code>args[0]</code>）打印字符串。</p>
+<p>- 最后返回<code>null</code>，因为接口A的<code>print</code>方法返回类型是<code>void</code>，所以返回<code>null</code>是可以的。</p>
+<p><strong>创建代理实例</strong>：</p>
+<p>- 通过<code>Proxy.newProxyInstance</code>方法动态创建代理对象。</p>
+<p>- 参数说明：</p>
+<p>​        - <code>ClassLoader loader</code>: 类加载器，这里使用<code>Main.class.getClassLoader()</code>。</p>
+<p>​        - <code>Class&lt;?&gt;[] interfaces</code>: 代理类要实现的接口数组，这里只有一个接口<code>A.class</code>。（可实现多个数组）</p>
+<p>​        - <code>InvocationHandler h</code>: 上面定义的<code>InvocationHandler</code>实例<code>in</code>。</p>
+<p>- 返回一个实现了指定接口的代理对象，这里强制转型为接口<code>A</code>。</p>
+<p><strong>通过代理调用方法</strong>：</p>
+<p>- 调用代理对象<code>a</code>的<code>print</code>方法，传入参数<code>&quot;aaaa&quot;</code>。</p>
+<p>- 这个调用会被转发到<code>InvocationHandler</code>的<code>invoke</code>方法，所以实际执行的是<code>invoke</code>方法中的逻辑。</p>
+<h3 id="原理">原理
+</h3><p>动态代理实际上是JVM在运行期动态创建class字节码并加载的过程，也就是JVM帮我们自动编写了一个直接生成字节码的类。</p>
+<h2 id="小结">小结
+</h2><p>暂时学这些，以后遇到了需要学习的新知识就再补充在这里。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/java%E5%86%85%E5%AD%98%E9%A9%AC/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java内存马</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/java%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java利用方式</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java反序列化</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java从零开始代码审计</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E6%B8%97%E9%80%8F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">渗透知识点汇总</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 liernian
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.59729e8016d63fb571847b33800c7f0e48c9acdb8eaed3eec3e94d3bcad55aca.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

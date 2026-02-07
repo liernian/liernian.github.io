@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>周报 on liernian</title>
+        <link>http://localhost:1313/categories/%E5%91%A8%E6%8A%A5/</link>
+        <description>Recent content in 周报 on liernian</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>liernian</copyright>
+        <lastBuildDate>Sat, 22 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/%E5%91%A8%E6%8A%A5/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>周报</title>
+        <link>http://localhost:1313/p/%E5%91%A8%E6%8A%A5/</link>
+        <pubDate>Sat, 22 Nov 2025 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/p/%E5%91%A8%E6%8A%A5/</guid>
+        <description>&lt;h2 id=&#34;2025&#34;&gt;2025
+&lt;/h2&gt;&lt;h2 id=&#34;十一月&#34;&gt;十一月
+&lt;/h2&gt;&lt;h3 id=&#34;1723&#34;&gt;17~23
+&lt;/h3&gt;&lt;p&gt;完成事项&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;新生赛出题：&lt;code&gt;ez_php&lt;/code&gt;（md5强碰撞+intval绕过+非法变量名传参+无参数rce）、&lt;code&gt;Give me your name&lt;/code&gt;（无&lt;code&gt;waf ssti&lt;/code&gt;）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;终于解决了&lt;code&gt;?ctf&lt;/code&gt;的比赛复现，留下了一个&lt;code&gt;java&lt;/code&gt;反序列化+绕过的的题目没写（实在是看不懂）希望后面会进行完善解决吧&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;想开始java代码审计，找的小项目感觉配置起来都很麻烦（java真是。。）而且java的基础真的很薄弱，我寻思要不要去学一下手搓一个java小项目巩固一下&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;ctfshow&lt;/code&gt; 代码审计模块web301  一个一眼定真的sql注入，用sql写马打的，这里还稍微解析了一下sql写马，顺便完善了一下之前写的&lt;code&gt;sql注入知识点总结&lt;/code&gt;，后面再完善一下盲注和内联注入，基础还是不行啊&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;因为有环境容器的&lt;code&gt;ctf&lt;/code&gt;题单懒得招，我想到了一个好法子，就是直接在网上搜&lt;code&gt;ctf web wp&lt;/code&gt;随便找别的题目看看思路，看看能不能学到新东西。有源码的话还能搞个&lt;code&gt;docker&lt;/code&gt;自己测试一下&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;（发现谷歌的&lt;code&gt;hackbar&lt;/code&gt;非常好用，里面有很多基础&lt;code&gt;payload&lt;/code&gt;）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;春秋云镜initial靶场攻克一个小时，主要是配置&lt;code&gt;stowaway&lt;/code&gt;花了点时间。下个小时尽量拿下这个靶场&lt;/p&gt;
+&lt;p&gt;（&lt;code&gt;stowaway&lt;/code&gt;配置与使用，&lt;code&gt;proxifier&lt;/code&gt;破解版下载，整理了一下windows渗透镜像的常用工具）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下周待做事项&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;inital&lt;/code&gt;靶场解决&lt;/li&gt;
+&lt;li&gt;极客大挑战如果结束了的话可以尝试复现了&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ctfshow&lt;/code&gt; 代码审计板块&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;java&lt;/code&gt;该开始学习了&lt;/li&gt;
+&lt;li&gt;内存取证相关（破环境）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2430&#34;&gt;24~30
+&lt;/h3&gt;&lt;p&gt;完成事项&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;振兴杯决赛，学生组第三。出了两道题目，三个人都功不可没（团队的力量啊）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ctfshow&lt;/code&gt;代码审计模块逐步推进中，感觉还是有点东西的&lt;/li&gt;
+&lt;li&gt;老皮搞了个无限时间靶场会员，打了一会渗透，了解了一下windows远程桌面连接&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;initial&lt;/code&gt;没解决，信乎OA的poc打不出来，又浪费我一个沙砾，妈蛋。下次沙砾多攒点再打，浪费得很&lt;/li&gt;
+&lt;li&gt;本来想出一道cve，结果被非了，后面改一下在week4再上一遍&lt;/li&gt;
+&lt;li&gt;这周学的不是很多，因为要参加振兴杯决赛，准备了一点工控和渗透，下周又要开始护网了，学习的时间还是太少了&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下周待做事项&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;极客大挑战有wp了，准备复现&lt;/li&gt;
+&lt;li&gt;护网赚钱，感觉能赚个2000&lt;/li&gt;
+&lt;li&gt;newstar也上平台了，week5可以准备复现一下&lt;/li&gt;
+&lt;li&gt;毕竟有护网，所以能把上面两个复现完就满足了&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;heading&#34;&gt;
+&lt;/h4&gt;&lt;h2 id=&#34;十二月&#34;&gt;十二月
+&lt;/h2&gt;&lt;h3 id=&#34;17&#34;&gt;1~7
+&lt;/h3&gt;&lt;p&gt;完成事项&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;三号开始护网，一号二号在搞老皮的那个渗透靶场，完成了msf反向代理。后面护网去了就没搞了，之后买个无限时间的靶场打打&lt;/li&gt;
+&lt;li&gt;护网的时间过的还是很快的，但是学习的劲儿头就不是很浓，写极客复现的时候，总是发现复现payload会出错误，所以还是打算把代码审计给写完&lt;/li&gt;
+&lt;li&gt;周日晚上听了lyj关于红队护网的一些知识，真的感觉收获良多。&lt;/li&gt;
+&lt;li&gt;护网被打进来了得远程看我电脑，稍微搞了一下向日葵，了解了一下&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下周待做事项&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;小程序抓包配置&lt;/li&gt;
+&lt;li&gt;春秋云镜沙砾要过期了，得赶紧搞一下&lt;/li&gt;
+&lt;li&gt;ctfshow代码审计可以解决了&lt;/li&gt;
+&lt;li&gt;六级又要捐50&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;814&#34;&gt;8~14
+&lt;/h3&gt;&lt;p&gt;完成事项&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;护网结束了，大家一起搓了一顿，真是觉得自己犹如井底之蛙。还是有太多事情没学了&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ctfshow&lt;/code&gt;代码审计篇终于完结了，&lt;code&gt;ctfshow&lt;/code&gt;接下来可以写一下常用姿势，不过也是为&lt;code&gt;ctf&lt;/code&gt;服务的&lt;/li&gt;
+&lt;li&gt;听学长的话，从&lt;code&gt;github&lt;/code&gt;上找了一些面经，打算从问题中查漏补缺&lt;/li&gt;
+&lt;li&gt;鹏城杯＋六级，在同一天我服了。写的杂项，出了两道题，web都没怎么写&lt;/li&gt;
+&lt;li&gt;护网有些累了，而且还要做数据库大作业。后面几天有点摆了&lt;/li&gt;
+&lt;li&gt;决定渗透靶场放在寒假做，也能督促自己寒假的时候学习&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下周待做事项&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;春秋云镜&lt;/li&gt;
+&lt;li&gt;面经整理学习&lt;/li&gt;
+&lt;li&gt;小程序抓包配置（忘记配了）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;heading-1&#34;&gt;
+&lt;/h4&gt;&lt;h3 id=&#34;1521&#34;&gt;15~21
+&lt;/h3&gt;&lt;p&gt;完成事项&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;春秋云镜&lt;code&gt;initial&lt;/code&gt;完结、&lt;code&gt;Tsclient&lt;/code&gt;写了&lt;code&gt;flag01&lt;/code&gt;还是很有收获的，上线了一次&lt;code&gt;CS&lt;/code&gt;也会用甜土豆了。&lt;/li&gt;
+&lt;li&gt;因为想找复现博客上好用的&lt;code&gt;JWT&lt;/code&gt;工具问了老皮，然后就搞了一下天狐渗透工具，真的好用啊，太方便了，比那个虚拟机好用不知道多少。&lt;/li&gt;
+&lt;li&gt;开始复现极客大挑战了，目前复现完了&lt;code&gt;week1&lt;/code&gt;实际复现下来感觉没那么难，还是挺简单的。&lt;/li&gt;
+&lt;li&gt;极客大挑战复现到了一个&lt;code&gt;EJS&lt;/code&gt;模板注入，稍微深入了解了一下，本来还打算出一道E&lt;code&gt;J&lt;/code&gt;S和原型链污染的题目。但是测试的时候失败了，后面也没有继续搞&lt;/li&gt;
+&lt;li&gt;把桌面整理了一下，下了个工具把任务栏放到左边了，挺有新鲜感的&lt;/li&gt;
+&lt;li&gt;这周还搞了个数据库实验的期末，花了挺多时间&lt;/li&gt;
+&lt;li&gt;有点小摆啊，不过也将近期末了，虽然只考一门&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下周待做事项&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;我发现不知道自己该干什么了的时候就可以看看周报的待做事项，拖了好多没做啊&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;java&lt;/code&gt;代码审计还是去审一下&lt;code&gt;cc&lt;/code&gt;链吧&lt;/li&gt;
+&lt;li&gt;面经又没整理了，还打算广投一下&lt;/li&gt;
+&lt;li&gt;小程序抓包拖了有够久的&lt;/li&gt;
+&lt;li&gt;下周春秋云镜好像没沙砾了，不过写完&lt;code&gt;Tsclient&lt;/code&gt;应该够&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2228&#34;&gt;22~28
+&lt;/h3&gt;&lt;p&gt;完成事项&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;忘记写周报了，这周就记得很水没干什么事情&lt;/li&gt;
+&lt;li&gt;小小准备了一下c++的期末上机&lt;/li&gt;
+&lt;li&gt;首先就是写完了&lt;code&gt;Tsclient&lt;/code&gt;然后在研究``&lt;/li&gt;
+&lt;li&gt;然后极客大挑战也写了几道题&lt;/li&gt;
+&lt;li&gt;看了一些挖洞视频，关于登录框可能存在的漏洞进行了分析&lt;/li&gt;
+&lt;li&gt;就没有然后了&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下周待做事项&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;继续推进&lt;code&gt;Brute4Road&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;小程序抓包&lt;/li&gt;
+&lt;li&gt;感觉学&lt;code&gt;java&lt;/code&gt;的话可以先写一个自己的java项目，打算搞一个&lt;/li&gt;
+&lt;li&gt;极客大挑战可以推进&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;一月&#34;&gt;一月
+&lt;/h2&gt;&lt;h3 id=&#34;294&#34;&gt;29~4
+&lt;/h3&gt;&lt;p&gt;完成事项&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;写了一些&lt;code&gt;Brute4Road&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;就没了，有点小摆，跨年一直在外面玩，不过玩也是为了更好的学&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下周待做事项&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;同上&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;511&#34;&gt;5~11
+&lt;/h3&gt;&lt;p&gt;完成事项&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Brute4Road&lt;/code&gt;靶场通关，有一些小问题还没有解决，一个是&lt;code&gt;wpscan&lt;/code&gt;的&lt;code&gt;api&lt;/code&gt;用起来报错，一个是爆破&lt;/li&gt;
+&lt;li&gt;写了一些极客大挑战，学到了&lt;code&gt;ssti&lt;/code&gt;新无回显的方式，还有一个&lt;code&gt;fenjing&lt;/code&gt;通杀的方法，后续写一个新的&lt;code&gt;ssti&lt;/code&gt;知识点总结&lt;/li&gt;
+&lt;li&gt;复习了一下&lt;code&gt;java&lt;/code&gt;链，后续打算直接跟进调试其他cc链&lt;/li&gt;
+&lt;li&gt;寒假有在考虑要不要挖点&lt;code&gt;edu&lt;/code&gt;，能挖到一点洞的话之后写在简历上也好看&lt;/li&gt;
+&lt;li&gt;还是这周多是复习数据库，学的也不算多，马上买靶场了，后面学习的劲儿应该还挺足的&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下周待做事项&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数据库考完就可以安心渗透了，白天打&lt;code&gt;CyberStrikeLab&lt;/code&gt;渗透，晚上可以学学怎么挖&lt;code&gt;edu&lt;/code&gt;或者学&lt;code&gt;java&lt;/code&gt;。春秋云镜有沙砾的话可以晚上打打春秋云镜。还有&lt;code&gt;ctf&lt;/code&gt;时不时可以去做两道题目&lt;/li&gt;
+&lt;li&gt;挖&lt;code&gt;edu&lt;/code&gt;的话，感觉小程序抓包就很重要了，到时候在配置一下&lt;/li&gt;
+&lt;li&gt;突然觉得大三上变胖了很多，想起来大一大二都有校园跑，现在之后得多锻炼锻炼&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;1218&#34;&gt;12~18
+&lt;/h3&gt;&lt;p&gt;完成事项&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;CyberStrikeLab&lt;/code&gt;靶场打完lab5了打了五个，学到了蛮多&lt;/li&gt;
+&lt;li&gt;春秋云镜打了&lt;code&gt;Time&lt;/code&gt;这个靶场主要 是一个&lt;code&gt;SID&lt;/code&gt;的利用，还有一个AS-REP-Roasting&lt;/li&gt;
+&lt;li&gt;买了个漏洞挖掘的一些文档，打算有时间学一下&lt;/li&gt;
+&lt;li&gt;java又没怎么审计了，感觉学java是给ctf铺垫的，后续打ctf感觉会越来越少，不过有时间还是打一打&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下周代做事项&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;继续打lab，春秋云镜继续签到，沙砾快过期就打一下&lt;/li&gt;
+&lt;li&gt;edusrc开挖&lt;/li&gt;
+&lt;li&gt;可以再丰富一下简历了&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;1925&#34;&gt;19~25
+&lt;/h3&gt;&lt;p&gt;完成事项&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;打完了&lt;code&gt;lab9&lt;/code&gt;  &lt;code&gt;AD-CS&lt;/code&gt;没有成功，直接跳过了，其他的就是lab8比较好，学到一些东西&lt;/li&gt;
+&lt;li&gt;准备开始打&lt;code&gt;Thunder&lt;/code&gt;了&lt;/li&gt;
+&lt;li&gt;天天给自己做饭，好吃&lt;/li&gt;
+&lt;li&gt;准备写一个渗透知识点总结，总结一下目前获取到的知识，还有一些不了解的东西可以去学习一下&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;edusrc&lt;/code&gt;一直在拖，打算这段时间还是把重心放在渗透靶场里&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下周待做事项&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Thunder&lt;/code&gt;攻克，有时间在写点其他的靶场&lt;/li&gt;
+&lt;li&gt;渗透知识点总结&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;二月&#34;&gt;二月
+&lt;/h2&gt;</description>
+        </item>
+        
+    </channel>
+</rss>

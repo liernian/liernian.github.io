@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="2025 十一月 17~23 完成事项 新生赛出题：ez_php（md5强碰撞+intval绕过+非法变量名传参+无参数rce）、Give me your name（无waf s">
+<title>周报</title>
+
+<link rel='canonical' href='http://localhost:1313/p/%E5%91%A8%E6%8A%A5/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="周报">
+<meta property='og:description' content="2025 十一月 17~23 完成事项 新生赛出题：ez_php（md5强碰撞+intval绕过+非法变量名传参+无参数rce）、Give me your name（无waf s">
+<meta property='og:url' content='http://localhost:1313/p/%E5%91%A8%E6%8A%A5/'>
+<meta property='og:site_name' content='liernian'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-11-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-22T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="周报">
+<meta name="twitter:description" content="2025 十一月 17~23 完成事项 新生赛出题：ez_php（md5强碰撞+intval绕过+非法变量名传参+无参数rce）、Give me your name（无waf s">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu11319725144555339807.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">💯</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">liernian</a></h1>
+            <h2 class="site-description">理想主义的中二少年</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>简体中文</option>
+                                
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#2025">2025</a></li>
+    <li><a href="#十一月">十一月</a>
+      <ol>
+        <li><a href="#1723">17~23</a></li>
+        <li><a href="#2430">24~30</a>
+          <ol>
+            <li><a href="#heading"></a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#十二月">十二月</a>
+      <ol>
+        <li><a href="#17">1~7</a></li>
+        <li><a href="#814">8~14</a>
+          <ol>
+            <li><a href="#heading-1"></a></li>
+          </ol>
+        </li>
+        <li><a href="#1521">15~21</a></li>
+        <li><a href="#2228">22~28</a></li>
+      </ol>
+    </li>
+    <li><a href="#一月">一月</a>
+      <ol>
+        <li><a href="#294">29~4</a></li>
+        <li><a href="#511">5~11</a></li>
+        <li><a href="#1218">12~18</a></li>
+        <li><a href="#1925">19~25</a></li>
+      </ol>
+    </li>
+    <li><a href="#二月">二月</a>
+      <ol>
+        <li><a href="#261">26~1</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E5%91%A8%E6%8A%A5/" >
+                周报
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E5%91%A8%E6%8A%A5/">周报</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-11-22</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 6 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="2025">2025
+</h2><h2 id="十一月">十一月
+</h2><h3 id="1723">17~23
+</h3><p>完成事项</p>
+<ul>
+<li>
+<p>新生赛出题：<code>ez_php</code>（md5强碰撞+intval绕过+非法变量名传参+无参数rce）、<code>Give me your name</code>（无<code>waf ssti</code>）</p>
+</li>
+<li>
+<p>终于解决了<code>?ctf</code>的比赛复现，留下了一个<code>java</code>反序列化+绕过的的题目没写（实在是看不懂）希望后面会进行完善解决吧</p>
+</li>
+<li>
+<p>想开始java代码审计，找的小项目感觉配置起来都很麻烦（java真是。。）而且java的基础真的很薄弱，我寻思要不要去学一下手搓一个java小项目巩固一下</p>
+</li>
+<li>
+<p><code>ctfshow</code> 代码审计模块web301  一个一眼定真的sql注入，用sql写马打的，这里还稍微解析了一下sql写马，顺便完善了一下之前写的<code>sql注入知识点总结</code>，后面再完善一下盲注和内联注入，基础还是不行啊</p>
+</li>
+<li>
+<p>因为有环境容器的<code>ctf</code>题单懒得招，我想到了一个好法子，就是直接在网上搜<code>ctf web wp</code>随便找别的题目看看思路，看看能不能学到新东西。有源码的话还能搞个<code>docker</code>自己测试一下</p>
+</li>
+<li>
+<p>（发现谷歌的<code>hackbar</code>非常好用，里面有很多基础<code>payload</code>）</p>
+</li>
+<li>
+<p>春秋云镜initial靶场攻克一个小时，主要是配置<code>stowaway</code>花了点时间。下个小时尽量拿下这个靶场</p>
+<p>（<code>stowaway</code>配置与使用，<code>proxifier</code>破解版下载，整理了一下windows渗透镜像的常用工具）</p>
+</li>
+</ul>
+<p>下周待做事项</p>
+<ul>
+<li><code>inital</code>靶场解决</li>
+<li>极客大挑战如果结束了的话可以尝试复现了</li>
+<li><code>ctfshow</code> 代码审计板块</li>
+<li><code>java</code>该开始学习了</li>
+<li>内存取证相关（破环境）</li>
+</ul>
+<h3 id="2430">24~30
+</h3><p>完成事项</p>
+<ul>
+<li>振兴杯决赛，学生组第三。出了两道题目，三个人都功不可没（团队的力量啊）</li>
+<li><code>ctfshow</code>代码审计模块逐步推进中，感觉还是有点东西的</li>
+<li>老皮搞了个无限时间靶场会员，打了一会渗透，了解了一下windows远程桌面连接</li>
+<li><code>initial</code>没解决，信乎OA的poc打不出来，又浪费我一个沙砾，妈蛋。下次沙砾多攒点再打，浪费得很</li>
+<li>本来想出一道cve，结果被非了，后面改一下在week4再上一遍</li>
+<li>这周学的不是很多，因为要参加振兴杯决赛，准备了一点工控和渗透，下周又要开始护网了，学习的时间还是太少了</li>
+</ul>
+<p>下周待做事项</p>
+<ul>
+<li>极客大挑战有wp了，准备复现</li>
+<li>护网赚钱，感觉能赚个2000</li>
+<li>newstar也上平台了，week5可以准备复现一下</li>
+<li>毕竟有护网，所以能把上面两个复现完就满足了</li>
+</ul>
+<h4 id="heading">
+</h4><h2 id="十二月">十二月
+</h2><h3 id="17">1~7
+</h3><p>完成事项</p>
+<ul>
+<li>三号开始护网，一号二号在搞老皮的那个渗透靶场，完成了msf反向代理。后面护网去了就没搞了，之后买个无限时间的靶场打打</li>
+<li>护网的时间过的还是很快的，但是学习的劲儿头就不是很浓，写极客复现的时候，总是发现复现payload会出错误，所以还是打算把代码审计给写完</li>
+<li>周日晚上听了lyj关于红队护网的一些知识，真的感觉收获良多。</li>
+<li>护网被打进来了得远程看我电脑，稍微搞了一下向日葵，了解了一下</li>
+</ul>
+<p>下周待做事项</p>
+<ul>
+<li>小程序抓包配置</li>
+<li>春秋云镜沙砾要过期了，得赶紧搞一下</li>
+<li>ctfshow代码审计可以解决了</li>
+<li>六级又要捐50</li>
+</ul>
+<h3 id="814">8~14
+</h3><p>完成事项</p>
+<ul>
+<li>护网结束了，大家一起搓了一顿，真是觉得自己犹如井底之蛙。还是有太多事情没学了</li>
+<li><code>ctfshow</code>代码审计篇终于完结了，<code>ctfshow</code>接下来可以写一下常用姿势，不过也是为<code>ctf</code>服务的</li>
+<li>听学长的话，从<code>github</code>上找了一些面经，打算从问题中查漏补缺</li>
+<li>鹏城杯＋六级，在同一天我服了。写的杂项，出了两道题，web都没怎么写</li>
+<li>护网有些累了，而且还要做数据库大作业。后面几天有点摆了</li>
+<li>决定渗透靶场放在寒假做，也能督促自己寒假的时候学习</li>
+</ul>
+<p>下周待做事项</p>
+<ul>
+<li>春秋云镜</li>
+<li>面经整理学习</li>
+<li>小程序抓包配置（忘记配了）</li>
+</ul>
+<h4 id="heading-1">
+</h4><h3 id="1521">15~21
+</h3><p>完成事项</p>
+<ul>
+<li>春秋云镜<code>initial</code>完结、<code>Tsclient</code>写了<code>flag01</code>还是很有收获的，上线了一次<code>CS</code>也会用甜土豆了。</li>
+<li>因为想找复现博客上好用的<code>JWT</code>工具问了老皮，然后就搞了一下天狐渗透工具，真的好用啊，太方便了，比那个虚拟机好用不知道多少。</li>
+<li>开始复现极客大挑战了，目前复现完了<code>week1</code>实际复现下来感觉没那么难，还是挺简单的。</li>
+<li>极客大挑战复现到了一个<code>EJS</code>模板注入，稍微深入了解了一下，本来还打算出一道E<code>J</code>S和原型链污染的题目。但是测试的时候失败了，后面也没有继续搞</li>
+<li>把桌面整理了一下，下了个工具把任务栏放到左边了，挺有新鲜感的</li>
+<li>这周还搞了个数据库实验的期末，花了挺多时间</li>
+<li>有点小摆啊，不过也将近期末了，虽然只考一门</li>
+</ul>
+<p>下周待做事项</p>
+<ul>
+<li>我发现不知道自己该干什么了的时候就可以看看周报的待做事项，拖了好多没做啊</li>
+<li><code>java</code>代码审计还是去审一下<code>cc</code>链吧</li>
+<li>面经又没整理了，还打算广投一下</li>
+<li>小程序抓包拖了有够久的</li>
+<li>下周春秋云镜好像没沙砾了，不过写完<code>Tsclient</code>应该够</li>
+</ul>
+<h3 id="2228">22~28
+</h3><p>完成事项</p>
+<ul>
+<li>忘记写周报了，这周就记得很水没干什么事情</li>
+<li>小小准备了一下c++的期末上机</li>
+<li>首先就是写完了<code>Tsclient</code>然后在研究``</li>
+<li>然后极客大挑战也写了几道题</li>
+<li>看了一些挖洞视频，关于登录框可能存在的漏洞进行了分析</li>
+<li>就没有然后了</li>
+</ul>
+<p>下周待做事项</p>
+<ul>
+<li>继续推进<code>Brute4Road</code></li>
+<li>小程序抓包</li>
+<li>感觉学<code>java</code>的话可以先写一个自己的java项目，打算搞一个</li>
+<li>极客大挑战可以推进</li>
+</ul>
+<h2 id="一月">一月
+</h2><h3 id="294">29~4
+</h3><p>完成事项</p>
+<ul>
+<li>写了一些<code>Brute4Road</code></li>
+<li>就没了，有点小摆，跨年一直在外面玩，不过玩也是为了更好的学</li>
+</ul>
+<p>下周待做事项</p>
+<ul>
+<li>同上</li>
+</ul>
+<h3 id="511">5~11
+</h3><p>完成事项</p>
+<ul>
+<li><code>Brute4Road</code>靶场通关，有一些小问题还没有解决，一个是<code>wpscan</code>的<code>api</code>用起来报错，一个是爆破</li>
+<li>写了一些极客大挑战，学到了<code>ssti</code>新无回显的方式，还有一个<code>fenjing</code>通杀的方法，后续写一个新的<code>ssti</code>知识点总结</li>
+<li>复习了一下<code>java</code>链，后续打算直接跟进调试其他cc链</li>
+<li>寒假有在考虑要不要挖点<code>edu</code>，能挖到一点洞的话之后写在简历上也好看</li>
+<li>还是这周多是复习数据库，学的也不算多，马上买靶场了，后面学习的劲儿应该还挺足的</li>
+</ul>
+<p>下周待做事项</p>
+<ul>
+<li>数据库考完就可以安心渗透了，白天打<code>CyberStrikeLab</code>渗透，晚上可以学学怎么挖<code>edu</code>或者学<code>java</code>。春秋云镜有沙砾的话可以晚上打打春秋云镜。还有<code>ctf</code>时不时可以去做两道题目</li>
+<li>挖<code>edu</code>的话，感觉小程序抓包就很重要了，到时候在配置一下</li>
+<li>突然觉得大三上变胖了很多，想起来大一大二都有校园跑，现在之后得多锻炼锻炼</li>
+</ul>
+<h3 id="1218">12~18
+</h3><p>完成事项</p>
+<ul>
+<li><code>CyberStrikeLab</code>靶场打完lab5了打了五个，学到了蛮多</li>
+<li>春秋云镜打了<code>Time</code>这个靶场主要 是一个<code>SID</code>的利用，还有一个AS-REP-Roasting</li>
+<li>买了个漏洞挖掘的一些文档，打算有时间学一下</li>
+<li>java又没怎么审计了，感觉学java是给ctf铺垫的，后续打ctf感觉会越来越少，不过有时间还是打一打</li>
+</ul>
+<p>下周代做事项</p>
+<ul>
+<li>继续打lab，春秋云镜继续签到，沙砾快过期就打一下</li>
+<li>edusrc开挖</li>
+<li>可以再丰富一下简历了</li>
+</ul>
+<h3 id="1925">19~25
+</h3><p>完成事项</p>
+<ul>
+<li>打完了<code>lab9</code>  <code>AD-CS</code>没有成功，直接跳过了，其他的就是lab8比较好，学到一些东西</li>
+<li>准备开始打<code>Thunder</code>了</li>
+<li>天天给自己做饭，好吃</li>
+<li>准备写一个渗透知识点总结，总结一下目前获取到的知识，还有一些不了解的东西可以去学习一下</li>
+<li><code>edusrc</code>一直在拖，打算这段时间还是把重心放在渗透靶场里</li>
+</ul>
+<p>下周待做事项</p>
+<ul>
+<li><code>Thunder</code>攻克，有时间在写点其他的靶场</li>
+<li>渗透知识点总结</li>
+</ul>
+<h2 id="二月">二月
+</h2><h3 id="261">26~1
+</h3><p>完成事项</p>
+<ul>
+<li>写了一个春秋云镜，比较简单，把之前cyber没打出来的AD-CS打出来了</li>
+<li>cyber写了不少，把thunder写完了还写完了cake</li>
+<li>开始写<code>tengsnake</code></li>
+</ul>
+<p>下周待做</p>
+<ul>
+<li><code>tengsnake</code>写完、总结也多写点</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 liernian
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.59729e8016d63fb571847b33800c7f0e48c9acdb8eaed3eec3e94d3bcad55aca.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

